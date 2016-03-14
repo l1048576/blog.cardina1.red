@@ -1,0 +1,75 @@
+:root {
+	--hr-width: 50%;
+	--independent-block-margin: 0;
+	--li-margin: 0 0 0 1.5rem;
+	--dd-margin: 0 0 0 1.5rem;
+}
+
+%independent-block {
+	margin: var(--independent-block-margin);
+}
+
+.independent-block {
+	@extend %independent-block;
+}
+
+p {
+	margin: 0.6rem 0;
+}
+
+ul.no-marker {
+	list-style-type: none;
+}
+li {
+	margin: var(--li-margin);
+}
+
+dt {
+	border-left: 0.4rem solid #a33;
+	padding-left: 0.3rem;
+}
+dd {
+	margin: var(--dd-margin);
+}
+
+hr {
+	color: #ddd;
+	width: var(--hr-width, 50%);
+	border-top: 1px solid #aaa;
+	margin: 0.8rem auto;
+}
+
+figure {
+	@extend %independent-block;
+	padding: 0.5rem 1rem;
+	border: 1px solid #eee;
+	border-radius: 1rem;
+	>figcaption:last-child {
+		margin-top: 0.4rem;
+		border-top: 1px solid #999;
+		text-align: right;
+		>p:first-child {
+			margin-top: 0.2rem;
+		}
+	}
+	>blockquote {
+		margin: 1rem 0;
+	}
+}
+
+blockquote {
+	border-left: 0.3rem solid #ccc;
+	padding: 0.5rem;
+}
+
+pre {
+	overflow-x: auto;
+	padding: 0.5rem 1rem;
+	border: 1px solid #eeeef8;
+	// FIXME: from %code-block in `__code.scss`.
+	background: #f4f4f4;
+}
+
+blockquote {
+	@extend %independent-block;
+}

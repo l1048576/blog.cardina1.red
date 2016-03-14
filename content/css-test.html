@@ -1,0 +1,93 @@
+---
+title: 'CSS test'
+created_at: 2016-03-12T19:16:25+0900
+---
+
+<article>
+	<h1>CSSのテストをひたすら並べるページ</h1>
+		<p>
+			html5では、<code>section</code>要素などによりアウトラインが明示されるため、すべての見出しに<code>h1</code>を使うことも可能である。
+		</p>
+		<p>
+			SCSSで対応することも可能であったが、CSSのサイズが膨らみ(200kB超になる)危険なため、このサイトではh1〜h6は明示的に使うこととする。
+		</p>
+	<section>
+		<h2>h2</h2>
+		<p>paragraph</p>
+		<section>
+			<h3>h3</h3>
+			<p>paragraph</p>
+			<section>
+				<h4>h4</h4>
+				<p>paragraph</p>
+				<section>
+					<h5>h5</h5>
+					<p>paragraph</p>
+				</section>
+			</section>
+		</section>
+	</section>
+	<!--
+	<section>
+		<h1>h1 (2)</h1>
+		<section>
+			<h1>h1 (3)</h1>
+			<section>
+				<h1>h1 (4)</h1>
+				<section>
+					<h1>h1 (5)</h1>
+				</section>
+			</section>
+		</section>
+	</section>
+	-->
+	<section>
+		<h2>inline</h2>
+		<ul>
+			<li>
+				mark: <mark>mark</mark>
+			</li>
+			<li>
+				<p>
+					strong: <strong>strong</strong>
+				</p>
+				<p>
+					strong2: <strong>strong <strong>strong</strong></strong>
+				</p>
+				<p>
+					strong3: <strong>strong <strong>strong <strong>strong</strong></strong></strong>
+				</p>
+			</li>
+			<li>
+				<p>
+					em: <em>em</em>
+				</p>
+				<p>
+					em2: <em>em <em>em</em></em>
+				</p>
+				<p>
+					em3: <em>em <em>em <em>em</em></em></em>
+				</p>
+			</li>
+			<li>
+				<p>
+					kbd: <kbd>kbd<kbd>
+				</p>
+				<p>
+					kbd2: <kbd><kbd>kbd</kbd><kbd>
+				</p>
+			</li>
+			<li>code<ul>
+				<li>
+					<code>code</code>
+				</li>
+				<li>
+					<code class="fiilepath">filepath</code>
+				</li>
+				<li>
+					<code class="dirpath">dirpath</code>
+				</li>
+			</ul></li>
+		</ul>
+	</section>
+</article>

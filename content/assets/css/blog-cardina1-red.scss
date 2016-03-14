@@ -1,0 +1,199 @@
+@mixin font-awesome($icon) {
+	font-family: 'FontAwesome';
+	content: $icon;
+}
+
+// xs / sm
+$device-min-tablet: 768px;
+$container-size-tablet: 750px;
+// sm / md
+$device-min-pc-normal: 992px;
+$container-size-pc-normal: 970px;
+// md / lg
+$device-min-pc-large: 1200px;
+$container-size-pc-large: 1170px;
+
+$grid-column-max: 12;
+
+@import 'cardina1-red/font-face';
+
+// Common styles (which wouldn't be affected by screen size.
+@import 'cardina1-red/html-base/body';
+@import 'cardina1-red/html-base/head';
+@import 'cardina1-red/html-base/table';
+@import 'cardina1-red/html-base/list';
+@import 'cardina1-red/html-base/inline';
+@import 'cardina1-red/html-base/block';
+
+// Custom styles.
+@import 'cardina1-red/grid';
+@import 'cardina1-red/admonition-block';
+@import 'cardina1-red/code';
+
+// Page layout.
+
+body {
+	>header {
+		background: #333;
+		h1 {
+			$title-color: #999;
+			font-size: 1rem;
+			color: $title-color;
+			margin-top: 0;
+			>a {
+				&, &:visited, &:hover {
+					color: $title-color;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+	>footer {
+		background: #333;
+		color: #ccc;
+		padding: 1rem 0;
+	}
+}
+
+article {
+	>aside.article-info {
+		font-size: 0.7rem;
+	}
+	>footer {
+		margin-top: 1rem;
+		border-top: 1px solid #999;
+	}
+}
+
+.post-list-item {
+	display: flex;
+	.post-list-item-icon {
+		$icon-height: 220px;
+		$icon-width: $icon-height;
+		flex: 1;
+		width: $icon-width;
+		max-width: $icon-width;
+		height: $icon-height;
+		background: #ccffcc;
+	}
+	.post-list-item-text {
+		flex: 2;
+		padding-left: 0.5rem;
+		h1 {
+			margin-top: 0;
+		}
+	}
+}
+
+.datelabel {
+	display: inline-block;
+	border-radius: 0.5rem;
+	padding: 0.1rem;
+	margin: 0.15rem auto;
+	background: #f4f4f4;
+	&::before {
+		// f073: fa-calendar
+		// f017: fa-clock
+		@include font-awesome("\f073");
+		font-weight: normal;
+	}
+}
+
+a[rel="tag"] {
+	&::before {
+		// f02b: fa-tag
+		@include font-awesome("\f02b");
+	}
+}
+
+a.permalink::after {
+	display: inline-block;
+	margin-left: 0.2em;
+	// f0c1: fa-link
+	@include font-awesome("\f0c1");
+	visibility: hidden;
+	color: #aaa;
+	:hover >& {
+	visibility: visible;
+	text-decoration: none;
+	}
+}
+
+
+// Default styles (which would be affected by screen size).
+.size-container {
+	width: var(--size-container-width);
+	margin: var(--size-container-margin);
+}
+
+.next-prev-link {
+	display: flex;
+	>.prev-link {
+		width: 50%;
+	}
+	>.next-link {
+		width: 50%;
+		text-align: right;
+	}
+}
+
+ul.htags {
+	>li {
+		display: inline-block;
+		margin: 0;
+		&::before {
+			content: " / ";
+		}
+		&:first-child::before {
+			// f02b: fa-tag
+			@include font-awesome("\f02b\20");
+		}
+	}
+}
+
+
+// Responsive.
+
+// Default.
+:root {
+	--size-container-width: auto;
+	--size-container-margin: 0;
+}
+
+// Mobile device
+@media screen and (max-width: $device-min-tablet - 1) {
+}
+
+// Tablet device
+@media screen and (min-width: $device-min-tablet) and (max-width: $device-min-pc-normal - 1) {
+	:root {
+		--size-container-width: $container-size-tablet;
+		--size-container-margin: 0 auto;
+	}
+}
+
+// PC screen (normal)
+@media screen and (min-width: $device-min-pc-normal) and (max-width: $device-min-pc-large - 1) {
+	:root {
+		--size-container-width: $container-size-pc-normal;
+		--size-container-margin: 0 auto;
+		--dd-margin: 0 0 0 2rem;
+		--li-margin: 0 0 0 2rem;
+	}
+}
+
+// PC screen (large)
+@media screen and (min-width: $device-min-pc-large) {
+	:root {
+		--independent-block-margin: 1rem 2.5rem;
+		--size-container-width: $container-size-pc-large;
+		--size-container-margin: 0 auto;
+		--dd-margin: 0 0 0 2rem;
+		--li-margin: 0 0 0 2rem;
+	}
+	body >header {
+		h1 {
+			font-size: 2rem;
+		}
+	}
+}

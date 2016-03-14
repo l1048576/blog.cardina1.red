@@ -1,0 +1,67 @@
+mark {
+	background: yellow;
+}
+
+del::before {
+	background: #fdd;
+	text-decoration: none;
+	// f014: fa-trash-o
+	@include font-awesome("\f014");
+}
+
+ins::before {
+	background: #dfd;
+	text-decoration: none;
+	// f040: fa-pencil
+	@include font-awesome("\f040");
+}
+
+strong {
+	font-weight: bolder;
+	strong {
+		text-decoration: underline solid red;
+		strong {
+			text-decoration: underline double red;
+		}
+	}
+}
+
+em {
+	font-weight: bolder;
+	font-style: italic;
+	em {
+		text-decoration: underline solid red;
+		em {
+			text-decoration: underline double red;
+		}
+	}
+}
+
+abbr[title] {
+	border: none;
+	text-decoration: underline dotted;
+}
+
+a {
+	&, &:visited {
+		color: #c86868;
+		text-decoration: none;
+	}
+	&:hover {
+		text-decoration: underline;
+	}
+	&[target="_blank"]::after {
+		// f08e: fa-external-link
+		@include font-awesome("\20\f08e");
+	}
+}
+
+img:not(.manualsize) {
+	max-width: 100%;
+	height: auto;
+}
+
+rt {
+	// This would have been cleared by sanitize.css.
+	font-size: 50%;
+}

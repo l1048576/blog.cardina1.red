@@ -1,0 +1,49 @@
+<% render '/page-base.*' do %>
+<% target_htag = @item[:target] %>
+<% target_htag_relurl = decompose_htagpath(target_htag).collect{|frag| u(frag)}.join('/') %>
+<% current_node = articles_htag_tree.get_node(target_htag) %>
+<% max_items = @item[:max_items] || 200 %>
+
+<section>
+	<h1><%= h @item[:title] %></h1>
+	<ul>
+		<li>
+			exact match: <%= current_node.item_exact.size %>
+		</li>
+		<li>
+			descendant match: <%= current_node.item_descendant.size %>
+		</li>
+	</ul>
+	<section>
+		<h2>Tag tree</h2>
+		<ul>
+			<%= print_tagtree current_node, '/tags/' %>
+		</ul>
+	</section>
+	<section>
+		<h2><%= h target_htag %></h2>
+		<%= render '/part/item-list.*',
+			target_items: current_node.item_exact.sort_by!{|item|
+				item[:created_at]
+			}.reverse!,
+			header_level: 3
+		%>
+	</section>
+	<section>
+		<h2><%= h target_htag %>/**</h2>
+		<% if current_node.item_descendant.count > max_items %>
+			<p>
+				There are too many items.
+				Listing newest <%= max_items %> articles.
+			</p>
+		<% end %>
+		<%= render '/part/item-list.*',
+			target_items: current_node.item_descendant.sort_by!{|item|
+				item[:created_at]
+			}.reverse![0...max_items],
+			header_level: 3
+		%>
+	</section>
+</section>
+
+<% end %>

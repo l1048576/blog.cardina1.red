@@ -1,0 +1,17 @@
+<% target = @target || @item %>
+<div class="created-at">
+	<% if created_at = target[:created_at] %>
+		<p>
+			<i class="fa fa-calendar-plus-o"></i> created:
+			<% year4 = created_at.strftime('%Y') %>
+			<% month2 = created_at.strftime('%m') %>
+			<time datetime="<%= created_at.strftime('%FT%T%:z') %>"><%= link_to_unless_current "#{year4}", "/#{year4}/index.html" %>/<%= link_to_unless_current "#{month2}", "/#{year4}/#{month2}/index.html" %>/<%= created_at.strftime('%d (%a) %H:%M %Z') %></time>
+		</p>
+	<% end %>
+	<% if updated_at = target[:updated_at] %>
+		<p>
+			<i class="fa fa-calendar-check-o"></i> created:
+			<time datetime="<%= updated_at.strftime('%FT%T%:z') %>"><%= updated_at.strftime('%Y/%m/%d (%a) %H:%M %Z') %></time>
+		</p>
+	<% end %>
+</div>

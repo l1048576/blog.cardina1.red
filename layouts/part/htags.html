@@ -1,0 +1,18 @@
+<% htags_root = '/tags/' %>
+<% target = @target || @item %>
+
+<div class="htags">
+	<div>
+		<a href="<%= htags_root %>index.html">
+			<i class="fa fa-tags"></i> Hierarchical Tags
+		</a>:
+	</div>
+	<!-- TODO: support ARIA breadcrumbs -->
+	<ul class="no-marker">
+		<% target[:htags].each do |tag| %>
+			<li><ul class="htags">
+				<%= htag_breadcrumb_li tag, htags_root %>
+			</ul></li>
+		<% end %>
+	</ul>
+</div>

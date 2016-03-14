@@ -1,0 +1,238 @@
+---
+title: わたしはだれ？
+created_at: 2016-03-12T00:40:15+0900
+---
+
+<section>
+	<h1>だれ</h1>
+	<p>情報工学科(JK)の大学生。</p>
+	<section>
+		<h2>アカウント類</h2>
+		<section>
+			<h3>Twitter</h3>
+			<ul>
+				<li>
+					<a href="https://twitter.com/L1048576">@L1048576</a>: 趣味用。最近は日常用に常駐しているので、こちらはRTするだけのbotと化しつつある。
+				</li>
+				<li>
+					<a href="https://twitter.com/L16777216">@L16777216</a>: 日常用。作業の進捗もこちらが多い。
+				</li>
+				<li>
+					<a href="https://twitter.com/nu11p0_6477">@nu11p0_6477</a>: 情報系用。
+				</li>
+			</ul>
+		</section>
+		<section>
+			<h3>情報系</h3>
+			<ul>
+				<li>
+					<a href="https://github.com/l1048576">GitHub</a>: ｷﾞｯﾖﾊﾟﾌﾞ
+				</li>
+				<li>
+					<a href="http://qiita.com/l1048576">Qiita</a>: 技術的なネタは、このﾌﾞﾖｸﾞとQiitaのどちらに書くか悩んだりしている。
+				</li>
+			</ul>
+		</section>
+		<section>
+			<h3>その他</h3>
+			<ul>
+				<li>
+					<a href="http://bookmeter.com/u/236634">読書メーター</a>
+				</li>
+			</ul>
+		</section>
+	</section>
+	<section>
+		<h2>興味</h2>
+		<section>
+			<h3>言語</h3>
+			<p>
+				ドキュメンテーション等だとXMLは好き。docbook5とか、HTML5くらいなら手書きしたいタイプ。<br />
+				(このブログも、HTML/(S)CSSともにほぼ手書きである。)<br />
+				asciidocも悪くないと思うが、文法が厳格に定まっていないあたりが不安。
+			</p>
+			<p>
+				普段はRustを書いている。が、未だにlifetimeには悩まされている。<br />
+				Rust以前はC++(もちろん11や14など現代のC++)を書いていた。
+				clangかgccがC++17準拠したらまたC++に戻ってくるかもしれない。
+			</p>
+			<p>
+				人間の言葉だと、Lojbanには興味がある。
+			</p>
+		</section>
+		<section>
+			<h3>おたく</h3>
+			<p>
+				ラノベ、アニメ、漫画、ｴﾖｹﾞ等。<br />
+				『<a href="http://bookmeter.com/b/4044732019">時載りリンネ！</a>』が好きだったのだが、やっぱり打ち切りかなぁ……
+			</p>
+		</section>
+	</section>
+	<section>
+		<h2>なんか作る</h2>
+		<section>
+			<h3>いま作っているもの</h3>
+			<dl>
+				<dt><a href="https://github.com/l1048576/last-progress1">last-progress1</a></dt>
+				<dd>
+					<p>
+						ゲームになる予定のもの。Rustで書いている。<br />
+						FBXローダから自作しているが、まだその部分を実装中なので、現状ではFBXモデルビューアまがいのものにすぎない。
+					</p>
+					<p>
+						進捗はときどきtogetterに上げる。
+					</p>
+					<ul>
+						<li>
+							<a href="http://togetter.com/li/939240">最近のゲームコーディング進捗ログ その01</a>
+						</li>
+						<li>
+							<a href="http://togetter.com/li/948710">最近のゲームコーディング進捗ログ その02</a>
+						</li>
+					</ul>
+					<figure>
+						<img src="https://pbs.twimg.com/media/CdBX4K7UMAETqlT.jpg:orig" alt="最近のいいかんじの進捗画像" style="max-height: 50vh;" />
+						<figcaption>
+							<p>
+								最近のいいかんじの進捗画像。
+								なお、3Dモデルは私が作ったのではない。
+							</p>
+						</figcaption>
+					</figure>
+				</dd>
+			</dl>
+		</section>
+		<section>
+			<h3>いままでに作ったもの</h3>
+			<dl>
+				<dt><a href="https://github.com/l1048576/fbx_direct">fbx_direct</a></dt>
+				<dd>
+					<p>
+						RustでFBXファイルのパースを行う低級ライブラリ。<br />
+						これはXMLのStAXをベースにしたもので、構文を扱うだけなので、単体ではFBXを3Dコンテンツとして扱うことは難しい。
+					</p>
+				</dd>
+				<dt><a href="https://github.com/l1048576/fbx_objects_depviz">fbx_objects_depviz</a></dt>
+				<dd>
+					<p>
+						FBXの内部的構造を可視化するツール。Rustで書いた。<br />
+						ノードの構造を可視化した画像(を生成する、graphvizのdotファイル)を出力する。
+					</p>
+					<figure>
+						<picture>
+							<source type="image/svg+xml" srcset="about.imgs/texture-and-mesh.dot.svg" />
+							<img src="about.imgs/texture-and-mesh.dot.png" alt="FBX texture and mesh nodes" />
+						</picture>
+						<figcaption>テクスチャとメッシュのみを可視化した場合の出力</figcaption>
+					</figure>
+					<p>
+						jsonで設定を記述することで、ノードの種類や名前によって表示・非表示を選択したり、色を変更したりできる。
+					</p>
+				</dd>
+				<dt><a href="https://github.com/l1048576/tk-jogakuin">短編 (東京工業女学院)</a></dt>
+				<dd>
+					<p>
+						同級生と<ruby>食事<rp>(</rp><rt>クズ会</rt><rp>)</rp></ruby>しているときに出たネタで書いてみた短編。<br />
+						私だけだと続かないので、ロ技研の皆にも書いてほしい。
+					</p>
+				</dd>
+			</dl>
+		</section>
+	</section>
+	<section>
+		<h2>環境</h2>
+		<section>
+			<h3>OS</h3>
+			<dl>
+				<dt>gentoo linux (メイン機ラップトップ、予備機デスクトップ、VPS上の仮想マシン等)</dt>
+				<dd>
+					<p>
+						コーディング、webブラウズ等、ほぼ全ての作業はこちら(ラップトップ)でやる。
+						うどんワールド。
+					</p>
+				</dd>
+				<dt>Win7 (メイン機ラップトップ上の仮想マシン)</dt>
+				<dd>
+					<p>
+						ｴﾖｹﾞ専用。
+					</p>
+				</dd>
+			</dl>
+		</section>
+		<section>
+			<h3>Terminal / Console</h3>
+			<dl>
+				<dt>tmux</dt>
+				<dd>
+					<p>
+						複数セッション作って、現在の作業に応じてアタッチ/デタッチすることで、作業の種類分のウィンドウを出しっぱなしにすることを阻止できる。<br />
+						また、何かやらかしてXserverを強制終了してもtmuxのセッションは残るので、安心。
+					</p>
+					<p>
+						ウィンドウマネージャのショートカットキーとの連携もさせているので、デスクトップからいきなりtmuxセッションにアタッチした仮想ターミナルを出したり、新たなtmuxセッションを作ったりできる。
+					</p>
+				</dd>
+				<dt>zsh</dt>
+				<dd>
+					<p>
+						言わずと知れた補完機能等々、とにかく便利。
+						神。
+					</p>
+				</dd>
+				<dt>vim (neovim)</dt>
+				<dd>
+					<p>
+						どうせターミナル上で作業するので、Emacsではなくvimを使っている。<br />
+						Emacsが使えないだけともいう。
+					</p>
+				</dd>
+				<dt>mpd</dt>
+				<dd>
+					<p>
+						作業用BGMを流す。<br />
+						mpdはdaemonなので、Xserverを起動しなくても使えるのがよい。
+						まあ大抵は起動してるんだけど。
+					</p>
+					<p>
+						例のごとくウィンドウマネージャでショートカットキーを設定したので、ワンタッチで再生・スキップ・一時停止などできる。
+					</p>
+				</dd>
+				<dt>mlterm</dt>
+				<dd>
+					<p>
+						コンポジットマネージャ無しに(つまり本当の透過ウィンドウにせずに)デスクトップ擬似透過ができるのがよい。<br />
+						また、タイル型ウィンドウマネージャとtmuxを使っているため、メニューバーやスクロールバー等のあらゆるコンポーネントを非表示/無効化している。
+					</p>
+				</dd>
+			</dl>
+		</section>
+		<section>
+			<h3>Desktop</h3>
+			<dl>
+				<dt>XMonad</dt>
+				<dd>
+					<p>
+						タイル型ウィンドウマネージャ。
+						マウス不要なので、ターミナルやfirefox(with vimperator)でマウス使用頻度が高くない私には有難い。
+						(尤も、マウスもあればあるで活用するのだが。)
+					</p>
+					<p>
+						設定をコードで書けるので非常に柔軟。
+					</p>
+					<p>
+						Monadに圧倒的感謝。
+					</p>
+				</dd>
+				<dt>Firefox</dt>
+				<dd>
+					<p>
+						vimperatorも一緒に使って快適。
+					</p>
+					<p>
+						というか私の環境のgoogle chromeがたった数タブでも異常に重くなりcpu使用率が跳ね上がる場合があるなど、使い物にならないため、Firefox一択。
+					</p>
+				</dd>
+			</dl>
+		</section>
+	</section>
+</section>

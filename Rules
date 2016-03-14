@@ -1,0 +1,110 @@
+#!/usr/bin/env ruby
+
+# Preprocess {{{1
+
+preprocess do
+  #create_tag_pages
+  create_archive_pages
+  create_htag_pages('/tags/', items: articles)
+end
+
+# }}}1
+
+# sass partial.
+ignore '/**/_*'
+# vim tmp file.
+ignore '/**/.*.swp'
+
+
+compile '/articles/**/*.html' do
+  filter :colorize_syntax, :default_colorizer => :pygmentsrb
+  layout '/article.*'
+  filter :relativize_paths, type: :html
+end
+
+compile '/assets/**/*.scss' do
+  filter :sass, syntax: :scss
+  filter :relativize_paths, type: :css
+end
+
+#compile '/tags/index.html.erb' do
+  #filter :erb
+  #layout '/page-base.*'
+  #filter :relativize_paths, type: :html
+#end
+
+#compile '/tags/**/*' do
+  #layout '/tag-page.*'
+  #filter :relativize_paths, type: :html
+#end
+
+compile '/tags/index.html.erb' do
+  filter :erb
+  layout '/page-base.*'
+  filter :relativize_paths, type: :html
+end
+
+compile '/tags/**/*' do
+  layout '/htag-page.*'
+  filter :relativize_paths, type: :html
+end
+
+compile '/feed.xml' do
+  filter :erb
+end
+
+compile '/archives/*/*.html' do
+  layout '/archive-by-year.html'
+  filter :relativize_paths, type: :html
+end
+
+compile '/archives/*/*/*.html' do
+  layout '/archive-by-year-month.html'
+  filter :relativize_paths, type: :html
+end
+
+compile '/**/*.html' do
+  layout '/page-base.html'
+  filter :relativize_paths, type: :html
+end
+
+compile '/**/*.html.erb' do
+  filter :erb
+  layout '/page-base.html'
+  filter :relativize_paths, type: :html
+end
+
+compile '/**/*' do
+end
+
+# /articles/**/yyyy-mm-dd-slug/* => /yyyy/mm/dd/slug/*
+route '/articles/**/*' do
+  yyyy,mm,dd,slug,relpath = /\/([0-9]{4})-([0-9]{2})-([0-9]{2})-([^\/]+)\/(.+)$/
+    .match(@item.identifier.to_s).captures
+  "/#{yyyy}/#{mm}/#{dd}/#{slug}/#{relpath}"
+end
+
+route '/assets/**/*.scss' do
+  @item.identifier.without_ext + '.css'
+end
+
+route '/assets/**/*' do
+  @item.identifier.to_s
+end
+
+route '/archives/**/*' do
+  relpath = /^\/[^\/]*(\/.*)$/.match(@item.identifier.to_s).captures[0]
+  relpath
+end
+
+route '/**/*.html.erb' do
+  @item.identifier.without_ext
+end
+
+route '/**/*' do
+  @item.identifier.to_s
+end
+
+layout '/**/*', :erb
+
+# vim: set foldmethod=marker :

@@ -1,0 +1,7 @@
+.bundle
+.sass-cache
+/Gemfile.lock
+/crash.log
+/output
+/tmp
+/vendor

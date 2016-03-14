@@ -1,0 +1,10 @@
+li {
+	>p:first-child {
+		//margin-top: 0.5rem;
+		margin: 0.5rem 0;
+	}
+	>p:last-child {
+		//margin-bottom: 0.5rem;
+		margin: 0.5rem 0;
+	}
+}

@@ -1,0 +1,17 @@
+<% render '/page-base.*' do %>
+<% year = @item[:year] %>
+<% year4 = sprintf('%04d', @item[:year]) %>
+<% target = articles_by_year_month[year] %>
+
+<section>
+	<h1>Archive: <%= year4 %>年</h1>
+	<% target.each do |month, monthly_items| %>
+		<% month2 = sprintf('%02d', month) %>
+		<section>
+			<h2><%= link_to "#{year4}/#{month2}", "/#{year4}/#{month2}/index.html" %></h2>
+			<%= render '/part/item-list.*', target_items: monthly_items, header_level: 3 %>
+		</section>
+	<% end %>
+</section>
+
+<% end %>
