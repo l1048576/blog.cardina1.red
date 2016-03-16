@@ -44,7 +44,7 @@ compile '/tags/index.html.erb' do
   filter :relativize_paths, type: :html
 end
 
-compile '/tags/**/*' do
+compile '/tags/**/*.html' do
   layout '/htag-page.*'
   filter :relativize_paths, type: :html
 end
@@ -74,6 +74,10 @@ compile '/**/*.html.erb' do
   filter :relativize_paths, type: :html
 end
 
+compile '/**/*.json.erb' do
+  filter :erb
+end
+
 compile '/**/*' do
 end
 
@@ -97,7 +101,7 @@ route '/archives/**/*' do
   relpath
 end
 
-route '/**/*.html.erb' do
+route '/**/*.{html,json}.erb' do
   @item.identifier.without_ext
 end
 
