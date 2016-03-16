@@ -1,0 +1,9 @@
+<%
+htag_path = @item[:target]
+target_node = articles_htag_items_tree.get_node(htag_path)
+%><%=
+{
+	items_exact: target_node.item_exact.collect{|item| item.path},
+	items_descendant: target_node.item_descendant.collect{|item| item.path},
+}.to_json
+%>

@@ -2,6 +2,7 @@ module Larry
   module HierarchicalTagPages
     include Larry::HierarchicalTag
 
+    # Creates tag page (html) and db (json).
     def create_htag_pages(htag_base_dir, items: @items)
       # htags_base_dir should have trailing slash.
       htag_base_dir += '/' unless htag_base_dir.end_with?('/')
@@ -16,6 +17,15 @@ module Larry
           },
           # path
           htag_base_dir + current_tag + '/index.html')
+        @items.create(
+          # content
+          '',
+          # attributes
+          {
+            :target => current_tag,
+          },
+          # path
+          htag_base_dir + current_tag + '/index.json')
         children.each do |child_frag, children|
           create_sub_tag_pages(current_tag + '/' + child_frag, children, htag_base_dir)
         end

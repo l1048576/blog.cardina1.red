@@ -5,6 +5,8 @@ module Larry
     # erb: `u()`
     require 'erb'
     include ERB::Util
+    # json: `JSON`
+    require 'json'
 
     # tag_path (String, unescaped) -> tag_path_array([String], unescaped)
     def decompose_htagpath(path)

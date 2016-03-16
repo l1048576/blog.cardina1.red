@@ -49,6 +49,10 @@ compile '/tags/**/*.html' do
   filter :relativize_paths, type: :html
 end
 
+compile '/tags/**/*.json' do
+  layout '/htag-key.json'
+end
+
 compile '/feed.xml' do
   filter :erb
 end
