@@ -44,23 +44,27 @@ module Larry
 
     # Node: Map<String, Node>
     def all_htag_tree(items=@items)
-      blk = -> {
-        root = {}
-        items.collect{|item| item[:htags]}.select{|htags|
-          !htags.nil? && !htags.empty?
-        }.each do |htags|
-          htags.each do |htag|
-            current = root
-            decompose_htagpath(htag).each do |frag|
-              current[frag] ||= {}
-              current = current[frag]
-            end
+      root = {}
+      items.collect{|item| item[:htags]}.select{|htags|
+        !htags.nil? && !htags.empty?
+      }.each do |htags|
+        htags.each do |htag|
+          current = root
+          decompose_htagpath(htag).each do |frag|
+            current[frag] ||= {}
+            current = current[frag]
           end
         end
-        root
+      end
+      root
+    end
+
+    def articles_htag_tree
+      blk = -> {
+        all_htag_tree(articles)
       }
       if @items.frozen?
-        @htags_tree ||= blk.call
+        @articles_htag_tree ||= blk.call
       else
         blk.call
       end
@@ -150,12 +154,12 @@ module Larry
       root_node
     end
 
-    def articles_htag_tree
+    def articles_htag_items_tree
       blk = -> {
         htag_items_tree(articles)
       }
       if @items.frozen?
-        @articles_htag_tree_cache ||= blk.call
+        @articles_htag_items_tree_cache ||= blk.call
       else
         blk.call
       end

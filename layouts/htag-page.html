@@ -1,7 +1,7 @@
 <% render '/page-base.*' do %>
 <% target_htag = @item[:target] %>
 <% target_htag_relurl = decompose_htagpath(target_htag).collect{|frag| u(frag)}.join('/') %>
-<% current_node = articles_htag_tree.get_node(target_htag) %>
+<% current_node = articles_htag_items_tree.get_node(target_htag) %>
 <% max_items = @item[:max_items] || 200 %>
 
 <section>
