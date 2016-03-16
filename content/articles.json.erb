@@ -1,0 +1,19 @@
+---
+---
+<%=
+result = {}
+sorted_articles.each do |item|
+	entry = {
+		title: item[:title],
+		created_at: item[:created_at],
+	}
+	if val = item[:excerpt]
+		entry['excerpt'] = val
+	end
+	if val = item[:updated_at]
+		entry['updated_at'] = val
+	end
+	result[item.path] = entry
+end
+result.to_json
+%>
