@@ -1,0 +1,73 @@
+---
+created_at: 2016-03-24T00:26:45+0900
+title: "Rust-1.7.0でDefault::default()を使ったコードのコンパイルが通らない、処理系の不具合と思われる挙動"
+htags:
+  - "computer/programming/language/rust"
+  - "troubleshooting/not-solved/first-aid"
+  - "つらぽよ"
+kind: article
+
+excerpt: "Rust-1.7.0でDefault::default()を使ったコードのコンパイルが通らない、処理系の不具合と思われる挙動に遭遇した。回避策はあるが、つらい。"
+---
+
+<p>
+	未解決。
+	<a href="#first-aid">応急処置</a>済。
+</p>
+
+<section id="abstract">
+	<h2>概要<a href="#abstract" class="permalink"></a></h2>
+	<p>
+		Rust-1.7で以下のコードのコンパイルが通らない。
+	</p>
+	<figure>
+		<pre><code class="lang-rust language-rust" data-lang="rust">use std::fmt::Debug;
+
+#[derive(Debug, Default)]
+struct Struct&lt;T: Debug&gt; {
+    pub opt: Option&lt;T&gt;,
+}
+
+impl&lt;T: Debug&gt; Struct&lt;T&gt; {
+    pub fn new() -&gt; Self {
+        Default::default() // bad
+        //Struct { opt: Default::default(), } // ok
+    }
+}
+
+pub fn main () {
+    let s = Struct::&lt;i32&gt;::new();
+    println!("s: {:?}", s);
+}
+</code></pre>
+	<figcaption>コンパイルの通らないバージョン (<a href="https://play.rust-lang.org/?code=use%20std%3A%3Afmt%3A%3ADebug%3B%0A%0A%23[derive%28Debug%2C%20Default%29]%0Astruct%20Struct%3CT%3A%20Debug%3E%20{%0A%20%20%20%20pub%20opt%3A%20Option%3CT%3E%2C%0A}%0A%0Aimpl%3CT%3A%20Debug%3E%20Struct%3CT%3E%20{%0A%20%20%20%20pub%20fn%20new%28%29%20-%3E%20Self%20{%0A%20%20%20%20%20%20%20%20Default%3A%3Adefault%28%29%20%2F%2F%20bad%0A%20%20%20%20%20%20%20%20%2F%2FStruct%20{%20opt%3A%20Default%3A%3Adefault%28%29%2C%20}%20%2F%2F%20ok%0A%20%20%20%20}%0A}%0A%0A%0A%0Apub%20fn%20main%20%28%29%20{%0A%20%20%20%20let%20s%20%3D%20Struct%3A%3A%3Ci32%3E%3A%3Anew%28%29%3B%0A%20%20%20%20println!%28%22s%3A%20{%3A%3F}%22%2C%20s%29%3B%0A}&amp;version=stable" target="_blank">Rust Playgroundへのリンク</a>)</figcaption>
+	</figure>
+	<figure>
+		<pre>&lt;anon&gt;:10:9: 10:25 error: the trait `core::default::Default` is not implemented for the type `T` [E0277]
+&lt;anon&gt;:10         Default::default() // bad
+                  ^~~~~~~~~~~~~~~~
+&lt;anon&gt;:10:9: 10:25 help: see the detailed explanation for E0277
+&lt;anon&gt;:10:9: 10:25 note: required by `core::default::Default::default`
+</pre>
+		<figcaption>Rust Playgroundで(Rust-1.7.0 stableで)コンパイルした場合のエラーメッセージ</figcaption>
+	</figure>
+	<p>
+		おかしい。
+		<a href="https://doc.rust-lang.org/std/option/enum.Option.html#implementations">ドキュメント</a>によれば、<code>Option&lt;T&gt;</code>は<code>Defaut</code> traitを実装していて、その際<code>T</code>に対して<code>T: Default</code>等の制約はかかっていない。
+		(コメントアウトされている<code>opt: Default::default()</code>のコンパイルが通るのはそのためである)。<br />
+		しかし、構造体のメンバ変数(の型)すべてが<code>Default</code>を実装しているにも関わらず、「<code>T</code>が<code>Default</code>を実装していない」という理由でコンパイルは失敗する。
+	</p>
+	<p>
+		奇妙なのは、<code>Struct&lt;T&gt;</code>全体に対しての<code>Default::default()</code>呼び出しが失敗するにも関わらず、<code>#[derive(Debug, Default)]</code>にはコンパイラが何の文句も言ってこないところだ。
+	</p>
+	<p>
+		やっぱりgithubでissueとか投げるべきなのかなぁ……
+	</p>
+</section>
+<section id="first-aid">
+	<h2>応急処置<a href="#first-aid" class="permalink"></a></h2>
+	<p>
+		コード例のとおり、<code>Default::default()</code>が失敗するのは構造体全体に対してのみであるため、各メンバ変数それぞれについて<code>Default::default()</code>を呼び出すことで、意図した通りのオブジェクトを生成することは可能である。
+		メンバ変数が沢山あると大変だが、仕方がない……
+	</p>
+</section>
