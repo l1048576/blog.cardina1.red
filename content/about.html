@@ -105,11 +105,16 @@ created_at: 2016-03-12T00:40:15+0900
 		<section>
 			<h3>いままでに作ったもの</h3>
 			<dl>
-				<dt><a href="https://github.com/l1048576/fbx_direct">fbx_direct</a></dt>
+				<dt><a href="https://github.com/l1048576/fbx_direct">fbx_direct</a>, <a href="https://github.com/l1048576/fbx-binary-reader">fbx-binary-reader</a></dt>
 				<dd>
 					<p>
 						RustでFBXファイルのパースを行う低級ライブラリ。<br />
 						これはXMLのStAXをベースにしたもので、構文を扱うだけなので、単体ではFBXを3Dコンテンツとして扱うことは難しい。
+					</p>
+					<p>
+						fbx_directはFBX binaryの読み書きと、FBX ASCIIの書き出しに対応。<br />
+						fbx-binary-readerはFBX binaryの読み込み専用だが、fbx_directよりそこそこ速い。
+						一部パースを遅延したり等、とにかく高速になるよう設計した。
 					</p>
 				</dd>
 				<dt><a href="https://github.com/l1048576/fbx_objects_depviz">fbx_objects_depviz</a></dt>
@@ -127,6 +132,14 @@ created_at: 2016-03-12T00:40:15+0900
 					</figure>
 					<p>
 						jsonで設定を記述することで、ノードの種類や名前によって表示・非表示を選択したり、色を変更したりできる。
+					</p>
+				</dd>
+				<dt><a href="https://github.com/l1048576/fbx-load/tree/develop">fbx-load</a></dt>
+				<dd>
+					<p>
+						RustでFBXの読み込み(と解釈)を行う高級ライブラリ。<br />
+						triangulation等の最低限の機能は用意してあるので、ライブラリ利用側のコードで頑張ればアニメーションまでできるかもしれない。
+						(2016/04/04時点のコードでは、少なくともテクスチャ埋め込みの静的メッシュは表示できている。)
 					</p>
 				</dd>
 				<dt><a href="https://github.com/l1048576/tk-jogakuin">短編 (東京工業女学院)</a></dt>
