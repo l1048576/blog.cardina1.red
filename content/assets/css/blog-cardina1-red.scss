@@ -167,7 +167,7 @@ ul.htags {
 // Tablet device
 @media screen and (min-width: $device-min-tablet) and (max-width: $device-min-pc-normal - 1) {
 	:root {
-		--size-container-width: $container-size-tablet;
+		--size-container-width: #{$container-size-tablet};
 		--size-container-margin: 0 auto;
 	}
 }
@@ -175,7 +175,7 @@ ul.htags {
 // PC screen (normal)
 @media screen and (min-width: $device-min-pc-normal) and (max-width: $device-min-pc-large - 1) {
 	:root {
-		--size-container-width: $container-size-pc-normal;
+		--size-container-width: #{$container-size-pc-normal};
 		--size-container-margin: 0 auto;
 		--dd-margin: 0 0 0 2rem;
 		--li-margin: 0 0 0 2rem;
@@ -186,7 +186,7 @@ ul.htags {
 @media screen and (min-width: $device-min-pc-large) {
 	:root {
 		--independent-block-margin: 1rem 2.5rem;
-		--size-container-width: $container-size-pc-large;
+		--size-container-width: #{$container-size-pc-large};
 		--size-container-margin: 0 auto;
 		--dd-margin: 0 0 0 2rem;
 		--li-margin: 0 0 0 2rem;
