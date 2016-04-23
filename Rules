@@ -44,6 +44,12 @@ compile '/tags/index.html.erb' do
   filter :relativize_paths, type: :html
 end
 
+compile '/tags/search.html' do
+  filter :colorize_syntax, :default_colorizer => :pygmentsrb
+  layout '/page-base.*'
+  filter :relativize_paths, type: :html
+end
+
 compile '/tags/**/*.html' do
   layout '/htag-page.*'
   filter :relativize_paths, type: :html
