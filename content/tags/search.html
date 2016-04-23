@@ -1,0 +1,263 @@
+---
+---
+<style>
+	textarea {
+		border: solid 1px #aaa;
+	}
+</style>
+<section>
+	<h1>Hierarchical tag search</h1>
+	<section>
+		<section>
+			<h2>Query</h2>
+
+			<textarea id="htag-search-query" cols="60" data-query-version="1.0"></textarea>
+			<div>
+				<input id="universal-complement" type="checkbox" />
+				<label for="universal-complement">補集合をとる(該当しない記事のみを表示する)</label>
+			</div>
+			<button id="execute-filter" style="border: 1px solid #999; border-radius: 5px; padding: 5px">Filter</button>
+		</section>
+		<section>
+			<h2>Result</h2>
+			<div id="search-result"></div>
+		</section>
+		<section>
+			<h2>Examples</h2>
+			<figure id="examples">
+				<style>
+					#examples p {
+						padding: 0 0.5rem;
+					}
+					#examples p:first-child {
+						margin-top: 0;
+					}
+				</style>
+				<figcaption>examples</figcaption>
+
+				<p>
+					条件はjson形式で指定する。未対応のクエリはfalseとして扱われる。
+				</p>
+
+				<div class="grid-row">
+					<div class="col-xs-12 col-md-6">
+						<pre><code class="language-json lang-json" data-lang="json">["exact", "tag1", "tag2/tag2-3"]</code></pre>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<p>
+							「指定したタグの少なくともひとつ(OR)にちょうど一致するタグを持つ」という条件。
+							<code>tag1/tag1-1</code>タグは条件<code>tag1</code>にマッチしないが、<code>tag1</code>は条件<code>tag1</code>にマッチする。
+							条件が指定されなかった場合、trueとして扱われる。
+						</p>
+					</div>
+				</div>
+
+				<div class="grid-row">
+					<div class="col-xs-12 col-md-6">
+						<pre><code class="language-json lang-json" data-lang="json">["descendant", "tag1", "tag2/tag2-3"]</code></pre>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<p>
+							「指定したタグの少なくともひとつ(OR)の子孫のタグを持つ」という条件。
+							<code>tag1</code>タグは条件<code>tag1</code>にマッチしないが、<code>tag1/tag1-1</code>は条件<code>tag1</code>にマッチする。
+							条件が指定されなかった場合、trueとして扱われる。
+						</p>
+					</div>
+				</div>
+
+				<div class="grid-row">
+					<div class="col-xs-12 col-md-6">
+						<pre><code class="language-json lang-json" data-lang="json">["exact_or_descendant", "tag1", "tag2/tag2-3"]</code></pre>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<p>
+							「指定したタグの少なくともひとつ(OR)に一致するタグか、その子孫のタグを持つ」という条件。
+							<code>tag1</code>タグも<code>tag1/tag1-1</code>も、ともに条件<code>tag1</code>にマッチする。
+							条件が指定されなかった場合、trueとして扱われる。
+						</p>
+					</div>
+				</div>
+
+				<div class="grid-row">
+					<div class="col-xs-12 col-md-6">
+						<pre><code class="language-json lang-json" data-lang="json">["or", condition1, condition2, ...]</code></pre>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<p>
+							「指定した条件の少なくともひとつ(OR)を満たす」という条件。
+							条件が指定されなかった場合、trueとして扱われる。
+						</p>
+					</div>
+				</div>
+
+				<div class="grid-row">
+					<div class="col-xs-12 col-md-6">
+						<pre><code class="language-json lang-json" data-lang="json">["and", condition1, condition2, ...]</code></pre>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<p>
+							「指定した条件のすべて(AND)を満たす」という条件。
+							条件が指定されなかった場合、trueとして扱われる。
+						</p>
+					</div>
+				</div>
+
+				<div class="grid-row">
+					<div class="col-xs-12 col-md-6">
+						<pre><code class="language-json lang-json" data-lang="json">["xor", condition1, condition2]</code></pre>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<p>
+							「指定した条件のいずれか一方のみ(XOR)を満たす」という条件。
+							(symmetric differenceと考えてもよい。)
+							条件はちょうど2つ指定されなければならない。
+						</p>
+					</div>
+				</div>
+
+				<div class="grid-row">
+					<div class="col-xs-12 col-md-6">
+						<pre><code class="language-json lang-json" data-lang="json">["difference", condition1, condition2, ...]</code></pre>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<p>
+							「最初の条件を満たし、2番目以降の条件のいずれも満たさない」という条件。
+							条件が指定されなかった場合、trueとして扱われる。
+						</p>
+					</div>
+				</div>
+
+			</figure>
+		</section>
+
+	</section>
+</section>
+
+<script src="./htag_search.js"></script>
+
+<script>
+	'use strict';
+	const base_url = `${window.location.protocol}//${window.location.host}`;
+	const current_url = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+	let exec_button = document.getElementById('execute-filter');
+
+	function html_escape(str) {
+		return str
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/'/g, '&apos;')
+			.replace(/"/g, '&quot;');
+	}
+
+	function load_query_obj(query_str) {
+		return new Promise((resolve, reject) => {
+			// Rejected on parse error.
+			resolve(JSON.parse(query_str));
+		});
+	}
+
+	exec_button.addEventListener('click', () => {
+		const raw_query_str = document.getElementById('htag-search-query').value;
+		const query = load_query_obj(raw_query_str);
+		query.then(query => {
+			if(history.pushState) {
+				const query_str = JSON.stringify(query);
+				const newurl = `${current_url}?query_version=1&query=${encodeURIComponent(query_str)}`;
+				window.history.pushState({ path: newurl }, '', newurl);
+			} else {
+				console.log('History API not supported. continue without changing url query');
+			}
+		});
+		const all_articles = getAsync(`${base_url}/articles.json`).then(JSON.parse);
+		Promise.all([query.then(execute_filter), all_articles])
+			.then(([paths, articles]) => {
+				// Take complement.
+				const universal_complement = document.getElementById('universal-complement').checked;
+				if(universal_complement) {
+					// unimplemented.
+					console.log('universal complement is unimplemented.');
+					let complement = new Set();
+					for(let key of Object.keys(articles)) {
+						if(!paths.has(key)) {
+							complement.add(key);
+						}
+					}
+					return [complement, articles];
+				} else {
+					return [paths, articles];
+				}
+			})
+			.then(arg => {
+				// Debug.
+				console.log(arg);
+				return arg;
+			})
+			.then(([paths, articles]) => {
+				// Show result.
+				let result_dom = document.getElementById('search-result');
+				// Clear result element.
+				while(result_dom.hasChildNodes()) {
+					result_dom.removeChild(result_dom.firstChild);
+				}
+				// Create new element.
+				let wrapper = document.createElement('div');
+				for(let path of paths) {
+					const article_info = articles[path];
+					let section = document.createElement('section');
+					// Title.
+					let anchor = document.createElement('a');
+					anchor.setAttribute('href', `${base_url}${path}`);
+					anchor.textContent = html_escape(article_info.title);
+					let title = document.createElement('h3');
+					title.appendChild(anchor);
+					// Metadata.
+					let metadata = document.createElement('div');
+					metadata.style.fontSize = '80%';
+					{
+						let created_at_block = document.createElement('p');
+						const created_at = new Date(article_info.created_at);
+						const created_at_year4 = created_at.getFullYear();
+						const created_at_month2 = ('0' + (created_at.getMonth() + 1)).slice(-2);
+						const created_at_day2 = ('0' + created_at.getDate()).slice(-2);
+						const created_at_iso8601 = created_at.toISOString();
+						created_at_block.innerHTML = `<i class="fa fa-calendar-plus-o"></i> created:
+	<time datetime="${created_at_iso8601}"><a href="${base_url}/${created_at_year4}/index.html">${created_at_year4}</a>/<a href="${base_url}/${created_at_year4}/${created_at_month2}/index.html">${created_at_month2}</a>/${created_at_day2} (in local time)</time>`;
+						metadata.appendChild(created_at_block);
+					}
+					if(article_info.updated_at) {
+						let updated_at_block = document.createElement('p');
+						const updated_at = new Date(article_info.updated_at);
+						const updated_at_year4 = updated_at.getFullYear();
+						const updated_at_month2 = ('0' + (updated_at.getMonth() + 1)).slice(-2);
+						const updated_at_day2 = ('0' + updated_at.getDate()).slice(-2);
+						const updated_at_iso8601 = updated_at.toISOString();
+						updated_at_block.innerHTML = `<i class="fa fa-calendar-plus-o"></i> created:
+	<time datetime="${updated_at_iso8601}"><a href="${base_url}/${updated_at_year4}/index.html">${updated_at_year4}</a>/<a href="${base_url}/${updated_at_year4}/${updated_at_month2}/index.html">${updated_at_month2}</a>/${updated_at_day2} (in local time)</time>`;
+						metadata.appendChild(updated_at_block);
+					}
+					// Summary.
+					let summary = document.createElement('p');
+					summary.textContent = html_escape(article_info.excerpt);
+
+					section.appendChild(title);
+					section.appendChild(metadata);
+					section.appendChild(summary);
+					wrapper.appendChild(section);
+					console.log(path);
+				}
+				result_dom.appendChild(wrapper);
+			})
+			.catch(function(error) {
+				console.error(error);
+			});
+	});
+
+	window.addEventListener('load', () => {
+		console.log('load');
+		const query_str = window.location.query;
+		if(typeof query_str === 'string' && query_str !== '') {
+			document.getElementById('htag-search-query').value = query_str;
+		}
+	});
+</script>
