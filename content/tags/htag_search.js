@@ -93,11 +93,6 @@ function execute_filter(query_obj) {
 	const universal_complement = document.getElementById('universal-complement').checked;
 	// query_result: Set of paths (of articles).
 	return execute_subfilter(query_obj)
-		.then(urls => {
-			// Debug.
-			console.log(urls);
-			return urls;
-		})
 		.catch(error => {
 			console.log(error);
 		});
@@ -141,8 +136,6 @@ let filter_ops = {
 
 // Returns promise of a set.
 function execute_subfilter(query_obj) {
-	const op = query_obj[0];
-	const args = query_obj.slice(1);
-	console.log('processing op: ' + op);
+	const [op, ...args] = query_obj;
 	return filter_ops[op](...args);
 }
