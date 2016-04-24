@@ -6,9 +6,15 @@ title: "Tags Tree"
 
 <section>
 	<h1><%= @item[:title] %></h1>
-	<ul>
-		<% root_node.children.each do |child| %>
-			<%= print_tagtree child, '/tags/' %>
-		<% end %>
-	</ul>
+	<p>
+		<a href="search.html">検索はこちら</a>
+	</p>
+	<section>
+		<h2>Tags</h2>
+		<ul>
+			<% root_node.children.each do |child| %>
+				<%= print_tagtree child, '/tags/' %>
+			<% end %>
+		</ul>
+	</section>
 </section>
