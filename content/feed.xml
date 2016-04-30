@@ -1,6 +1,6 @@
 ---
 title: 何とは言わない天然水飲みたさ
 author_name: らりお
-author_uri: http://www.cardina1.red/
+author_uri: http://blog.cardina1.red/
 ---
 <%= atom_feed :limit => 15 %>

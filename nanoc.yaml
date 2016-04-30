@@ -90,9 +90,9 @@ checks:
     exclude_files: []
 
 # for atom_feed (Nanoc::Blogging)
-#base_url: 'https://www.cardina1.red'
+#base_url: 'https://blog.cardina1.red'
 # FIXME: Use https.
-base_url: 'http://www.cardina1.red'
+base_url: 'http://blog.cardina1.red'
 
 # Deploy
 deploy:
