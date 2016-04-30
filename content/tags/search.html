@@ -1,7 +1,7 @@
 ---
 title: タグ検索
 ---
-<style>
+<style scoped="scoped">
 	textarea {
 		border: solid 1px #aaa;
 	}
@@ -29,7 +29,8 @@ title: タグ検索
 		<section>
 			<h2>Examples</h2>
 			<figure id="examples">
-				<style>
+				<figcaption>examples</figcaption>
+				<style scoped="scoped">
 					#examples p {
 						padding: 0 0.5rem;
 					}
@@ -37,7 +38,6 @@ title: タグ検索
 						margin-top: 0;
 					}
 				</style>
-				<figcaption>examples</figcaption>
 
 				<p>
 					条件はjson形式で指定する。未対応のクエリはエラーになるかも。
