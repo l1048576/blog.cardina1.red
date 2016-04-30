@@ -16,3 +16,5 @@ gem 'pygments.rb'
 #gem 'asciidoctor'
 # pandoc
 #gem 'pandoc-ruby'
+
+gem 'w3c_validators'
