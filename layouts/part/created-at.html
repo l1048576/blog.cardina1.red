@@ -10,7 +10,7 @@
 	<% end %>
 	<% if updated_at = target[:updated_at] %>
 		<p>
-			<i class="fa fa-calendar-check-o"></i> created:
+			<i class="fa fa-calendar-check-o"></i> updated:
 			<time datetime="<%= updated_at.strftime('%FT%T%:z') %>"><%= updated_at.strftime('%Y/%m/%d (%a) %H:%M %Z') %></time>
 		</p>
 	<% end %>
