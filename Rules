@@ -91,11 +91,15 @@ end
 compile '/**/*' do
 end
 
+# /articles/**/yyyy-mm-dd-slug/**/index.{html,adoc} => /yyyy/mm/dd/slug/**/index.html
+# /articles/**/yyyy-mm-dd-slug/**/*.{html,adoc} => /yyyy/mm/dd/slug/**/*/index.html
+route %r[^/articles/(?:.+?/)?(\d{4})-(\d{2})-(\d{2})-(.+?)(?:/index)?\.(?:html|adoc)$] do |yyyy, mm, dd, slug_relpath|
+  "/#{yyyy}/#{mm}/#{dd}/#{slug_relpath}/index.html"
+end
+
 # /articles/**/yyyy-mm-dd-slug/* => /yyyy/mm/dd/slug/*
-route '/articles/**/*' do
-  yyyy,mm,dd,slug,relpath = /\/([0-9]{4})-([0-9]{2})-([0-9]{2})-([^\/]+)\/(.+)$/
-    .match(@item.identifier.to_s).captures
-  "/#{yyyy}/#{mm}/#{dd}/#{slug}/#{relpath}"
+route %r[^/articles/(?:.+?/)?(\d{4})-(\d{2})-(\d{2})-(.+)$] do |yyyy, mm, dd, slug_relpath|
+  "/#{yyyy}/#{mm}/#{dd}/#{slug_relpath}"
 end
 
 route '/assets/**/*.scss' do
@@ -106,9 +110,8 @@ route '/assets/**/*' do
   @item.identifier.to_s
 end
 
-route '/archives/**/*' do
-  relpath = /^\/[^\/]*(\/.*)$/.match(@item.identifier.to_s).captures[0]
-  relpath
+route %r[/archives(/.*)] do |relpath|
+  relpath[0]
 end
 
 route '/**/*.{html,json}.erb' do
