@@ -15,6 +15,16 @@
 
 p {
 	margin: 0.6rem 0;
+	&[data-paratitle] {
+		&::before {
+			display: block;
+			color: brown;
+			font-weight: bolder;
+			border-left: 0.5rem solid brown;
+			padding-left: 0.5rem;
+			content: attr(data-paratitle);
+		}
+	}
 }
 
 ul.no-marker {
