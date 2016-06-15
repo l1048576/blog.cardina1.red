@@ -15,13 +15,28 @@ caption {
 	font-size: smaller;
 	font-weight: bolder;
 	color: #57b;
+	background: inherit;
 }
 
 tr {
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
+	$border-style: 1px solid #ddd;
+	border-top: $border-style;
+	border-bottom: $border-style;
 	&:nth-child(2n) {
 		background: #f0f0f0;
+	}
+	table {
+		background: #fcfcfc;
+	}
+	caption {
+		background: inherit;
+	}
+	tr {
+		border-top: $border-style;
+		border-bottom: $border-style;
+		&:nth-child(2n) {
+			background: #e0f8e0;
+		}
 	}
 }
 th, td {
