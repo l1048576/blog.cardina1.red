@@ -15,6 +15,9 @@ $container-size-pc-large: 1170px;
 
 $grid-column-max: 12;
 
+// Unit size for vertical rhythm.
+$vertical-unit: 1.5rem;
+
 @import 'cardina1-red/font-face';
 
 // Common styles (which wouldn't be affected by screen size.
@@ -117,6 +120,12 @@ a.permalink::after {
 	visibility: visible;
 	text-decoration: none;
 	}
+}
+
+
+.created-at p {
+	line-height: $vertical-unit;
+	margin: initial;
 }
 
 
