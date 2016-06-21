@@ -1,0 +1,233 @@
+---
+created_at: 2016-06-20T18:55:17+0900
+title: "エロゲインストールバトルに勝利"
+htags:
+  - "computer/windows/10"
+  - "computer/DirectX"
+  - "computer/VirtualBox"
+  - "つらぽよ"
+  - "troubleshooting/solved"
+kind: article
+
+excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
+---
+
+<section id="tl-dr">
+	<h2>TL;DR<a href="#tl-dr" class="permalink"></a></h2>
+	<p>
+		VirtualBox Guest AdditionsのDirect3D Support (Experimental)はWindows標準のDirectXライブラリを上書きするが、そのせいで一部ゲームでエラーが出て起動できなくなることがある。<br />
+		これは、DirectXの一部ファイルを本来のファイルで上書きしてやることで解決可能である。
+	</p>
+</section>
+
+<section id="environment">
+	<h2>環境<a href="#environment" class="permalink"></a></h2>
+	<p>
+		環境は<a href="../../15/erg-install-battle">エロゲインストールバトル実行時と同様</a>である。
+	</p>
+
+</section>
+
+<section id="investigation">
+	<h2>調査<a href="#investigation" class="permalink"></a></h2>
+	<p>
+		ネイティブ環境のWindows 10で起動するとされていることと、DirectX 9のDLLでエラーが出ていることから、原因はVirtualBox特有でDirectX関連部分、すなわちVirtualBox Guest Additions(以下<strong>Guest Additions</strong>)によるDirect3D Support (Experimental)であろうと予想した。<br />
+		よって、Guest Additionにより上書きされたであろうDirectX関連ファイルをMicrosoft公式のものに上書きしてやれば元に戻るであろうと考えた。
+	</p>
+
+	<section id="check-corruption-of-directx">
+		<h3>DirectX破損確認<a href="#check-corruption-of-directx" class="permalink"></a></h3>
+		<p>
+			普通のライブラリであればアンインストールするところだが、WindowsではDirectXのアンインストールは普通の手段ではできないことになっている<sup id="ref-footnote-directx-uninstall" class="footnote"><a href="#footnote-directx-uninstall">[*]</a></sup>。
+			ということはこのファイルはWindows自身によって管理されているということであるから、システムファイルの破損チェックで改竄を確認できるはずである。
+		</p>
+		<p>
+			そこで、以下のページを参考にシステムファイルのチェックを行った。
+			<ul>
+				<li>
+					<a href="https://support.microsoft.com/ja-jp/kb/929833">システム ファイル チェッカー ツールを使用して不足または破損しているシステム ファイルを修復する </a>
+				</li>
+			</ul>
+		</p>
+
+		<figure id="cmdlog-sfc-scannow">
+			<pre class="code code-terminal">C:&#xA5;Users&#xA5;user1&gt;<kbd>sfc /scannow</kbd>
+システム スキャンを開始しています。これにはしばらく時間がかかります。
+
+システム スキャンの検証フェーズを開始しています。
+検証 100% が完了しました。
+
+Windows リソース保護により、破損したファイルが見つかりましたが、それらの
+一部は修復できませんでした。詳細は CBS.Log windir&#xA5;Logs&#xA5;CBS&#xA5;CBS.log に
+含まれています。例: C:&#xA5;Windows&#xA5;Logs&#xA5;CBS&#xA5;CBS.log。ただし、オフライン
+サービス シナリオでのログの記録は現在サポートされていません。
+
+C:&#xA5;Users&#xA5;user1&gt;
+</pre>
+			<figcaption>管理者として実行したコマンドプロンプト</figcaption>
+		</figure>
+
+		<p>
+			具体的な破損ファイルの内容を確認する。<br />
+			メッセージと<a href="https://support.microsoft.com/ja-jp/kb/929833#mt2">Microsoftのこのページの『システム ファイル チェッカーの処理の詳細を表示する方法』セクション</a>に従い、<code class="filepath">C:&#xA5;Windows&#xA5;Logs&#xA5;CBS&#xA5;CBS.log</code>を確認する。<br />
+			<code>[SR]</code>(正規表現ではない)を含む箇所が関連部分らしい。
+			Microsoftのページでは<code>findstr</code>を使っているが、UNIXなら<code>grep</code>でも使った方が楽かもしれない。
+			まあどちらにせよ同じことだが。
+		</p>
+
+		<figure id="file-cbs-log">
+			<pre>
+...
+
+2016-06-20 13:31:37, Info                  CSI    000014b1 [SR] Beginning Verify and Repair transaction
+2016-06-20 13:31:39, Info                  CSI    000014b3 [SR] Cannot repair member file [l:8]"d3d9.dll" of Microsoft-Windows-DirectX-Direct3D9, version 10.0.10586.0, arch amd64, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:31:41, Info                  CSI    000014b9 [SR] Cannot repair member file [l:8]"d3d9.dll" of Microsoft-Windows-DirectX-Direct3D9, version 10.0.10586.0, arch amd64, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:31:41, Info                  CSI    000014ba [SR] This component was referenced by [l:169]"Microsoft-Windows-Client-Features-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~10.0.10586.0.Microsoft-Windows-Client-Features-Package-AutoMerged-windows-Deployment"
+2016-06-20 13:31:41, Info                  CSI    000014bd [SR] Could not reproject corrupted file [l:23 ml:24]"\??\C:\WINDOWS\System32"\[l:8]"d3d9.dll"; source file in store is also corrupted
+2016-06-20 13:31:43, Info                  CSI    00001521 [SR] Verify complete
+
+...
+
+2016-06-20 13:46:51, Info                  CSI    00004bea [SR] Beginning Verify and Repair transaction
+2016-06-20 13:46:52, Info                  CSI    00004bec [SR] Cannot repair member file [l:8]"d3d8.dll" of Microsoft-Windows-DirectX-Direct3D8, version 10.0.10586.0, arch x86, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:46:53, Info                  CSI    00004bee [SR] Cannot repair member file [l:8]"d3d9.dll" of Microsoft-Windows-DirectX-Direct3D9, version 10.0.10586.0, arch x86, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:46:57, Info                  CSI    00004c21 [SR] Cannot repair member file [l:8]"d3d9.dll" of Microsoft-Windows-DirectX-Direct3D9, version 10.0.10586.0, arch x86, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:46:57, Info                  CSI    00004c22 [SR] This component was referenced by [l:181]"Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~10.0.10586.0.Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-windows-Deployment"
+2016-06-20 13:46:57, Info                  CSI    00004c25 [SR] Could not reproject corrupted file [l:23 ml:24]"\??\C:\WINDOWS\SysWOW64"\[l:8]"d3d9.dll"; source file in store is also corrupted
+2016-06-20 13:46:57, Info                  CSI    00004c33 [SR] Cannot repair member file [l:8]"d3d8.dll" of Microsoft-Windows-DirectX-Direct3D8, version 10.0.10586.0, arch x86, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:46:57, Info                  CSI    00004c34 [SR] This component was referenced by [l:181]"Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~10.0.10586.0.Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-windows-Deployment"
+2016-06-20 13:46:57, Info                  CSI    00004c37 [SR] Could not reproject corrupted file [l:23 ml:24]"\??\C:\WINDOWS\SysWOW64"\[l:8]"d3d8.dll"; source file in store is also corrupted
+2016-06-20 13:46:57, Info                  CSI    00004c61 [SR] Verify complete
+
+...
+
+2016-06-20 13:49:23, Info                  CSI    0000576b [SR] Repairing 3 components
+2016-06-20 13:49:23, Info                  CSI    0000576c [SR] Beginning Verify and Repair transaction
+2016-06-20 13:49:23, Info                  CSI    0000576e [SR] Cannot repair member file [l:8]"d3d9.dll" of Microsoft-Windows-DirectX-Direct3D9, version 10.0.10586.0, arch amd64, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:49:23, Info                  CSI    00005770 [SR] Cannot repair member file [l:8]"d3d9.dll" of Microsoft-Windows-DirectX-Direct3D9, version 10.0.10586.0, arch x86, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:49:23, Info                  CSI    00005772 [SR] Cannot repair member file [l:8]"d3d8.dll" of Microsoft-Windows-DirectX-Direct3D8, version 10.0.10586.0, arch x86, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:49:23, Info                  CSI    00005775 [SR] Cannot repair member file [l:8]"d3d9.dll" of Microsoft-Windows-DirectX-Direct3D9, version 10.0.10586.0, arch x86, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:49:23, Info                  CSI    00005776 [SR] This component was referenced by [l:181]"Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~10.0.10586.0.Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-windows-Deployment"
+2016-06-20 13:49:23, Info                  CSI    00005779 [SR] Could not reproject corrupted file [l:23 ml:24]"\??\C:\WINDOWS\SysWOW64"\[l:8]"d3d9.dll"; source file in store is also corrupted
+2016-06-20 13:49:23, Info                  CSI    0000577d [SR] Cannot repair member file [l:8]"d3d8.dll" of Microsoft-Windows-DirectX-Direct3D8, version 10.0.10586.0, arch x86, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:49:23, Info                  CSI    0000577e [SR] This component was referenced by [l:181]"Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~10.0.10586.0.Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-windows-Deployment"
+2016-06-20 13:49:23, Info                  CSI    00005781 [SR] Could not reproject corrupted file [l:23 ml:24]"\??\C:\WINDOWS\SysWOW64"\[l:8]"d3d8.dll"; source file in store is also corrupted
+2016-06-20 13:49:23, Info                  CSI    00005785 [SR] Cannot repair member file [l:8]"d3d9.dll" of Microsoft-Windows-DirectX-Direct3D9, version 10.0.10586.0, arch amd64, nonSxS, pkt {l:8 b:31bf3856ad364e35} in the store, hash mismatch
+2016-06-20 13:49:23, Info                  CSI    00005786 [SR] This component was referenced by [l:169]"Microsoft-Windows-Client-Features-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~10.0.10586.0.Microsoft-Windows-Client-Features-Package-AutoMerged-windows-Deployment"
+2016-06-20 13:49:23, Info                  CSI    00005789 [SR] Could not reproject corrupted file [l:23 ml:24]"\??\C:\WINDOWS\System32"\[l:8]"d3d9.dll"; source file in store is also corrupted
+2016-06-20 13:49:24, Info                  CSI    0000578b [SR] Repair complete
+2016-06-20 13:49:24, Info                  CSI    0000578c [SR] Committing transaction
+2016-06-20 13:49:24, Info                  CSI    00005791 [SR] Verify and Repair Transaction completed. All files and registry keys listed in this transaction  have been successfully repaired
+</pre>
+			<p>関係ありそうな部分のみ抜粋。『<code>...</code>』と前後の空行は省略部分。</p>
+			<figcaption><code class="filepath">C:&#xA5;Windows&#xA5;Logs&#xA5;CBS&#xA5;CBS.log</code></figcaption>
+		</figure>
+
+		<p>
+			この出力を見る限りでは、以下の3つのファイルが本来のものと異なっているようである。
+		</p>
+
+		<ul>
+			<li><code class="filepath">C:&#xA5;Windows&#xA5;System32&#xA5;d3d9.dll</code></li>
+			<li><code class="filepath">C:&#xA5;Windows&#xA5;SysWOW64&#xA5;d3d8.dll</code></li>
+			<li><code class="filepath">C:&#xA5;Windows&#xA5;SysWOW64&#xA5;d3d9.dll</code></li>
+		</ul>
+
+		<p>
+			やはり、DirectX関係のファイルが上書きされていたようだ。
+			予想通りであれば、これらを本来の(Microsoft純正の)ファイルに戻してやれば、トラブルを解決できるはずだ。
+		</p>
+	</section>
+</section>
+
+<section id="solved">
+	<h2>解決<a href="#solved" class="permalink"></a></h2>
+	<section id="original-directx-file">
+		<h3>オリジナルのDirectXファイル<a href="#original-directx-file"></a></h3>
+		<p>
+			さて、どこから純正のファイルを持ってくるか。
+			DirectXのインストーラ<sup id="ref-footnote-directx-installer" class="footnote"><a href="#footnote-directx-install">[*]</a></sup>から持ってこられればそれが楽なのだが、どうも実はこの中にあるcabファイルのどれを展開しても<code class="filepath">d3d9.dll</code>が存在しなかったのである。<br />
+			そんなわけで、手っ取り早く他のWindows 10
+			<sup id="ref-footnote-another-win10-machine" class="footnote"><a href="#footnote-another-win10-machine">[*]</a></sup>
+			から持ってくるのが楽であろう。
+		</p>
+
+		<p>
+			……というわけで持ってきた。<br />
+			ファイルのバージョン(「プロパティ」から確認できる)は<code>10.0.10586.0</code>であった。
+		</p>
+
+		<figure id="files-checksum">
+			<pre>
+c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be05385a59e0b00197bced4a2c918947503ab1301517a522ac150  System32/d3d9.dll
+5c32717d294526fc9c11e84cb7c39252d702ad4b6f406d882a37df6249722abbc673db4ac0cb8c3cafc5815cace0551805321cc8347862f2a1f0919c4bce076d  SysWOW64/d3d8.dll
+c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be05385a59e0b00197bced4a2c918947503ab1301517a522ac150  SysWOW64/d3d9.dll
+</pre>
+			<figcaption>バージョン<code>10.0.10586.0</code>の該当DirectXのDLLのsha512ハッシュ</figcaption>
+		</figure>
+
+		<p>
+			<small>なんだ、<code class="filepath">System32/d3d9.dll</code>と<code class="filepath">SysWOW64/d3d9.dll</code>って全く同じだったのか……</small>
+		</p>
+
+		<p>
+			これらの3ファイル(実質2ファイル)を置き換えればミッション達成となる。
+			しかし実はこういった重要なファイルはadmin権限でもっても通常の手段では削除等できなかったりするため、<a href="https://support.microsoft.com/ja-jp/kb/929833#mt3">上述のページの『破損したシステム ファイルを、正常なコピーであることが判明しているファイルに手動で置き換える方法』セクション</a>に従って所有権の変更等を行い、然る後にファイルをコピー(上書き)する。
+		</p>
+
+		<p>
+			コピーが完了すれば、作業は一応完了<sup id="ref-footnote-file-permission" class="footnote"><a href="#footnote-file-permission">[*]</a></sup>だ。
+			念のため再起動してからDirectXインストーラをもう一度くらい起動するのもアリだろう。
+			何か効果があるのかは知らないが。
+		</p>
+	</section>
+
+	<section id="result">
+		<h3>結果<a href="#result" class="permalink"></a></h3>
+		<ul>
+			<li>
+				ものべのをはじめとする各ゲームの<a href="../../15/erg-install-battle#fig-monobeno-dx9-error">起動時のエラー</a>は出なくなった
+				<ul>
+					<li>いずれも無事に起動できるようになった</li>
+					<li>しかし、あなオトのOPムービーでは音だけ再生され映像はブラックアウトした。まあひとまず本編は問題ないので良しとしよう。</li>
+				</ul>
+			</li>
+			<li><a href="../../15/erg-install-battle#anaoto-install-challenge-2">あなオトのautorunのエラー</a>は相変わらず出る。DirectXが原因ではないのかもしれない。</li>
+		</ul>
+		<div id="fig-games-run-success" class="independent-block grid-row">
+			<figure id="fig-anaoto-run-success" class="col-xs-12 col-sm-6">
+				<img src="anaoto-run-success.png" alt="あなオト起動成功の図" />
+				<figcaption>あなオト起動成功</figcaption>
+			</figure>
+			<figure class="col-xs-12 col-sm-6">
+				<img id="fig-maitetsu-run-success" src="maitetsu-run-success.png" alt="実際の結果" />
+				<figcaption>まいてつ起動成功</figcaption>
+			</figure>
+		</div>
+	</section>
+</section>
+
+<div class="footnotes">
+	<p id="footnote-directx-uninstall">
+			<a href="#ref-footnote-directx-uninstall">^</a>
+			<a href="http://answers.microsoft.com/en-us/windows/forum/windows_10-hardware/how-do-i-unistallreinstall-directx-on-windows-10/f703b4ef-74e1-434e-8fce-1e84743301a6?auth=1">How do I unistall/reinstall directx on Windows 10? - Microsoft Community</a>
+			(2016/06/20 参照)
+	</p>
+
+	<p id="footnote-directx-installer">
+		<a href="#ref-footnote-directx-installer">^</a>
+		<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">Download DirectX End-User Runtimes (June 2010) from Official Microsoft Download Center</a>
+		(2016/06/21 参照)
+	</p>
+
+	<p id="footnote-another-win10-machine">
+		<a href="#ref-footnote-another-win10-machine">^</a>
+		勿論、<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">目的のバージョンのDirectX</a>をインストール済であるべきだろう。
+	</p>
+
+	<p id="footnote-file-permission">
+		<a href="#ref-footnote-file-permission">^</a>
+		当然といえば当然ながら、<code class="filepath">d3d9.dll</code>とかは上書きしたユーザが所有者っぽい感じになるのだが、元通りTrustedInstallerユーザの所有に直すにはどうすればいいのかよくわからなかった。
+		まあセキュリティ的にはマズいかもしれないが、仮想マシンだしエロゲ動くようになったし、ひとまず放置することにする。
+	</p>
+</div>
