@@ -46,9 +46,8 @@ dd {
 }
 
 hr {
-	color: #ddd;
 	width: var(--hr-width, 50%);
-	border-top: 1px solid #aaa;
+	border-top: $hr-border-top;
 	margin: 0.8rem auto;
 }
 

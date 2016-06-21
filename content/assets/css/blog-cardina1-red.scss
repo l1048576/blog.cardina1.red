@@ -18,6 +18,8 @@ $grid-column-max: 12;
 // Unit size for vertical rhythm.
 $vertical-unit: 1.5rem;
 
+$hr-border-top: 1px solid #aaa;
+
 @import 'cardina1-red/font-face';
 
 // Common styles (which wouldn't be affected by screen size.
@@ -120,6 +122,25 @@ a.permalink::after {
 	visibility: visible;
 	text-decoration: none;
 	}
+}
+
+
+div.footnotes {
+	font-size: 80%;
+	&::before {
+		display: block;
+		border-top: $hr-border-top;
+		width: var(--hr-width, 50%);
+		content: " ";
+		margin: $vertical-unit auto;
+	}
+	p {
+		margin: 0.5em 0;
+	}
+}
+
+sup.footnote {
+	font-size: 80%;
 }
 
 
