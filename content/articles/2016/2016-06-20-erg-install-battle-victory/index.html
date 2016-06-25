@@ -38,8 +38,12 @@ excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 	<h2>調査<a href="#investigation" class="permalink"></a></h2>
 	<p>
 		ネイティブ環境のWindows 10で起動するとされていることと、DirectX 9のDLLでエラーが出ていることから、原因はVirtualBox特有でDirectX関連部分、すなわちVirtualBox Guest Additions(以下<strong>Guest Additions</strong>)によるDirect3D Support (Experimental)であろうと予想した。<br />
-		よって、Guest Additionにより上書きされたであろうDirectX関連ファイルをMicrosoft公式のものに上書きしてやれば元に戻るであろうと考えた。
+		よって、Guest Additionsにより上書きされたであろうDirectX関連ファイルをMicrosoft公式のものに上書きしてやれば元に戻るであろうと考えた。
 	</p>
+	<figure id="fig-forced-direct3d-support">
+		<img src="virtualbox-guest-additions-installer.png" alt="VitualBox Guest Additionsインストーラの図" />
+		<figcaption>Guest Additionsで強制的に有効化されてしまうDirect3D Support</figcaption>
+	</figure>
 
 	<section id="check-corruption-of-directx">
 		<h3>DirectX破損確認<a href="#check-corruption-of-directx" class="permalink"></a></h3>
@@ -57,6 +61,7 @@ excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 		</p>
 
 		<figure id="cmdlog-sfc-scannow">
+			<img src="sfc-scannow-done.png" alt="`sfc /scannow` コマンド実行完了の図" />
 			<pre class="code code-terminal">C:&#xA5;Users&#xA5;user1&gt;<kbd>sfc /scannow</kbd>
 システム スキャンを開始しています。これにはしばらく時間がかかります。
 
