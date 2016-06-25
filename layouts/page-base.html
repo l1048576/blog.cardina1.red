@@ -20,6 +20,8 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
+	<link rel="canonical" href="<%= @config[:base_url] + @item.path %>" />
+
 	<!-- atom feed -->
 	<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="何とは言わない天然水飲みたさ" />
 
@@ -28,6 +30,10 @@
 	<% end %>
 	<% if @next_uri %>
 		<link rel="next" href="<%= @next_uri %>" />
+	<% end %>
+
+	<% if excerpt = @item[:excerpt] %>
+		<meta name="description" content="<%= h excerpt %>" />
 	<% end %>
 
 	<%= render '/part/metadata-for-sns.*' %>
