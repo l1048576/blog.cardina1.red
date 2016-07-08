@@ -1,0 +1,156 @@
+---
+created_at: 2016-07-08T23:53:53+0900
+title: "C言語の条件演算子に関する雑記"
+htags:
+  - "computer/programming/language/C"
+  - "雑記"
+kind: article
+
+excerpt: "C言語での条件演算子についてちょっと悩んだことがあったのでメモとして簡単なまとめ。"
+---
+
+<section id="the-reason-middle-operand-is-not-conditional">
+	<h2>条件演算子の中央オペランド(第2オペランド)が<code>conditional-expression</code>でない理由<a href="#the-reason-middle-operand-is-not-conditional" class="permalink"></a></h2>
+	<p>
+		C11の規格(N1570)を見ると、条件演算子の文法はP467 (6.5.15)にて、以下のように記されている。
+		(文法はBNFで書き直したので、原文通りではない。)
+	</p>
+
+	<figure>
+		<!--pre><code class="lang-bnf language-bnf" data-lang="bnf"-->
+		<pre><code>
+conditional-expression : logical-OR-expression
+                       | logical-OR-expression '?' expression ':' conditional-expression
+                       ;
+</code></pre>
+		<figcaption><code>conditional-expression</code> (6.5.15)</figcaption>
+	</figure>
+
+	<p>
+		で、何故第2オペランドが<code>conditional-expression</code>ではなく<code>expression</code>なのかという話である。
+	</p>
+
+	<figure>
+		<!--pre><code class="lang-bnf language-bnf" data-lang="bnf"-->
+		<pre><code>
+assignment-expression : conditional-expression
+                      | unary-expression assignment-operator assignment-expression
+                      ;
+expression : assignment-expression
+           | expression ',' assignment-expression
+           ;
+</code></pre>
+		<figcaption><code>assignment-expression</code> (6.5.16), <code>expression</code> (6.5.17)</figcaption>
+	</figure>
+
+	<p>
+		その答えは、端的に言えば<strong>条件演算子の優先順位を一貫して代入演算子より高く見せるため</strong>である。
+	</p>
+
+	<p>
+		まず、単純な<code>a = 1 ? 2 : 3;</code>という文は、<code>expression</code>がまず最初に<code>assignment-expression</code>であるか確かめられるから、結局<code>a = (1 ? 2 : 3);</code>のように解釈されるはずである。<br />
+		つまり、<strong>条件演算子の優先順位は代入演算子より高く見える</strong>。
+	</p>
+
+	<p>
+		では次に、<code>a = 1 ? b = 2 ? 3 : 4 : 5;</code>という文を考えよう。
+		これには2通りの解釈が有り得る。
+	</p>
+
+	<ol>
+		<li>
+			<code>a = (1 ? ((b = 2) ? 3 : 4): 5);</code>
+		</li>
+		<li>
+			<code>a = (1 ? (b = (2 ? 3 : 4): 5);</code>
+		</li>
+	</ol>
+
+	<p>
+		<code>conditional-expression</code>にて<code>logical-OR-expression '?' <em>conditional-expression</em> ':' conditional-expression</code>のような文法が用いられていると、解釈1のように解釈されるはずである。
+		解釈1では、外側(aの代入文)では条件演算子の方が結合が強く見えるが、内側(bの代入文)では代入演算子の方が優先順位が高く見える。
+		これは一貫性を損なっている。
+	</p>
+	<p>
+		一方、本来のCでの定義(<code>logical-OR-expression '?' <em>expression</em> ':' conditional-expression</code>)では、解釈2のように見えるはずである。
+		これは外側と内側どちらにおいても、条件演算子の優先順位が代入演算子より高いように見え、一貫性が保たれている。
+	</p>
+	<p>
+		これが、中央オペランド(第2オペランド)が<code>conditional-expression</code>ではなく<code>expression</code>で定義されている理由である。
+	</p>
+
+	<section id="middle-operand-in-cplusplus">
+		<h3>C++における中央オペランド(第2オペランド)の文法<a href="#middle-operand-in-cplusplus" class="permalink"></a></h3>
+		<p>
+			C++14の規格(N3797)においては、条件演算子の文法はCとは若干異なり、以下のように定義されている。
+		</p>
+
+		<figure>
+			<!--pre><code class="lang-bnf language-bnf" data-lang="bnf"-->
+			<pre><code>
+conditional-expression : logical-or-expression
+                       | logical-or-expression '?' expression ':' assignment-expression
+                       ;
+assignment-expression : conditional-expression
+                      | logical-or-expression assignment-operator initializer-clause
+                      | throw-expression
+                      ;
+expression : assignment-expression
+           | expression ',' assignment-expression
+           ;
+</code></pre>
+			<figcaption><code>conditional-expression</code>, <code>assignment-expression</code>, <code>expression</code> 抜粋(N3797 P1208より)</figcaption>
+		</figure>
+
+		<p>
+			Cと異なり、条件演算子の第3オペランドが<code>conditional-expression</code>ではなく<code>assignment-expression</code>となっている。
+			この違いの影響は、<a href="https://ja.wikipedia.org/wiki/C%E3%81%A8C%2B%2B%E3%81%AE%E6%BC%94%E7%AE%97%E5%AD%90#.E8.A3.9C.E8.B6.B3">Wikipedia</a>で例示されている、<code>e = a ? b : c = d;</code>のような文において現れる。
+		</p>
+		<p>
+			Cのように第3オペランドが<code>conditional-expression</code>であれば、<code>e = ((a ? b : c) = d);</code>のように解釈され、条件演算子が代入の左辺となる。
+			これはC言語においてはエラーである。
+			(一応、大昔にはこれを可能にするgcc拡張も存在した。<a href="#gcc-generalized-lvalue-extension">後述</a>。)
+		</p>
+		<p>
+			一方、C++のように第3オペランドが<code>assignment-expression</code>であれば、<code>e = (a ? b : (c = d));</code>のように解釈される。
+			C++特有の機能を使っていないからと言って、拡張子を<code>c</code>に直してしまうとコンパイルが通らなくなる例だ。
+		</p>
+	</section>
+</section>
+
+<section id="gcc-generalized-lvalue-extension">
+	<h2>条件演算子による式を左辺値として使えるようにするgcc拡張<a href="#gcc-generalized-lvalue-extension" class="permalink"></a></h2>
+	<p>
+		私の記憶では、gcc独自拡張によって、C言語でも条件演算子による式を左辺値として使えるはずだったのだが、wandbox(gcc-4.8.2)で試してみたところ、コンパイルが通らなかった。
+	</p>
+	<p>
+		不思議に思って調べてみた結果が以下の通りだ。
+	</p>
+
+	<ul>
+		<li>
+			<a href="https://gcc.gnu.org/onlinedocs/gcc-3.4.6/gcc/Lvalues.html#Lvalues">Lvalues - Using the GNU Compiler Collection (GCC)</a>
+			<ul>
+				<li>gcc-3.4.6 (gcc-3の最後のバージョン、<time datetime="2016-03-06">2006/03/06</time>リリース)における、当該拡張のドキュメント。</li>
+				<li>
+					<blockquote>
+						Lvalues: Using `?:', `,' and casts in lvalues.
+					</blockquote>
+				</li>
+				<li>条件演算子どころか、コンマやキャストによる式でさえも左辺値にできるという拡張である。</li>
+			</ul>
+		</li>
+		<li>
+			<a href="https://gcc.gnu.org/onlinedocs/gcc-4.0.0/gcc/C-Extensions.html#C-Extensions">C Extensions - Using the GNU Compiler Collection (GCC)</a>
+			<ul>
+				<li>gcc-4.0.0 (gcc-4の最初のバージョン、<time datetime="2005-04-20">2005/04/20</time>リリース)における、C拡張一覧のドキュメント。</li>
+				<li><strong>Lvalues拡張が消えている</strong>。</li>
+			</ul>
+		</li>
+	</ul>
+
+	<p>
+		どうやら10年以上前に廃止された拡張だったらしい。<br />
+		コンパイラ拡張をできるだけ使わないように生きてきたとはいえ、今日に至るまで全く気付かなかったのは結構ショックだ。
+	</p>
+</section>
