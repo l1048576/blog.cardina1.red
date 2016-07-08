@@ -1,0 +1,158 @@
+---
+created_at: 2016-07-08T16:27:46+0900
+title: "C言語での\"return\"は他動詞ではなく自動詞"
+htags:
+  - "computer/programming/language/C"
+  - "入門"
+kind: article
+
+excerpt: "C言語での\"return\"文は「値を返す」ものと解釈されがちだが、実際には単に「帰る(返る)」ものである。値を連れて返るのは追加機能だ。"
+---
+
+<section id="two-sorts-of-return">
+	<h2>2種類の"return"<a href="#two-sorts-of-return" class="permalink"></a></h2>
+	<p>
+		C言語において、関数は戻り値を返したり返さなかったりする。
+	</p>
+
+	<figure id="code-test-c">
+		<pre><code class="lang-c language-c" data-lang="c">// Function with return value.
+int add3(int x) {
+    return x + 3;  // (1)
+}
+
+// Function without return value.
+void do_nothing(void) {
+    // Return explicitly.
+    return;  // (2)
+}</code></pre>
+		<figcaption><code class="filepath">test.c</code></figcaption>
+	</figure>
+
+	<p>
+		ここで、(1)のような<code>return</code>を「値を返す」ものだと思い込んでしまっていると、(2)の<code>return;</code>の意味がわからなくなることがあるらしい。<br />
+		この記事では、C言語におけるreturnが「返す」ものでなく「帰る(返る)」ものと捉える方が自然であることを、コンパイル結果を見ながら示していく。
+	</p>
+</section>
+
+<section id="think-at-assembly-level">
+	<h2>アセンブリレベルで見る<a href="#think-at-assembly-level" class="permalink"></a></h2>
+	<p>
+		ひとまず上記のtest.cをコンパイルした結果をアセンブリ言語で見てみよう。
+		環境は 64 bit Linux, gcc-5.4.0 である。
+	</p>
+
+	<figure id="cmdlog-compile-and-objdump">
+
+			<pre class="code code-terminal">
+$ <kbd>uname -a</kbd>
+Linux veg 4.6.3-gentoo #1 SMP PREEMPT Sun Jul 3 10:47:16 JST 2016 x86_64 Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz GenuineIntel GNU/Linux
+$ <kbd>gcc --version</kbd>
+gcc (Gentoo 5.4.0 p1.0, pie-0.6.5) 5.4.0
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+$ <kbd>gcc -O0 -c test.c</kbd>
+$ <kbd>objdump -d -M intel test.o >test.c-objdump</kbd>
+</code></pre>
+		<figcaption>コンパイルと逆アセンブル</figcaption>
+	</figure>
+
+	<figure id="code-test-o">
+		<pre><code class="lang-c-objdump language-c-objdump" data-lang="c-objdump">
+test.o:     ファイル形式 elf64-x86-64
+
+
+セクション .text の逆アセンブル:
+
+0000000000000000 &lt;add3&gt;:
+   0: 55                    push   rbp
+   1: 48 89 e5              mov    rbp,rsp
+   4: 89 7d fc              mov    DWORD PTR [rbp-0x4],edi
+   7: 8b 45 fc              mov    eax,DWORD PTR [rbp-0x4]
+   a: 83 c0 03              add    eax,0x3
+   d: 5d                    pop    rbp
+   e: c3                    ret    
+
+000000000000000f &lt;do_nothing&gt;:
+   f: 55                    push   rbp
+  10: 48 89 e5              mov    rbp,rsp
+  13: 90                    nop
+  14: 5d                    pop    rbp
+  15: c3                    ret    
+</code></pre>
+		<figcaption><code class="filepath">test.c-objdump</code></figcaption>
+	</figure>
+
+	<p>
+		これらのうち、コンパイラが自動生成した箇所を除いてC言語っぽく書き直してみると、以下のようになる。
+	</p>
+
+	<figure>
+		<pre><code class="lang-c language-c" data-lang="c">
+// Get the 1st argument.
+EAX = *((DWORD *)(rbp-0x4));  // mov    eax,DWORD PTR [rbp-0x4]
+// Add 3.
+EAX += 3;  // add    eax,0x3
+// Return.
+return;  // ret
+</code></pre>
+		<figcaption><code>add3</code></figcaption>
+	</figure>
+	<figure>
+		<pre><code class="lang-c language-c" data-lang="c">
+// Do nothing.
+;  // nop
+// Return.
+return;  // ret
+</code></pre>
+		<figcaption><code>do_nothing</code></figcaption>
+	</figure>
+
+	<p>
+		値を返す場合も何もせず返る場合も、全く同じ<code>ret</code>命令が呼ばれているのである。<br />
+		<code>ret</code>命令は、だいたい「関数の呼び出し元のアドレスにジャンプする」のような動作を行う、言ってみればgotoのようなものである<sup id="ref-footnote-ret-op" class="footnote"><a href="#footnote-ret-op">[*]</a></sup>。
+	</p>
+	<p>
+		では、<code>add3()</code>では第1引数に3を足した値を返すが、これはどうやって呼び出し元に伝えられているのか。<br />
+		実は、戻り値は呼び出された関数が特定のレジスタ(CPU内の記憶領域)、ここでは<code>EAX</code>に格納し、呼び出し元がそのレジスタを参照することで値を得る、という決まりになっているのである<sup id="ref-footnote-calling-convention" class="footnote"><a href="#footnote-calling-convention">[*]</a></sup>。
+	</p>
+	<p>
+		すなわち<code>return</code>には本来、単に「<strong>関数の呼び出し元アドレスへ戻る</strong>」という自動詞的な意味しかなく、値を返すというのは「<strong>約束の場所に値を置いておく</strong>」という利便性のための<strong>追加機能</strong>である、と考えると自然である。
+	</p>
+</section>
+
+<section id="who-does-return">
+	<h2>おまけ: 誰が(何が)返るのか<a href="#who-does-return" class="permalink"></a></h2>
+	<p>
+		<code>return</code>が「関数の呼び出し元アドレスへ戻る」という意味なのは良いとして、その主語は何なのか。<br />
+		これは「<strong>処理</strong>」であると考えられる。<br />
+		「処理が進む」とか「処理が止まる」とか、そういう文脈での「処理」であって、プログラムやアルゴリズム自体を指しての「処理」ではない。
+	</p>
+	<p>
+		もっと言えば、ここでの「処理」とは実際には「実行中の命令が格納されているメモリアドレス上にいる仮想的な存在」のようなもの<sup id="ref-footnote-tm-head" class="footnote"><a href="#footnote-tm-head">[*]</a></sup>である。
+		(或いは、コードの実行されている行をちょこちょこ走る小人のようなものを想定しても良いだろう。)<br />
+		プログラマにとって身近なものでは、プログラムカウンタ(x86であれば<code>EIP</code>、x64であれば<code>RIP</code>)が近いかもしれない。
+	</p>
+</section>
+
+<aside class="footnotes">
+	<p id="footnote-ret-op">
+		<a href="#ref-footnote-ret-op">^</a>
+		実際は戻り先アドレスを取得するためのコールスタックの操作を伴うが、まあそこは今回の話題に関係ないのでスルーだ。
+	</p>
+
+	<p id="footnote-calling-convention">
+		<a href="#ref-footnote-calling-convention">^</a>
+		これを<a href="https://ja.wikipedia.org/wiki/%E5%91%BC%E5%87%BA%E8%A6%8F%E7%B4%84">呼出規約</a>(<a href="https://en.wikipedia.org/wiki/X86_calling_conventions">calling convention</a>)という。
+		今回例を示した64bit Linuxにおいては、<a href="https://ja.wikipedia.org/wiki/%E5%91%BC%E5%87%BA%E8%A6%8F%E7%B4%84#System_V_AMD64_ABI_.E5.91.BC.E5.87.BA.E8.A6.8F.E7.B4.84">System V AMD64 ABI</a><small>(<a href="https://en.wikipedia.org/wiki/X86_calling_conventions#System_V_AMD64_ABI">英語</a>)</small>が利用されており、戻り値は<code>RAX</code>レジスタに格納されるが、<code>EAX</code>は<code>RAX</code>の下位32bitであり、これに対して<code>add</code>命令を行うと、上位32bitは自動的にゼロクリアされる。
+	</p>
+
+	<p id="footnote-tm-head">
+		<a href="#ref-footnote-tm-head">^</a>
+		そもそも現代のコンピュータやプログラムの多くは、大元では<a href="https://ja.wikipedia.org/wiki/%E3%83%81%E3%83%A5%E3%83%BC%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%9E%E3%82%B7%E3%83%B3">チューリングマシン</a>というコンピュータのモデルに基いている。
+		チューリングマシンとは、簡単に言えば「無限に長いテープに情報(プログラムとデータ両方)が乗っており、テープ上のデータを読めるヘッドが存在し、そのヘッドが前後(あるいは左右)に動きながらテープを書き換え、最終的に結果をテープ上に残して停止する」というような機械である。
+		この機械を念頭に喩えるなら、「処理」とは「チューリングマシンのヘッド」のようなものと考えてもいいかもしれない。
+	</p>
+</aside>

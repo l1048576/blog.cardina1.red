@@ -1,0 +1,21 @@
+
+test.o:     ファイル形式 elf64-x86-64
+
+
+セクション .text の逆アセンブル:
+
+0000000000000000 <add3>:
+   0:	55                   	push   rbp
+   1:	48 89 e5             	mov    rbp,rsp
+   4:	89 7d fc             	mov    DWORD PTR [rbp-0x4],edi
+   7:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
+   a:	83 c0 03             	add    eax,0x3
+   d:	5d                   	pop    rbp
+   e:	c3                   	ret    
+
+000000000000000f <do_nothing>:
+   f:	55                   	push   rbp
+  10:	48 89 e5             	mov    rbp,rsp
+  13:	90                   	nop
+  14:	5d                   	pop    rbp
+  15:	c3                   	ret    
