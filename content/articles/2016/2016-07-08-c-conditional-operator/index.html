@@ -1,5 +1,6 @@
 ---
 created_at: 2016-07-08T23:53:53+0900
+updated_at: 2016-07-09T10:27:55+0900
 title: "C言語の条件演算子に関する雑記"
 htags:
   - "computer/programming/language/C"
@@ -44,39 +45,18 @@ expression : assignment-expression
 	</figure>
 
 	<p>
-		その答えは、端的に言えば<strong>条件演算子の優先順位を一貫して代入演算子より高く見せるため</strong>である。
-	</p>
-
-	<p>
-		まず、単純な<code>a = 1 ? 2 : 3;</code>という文は、<code>expression</code>がまず最初に<code>assignment-expression</code>であるか確かめられるから、結局<code>a = (1 ? 2 : 3);</code>のように解釈されるはずである。<br />
-		つまり、<strong>条件演算子の優先順位は代入演算子より高く見える</strong>。
-	</p>
-
-	<p>
-		では次に、<code>a = 1 ? b = 2 ? 3 : 4 : 5;</code>という文を考えよう。
-		これには2通りの解釈が有り得る。
-	</p>
-
-	<ol>
-		<li>
-			<code>a = (1 ? ((b = 2) ? 3 : 4): 5);</code>
-		</li>
-		<li>
-			<code>a = (1 ? (b = (2 ? 3 : 4): 5);</code>
-		</li>
-	</ol>
-
-	<p>
-		<code>conditional-expression</code>にて<code>logical-OR-expression '?' <em>conditional-expression</em> ':' conditional-expression</code>のような文法が用いられていると、解釈1のように解釈されるはずである。
-		解釈1では、外側(aの代入文)では条件演算子の方が結合が強く見えるが、内側(bの代入文)では代入演算子の方が優先順位が高く見える。
-		これは一貫性を損なっている。
+		その答えは、第2オペランドに代入式を許可するためである。
 	</p>
 	<p>
-		一方、本来のCでの定義(<code>logical-OR-expression '?' <em>expression</em> ':' conditional-expression</code>)では、解釈2のように見えるはずである。
-		これは外側と内側どちらにおいても、条件演算子の優先順位が代入演算子より高いように見え、一貫性が保たれている。
+		<code>1 ? a = 2 : 3;</code>という文を考えてみる。<br />
+		Cの定義通り第2オペランドが<code>expression</code>であれば、<code>a = 2</code>は<code>expression</code>として処理される。
 	</p>
 	<p>
-		これが、中央オペランド(第2オペランド)が<code>conditional-expression</code>ではなく<code>expression</code>で定義されている理由である。
+		しかし、第2オペランドを<code>conditional-expression</code>としてしまうと、<code>a = 2</code>は<code>logical-OR-expression</code>として解釈することはできず、代入式を<code>logical-OR-expression</code>とするには<code>(a = 2)</code>のようにparenで括らなくてはならない。
+	</p>
+	<p>
+		よって、括弧なしで第2オペランドに生の代入式を使うためには、<code>conditional-expression</code>でなく<code>expression</code>を使わなければいけないのである。<br />
+		(ちなみに、<code>assignment-expression</code>でも代入式は直接使えるようになるが、コンマがparenなしで使えなくなる。)
 	</p>
 
 	<section id="middle-operand-in-cplusplus">
