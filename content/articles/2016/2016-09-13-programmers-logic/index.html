@@ -1,0 +1,77 @@
+---
+created_at: 2016-09-13T10:52:56+0900
+title: "プログラマの論理"
+htags:
+  - "computer/programming"
+  - "日常"
+  - "つらぽよ"
+kind: article
+
+excerpt: "プログラマは洗濯物を入れないことがある。"
+---
+
+<section id="event">
+	<h2>事象<a href="#event" class="permalink"></a></h2>
+	<p>
+		先週の出来事。
+	</p>
+
+	<blockquote>
+		私「今日学校行くことになるかもしれん」<br />
+		母「出るなら洗濯物入れてって」<br />
+		<br />
+		私の脳内: <code>self.set_hook(BEFORE, 外出, function(){self.洗濯物を入れる()});</code><br />
+		<br />
+		私「んー」<br />
+		<br />
+		〜夜〜<br />
+		<br />
+		母「なんで洗濯物入れなかったの！」<br />
+		私「外に出なかったから……」
+	</blockquote>
+
+	<p>
+		理不尽だ。
+		外に出なかった場合の動作は未規定なので実装依存のはずである。
+	</p>
+</section>
+
+<section id="their-claim">
+	<h2>母に味方する主張<a href="#their-claim" class="permalink"></a></h2>
+	<p>
+		最適化で命令を単純化すべきである。
+		すなわち、条件分岐をなくし、常に一定のタイミングで洗濯物を入れるよう動作すべきである。
+	</p>
+</section>
+
+<section id="our-claim">
+	<h2>私に味方する主張<a href="#our-claim" class="permalink"></a></h2>
+	<p>
+		最適化でパフォーマンスを向上すべきである。
+		すなわち、可能な場合常に洗濯物を入れないべきである。
+	</p>
+</section>
+
+<section id="lesson">
+	<h2>教訓<a href="#lesson" class="permalink"></a></h2>
+	<p>
+		実装依存の挙動は怖い。
+	</p>
+</section>
+
+<section id="references">
+	<h2>参考資料<a href="#references" class="permalink"></a></h2>
+	<ul>
+		<li>
+			<p>
+				<a href="http://dailynewsagency.com/2011/02/16/programmer_joke/">「プログラマにお使いを頼んだら……」ジョークが海外の掲示板で人気 - DNA </a>
+			</p>
+			<blockquote>
+				“Could you please go shopping for me and buy one carton of milk, and if they have eggs, get 6!”<br />
+				A short time later the husband comes back with 6 cartons of milk.<br />
+				The wife asks him, “Why the hell did you buy 6 cartons of milk?”<br />
+				He replied, “They had eggs.”
+			</blockquote>
+		</li>
+	</ul>
+</section>
