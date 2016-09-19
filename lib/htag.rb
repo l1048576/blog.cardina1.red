@@ -175,7 +175,7 @@ module Larry
 
     def print_tagtree(tag_node, tagpage_base_dir, node_text=nil, buffer: nil, options: {})
       buffer ||= ''.dup
-      node_text ||= link_to_htag(tag_node, tagpage_base_dir, options)
+      node_text ||= link_to_htag(tag_node, tagpage_base_dir, options: options)
       if (tag_node.children.count == 1) && tag_node.item_exact.empty?
         # Use concatenated `current/child` style.
         child = tag_node.children[0]
