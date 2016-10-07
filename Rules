@@ -93,12 +93,12 @@ end
 
 # /articles/**/yyyy-mm-dd-slug/**/index.{html,adoc} => /yyyy/mm/dd/slug/**/index.html
 # /articles/**/yyyy-mm-dd-slug/**/*.{html,adoc} => /yyyy/mm/dd/slug/**/*/index.html
-route %r[^/articles/(?:.+?/)?(\d{4})-(\d{2})-(\d{2})-(.+?)(?:/index)?\.(?:html|adoc)$] do |yyyy, mm, dd, slug_relpath|
+route %r[^/articles/(?:[^/]+/)*(\d{4})-(\d{2})-(\d{2})-(.+?)(?:/index)?\.(?:html|adoc)$] do |yyyy, mm, dd, slug_relpath|
   "/#{yyyy}/#{mm}/#{dd}/#{slug_relpath}/index.html"
 end
 
 # /articles/**/yyyy-mm-dd-slug/* => /yyyy/mm/dd/slug/*
-route %r[^/articles/(?:.+?/)?(\d{4})-(\d{2})-(\d{2})-(.+)$] do |yyyy, mm, dd, slug_relpath|
+route %r[^/articles/(?:[^/]+/)*(\d{4})-(\d{2})-(\d{2})-(.+)$] do |yyyy, mm, dd, slug_relpath|
   "/#{yyyy}/#{mm}/#{dd}/#{slug_relpath}"
 end
 
