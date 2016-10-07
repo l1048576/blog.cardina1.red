@@ -96,5 +96,5 @@ base_url: 'https://blog.cardina1.red'
 deploy:
     default:
         kind: rsync
-        dst: "larry@rsync.cardina1.red::blog-cardina1-red"
-        options: [ "-crOtzvhl", "--checksum", "--delete-after", "--password-file=/home/larry/.rsync/larry--rsync_cardina1_red.passwd" ]
+        dst: "www@blog.cardina1.red:"
+        options: [ "-av", "--checksum", "--delete-after", "-e", "ssh -i ~/.ssh/id_ed25519.www@blog.cardina1.red" ]
