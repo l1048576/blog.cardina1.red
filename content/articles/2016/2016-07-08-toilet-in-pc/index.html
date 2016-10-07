@@ -38,7 +38,7 @@ excerpt: "コンピュータにもトイレは必要だし、リビングでウ�
 			仮想環境とは、親の(大抵はコンピュータ上で直接動いている)環境から隔離された、仮想的なコンピュータやOSのこと、またそれらを動かすためのソフトウェアのことである。<br />
 			喩えて言うなら、この世界を親環境とすれば、夢の中や創作などが仮想環境である。
 			夢の中でいくらウンコをしようと、現実世界は臭くならない。
-			(尤も、夢の中でウンコをしたと思ったら現実でも漏らしていることはあるが、これは<strong>脆弱性</strong><sup id="ref-footnote-vulnerability" class="footnote"><a href="#footnote-vulnerability">[*]</a></sup>である。)
+			(尤も、夢の中でウンコをしたと思ったら現実でも漏らしていることはあるが、これは<a aria-describedby="footnote-label" id="ref-footnote-vulnerability" href="#footnote-vulnerability"><strong>脆弱性</strong></a>である。)
 		</p>
 		<p>
 			仮想環境の典型例は<strong>仮想マシン</strong>である。
@@ -48,7 +48,7 @@ excerpt: "コンピュータにもトイレは必要だし、リビングでウ�
 		</p>
 		<p>
 			この制約によって、危険なプログラムやデータ、あまりに巨大で環境を汚すようなソフトウェア等を隔離して、他への影響を与えないようにできる。<br />
-			これが役に立つのは、典型的にはコンピュータウイルス感染やサイバー攻撃<sup id="ref-footnote-usage-of-virtual-environment-1" class="footnote"><a href="#footnote-usage-of-virtual-environment-1">[*]</a></sup>、データやシステム破壊等のリスクがある場合である<sup id="ref-footnote-usage-of-virtual-environment-2" class="footnote"><a href="#footnote-usage-of-virtual-environment-2">[*]</a></sup>。
+			これが役に立つのは、典型的にはコンピュータウイルス感染やサイバー攻撃<a aria-describedby="footnote-label" id="ref-footnote-usage-of-virtual-environment-1" href="#footnote-usage-of-virtual-environment-1"></a>、データやシステム破壊等のリスクがある場合である<a aria-describedby="footnote-label" id="ref-footnote-usage-of-virtual-environment-2" href="#footnote-usage-of-virtual-environment-2"></a>。
 		</p>
 		<p>
 			さて、Windowsはウンコであるし、使っていればいろいろな良くない臭いが漏れ出してくる。
@@ -109,22 +109,26 @@ excerpt: "コンピュータにもトイレは必要だし、リビングでウ�
 </section>
 
 <aside class="footnotes">
-	<p id="footnote-vulnerability">
-		<a href="#ref-footnote-vulnerability">^</a>
-		実際の(というかコンピュータ上の)仮想環境でも同じようなことはあって、本来隔離されていて親環境には影響のないはずの行動が、親環境に影響を与えてしまうことがある。
-		これを悪用されると、せっかく隔離したウンコの臭いが外に漏れ出して大変なことになってしまう。
-	</p>
+	<h1 class="footnote-label">脚注</h1>
+	<ol>
+		<li id="footnote-vulnerability">
+			実際の(というかコンピュータ上の)仮想環境でも同じようなことはあって、本来隔離されていて親環境には影響のないはずの行動が、親環境に影響を与えてしまうことがある。
+			これを悪用されると、せっかく隔離したウンコの臭いが外に漏れ出して大変なことになってしまう。
+			<a href="#ref-footnote-vulnerability" aria-label="Back to content">&#x21B5;</a>
+		</li>
 
-	<p id="footnote-usage-of-virtual-environment-1">
-		<a href="#ref-footnote-usage-of-virtual-environment-1">^</a>
-		たとえばWebサービス等の動くサーバは、様々な攻撃のリスクに晒されている。
-		外部に露出するサービスを仮想環境上で動かしていれば、もし攻撃に負けてマシンを乗っ取られても親の環境には影響がなく、汚染された仮想環境を破棄して作り直せば済むので、仮想環境はそういった用途でよく活用されている。
-		(サーバ用途でよく使われるものとして、<a href="https://www.docker.com/">Docker</a>などが有名だ。)
-	</p>
-	<p id="footnote-usage-of-virtual-environment-2">
-		<a href="#ref-footnote-usage-of-virtual-environment-2">^</a>
-		アプリケーションやOSの開発などにも使われることがある。
-		もしバグなどでシステムやデータを破壊するような事態が発生してしまっても、隔離された環境であれば親環境へ悪影響を及ぼさずに済むからだ。
-		この特徴を活用して、コンピュータウイルスの解析などにも仮想環境は使われている。
-	</p>
+		<li id="footnote-usage-of-virtual-environment-1">
+			たとえばWebサービス等の動くサーバは、様々な攻撃のリスクに晒されている。
+			外部に露出するサービスを仮想環境上で動かしていれば、もし攻撃に負けてマシンを乗っ取られても親の環境には影響がなく、汚染された仮想環境を破棄して作り直せば済むので、仮想環境はそういった用途でよく活用されている。
+			(サーバ用途でよく使われるものとして、<a href="https://www.docker.com/">Docker</a>などが有名だ。)
+			<a href="#ref-footnote-usage-of-virtual-environment-1" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-usage-of-virtual-environment-2">
+			アプリケーションやOSの開発などにも使われることがある。
+			もしバグなどでシステムやデータを破壊するような事態が発生してしまっても、隔離された環境であれば親環境へ悪影響を及ぼさずに済むからだ。
+			この特徴を活用して、コンピュータウイルスの解析などにも仮想環境は使われている。
+			<a href="#ref-footnote-usage-of-virtual-environment-2" aria-label="Back to content">&#x21B5;</a>
+		</li>
+	</ol>
 </aside>

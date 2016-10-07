@@ -125,25 +125,6 @@ a.permalink::after {
 }
 
 
-aside.footnotes {
-	font-size: 80%;
-	&::before {
-		display: block;
-		border-top: $hr-border-top;
-		width: var(--hr-width, 50%);
-		content: " ";
-		margin: $vertical-unit auto;
-	}
-	p {
-		margin: 0.5em 0;
-	}
-}
-
-sup.footnote {
-	font-size: 80%;
-}
-
-
 .created-at p {
 	line-height: $vertical-unit;
 	margin: initial;
@@ -179,6 +160,61 @@ ul.htags {
 			@include font-awesome("\f02b\20");
 		}
 	}
+}
+
+
+// Footnote.
+// See https://www.sitepoint.com/accessible-footnotes-css/ .
+
+aside.footnotes {
+	font-size: 80%;
+	margin-bottom: $vertical-unit;
+	&::before {
+		display: block;
+		border-top: $hr-border-top;
+		width: var(--hr-width, 50%);
+		content: " ";
+		margin: $vertical-unit auto;
+	}
+	h1 {
+		margin-top: 0;
+		font-size: 1.8em;
+	}
+	p {
+		margin: 0.5em 0;
+	}
+	:target {
+		background: yellow;
+	}
+}
+article {
+	counter-reset: footnotes;
+}
+a[aria-describedby="footnote-label"] {
+	// Increment counter.
+	counter-increment: footnotes;
+	// Reset link style to make it appear like regular text.
+	text-decoration: none;
+	color: inherit;
+	cursor: default;
+	outline: none;
+
+	&::after {
+		content: '[' counter(footnotes) ']';
+		vertical-align: super;
+		font-size: 0.5em;
+		margin-left: 0.1em;
+		color: blue;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	&:focus::after {
+		outline: thin dotted;
+		outline-offset: 0.1em;
+	}
+}
+[aria-label="Back to content"] {
+	font-size: 80%;
 }
 
 

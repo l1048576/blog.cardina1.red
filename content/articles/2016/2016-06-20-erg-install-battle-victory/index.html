@@ -1,5 +1,6 @@
 ---
 created_at: 2016-06-20T18:55:17+0900
+updated_at: 2016-10-07T16:28:38+0900
 title: "エロゲインストールバトルに勝利"
 htags:
   - "computer/windows/10"
@@ -48,7 +49,7 @@ excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 	<section id="check-corruption-of-directx">
 		<h3>DirectX破損確認<a href="#check-corruption-of-directx" class="permalink"></a></h3>
 		<p>
-			普通のライブラリであればアンインストールするところだが、WindowsではDirectXのアンインストールは普通の手段ではできないことになっている<sup id="ref-footnote-directx-uninstall" class="footnote"><a href="#footnote-directx-uninstall">[*]</a></sup>。
+			普通のライブラリであればアンインストールするところだが、WindowsではDirectXのアンインストールは普通の手段ではできないことになっている<a aria-describedby="footnote-label" id="ref-footnote-directx-uninstall" href="#footnote-directx-uninstall"></a>。
 			ということはこのファイルはWindows自身によって管理されているということであるから、システムファイルの破損チェックで改竄を確認できるはずである。
 		</p>
 		<p>
@@ -157,10 +158,8 @@ C:&#xA5;Users&#xA5;user1&gt;
 		<h3>オリジナルのDirectXファイル<a href="#original-directx-file"></a></h3>
 		<p>
 			さて、どこから純正のファイルを持ってくるか。
-			DirectXのインストーラ<sup id="ref-footnote-directx-installer" class="footnote"><a href="#footnote-directx-install">[*]</a></sup>から持ってこられればそれが楽なのだが、どうも実はこの中にあるcabファイルのどれを展開しても<code class="filepath">d3d9.dll</code>が存在しなかったのである。<br />
-			そんなわけで、手っ取り早く他のWindows 10
-			<sup id="ref-footnote-another-win10-machine" class="footnote"><a href="#footnote-another-win10-machine">[*]</a></sup>
-			から持ってくるのが楽であろう。
+			DirectXのインストーラ<a aria-describedby="footnote-label" id="ref-footnote-directx-installer" href="#footnote-directx-installer"></a>から持ってこられればそれが楽なのだが、どうも実はこの中にあるcabファイルのどれを展開しても<code class="filepath">d3d9.dll</code>が存在しなかったのである。<br />
+			そんなわけで、手っ取り早く他のWindows 10<a aria-describedby="footnote-label" id="ref-footnote-another-win10-machine" href="#footnote-another-win10-machine"></a>から持ってくるのが楽であろう。
 		</p>
 
 		<p>
@@ -187,7 +186,7 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 		</p>
 
 		<p>
-			コピーが完了すれば、作業は一応完了<sup id="ref-footnote-file-permission" class="footnote"><a href="#footnote-file-permission">[*]</a></sup>だ。
+			コピーが完了すれば、作業は一応完了<a aria-describedby="footnote-label" id="ref-footnote-file-permission" href="#footnote-file-permission"></a>だ。
 			念のため再起動してからDirectXインストーラをもう一度くらい起動するのもアリだろう。
 			何か効果があるのかは知らないが。
 		</p>
@@ -219,26 +218,29 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 </section>
 
 <aside class="footnotes">
-	<p id="footnote-directx-uninstall">
-			<a href="#ref-footnote-directx-uninstall">^</a>
+	<h1 class="footnote-label">脚注</h1>
+	<ol>
+		<li id="footnote-directx-uninstall">
 			<a href="http://answers.microsoft.com/en-us/windows/forum/windows_10-hardware/how-do-i-unistallreinstall-directx-on-windows-10/f703b4ef-74e1-434e-8fce-1e84743301a6?auth=1">How do I unistall/reinstall directx on Windows 10? - Microsoft Community</a>
 			(2016/06/20 参照)
-	</p>
+			<a href="#ref-footnote-directx-uninstall" aria-label="Back to content">&#x21B5;</a>
+		</li>
 
-	<p id="footnote-directx-installer">
-		<a href="#ref-footnote-directx-installer">^</a>
-		<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">Download DirectX End-User Runtimes (June 2010) from Official Microsoft Download Center</a>
-		(2016/06/21 参照)
-	</p>
+		<li id="footnote-directx-installer">
+			<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">Download DirectX End-User Runtimes (June 2010) from Official Microsoft Download Center</a>
+			(2016/06/21 参照)
+			<a href="#ref-footnote-directx-installer" aria-label="Back to content">&#x21B5;</a>
+		</li>
 
-	<p id="footnote-another-win10-machine">
-		<a href="#ref-footnote-another-win10-machine">^</a>
-		勿論、<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">目的のバージョンのDirectX</a>をインストール済であるべきだろう。
-	</p>
+		<li id="footnote-another-win10-machine">
+			勿論、<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">目的のバージョンのDirectX</a>をインストール済であるべきだろう。
+			<a href="#ref-footnote-another-win10-machine" aria-label="Back to content">&#x21B5;</a>
+		</li>
 
-	<p id="footnote-file-permission">
-		<a href="#ref-footnote-file-permission">^</a>
-		当然といえば当然ながら、<code class="filepath">d3d9.dll</code>とかは上書きしたユーザが所有者っぽい感じになるのだが、元通りTrustedInstallerユーザの所有に直すにはどうすればいいのかよくわからなかった。
-		まあセキュリティ的にはマズいかもしれないが、仮想マシンだしエロゲ動くようになったし、ひとまず放置することにする。
-	</p>
+		<li id="footnote-file-permission">
+			当然といえば当然ながら、<code class="filepath">d3d9.dll</code>とかは上書きしたユーザが所有者っぽい感じになるのだが、元通りTrustedInstallerユーザの所有に直すにはどうすればいいのかよくわからなかった。
+			まあセキュリティ的にはマズいかもしれないが、仮想マシンだしエロゲ動くようになったし、ひとまず放置することにする。
+			<a href="#ref-footnote-file-permission" aria-label="Back to content">&#x21B5;</a>
+		</li>
+	</ol>
 </aside>
