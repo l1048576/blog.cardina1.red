@@ -1,0 +1,148 @@
+---
+created_at: 2016-10-08T21:11:58+0900
+title: "ConoHaのVPSに入れたCoreOSのcloud-config.yamlが(部分的に)無視される件"
+htags:
+  - "computer/server/ConoHa"
+  - "computer/linux/CoreOS"
+  - "troubleshooting/solved"
+  - "つらぽよ"
+kind: article
+
+excerpt: "ConoHaのVPSにCoreOSを入れると、cloud-config.yamlの一部項目が上書きされ、無視されてしまう。その原因と解決策のメモ。"
+---
+
+<p>
+	解決済。
+</p>
+
+<section id="abstract">
+	<h2>概要<a href="#abstract" class="permalink"></a></h2>
+	<p>
+		私は、GMOから提供されている<a href="https://www.conoha.jp/" target="_blank">ConoHa</a>というVPSサービスを利用している。
+		(このブログのサーバもConoHaのサーバだ。)
+		ここではサーバを起動する際、様々なOS(プレーンなものからアプリケーション導入済のものまで)を初期イメージとして選択できる。
+		複数のサービスをコンテナで提供しようというとき便利な<a href="https://coreos.com/" target="_blank">CoreOS</a>はその選択肢にない(<time>2016-10-08</time>現在)ため自力でインストールすることになる<a aria-describedby="footnote-label" id="ref-footnote-install-coreos" href="#footnote-install-coreos"></a>が、<strong>CoreOSのインストールや設定更新は、設定ファイルひとつとコマンドひとつで実行できる</strong>ので、そこには特に大きな問題はない。
+	</p>
+	<p>
+		問題はないはずだったのだが、実際にはインストールすると以下のような状況になる。
+	</p>
+	<table>
+		<caption>ConoHaのVPSにインストールしたCoreOSで発生する予期せぬ挙動</caption>
+		<thead>
+			<tr>
+				<th>期待された挙動</th>
+				<th>実際の挙動</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					hostnameが<a href="https://coreos.com/os/docs/latest/cloud-config.html#hostname">設定ファイル</a>で設定した通りに変更される
+				</td>
+				<td>
+					設定ファイルを正しく設定したにも関わらず、ホスト名がIPアドレス由来のもののままになる
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="https://coreos.com/os/docs/latest/cloud-config.html#sshauthorizedkeys">設定ファイル</a>で設定した公開鍵と対になる秘密鍵でSSHログインできるようになる
+				</td>
+				<td>
+					設定ファイルを正しく設定したにも関わらず、SSHの公開鍵によるログインができず、パスワードログインに移行してしまう
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		これは私の気付いたことだけなので、他にも上書きされてしまう設定があるかもしれない。
+	</p>
+	<p>
+	</p>
+</section>
+
+<section id="cause-and-solution">
+	<h2>原因と解決策<a href="#cause-and-solution" class="permalink"></a></h2>
+	<p>
+		この現象の原因は、ConoHa側で用意された光学ドライブ<a aria-describedby="footnote-label" id="ref-footnote-conoha-sr1" href="#footnote-conoha-sr1"><code>/dev/sr1</code></a>にある。
+		これがCoreOSの設定が格納されているものとして認識されてしまい、中のファイルがロードされることで、ユーザの設定(<code class="filepath">/var/lib/coreos-install/user_data</code>)を上書きしてしまうためである。
+	</p>
+	<p>
+		これを阻止するためには、光学ドライブを除去するか自動ロードを防ぐかの2通りの方法があるが、前者は無理そうなので今回は後者の方法をとった。
+	</p>
+	<p>
+		<code class="filepath">/usr/lib/udev/rules.d/90-configdrive.rules</code>の内容が、以下のようになっている。
+	</p>
+	<figure>
+		<pre><code># Automatically trigger configdrive mounting.
+
+ACTION!="add|change", GOTO="coreos_configdrive_end"
+
+# A normal config drive. Block device formatted with iso9660 or fat
+SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="iso9660|udf|vfat", ENV{ID_FS_LABEL}=="config-2", TAG+="systemd", ENV{SYSTEMD_WANTS}+="media-configdrive.mount"
+
+# Addtionally support virtfs from QEMU
+SUBSYSTEM=="virtio", DRIVER=="9pnet_virtio", ATTR{mount_tag}=="config-2", TAG+="systemd", ENV{SYSTEMD_WANTS}+="media-configvirtfs.mount"
+
+LABEL="coreos_configdrive_end"
+</code></pre>
+		<figcaption>CoreOS 1122.2.0 における<code class="filepath">/usr/lib/udev/rules.d/90-configdrive.rules</code>の内容</figcaption>
+	</figure>
+	<p>
+		<code>config-2</code>というラベルのついたFAT32のドライブか光学メディアがあった場合、マウントして設定をロードさせるというものである。
+		これが余計なことをしているため、udevにこのファイルを無視させればよい。
+		udevのルールを無効化する方法については、<a href="https://www.kernel.org/pub/linux/utils/kernel/hotplug/udev/udev.html" target="_blank">man udev(7)</a>に記載がある。
+	</p>
+	<figure>
+		<blockquote cite="https://www.kernel.org/pub/linux/utils/kernel/hotplug/udev/udev.html#id429522">
+			Files in <code>/etc</code> have the highest priority, files in <code>/run</code> take precedence over files with the same name in <code>/lib</code>.
+			This can be used to override a system-supplied rules file with a local file if needed;
+			a symlink in <code>/etc</code> with the same name as a rules file in <code>/lib</code>, pointing to <code>/dev/null</code>,
+			disables the rules file entirely.
+		</blockquote>
+		<figcaption><a href="https://www.kernel.org/pub/linux/utils/kernel/hotplug/udev/udev.html#id429522" target="_blank">man udev(7), "Rules files" セクション</a>より</figcaption>
+	</figure>
+	<p>
+		<code class="dirpath">/etc</code>以下にあるファイルは優先度が最も高く、システムによって提供されたルールをオーバーライドできるということなので、この仕組みを使う。<br />
+		<code class="filepath">cloud-config.yaml</code>の<code>write_files</code>で、<code class="filepath">/etc/udev/rules.d/90-configdrive.rules</code>を空ファイルとして作らせる設定をすれば良い。
+	</p>
+	<figure>
+		<pre><code class="lang-yaml language-yaml" data-lang="yaml">
+write_files:
+  # override /usr/lib64/udev/rules.d/90-configdrive.rules (which reads configdrive and overrides user config).
+  - path: /etc/udev/rules.d/90-configdrive.rules
+    content: ""
+</code></pre>
+		<figcaption><code class="filepath">cloud-config.yaml</code>の<code>write_files</code>に追加するべき項目</figcaption>
+	</figure>
+	<p>
+		これで設定を反映し、再起動すれば完璧だ。
+	</p>
+	<aside id="reboot-twice" class="note">
+		<h1>再起動は場合によっては2回<a href="#reboot-twice" class="permalink"></a></h1>
+		<p>
+			再起動が必要だ。
+			実際にはudevルールのリロードとCoreOS設定反映の2つを行えば十分なのだが、面倒だしhostnameの変更などを伴うので、素直に再起動するべきだろう。
+		</p>
+		<p>
+			なお、<code>coreos-install -c cloud-config.yaml</code>のようにしてCoreOSをインストールした場合、実際には<code class="filepath">cloud-config.yaml</code>は然るべき場所(<code class="filepath">/var/lib/coreos-install/user_data</code>)へコピーされるだけで、設定の反映は行われない。
+			よって、<code>coreos-install</code>後にISOイメージを除去して起動する1回目の再起動と、1回目の再起動後に<code class="dirpath">/etc</code>にルールファイルが作られてからの再起動の、<strong>計2回の再起動が必要</strong>になる。
+		</p>
+	</aside>
+</section>
+<aside class="footnotes">
+	<h1 class="footnote-label">脚注</h1>
+	<ol>
+		<li id="footnote-install-coreos">
+			私はArch linuxのイメージを使って作成したVPSにISOイメージを設定して起動した。
+			(なお、Arch linux自体は一度も起動していない)。
+			他のdistroだと別の内容になっているのかもしれない。
+			Archしか選択したことがないのでわからないが。
+			<a href="#ref-footnote-install-coreos" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-conoha-sr1">
+			このドライブ内のファイルは、VPS作成時に指定したrootパスワードやSSH秘密鍵などを設定するために使われる。
+			<a href="#ref-footnote-conoha-sr1" aria-label="Back to content">&#x21B5;</a>
+		</li>
+	</ol>
+</aside>
