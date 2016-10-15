@@ -50,6 +50,10 @@ a {
 	&:hover {
 		text-decoration: underline;
 	}
+	&[href$=".pdf"]::before {
+		// f1c1: fa-file-pdf-o
+		@include font-awesome("\20\f1c1");
+	}
 	&[target="_blank"]::after {
 		// f08e: fa-external-link
 		@include font-awesome("\20\f08e");
