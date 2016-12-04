@@ -252,7 +252,8 @@ $
 			先述の通りですが、大雑把に言うと、既に <code>.config</code> として使えるファイルを複数指定すると、それらを merge して、ついでに<strong>指定されなかった項目を自動でよろしく設定してくれる</strong>ものです。
 		</p>
 		<p>
-			そして、私のスクリプトがあてにしている、自動でよろしく設定する部分は、シェルスクリプトではなく make によって行われます。
+			そして、私のスクリプトがあてにしている、自動でよろしく設定する部分は、シェルスクリプトではなく make によって行われます
+<a aria-describedby="footnote-label" id="ref-config-auto-filling" href="#footnote-config-auto-filling"></a>。
 		</p>
 		<figure id="code-merge_config_sh">
 			<pre><code class="lang-sh language-sh" data-lang="sh">
@@ -436,6 +437,12 @@ let b:current_syntax = "portage-summary-log"
 			私はゆとりなので <code>sys-kernel/genkernel-next</code> を使っています。
 			ちなみに <a href="https://wiki.gentoo.org/wiki/Genkernel/ja">gentoo wiki の当該項目のページ</a>では <code>sys-kernel/genkernel</code> を紹介していますが、このパッケージは古く <a href="https://gitweb.gentoo.org/repo/gentoo.git/diff/profiles/targets/systemd/package.mask?id=56bd759df1d0c750a065b8c845e93d5dfa6b549d">systemd と互換性がないらしい</a>ので、 next の方を使ってください。
 			<a href="#ref-genkernel" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-config-auto-filling">
+			Linux カーネルのツール群は、 make に必要なプログラムもまた必要に応じてコンパイルするものが多いので、たぶん <a href="https://www.kernel.org/doc/Documentation/kbuild/kconfig-language.txt">Kconfig</a> を解釈する部分はCのコード使ってるんじゃないかなぁと思います。
+			読んで確認してないので知りませんが。
+			<a href="#ref-config-auto-filling" aria-label="Back to content">&#x21B5;</a>
 		</li>
 
 		<li id="footnote-portage-elog-summary-log">
