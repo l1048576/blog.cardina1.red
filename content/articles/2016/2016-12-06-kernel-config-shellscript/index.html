@@ -422,6 +422,36 @@ let b:current_syntax = "portage-summary-log"
 			<figcaption>適当なところに置いて使ってくださいな</figcaption>
 		</figure>
 	</section>
+
+	<section id="omake-next-features">
+		<h3>次に欲しい機能<a href="#omake-next-features" class="permalink"></a></h3>
+		<p>
+			現状でそこそこ満足なので、今のところこれ以上リソースを注ぐつもりはありませんが、改良点があるとしたら以下の点です。
+		</p>
+		<dl>
+			<dt>複数ファイルのマージ</dt>
+			<dd>
+				<p>
+					先述のとおり <code>merge_config.sh</code> は複数ファイルのマージ機能を持っているので、たとえば設定ファイルを基礎用、ハードウェア用、各パッケージ用、各マシン特有設定など、複数に分割して管理できるようにするのは難しくないでしょう。
+				</p>
+				<p>
+					私がそれをしなかったのは、単にファイルをスクリプトの引数でとれるようにすると、パスの解決がちょっと面倒かもと思ったからです。
+					でも今よく考えたら <code>readlink</code> とかで絶対パス取得できそうなのでそのうち実装するかも。
+				</p>
+			</dd>
+			<dt>依存性解析</dt>
+			<dd>
+				<p>
+					たとえば <code>CONFIG_FOO</code> が前提条件として <code>CONFIG_BAR</code> を要求している場合、そっちも勝手に有効化してくれたら嬉しいです。
+					ですが実際には、 <code>m</code> にするか <code>y</code> にするか、或いは複数の OR 条件がある場合どれを満たすべきか、など自由度が高めなので、全自動にはできそうにありません。
+				</p>
+				<p>
+					あと、依存関係を取得するには Kconfig を読むことになるので、シェルスクリプトだと荷が重いかもしれません。
+					不可能ではないでしょうが、私なら別の言語を使います。
+				</p>
+			</dd>
+		</dl>
+	</section>
 </section>
 
 <aside class="footnotes">
