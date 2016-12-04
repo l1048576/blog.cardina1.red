@@ -358,6 +358,33 @@ while true; do
 	</section>
 </section>
 
+<section id="conclusion">
+	<h2>まとめ<a href="#conclusion" class="permalink"></a></h2>
+	<ul>
+		<li>
+			カーネルコンフィグ管理を手助けする簡単なスクリプトを書いた
+			<ul>
+				<li>
+					<code>make oldconfig</code> や <code>genkernel --menuconfig --oldconfigall</code> で積み重ねてきた秘伝のタレを棄てて、設定はレシピから作りましょう
+				</li>
+			</ul>
+		</li>
+		<li>
+			gentoo でカーネルをコンパイルすると言うとビビる人がいますが、実際のところコンフィグ作って <code>make</code> すればおしまいなので、こわくないです
+			<ul>
+				<li>
+					なんなら項目ぜんぶ <code>y</code> (yes) とか <code>m</code> (module) とかにしとけば基本どうにかなりそう
+					(コンパイル時間延びるけど)
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="https://gentoo.org/">gentoo</a> と <a href="http://www.linuxfromscratch.org/lfs/">LFS</a> の他にカーネルコンパイルが必要そうな distro を知りませんが、この記事の内容は gentoo でなくとも適用できます。
+			gentoo AdC なのにごめんなさい。
+		</li>
+	</ul>
+</section>
+
 <section id="omake">
 	<h2>おまけ<a href="#omake" class="permalink"></a></h2>
 	<section id="omake-portage-summary-log">
