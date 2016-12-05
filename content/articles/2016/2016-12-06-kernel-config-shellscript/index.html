@@ -1,0 +1,532 @@
+---
+created_at: 2016-12-05T22:48:52+0900
+title: "kernel config 生成(略記)のためのシェルスクリプト"
+htags:
+  - "computer/linux"
+  - "AdventCalendar/2016"
+kind: article
+
+excerpt: "Linux の kernel config を秘伝のタレにしないための小さなシェルスクリプトを書いた"
+---
+
+<p>
+	この記事は、 <a href="http://www.adventar.org/calendars/1493">Gentoo Advent Calendar 2016</a> の6日目の記事です。<br />
+	昨日の記事は <a href="http://neotaso.hatenablog.com/entry/2016/12/05/013636">Gentoo on Windows 10 (Gentoo Advent Calender 2016 5日目)]</a>でした。
+</p>
+
+<section id="abstract">
+	<h2>概要<a href="#abstract" class="permalink"></a></h2>
+	<p>
+		そろそろ普段使いのラップトップが壊れそうなので、別マシンへの移行の準備をしておきたさが高まっています。
+		Windows 8.1 を gentoo で上書きして以来、これまで様々な設定をしてきましたが、 <code class="dirpath">/etc</code> にあるファイルの多くはコピーで済まされる設定ファイル<a aria-describedby="footnote-label" id="ref-copyable-config-under-etc" href="#footnote-copyable-config-under-etc"></a>なので、移行にあたってそこまで問題になりません。
+	</p>
+	<p>
+		問題なのは、カーネルの <code class="filepath">.config</code> です。
+		ハードウェア由来の設定が多く項目も多いため、安直にコピーしてちょっと改変すれば使えるというものでもありません。
+		そこで、以下のようなスクリプトが欲しくなったため、簡単に書いてみたというお話です。
+	</p>
+	<ul>
+		<li>
+			設定の理由がわかる(コメントが書ける)
+		</li>
+		<li>
+			値の無効化(<code>CONFIG_FOO=n</code>)ができる
+		</li>
+		<li>
+			興味のない項目は、何も書かずともよろしく設定しておいてほしい
+		</li>
+		<li>
+			記述した設定に無効なもの(あるいは上書きされたもの)があれば、警告してほしい
+		</li>
+	</ul>
+
+	<section id="abstract-target-readers">
+		<h3>対象読者<a href="#abstract-target-readers" class="permalink"></a></h3>
+		<p>
+			大雑把には、既に gentoo を使っていたりカーネルをコンパイルしている人向けです。
+		</p>
+		<ul>
+			<li>
+				gentoo を使っていて、カーネルの <code>.config</code> をそこそこの頻度で弄っている人
+			</li>
+			<li>
+				複数台のマシンで gentoo を使っている人
+			</li>
+			<li>
+				その他 distro でも、カーネルを野良でビルドしたい人
+			</li>
+		</ul>
+		<p>
+			残念ながら gentoo の布教記事ではございません。
+		</p>
+	</section>
+</section>
+
+<section id="merge_config_sh">
+	<h2><code>merge_config.sh</code><a href="#merge_config_sh" class="permalink"></a></h2>
+	<p>
+		……と思って作ろうとしていましたが、よくよく調べてみると、 Linux カーネルのソース(gentoo であれば <code class="dirpath">/usr/src/linux</code> など)の <code class="filepath">scripts/kconfig/merge_config.sh</code> に、かなり近い目的のものがありました。
+		中身を読んでみると、ファイル名のとおり、設定ファイルとして有効なファイル同士の merge 用途のものであり、コメントやインデント、省略記法などは使えないようです。
+		そこで方針を変えて、書きやすい設定を <strong><code>merge_config.sh</code> で使えるよう変換して吐き出すスクリプト</strong>(というか実質正規表現)を書くことにしました。
+	</p>
+	<p>
+		追加の要件は以下のような感じです。
+	</p>
+
+	<ul>
+		<li>
+			インデントを使える
+		</li>
+		<li>
+			コメントを書いても無効/不正扱いされない
+		</li>
+		<li>
+			<code>CONFIG_FOO=n</code> のように書いても警告されない
+		</li>
+		<li>
+			<code>CONFIG_</code> のプレフィックスを省略できる
+		</li>
+	</ul>
+</section>
+
+<section id="product">
+	<h2>成果物<a href="#product" class="permalink"></a></h2>
+	<figure id="code-genconfig_sh">
+		<pre><code class="lang-sh language-sh" data-lang="sh">
+#!/bin/sh
+
+# Set up parameters.
+DATETIME="$(date '+%F-%H%M%S')"
+: ${SRC_DIR:=/usr/src/linux}
+cd "$(dirname "$0")"
+DIR="$(pwd)"
+CONFFILE_SRC="${DIR}/config"
+CONFFILE_TEMP="${DIR}/.temp.$(basename "${CONFFILE_SRC}")"
+
+sed -r -n \
+    -e 's/^\s*(CONFIG_)?([A-Za-z0-9_]+=.+)$/CONFIG_\2/' \
+    -e 's/^\s*# (CONFIG_[A-Za-z0-9_]+) is not set$/\1=n/' \
+    -e '/^CONFIG_/!d' -e 's/^(CONFIG_[^=]+)=n$/# \1 is not set/' \
+    -e 'p' \
+    "${CONFFILE_SRC}" | sort -u &gt;"${CONFFILE_TEMP}"
+
+# `merge_config.sh` should be executed in the kernel source directory.
+cd "${SRC_DIR}"
+cp -f .config ".config-${DATETIME}"
+
+# -n: use allnoconfig instead of alldefconfig
+# -r: list redundant entries when merging fragments
+./scripts/kconfig/merge_config.sh -r "${CONFFILE_TEMP}"
+
+rm "${CONFFILE_TEMP}"
+</code></pre>
+		<figcaption><a href="https://gist.github.com/l1048576/a13dad6f904c4e86e99a69501393afe7#file-genconfig-sh"><code class="filepath">genconfig.sh</code></a></figcaption>
+	</figure>
+	<p>
+		というか実質 <code>sed</code> スクリプト。
+	</p>
+
+	<section id="usage">
+		<h3>つかいかた<a href="#usage" class="permalink"></a></h3>
+		<ol>
+			<li>
+				スクリプトを保存して x フラグを立てる
+			</li>
+			<li>
+				スクリプトと同じディレクトリに <code class="filepath">config</code> というファイルを作って設定を書く
+			</li>
+			<li>
+				<code>sudo ./genconfig.sh</code>
+			</li>
+			<li>
+				カーネルコンパイル。
+				私の場合:
+				<code>sudo genkernel --makeopts="-j4" --splash --no-clean --oldconfig all</code>
+				<a aria-describedby="footnote-label" id="ref-genkernel" href="#footnote-genkernel"></a>
+			</li>
+		</ol>
+		<p>
+			ソースコードのディレクトリはデフォルトで <code class="dirpath">/usr/src/linux</code> ですが、 <code>SRC_DIR=/path/to/linux/source ./genconfig.sh</code> のようにすれば別の場所を使うことができます。
+			そのディレクトリのパーミッションによっては、 <code>sudo</code> は必要ないかもしれません。
+		</p>
+	</section>
+
+	<section id="config-content">
+		<h3><code>config</code> ファイルの内容<a href="#config-content" class="permalink"></a></h3>
+		<p>
+			文法はシンプルです。
+		</p>
+		<ul>
+			<li>
+				空白文字によりインデント可能
+			</li>
+			<li>
+				<code>#</code> で行コメント
+				<ul>
+					<li>
+						ただし <code>^\s*# (CONFIG_[A-Za-z0-9_]+) is not set$</code> にマッチする行は <code># \1 is not set</code> に変換される
+					</li>
+					<li>
+						<code># CONFIG_FOO is not set</code> のような行を保存するためです
+					</li>
+				</ul>
+			</li>
+			<li>
+				<code>CONFIG_FOO=bar</code> や <code>FOO=bar</code> は <code>CONFIG_FOO=bar</code> に変換される
+				<ul>
+					<li>
+						要するに <code>CONFIG_</code> を省略可能
+					</li>
+				</ul>
+			</li>
+			<li>
+				<code>CONFIG_FOO=n</code> は <code># CONFIG_FOO is not set</code> に変換される
+				<ul>
+					<li>
+						<code>merge_config.sh</code> に「設定が反映されていない」という警告を出されるのを防ぐためです
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<p>
+			で、たとえば実際に私が使っている設定(の抜粋)は以下のようになります。
+		</p>
+		<figure id="code-genconfig_sh">
+			<pre><code>    # www-client:google-chrome-46.0.2490.80_p1:
+    # > CONFIG_COMPAT_VDSO causes segfaults (bug #556286)
+        ## config COMPAT_VDSO
+        ##      def_bool n
+        ##      prompt "Disable the 32-bit vDSO (needed for glibc 2.3.3)"
+        COMPAT_VDSO=n
+    # www-client/google-chrome-54.0.2840.71:
+    # > USER_NS is required for sandbox to work
+        ## config USER_NS
+        ##      bool "User namespace"
+        USER_NS=y
+
+    # media-sound/pulseaudio-7.0:
+    # > A preallocated buffer-size of 2048 (kB) or higher is recommended for the HD-audio driver!
+        ## config SND_HDA_PREALLOC_SIZE
+        ##      int "Pre-allocated buffer size for HD-audio driver"
+        SND_HDA_PREALLOC_SIZE=2048
+        ## config TMPFS
+        ##      bool "Tmpfs virtual memory file system support (former shm fs)"
+        TMPFS=y
+            ## config TMPFS_POSIX_ACL
+            ##      bool "Tmpfs POSIX Access Control Lists"
+            TMPFS_POSIX_ACL=y
+
+    # sys-apps/lm_sensors-3.4.0_p20160725:
+    # > sensors-detect requires CONFIG_I2C_CHARDEV to be enabled.
+        ## config I2C_CHARDEV
+        ##      tristate "I2C device interface"
+        I2C_CHARDEV=m
+            # Intel CPU.
+            ## config SENSORS_CORETEMP
+            ##      tristate "Intel Core/Core2/Atom temperature sensor"
+            SENSORS_CORETEMP=m
+</code></pre>
+			<figcaption><a href="https://gist.github.com/l1048576/a13dad6f904c4e86e99a69501393afe7#file-config-veg" target="_blank"><code class="filepath">config</code> の例</a>(抜粋)</figcaption>
+		</figure>
+		<p>
+			<code>CONFIG_COMPAT_VDSO</code> や <code>CONFIG_I2C_CHARDEV</code> など、名前からは何故これを有効/無効にしたのかわからないような設定は結構ありますが、こうしてコメントとインデントで整理して書いてやることで、設定の意図や必要性がある程度明確にわかるようになります。
+			私は面倒だったので使いませんでしたが、 vim などであれば fold marker を使って折り畳みできるようにすれば、より読み易くなるかもしれません。
+		</p>
+		<aside id="how-to-get-config-description" class="note">
+			<h1>config の項目の説明<a href="#how-to-get-config-description" class="permalink"></a></h1>
+			<p>
+				<code>find /usr/src/linux/ -name 'Kconfig*' | xargs grep --color=always -h -A 1 'config 'FOO</code> とかで検索すると、項目の <a href="https://www.kernel.org/doc/Documentation/kbuild/kconfig-language.txt">Kconfig</a> を探すことができるので、説明文を引っ張ってくるのに活用できます。
+			</p>
+			<figure id="cmdlog-config-description">
+				<pre class="code code-terminal">$ <kbd>find /usr/src/linux/ -name 'Kconfig*' | xargs grep --color=always -h -A 1 'config 'USB_MON</kbd>
+config USB_MON
+        tristate "USB Monitor"
+$ <kbd>find /usr/src/linux/ -name 'Kconfig*' | xargs grep --color=always -h -A 1 'config 'HZ_1000 -H</kbd>
+/usr/src/linux/arch/arm/Kconfig:config HZ_1000
+/usr/src/linux/arch/arm/Kconfig-        bool "1000 Hz"
+--
+/usr/src/linux/arch/mips/Kconfig:       config HZ_1000
+/usr/src/linux/arch/mips/Kconfig-               bool "1000 HZ" if SYS_SUPPORTS_1000HZ || SYS_SUPPORTS_ARBIT_HZ
+--
+/usr/src/linux/kernel/Kconfig.hz:       config HZ_1000
+/usr/src/linux/kernel/Kconfig.hz-               bool "1000 HZ"
+$ <kbd>find /usr/src/linux/ -name 'Kconfig*' | xargs grep --color=always -h -A 1 'config 'X86_MCE_AMD -A 2</kbd>
+config X86_MCE_AMD
+        def_bool y
+        prompt "AMD MCE features"
+$
+</pre>
+				<figcaption>Kconfig から説明を検索する</figcaption>
+			</figure>
+			<p>
+				たまに複数マッチしたり説明文が入ってこない場合がありますが、その場合 <code>-H</code> でファイル名を表示させたり、 <code>-A 2</code> 等で後ろの行をより多く表示させたりすることでどうにかできます。
+			</p>
+		</aside>
+	</section>
+</section>
+
+<section id="explanation">
+	<h2>解説<a href="#explanation" class="permalink"></a></h2>
+
+	<section id="explanation-merge_config_sh">
+		<h3><code>merge_config.sh</code><a href="#config-content" class="permalink"></a></h3>
+		<p>
+			先述の通りですが、大雑把に言うと、既に <code>.config</code> として使えるファイルを複数指定すると、それらを merge して、ついでに<strong>指定されなかった項目を自動でよろしく設定してくれる</strong>ものです。
+		</p>
+		<p>
+			そして、私のスクリプトがあてにしている、自動でよろしく設定する部分は、シェルスクリプトではなく make によって行われます
+<a aria-describedby="footnote-label" id="ref-config-auto-filling" href="#footnote-config-auto-filling"></a>。
+		</p>
+		<figure id="code-merge_config_sh">
+			<pre><code class="lang-sh language-sh" data-lang="sh">
+# Use the merged file as the starting point for:
+# alldefconfig: Fills in any missing symbols with Kconfig default
+# allnoconfig: Fills in any missing symbols with # CONFIG_* is not set
+make KCONFIG_ALLCONFIG=$TMP_FILE $OUTPUT_ARG $ALLTARGET
+</code></pre>
+			<figcaption><code class="filepath">/usr/src/linux-4.8.11-gentoo/scripts/kconfig/merge_config.sh</code> 151〜154行</figcaption>
+		</figure>
+		<p>
+			<code>$ALLTARGET</code> は、デフォルトでは <code>alldefconfig</code> ですが、 <code>-n</code> オプションを付けて <code>merge_config.sh</code> を起動すると <code>allnoconfig</code> となります。
+		</p>
+	</section>
+
+	<section id="explanation-make-alldefconfig">
+		<h3><code>make alldefconfig</code><a href="#explanation-make-alldefconfig" class="permalink"></a></h3>
+		<p>
+			名前そのままですが、 <code>alldefconfig</code> は、与えられた config において未指定の項目に、<strong>デフォルト値</strong>を設定します。
+			同様に <code>allnoconfig</code> は、与えられた config において未指定の項目のすべてに、 <strong><code>n</code> (no)</strong> を設定します。
+		</p>
+		<p>
+			他にも、 <code>allyesconfig</code> とか <code>randconfig</code> とかいろいろあります。
+			詳しくは <code>make help</code> とかで見られます。
+		</p>
+		<figure id="cmdlog-make-help">
+			<pre class="code code-terminal">$ <kbd>pwd</kbd>
+/usr/src/linux-4.8.11-gentoo
+$ <kbd>make help</kbd>
+Cleaning targets:
+  clean           - Remove most generated files but keep the config and
+                    enough build support to build external modules
+  mrproper        - Remove all generated files + config + various backup files
+  distclean       - mrproper + remove editor backup and patch files
+
+Configuration targets:
+  config          - Update current config utilising a line-oriented program
+  nconfig         - Update current config utilising a ncurses menu based
+                    program
+  menuconfig      - Update current config utilising a menu based program
+  xconfig         - Update current config utilising a Qt based front-end
+  gconfig         - Update current config utilising a GTK+ based front-end
+  oldconfig       - Update current config utilising a provided .config as base
+  localmodconfig  - Update current config disabling modules not loaded
+  localyesconfig  - Update current config converting local mods to core
+  silentoldconfig - Same as oldconfig, but quietly, additionally update deps
+  defconfig       - New config with default from ARCH supplied defconfig
+  savedefconfig   - Save current config as ./defconfig (minimal config)
+  allnoconfig     - New config where all options are answered with no
+  allyesconfig    - New config where all options are accepted with yes
+  allmodconfig    - New config selecting modules when possible
+  alldefconfig    - New config with all symbols set to default
+  randconfig      - New config with random answer to all options
+  listnewconfig   - List new options
+  olddefconfig    - Same as silentoldconfig but sets new symbols to their
+                    default value
+  kvmconfig       - Enable additional options for kvm guest kernel support
+  xenconfig       - Enable additional options for xen dom0 and guest kernel support
+  tinyconfig      - Configure the tiniest possible kernel
+
+(以下略)
+</pre>
+			<figcaption>kernel の <code>make help</code></figcaption>
+		</figure>
+		<p>
+			もし私のスクリプトで <code>allnoconfig</code> を使いたい場合、 <code>./scripts/kconfig/merge_config.sh</code> の呼び出しで <code>-n</code> を追加しましょう。
+		</p>
+		<figure id="code-genconfig_sh">
+			<pre><code class="lang-sh language-sh" data-lang="sh">
+./scripts/kconfig/merge_config.sh -n -r "${CONFFILE_TEMP}"
+</code></pre>
+			<figcaption><code class="filepath">genconfig.sh</code> の該当行をこのように変更する</figcaption>
+		</figure>
+		<aside id="merge_config_sh-option" class="tip">
+			<h1><code>merge_config.sh</code> のオプション<a href="#merge_config_sh-option" class="permalink"></a></h1>
+			<p>
+				<code>-r</code> と <code>-n</code> を合わせて <code>-rn</code> とかはできないので注意してください。
+			</p>
+			<figure id="code-merge_config_sh-option-parser">
+				<pre><code class="lang-sh language-sh" data-lang="sh">
+while true; do
+	case $1 in
+	"-n")
+		ALLTARGET=allnoconfig
+		shift
+		continue
+		;;
+</code></pre>
+				<figcaption><code class="filepath">merge_config.sh</code> のオプション解釈部分 (3.8.11, 43〜49行)</figcaption>
+			</figure>
+		</aside>
+		<aside id="allnoconfig-is-inconvenient" class="note">
+			<h1><code>allnoconfig</code> は不便<a href="#allnoconfig-is-inconvenient" class="permalink"></a></h1>
+			<p>
+				常識的にこれは必要でしょ、というオプションでさえ、網羅して明示的に列挙しないと無効になります。
+				カーネルサイズをとにかく小さくするエクストリームスポーツとか、<a href="https://cpplover.blogspot.jp/2013/10/gentoo.html">起動を爆速にするエクストリームスポーツ</a>とかでなければ、普通に使うことはないかと思います。
+			</p>
+			<p>
+				素直に <code>alldefconfig</code> を使って、必要ないものは <code>FOO=n</code> で明示的に無効にしてやるのが良いでしょう。
+			</p>
+		</aside>
+	</section>
+</section>
+
+<section id="conclusion">
+	<h2>まとめ<a href="#conclusion" class="permalink"></a></h2>
+	<ul>
+		<li>
+			カーネルコンフィグ管理を手助けする簡単なスクリプトを書いた
+			<ul>
+				<li>
+					<code>make oldconfig</code> や <code>genkernel --menuconfig --oldconfigall</code> で積み重ねてきた秘伝のタレを棄てて、設定はレシピから作りましょう
+				</li>
+			</ul>
+		</li>
+		<li>
+			gentoo でカーネルをコンパイルすると言うとビビる人がいますが、実際のところコンフィグ作って <code>make</code> すればおしまいなので、こわくないです
+			<ul>
+				<li>
+					なんなら項目ぜんぶ <code>y</code> (yes) とか <code>m</code> (module) とかにしとけば基本どうにかなりそう
+					(コンパイル時間延びるけど)
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="https://gentoo.org/">gentoo</a> と <a href="http://www.linuxfromscratch.org/lfs/">LFS</a> の他にカーネルコンパイルが必要そうな distro を知りませんが、この記事の内容は gentoo でなくとも適用できます。
+			gentoo AdC なのにごめんなさい。
+		</li>
+	</ul>
+</section>
+
+<section id="omake">
+	<h2>おまけ<a href="#omake" class="permalink"></a></h2>
+	<section id="omake-portage-summary-log">
+		<h3>portage のログ<a href="#omake-portage-summary-log" class="permalink"></a></h3>
+		<p>
+			<code class="filepath">/var/log/portage/elog/summary.log</code> に、過去 portage で emerge されたパッケージのメッセージが記録されています。
+			これを見て検索をかければ、どのパッケージがどのような設定を要求しているか、ある程度<a aria-describedby="footnote-label" id="ref-portage-elog-summary-log" href="#footnote-portage-elog-summary-log"></a>わかるでしょう。
+		</p>
+		<p>
+			vim で見易いよう、簡単な syntax を用意しておきました。
+			ご活用ください。
+		</p>
+
+		<figure id="fig-portage-summary-log">
+			<img src="portage-summary-log-syntax.png" alt="molokai で syntax を適用した場合の見た目" />
+			<figcaption><code class="filepath">/var/log/portage/elog/summary.log</code> を molokai colorscheme で見た例</figcaption>
+		</figure>
+
+		<figure id="code-portage-summary-log-vim-syntax">
+			<figure id="code-portage-summary-log-vim-syntax-ftdetect">
+				<pre><code class="lang-vim language-vim" data-lang="vim">
+au BufRead,BufNewFile */portage/elog/summary.log set filetype=portage-summary-log
+</code></pre>
+				<figcaption><code class="filepath">~/.config/nvim/ftdetect/portage-summary-log.vim</figcaption>
+			</figure>
+
+			<figure id="code-portage-summary-log-vim-syntax-syntax">
+				<pre><code class="lang-vim language-vim" data-lang="vim">
+if exists("b:current_syntax")
+    finish
+endif
+
+syn case match
+syn spell notoplevel
+
+
+syn match logPackageAtom excludenl '[a-z-_]\+/[a-zA-Z0-9_\.-]\+' contained containedin=logPackageLine
+syn match logPackageLine excludenl '^>>> Messages generated by process .*:$' contains=logPackageAtom
+
+syn match logKernelConfig excludenl 'CONFIG_[A-Z0-9_]\+' containedin=ALL
+
+syn match logQA excludenl '^QA: .*$'
+syn match logQANoticeLabel excludenl '^QA Notice:'me=e-1
+syn match logWarning excludenl '^WARN: .*'
+syn match logError excludenl '^ERROR: .*'
+
+
+hi link logPackageAtom Keyword
+hi link logPackageLine Comment
+
+hi link logKernelConfig Identifier
+
+hi link logQA Label
+hi link logQANoticeLabel Label
+hi link logWarning Label
+hi link logError Label
+
+let b:current_syntax = "portage-summary-log"
+</code></pre>
+				<figcaption><code class="filepath">~/.config/nvim/ftdetect/portage-summary-log.vim</figcaption>
+			</figure>
+			<figcaption>適当なところに置いて使ってくださいな</figcaption>
+		</figure>
+	</section>
+
+	<section id="omake-next-features">
+		<h3>次に欲しい機能<a href="#omake-next-features" class="permalink"></a></h3>
+		<p>
+			現状でそこそこ満足なので、今のところこれ以上リソースを注ぐつもりはありませんが、改良点があるとしたら以下の点です。
+		</p>
+		<dl>
+			<dt>複数ファイルのマージ</dt>
+			<dd>
+				<p>
+					先述のとおり <code>merge_config.sh</code> は複数ファイルのマージ機能を持っているので、たとえば設定ファイルを基礎用、ハードウェア用、各パッケージ用、各マシン特有設定など、複数に分割して管理できるようにするのは難しくないでしょう。
+				</p>
+				<p>
+					私がそれをしなかったのは、単にファイルをスクリプトの引数でとれるようにすると、パスの解決がちょっと面倒かもと思ったからです。
+					でも今よく考えたら <code>readlink</code> とかで絶対パス取得できそうなのでそのうち実装するかも。
+				</p>
+			</dd>
+			<dt>依存性解析</dt>
+			<dd>
+				<p>
+					たとえば <code>CONFIG_FOO</code> が前提条件として <code>CONFIG_BAR</code> を要求している場合、そっちも勝手に有効化してくれたら嬉しいです。
+					ですが実際には、 <code>m</code> にするか <code>y</code> にするか、或いは複数の OR 条件がある場合どれを満たすべきか、など自由度が高めなので、全自動にはできそうにありません。
+				</p>
+				<p>
+					あと、依存関係を取得するには Kconfig を読むことになるので、シェルスクリプトだと荷が重いかもしれません。
+					不可能ではないでしょうが、私なら別の言語を使います。
+				</p>
+			</dd>
+		</dl>
+	</section>
+</section>
+
+<aside class="footnotes">
+	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
+	<ol>
+		<li id="footnote-copyable-config-under-etc">
+			ほんまか？　と思うかもしれませんが、とりあえずインストール先の <code class="dirpath">etc</code> にコピーしておいてから <code>emerge</code> をすれば、後で <a href="https://wiki.gentoo.org/wiki/Dispatch-conf"><code>dispatch-conf</code></a> とかで merge できるので心配はないだろうと思います。
+			たぶん。
+			<a href="#ref-copyable-config-under-etc" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-genkernel">
+			私はゆとりなので <code>sys-kernel/genkernel-next</code> を使っています。
+			ちなみに <a href="https://wiki.gentoo.org/wiki/Genkernel/ja">gentoo wiki の当該項目のページ</a>では <code>sys-kernel/genkernel</code> を紹介していますが、このパッケージは古く <a href="https://gitweb.gentoo.org/repo/gentoo.git/diff/profiles/targets/systemd/package.mask?id=56bd759df1d0c750a065b8c845e93d5dfa6b549d">systemd と互換性がないらしい</a>ので、 next の方を使ってください。
+			<a href="#ref-genkernel" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-config-auto-filling">
+			Linux カーネルのツール群は、 make に必要なプログラムもまた必要に応じてコンパイルするものが多いので、たぶん <a href="https://www.kernel.org/doc/Documentation/kbuild/kconfig-language.txt">Kconfig</a> を解釈する部分はCのコード使ってるんじゃないかなぁと思います。
+			読んで確認してないので知りませんが。
+			<a href="#ref-config-auto-filling" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-portage-elog-summary-log">
+			カーネルオプションについては、 emerge 時に満たされていなかった条件だけがメッセージに出力されるため、必要な条件のすべてを確認するには、各パッケージの ebuild を確認する必要がある。
+			<a href="#ref-portage-elog-summary-log" aria-label="Back to content">&#x21B5;</a>
+		</li>
+	</ol>
+</aside>
