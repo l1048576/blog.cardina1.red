@@ -1,5 +1,6 @@
 ---
 created_at: 2016-12-05T22:48:52+0900
+updated_at: 2016-12-06T00:20:42+0900
 title: "kernel config 生成(略記)のためのシェルスクリプト"
 htags:
   - "computer/linux"
@@ -411,6 +412,13 @@ while true; do
 	<h2>おまけ<a href="#omake" class="permalink"></a></h2>
 	<section id="omake-portage-summary-log">
 		<h3>portage のログ<a href="#omake-portage-summary-log" class="permalink"></a></h3>
+		<aside class="tip ins">
+			<h1>追記 (2016-12-06T00:20:25+0900)</h1>
+			<p>
+				もっと良い方法がありました。
+				<a href="#omake-postscript1-kernel_config_check_py">追記1</a>を参照。
+			</p>
+		</aside>
 		<p>
 			<code class="filepath">/var/log/portage/elog/summary.log</code> に、過去 portage で emerge されたパッケージのメッセージが記録されています。
 			これを見て検索をかければ、どのパッケージがどのような設定を要求しているか、ある程度<a aria-describedby="footnote-label" id="ref-portage-elog-summary-log" href="#footnote-portage-elog-summary-log"></a>わかるでしょう。
@@ -500,6 +508,24 @@ let b:current_syntax = "portage-summary-log"
 				</p>
 			</dd>
 		</dl>
+	</section>
+
+	<section id="omake-postscript1-kernel_config_check_py">
+		<h3>追記1 (2016/12/06 00:12): <code>kernel-config-check.py</code><a href="#omake-postscript1-kernel_config_check_py" class="permalink"></a></h3>
+		<blockquote class="twitter-tweet" data-cards="hidden" data-lang="ja"><p lang="ja" dir="ltr">kernel config checkには kernel-config-check.py とか / “kernel config 生成(略記)のためのシェルスクリプト - 何とは言わない天然水飲みたさ” <a href="https://t.co/7X7AE3sXKx">https://t.co/7X7AE3sXKx</a></p>&mdash; このGentooの片隅に (@naota344) <a href="https://twitter.com/naota344/status/805790701610905600">2016年12月5日</a></blockquote>
+		<script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<p>
+			<a href="https://gist.github.com/mrueg/cd19a20d2e712f61d2ea"><code class="filepath">kernel-config-check.py</code></a> というものを公開している方がいらっしゃるようで、これを使うと、インストール済のパッケージが要求するカーネルオプションを網羅できるようです。
+			すごい！
+			便利！
+			圧倒的感謝！！
+		</p>
+		<figure>
+			<script src="https://gist.github.com/mrueg/cd19a20d2e712f61d2ea.js"></script>
+			<figcaption>
+				<a href="https://gist.github.com/mrueg/cd19a20d2e712f61d2ea"><code class="filepath">kernel-config-check.py</code></a>
+			</figcaption>
+		</figure>
 	</section>
 </section>
 
