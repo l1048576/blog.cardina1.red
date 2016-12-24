@@ -1,0 +1,751 @@
+---
+created_at: 2016-12-24T19:43:46+0900
+title: "ロ技研の部誌を書いた記録"
+htags:
+  - "AdventCalendar/2016"
+  - "computer/TeX"
+  - "つらぽよ"
+kind: article
+
+excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返ってのメモ"
+---
+
+<aside>
+	<p>
+		この記事は、 <a href="http://www.adventar.org/calendars/1654">rogy Advent Calendar 2016</a> の22日目の記事です。<br />
+		前日の記事は <a href="https://maquinista.rogiken.org/?q=node/1635">12/21 近況と台湾と大掃除 | Maquinista</a> 、翌日の記事は <a href="http://blog.tokor.org/2016/12/24/rogy-Advent-Calendar-2016-MAT%E5%B0%91%E5%A5%B3%E8%82%B2%E6%88%90%E8%A8%88LAB-02/">[rogy Advent Calendar 2016] MAT少女育成計LAB #02 | Tokoro's Tech-Note</a> です。
+	</p>
+	<p>
+		遅れてごめんよ。
+	</p>
+</aside>
+<hr />
+
+<p>
+	<a href="https://www.rogiken.org/">東工大 ロボット技術研究会</a>の部誌を編集した。
+	つらぽよレベルが非常に高まった。
+	部誌編集のつらぽよ等について、ここに記録を残す。
+	愚痴っぽくなったけど誰かが悪いと文句を言ってるわけじゃないんです信じてください。
+</p>
+
+<section id="abstract">
+	<h2>概要<a href="#abstract" class="permalink"></a></h2>
+	<p>
+		何故部誌を作ることになったかはここでは書かない。
+		部誌を具体的にどのような過程で作っていったか、作業と技術を書く。
+		あと、部誌に直接関係ない話題も沢山書く。
+		書き殴る。
+	</p>
+	<p>
+		この話題については部誌のあとがきにも少しだけ書いたが、この記事はその完全版である。
+	</p>
+</section>
+
+<section id="typesetting-technology">
+	<h2>組版技術<a href="#typesetting-technology" class="permalink"></a></h2>
+
+	<section id="typesetting--final-product-format">
+		<h3>最終成果物の形式<a href="#typesetting--final-product-format" class="permalink"></a></h3>
+		<p>
+			まず、成果物を <strong>PDF</strong> として吐こうということは最初に決めていた。
+			印刷所への入稿に最も妥当な選択だと考えたからだ。
+		</p>
+		<p>
+			そもそも、それ以外の選択肢をよく知らなかったというのもある。
+			もしかすると M$ W○RD の形式での入稿の可能な印刷所もあるのかもしれないが、そんなものは論外である。
+			プロプライエタリは邪悪だ。
+			かといって、まさか文字情報を全て画像ファイルにするというのもクールじゃない。
+			結局のところ、 PDF 以外に選択肢なんてなかった。
+		</p>
+	</section>
+
+	<section id="typesetting--typescript-format">
+		<h3>原稿の形式<a href="#typesetting-typescript-format" class="permalink"></a></h3>
+		<p>
+			原稿の形式とツールチェインは多少迷った。
+		</p>
+		<p>
+			個人的な好みとしては、 XML などが木構造が明確に現れていて良いのだが、やはり LaTeX は理系の世界では書ける者もそこそこ多く、しかし最近では AsciiDoc も markdown ユーザ層におすすめできる。
+			結局、私が考えたのは以下のような選択肢であった。
+		</p>
+
+		<ul>
+			<li>
+				<a href="http://docbook.org/">DocBook</a>
+				→[<a href="https://www.w3.org/TR/1999/REC-xslt-19991116">XSLT</a>]→
+				<a href="https://www.w3.org/TR/2001/REC-xsl-20011015/">FO</a>
+				→[<a href="https://xmlgraphics.apache.org/fop/">fop</a>]→
+				PDF
+			</li>
+			<li>
+				なにか良さげな形式
+				→[何か]→
+				<a href="https://www.w3.org/Graphics/SVG/">SVG</a>
+				→[<a href="https://wiki.gnome.org/action/show/Projects/LibRsvg">rsvg-convert</a>]→
+				PDF
+			</li>
+			<li>
+				<a href="https://www.latex-project.org/">LaTeX</a>
+				→[<a href="http://www.tug.org/texlive/">TeX Live</a>]→
+				PDF
+			</li>
+			<li>
+				<a href="https://www.w3.org/TR/2014/REC-html5-20141028/">HTML</a> / <a href="https://www.w3.org/TR/2011/REC-css3-color-20110607/">CSS</a>
+				→[ブラウザ]→
+				PDF
+			</li>
+			<li>
+				<a href="http://asciidoc.org/">AsciiDoc</a>
+				→[<a href="http://asciidoctor.org/">asciidoctor</a>]→
+				HTML / CSS
+				→[ブラウザ]→
+				PDF
+			</li>
+			<li>
+					AsciiDoc
+					→[asciidoctor]→
+					DocBook
+					→[XSLT]→
+					FO
+					→[fop]→
+					PDF
+			</li>
+		</ul>
+
+		<p>
+			<small>(EPUB も考えなくもなかったが、 Linux でまともなビューアを知らないので却下した。)</small>
+		</p>
+
+		<p>
+			簡単に説明しよう。
+		</p>
+
+		<dl>
+			<dt><a href="http://docbook.org/">DocBook</a></dt>
+			<dd>
+				<p>
+					DocBook は、技術文書のためのマークアップ言語である。
+					技術文書というか、特にソフトウェア方面に強い。
+					manページやリファレンス等、 DocBook 形式を用いて書かれた文書は多い。
+				</p>
+				<p>
+					この形式の良いところは、何といっても文書構造が明確、かつタグのそれぞれの意味や用途がはっきりしているところだ。
+					詳細は<a href="http://tdg.docbook.org/tdg/5.1/chunk-part-d6234e15959.html">リファレンス</a>を見ればわかるが、非常に多くの種類のタグがある。
+					これらそれぞれに、単語の意味や文書構造が割り当てられている。
+				</p>
+				<p>
+					XML 形式であるから、同じ XML である <a href="https://www.w3.org/Math/">MathML</a> も使うことができる。
+					数式の表現も安心だ。
+				</p>
+				<p>
+					HTML も文書構造用のタグはあるが(特に HTML5 からは)、そもそもが web ページ用なのでそこまで詳細ではない。
+					一方、 DocBook は書籍等も想定されており、 <a href="http://tdg.docbook.org/tdg/5.1/colophon.html"><code>colophon</code> 要素</a>や
+					<a href="http://tdg.docbook.org/tdg/5.1/book.html"><code>book</code> 要素</a>といったものまで用意されている。
+					なんでも天下の <a href="https://www.oreilly.co.jp/index.shtml">O'Reilly</a>
+					も<a href="http://www.oreilly.co.jp/community/blog/2012/01/free-opensouce-softwares-support-orj-epub-titles.html">使っている</a>(いた？)という話。
+				</p>
+				<p>
+					しかし、この形式の欠点は、やはりタグの種類が多いことである。
+					リファレンスを眺めてどのようなタグがあるか把握すれば、あとは HTML などと同じくタグを付けるだけだが、慣れないうちは似たようなタグのどれを使うかなど迷うことだろう。
+					また、<a href="http://docbook.org/schemas/5x.html">スキーマ</a>も厳格に定められているため、窮屈に感じるかもしれない<a aria-describedby="footnote-label" id="ref-strict-schema" href="#footnote-strict-schema"></a>。
+				</p>
+				<p>
+					DocBook から他形式への変換に使う XSLT スタイルシートが大規模で複雑であり、自由度が高いとはいえカスタマイズに少々苦労するというのも欠点のひとつだ。
+					一応これは自分で書くこともできるのだが、さすがに私は FO や PDF の仕様までは知らないため、そこまでする気はなかなか起きない<a aria-describedby="footnote-label" id="ref-docbook-xslt-from-scratch" href="#footnote-docbook-xslt-from-scratch"></a>。
+				</p>
+			</dd>
+			<dt><a href="https://www.w3.org/Graphics/SVG/">SVG</a></dt>
+			<dd>
+				<p>
+					SVG はベクタ画像形式の一種で、 <strong>Scalable Vector Graphics</strong> の略である。
+					他にもベクタ画像形式は沢山あるのだろうが、 SVG は XML ベースであるため、アプリケーションから使いやすい(というより、正しくは扱うアプリケーションを書きやすい)。
+					また、 XML ベースであるがゆえ、テキストデータを扱ったり、他の形式中に埋め込んだりといった用途と相性が良い。
+				</p>
+			</dd>
+			<dt><a href="https://www.latex-project.org/">LaTeX</a></dt>
+			<dd>
+				<p>
+					みんな<sup style="font-size: 50%">[誰?]</sup>大好き<sup style="font-size: 50%">[要出典]</sup> LaTeX である。
+				</p>
+				<p>
+					組版の美しさには定評があり、また PDF 出力にも実績がある。
+					数式を表現できるフォーマットとしても有名であり、理系(情報系？)の多数が使っていると思われる。
+					また、多数のパッケージによる機能拡張も魅力のひとつだ。
+				</p>
+				<p>
+					しかし TeX の歴史は長く、そのぶん派生した処理系も多いため、環境を揃えるのが面倒である。
+					TeX Live なる処理系セットも存在するが、誰もがそれを使っているとも限らない<a aria-describedby="footnote-label" id="ref-tex-env-without-texlive" href="#footnote-tex-env-without-texlive"></a>。
+					最近でこそ Unicode 対応の処理系(uplatex 等)もあるが、それでもフォントの扱いなどに面倒があることも多く、また画像の扱いも大昔の慣習を引き摺っている場合があったりと、面倒なことがある。
+				</p>
+			</dd>
+			<dt><a href="https://www.w3.org/TR/2014/REC-html5-20141028/">HTML</a> / <a href="https://www.w3.org/TR/2011/REC-css3-color-20110607/">CSS</a></dt>
+			<dd>
+				<p>
+					HTML は、 Web ページとかを書くためのフォーマット。
+					いわゆるリッチテキストをテキスト形式で記述できる。
+					XML の親戚みたいなやつ。
+					超有名。
+				</p>
+				<p>
+					CSS は、 HTML のスタイルを記述するための言語。
+					HTML が主に文書構造とその内容を記述するのに対し、 CSS は見た目を記述することで、本質的に重要な情報と飾りの情報をできるだけ分離している。
+				</p>
+				<p>
+					HTML と CSS の自由度はそれなりに高いので、この技術で本を書こうというのは多くの人が考えるところで、現時点で幾つかの技術がある。
+				</p>
+				<p>
+					<a href="https://github.com/oreillymedia/HTMLBook">htmlbook</a> (<a href="http://jagat-xml-publishing-study-group.github.io/HTMLBook-JA/">日本語訳</a>)は、またもや天下の O'Reilly が策定しようとしている規格である。
+					HTML のサブセットで、 <code>data-type</code> 属性によるメタ情報を活用することで、文書構造を本の作成に使えるレベルで明確にしよう、というものだ。
+					CSS について規定はないので、印刷用やブラウザ用のスタイルは自分で書くことになる。
+					この規格は EPUB や DocBook を参考にしているところが大きく、それなら最初から DocBook 書けば良くね？ と思ったのは私だけだろうか……。
+				</p>
+				<p>
+					もうひとつ、これとは別に CSS 組版というものもあり、こちらは文書構造というより見た目を本として印刷可能にする技術の総称である。
+					最近の CSS は高機能なので、文字やテキストの配置がかなり細かく制御できるようになっているのである。
+				</p>
+				<p>
+					しかしこの方式の問題は、しっかりした処理系がないことにある。
+					WebKit 系や Google Chrome や Firefox など、それぞれ微妙に表示が違ったり、そもそもブラウザを起動してPDF出力しなければならなかったり、或いは良い処理系があっても有料だったりする。
+				</p>
+				<p>
+					ちなみに電子書籍のフォーマットである EPUB も HTML (というか、 XHTML と呼ばれる XML 形式)や CSS ベースの形式である。
+				</p>
+			</dd>
+			<dt><a href="http://asciidoc.org/">AsciiDoc</a></dt>
+			<dd>
+				<p>
+					AsciiDoc は markdown と似た、文書を記述するための非マークアップ言語である。
+					markdown は多様な方言や表現力のなさ(そして「困ったことがあれば HTML 直書きしてね！」という仕様)のせいで、可搬性の欠片もない地獄フォーマットとなっているが、 AsciiDoc はある程度明確に仕様が定められており、不安が少ない。
+				</p>
+				<p>
+					また、 AsciiDoc は DocBook と同様の文書構造を簡潔に表現できることを目指したフォーマットのため、書籍を記述することもできる。
+					またまた天下の O'Reilly もこの形式の原稿を扱っているようだ。
+				</p>
+				<p>
+					AsciiDoc には数式を表現するための TeX 記法でもなく MathML でもない記法が用意されているため、意地でもマークアップしたくない人でも安心して数式を書ける。
+				</p>
+			</dd>
+		</dl>
+
+		<p>
+			さて上のような選択肢のいずれかを選ぶことになる。
+		</p>
+		<p>
+			DocBook は個人的には好きだが、 HTML 直書きすら人間のやることではないという意見の強いなか、原稿を XML で書けというのは流石に横暴である(というか原稿集まらなそうな気がする)ため却下した。
+			私は今時 LaTeX を書く方がよほど人間に向いていないと思うのだが……。
+		</p>
+		<p>
+			そして実質 XML のようなところのある HTML も却下となった。
+			数式も MathML で書けるし良いと思ったのだが残念だ。
+		</p>
+		<p>
+			SVG はテキストデータを持てるし画像も持てるし、それなら組版の出力として使えるのではないか、と思ったわけであるが、現実はそんなに甘くなかった。
+			あくまで SVG は画像形式だからか、文字の位置を決める作業(禁則処理とか)は自力でやらねばならない部分があるようだった。
+		</p>
+		<figure>
+			<blockquote cite="http://ssvvgg.net/post/127068682345/2015%E5%B9%B408%E6%9C%8819%E6%97%A5%E3%81%AEsvg">
+				いかんせんSVG 1.1SEではテキストの自動折り返しができない上、仮にtextPath要素で代用しても禁則処理も行われないなど、文字周りは依然として使いどころが難しいのが現状ですね。
+			</blockquote>
+			<figcaption><a href="http://ssvvgg.net/post/127068682345/2015%E5%B9%B408%E6%9C%8819%E6%97%A5%E3%81%AEsvg">2015年08月19日のSVG - 週刊SVG</a>, 2016/12/22 閲覧</figcaption>
+		</figure>
+		<p>
+			まあ画像形式であるからこれは当然といえば当然なのだが、結局 SVG は本を作るという用途では成果物寄りの形式であり、 SVG を生成するためにはテキストレイアウト等を行うエンジンが必要になる。
+			私はそのようなアプリケーションを知らなかったが、かといって作るのも面倒そう(TeX エンジンを再発明するようなものである)だったので、残念ながら SVG を経由する方式も却下だ。
+		</p>
+		<p>
+			残る AsciiDoc と LaTeX であるが、やはり部員に浸透しているのは LaTeX である。
+			AsciiDoc も推してはいるしユーザもちらほら見掛けるのだが、 vim のように部員皆が使っているというわけでもない。
+		</p>
+		<p>
+			また、 AsciiDoc は HTML か DocBook (FO) 経由でしか変換できないというのが痛い。
+			スタイルの細かな調整や自動化された PDF 生成が確実ではないのだ。
+			よって、部誌には LaTeX を使うことにした。
+			それしか選択肢が残らなかったのである。
+		</p>
+	</section>
+</section>
+
+<section id="tex">
+	<h2>TeX<a href="#tex" class="permalink"></a></h2>
+	<p>
+		TeX はつらい。
+		何がつらいかというといろいろあるが、古くからある技術だけあり、全体的にレガシーである。
+		文書構造とスタイルが分離されていないところとか嘗てのHTML4を思い起こさせるし、変数(というかコマンド)がグローバルで構造化プログラミング以前の時代を彷彿とさせる設計である。
+		要するに、ノウハウやパッケージが蓄積されているからこそ皆なんとか使えているが、新たに開発しようとして今の TeX のような仕様にはまずならないだろう。
+	</p>
+	<p>
+		もうひとつつらいのが、環境依存性だ。
+		TeX 処理系は多くあり、それぞれが特有のクラスファイルや設定を持っていたりするため、 TeX ファイルだけ他のマシンに移動してコンパイルしようとしても、処理系やオプションを合わせないと動かないなんてことはざらだ。
+		幸運にも、その用途については <a href="https://www.ctan.org/pkg/latexmk/">latexmk</a> が解決してくれる<a aria-describedby="footnote-label" id="ref-latexmk-introduction" href="#footnote-latexmk-introduction"></a>から、
+		<a href="https://github.com/titech-ssr/rogy-conf-journal-template/blob/c91/.latexmkrc"><code class="filepath">.latexmkrc</code> ファイルをテンプレートとして提供する</a>ことで執筆者間での環境の差異の吸収を試みた。
+	</p>
+
+	<section id="tex--environments">
+		<h3>TeX の環境<a href="#tex--environments" class="permalink"></a></h3>
+		<p>
+			さて latexmk により環境の差異の吸収を試みたが、結果としては微妙だった。
+			手法としては妥当だったのだが、いろいろ周知が足りなかったのである。
+		</p>
+
+		<section id="tex--environments--images-bb">
+			<h4>画像の bb<a href="#tex--environments--images-bb" class="permalink"></a></h4>
+			<p>
+				まず、<strong><code>\includegraphics</code> の <code>bb</code> オプションは今時不要である</strong>。
+				詳細は<a href="http://qiita.com/zr_tex8r/items/5413a29d5276acac3771">日本人のための LaTeX タブー集 ～画像読込編～ - Qiita</a> でも読んでほしいが、 bb というのは人間が原稿に直書きするようなパラメータではない。
+				しかも最近の TeX 処理系(TeX Live 2015 以降)はそもそも extractbb コマンドを自動で実行するため、 もはや<strong>ユーザが <code>bb</code> を指定したり .xbb ファイルを作成する必要はない</strong><a aria-describedby="footnote-label" id="ref-automatic-extractbb" href="#footnote-automatic-extractbb"></a>。
+				そして、必要がないファイルを原稿リポジトリに含めるべきではない。
+				よって、私が回収した TeX ファイルからは、 <code>bb</code> オプションや .xbb ファイルは消去した。
+			</p>
+			<p>
+				したのだが、 TeX Live を使っていない環境ではそれだと駄目だったようで、 bb 関係のエラーでローカルでコンパイルできなかったという執筆者があった。
+				ひどい話だ。
+				(とはいえ、だからといって xbb ファイル等を git リポジトリに追加することはなかったが。)
+			</p>
+		</section>
+
+		<section id="tex--environments--whitespaces">
+			<h4>空白文字の扱い<a href="#tex--environments--whitespaces" class="permalink"></a></h4>
+			<p>
+				日本語対応の LaTeX (今回は upLaTeX を使った)において、<strong>日本語・英語関係なく句読点の後の改行とインデントは無視される</strong>のだが、これを知らない人が多かったようである。
+			</p>
+			<p>
+				基本的に LaTeX の文書はテキストエディタで書き、管理もテキストとして行うものだから、可読性は高く保つべきである。
+				TeX 文書におけるソースコードの可読性とはすなわち、以下のようなことだ。
+			</p>
+			<dl>
+				<dt>適切なインデント</dt>
+				<dd>
+					<p>
+						セクションはどこで始まりどこで終わるのか、特定のコマンドの効果が及ぶのはどの範囲なのか、そういった情報はインデントによってわかりやすく可視化されるべきだ。
+					</p>
+				</dd>
+				<dt>適切な改行</dt>
+				<dd>
+					<p>
+						行が長くなると、それだけ読み辛くなる。
+						エディタ上で折り返しが発生すれば、インデントを使っている場合、可読性は更に落ちる。
+						これは望ましいことではない。
+					</p>
+					<p>
+						また、文書の特定箇所での変更が、 diff コマンド等で差分を表示するとき、より多くの範囲へ影響しているように見えてしまう。
+						つまり、文書の変更履歴を見たとき、その変更箇所の特定や意味の把握が行いづらくなるということである。
+						これも、 git 等で文書を管理する場合など特に望ましくない。
+					</p>
+					<p>
+						日本語は英語と違って分かち書きではないから、文字数の丁度良いところの単語区切りで勝手に改行ということができない。
+						実際のところ勝手に改行はできるが、日本語だからといって単語や文章を分断するような位置で改行を入れれば読み辛いのは当然である。
+					</p>
+					<p>
+						よって、原稿を書く者が適切なタイミングの句読点等で改行を入れ、行が長くなりすぎぬよう調整する必要がある。
+					</p>
+				</dd>
+			</dl>
+		</section>
+	</section>
+
+	<section id="tex--common-styles">
+		<h3>共通のスタイル<a href="#tex--common-styles" class="permalink"></a></h3>
+		<p>
+			本として体裁を整えるのであれば、各原稿はスタイルが揃っていなければならない。
+			TeX ユーザのリテラシが高めのお蔭だろうか、 TeX においては2000年代の HTML のような「タイトルを虹色にして画像で配置」とか「ヘッダ用のタグを使わず太字でセクションタイトルにしたつもり」とかはあまり見掛けない。
+			よって、執筆者がマトモな TeX ソースを書いてくるという前提に立って、私の仕事は改ページ、前書き・目次・後書き・奥付等の記事でない情報の配置、ページヘッダやページフッタの調整ということになる。
+		</p>
+		<p>
+			さて、複数人で執筆する記事を合わせてひとつの本にするというのが意外と面倒である。
+			たとえば footnote の番号などリセットせねばならないし、参考文献は通常巻末に置かれるところ記事毎の末尾に置かねばならない。
+			そしてなにより、 <code>\author</code> や <code>\title</code> 等は本に対して使うことになるので記事には使えない。
+			よって、その辺りの調整や整備も私が行った。
+		</p>
+
+		<section id="tex--common-styles--base">
+			<h4>基礎部分<a href="#tex--common-styles--base" class="permalink"></a></h4>
+			<p>
+				本来であれば cls ファイルとか dtx ファイルとかを作って、外付けのスタイルでどうこうするのでなくドキュメントクラスから整備すべきだったのかもしれない。
+				が、参考にした<a aria-describedby="footnote-label" id="ref-referenced-kmc" href="#footnote-referenced-kmc"></a> <a href="https://github.com/kmc-jp/kmcbook/blob/b54311760f578cd590212ec6891cd486ee07e2b2/kmcclasses.dtx">KMC の <code class="filepath">kmcclasses.dtx</code></a> がどう考えても保守できなくなるタイプのクソデカファイルだった<a aria-describedby="footnote-label" id="ref-avoid-hard-maintenance" href="#footnote-avoid-hard-maintenance"></a>ので、素直に環境とプリアンブルを共通化することでどうにかしようということになった。
+			</p>
+			<p>
+				さて、記事毎の .tex ファイルにプリアンブルが(ほとんど)必要ない方法というと、 subfiles パッケージを使う方法と、 <code>\input</code> や <code>\include</code> を使う方法があるが、今回は本の生成意外にも記事単独コンパイルをできるようにしたいと考えていたので、 subfiles パッケージを使うことにした。
+			</p>
+		</section>
+
+		<section id="tex--common-styles--article">
+			<h4>記事<a href="#tex--common-styles--article" class="permalink"></a></h4>
+			<p>
+				まず、記事は <code>chapter</code> レベルの情報となる。
+				そして記事の種類ごとに <code>part</code> があって、それを集めて本文だ。
+			</p>
+			<p>
+				よって、記事タイトルや著者は <code>chapter</code> のタイトル周辺にどうにかして配置することになるが、その配置は全ての記事で共通となる。
+				そういった配置をお約束として各執筆者に書いてもらうと無駄な負担や不揃いになりかねないため、コマンドを作った。
+				<a href="https://github.com/titech-ssr/rogy-conf-journal-template/blob/c91/sty/20-rogyconf.sty#L84-L107"><code>\ssrarticle</code> コマンド</a>である。
+				これを <a href="https://github.com/titech-ssr/rogy-conf-journal-template/blob/c91/sample/sample-article1.tex#L5"><code>\ssrarticle{ぽよぽよを作ってみた}{ぽぽぽ学科 3年}{ぽよ太郎}{ニックネーム的なやつとかtwitter}</code></a> のように使うだけで記事ヘッダになるため、執筆者が無駄にいろいろ書く必要がなくなった。
+			</p>
+			<p>
+				ここで「タイトルと著者情報は同じコマンドで指定する必要はなかったのでは？」と思った方もいるかもしれない。
+				本を書くだけであれば、その通りであるし、実際著者情報は <a href="https://github.com/titech-ssr/rogy-conf-journal-template/blob/c91/sty/20-rogyconf.sty#L73-L82"><code>\localauthor</code></a> によって出力されているため、分離は可能である。
+			</p>
+			<p>
+				では何故一緒にしたかといえば、それは<strong>記事個別でのコンパイルを簡単にする</strong>ためである。
+				このテンプレートにおいては、個別の記事をひとつの article としてコンパイルし PDF 出力することが可能であり、その場合タイトルは <code>\title</code> 、著者情報は <code>\author</code> で指定し、ついでに <code>\maketitle</code> してやる必要がある。
+				このような手順の違いがあるため、執筆者には、記事が article なのか chapter なのかを意識してもらっては困るのである。
+				これらの手順をひとまとめにして抽象化し、単に「記事のヘッダ」としてまとめる意図で、タイトル指定と著者指定が単一のコマンドで行うことになった。
+			</p>
+		</section>
+
+		<section id="tex--common-styles--preamble">
+			<h4>プリアンブル<a href="#tex--common-styles--preamble" class="permalink"></a></h4>
+			<p>
+				プリアンブルの指定は、 TeX で原稿を書くとき大きな負担になることのひとつである。
+				環境に強く依存するし、ややもすると秘伝のタレになりがちで管理が難しい。
+				しかも、複数記事をひとつの PDF 、ひとつの本にまとめるのであれば、プリアンブルは本全体に共通ということになる。
+				よって、プリアンブルの管理もテンプレートで行うことになった。
+				それが <a href="https://github.com/titech-ssr/rogy-conf-journal-template/tree/c91/sty"><code class="dirpath">sty/</code> ディレクトリ以下にある sty ファイル群</a>である。
+			</p>
+			<p>
+				<code class="filepath">10-setup.sty</code> は、主に <code>\usepackage{}</code> を行うファイルである。
+				本当は <code>\usepackage</code> もその意味や用途毎に各ファイルへ分散させたかったが、パッケージ間で依存関係があったり、連携に余計なオプション指定が必要だったりと、パッケージの直交性<a aria-describedby="footnote-label" id="ref-packages-orthogonality" href="#footnote-packages-orthogonality"></a>が低かったため、一箇所にまとめざるを得なかった。
+			</p>
+			<p>
+				他にもいろいろファイルはあるが、まあおおよそタイトルの通りだし、見ればわかる。
+				黒魔術っぽい奴らにはだいたい参考 URL を書いてあるので、よくわからない記述があっても、すぐに元情報を参照できる。
+				コメントは大事。
+			</p>
+		</section>
+
+		<section id="tex--common-styles--font">
+			<h4>フォント<a href="#tex--common-styles--article" class="permalink"></a></h4>
+			<p>
+				フォント関係は結構レガシーな仕組み(それこそ大昔 7bit やら 8bit で文字を表現していた時代とかの)を引き摺っているようで、かなり問題が多い。
+				それらをプリアンブル(<code class="filepath">sty/30-styles.sty</code>)でアレな記述を行うことで解決していった。
+			</p>
+
+			<dl>
+				<dt><a href="https://github.com/titech-ssr/rogy-conf-journal-template/blob/c91/sty/30-styles.sty#L1-L16">日本語の斜体</a></dt>
+				<dd>
+					<p>
+						日本語だけ使っているとあまり意識しないが、斜体には2種類ある。
+						<strong>italic</strong> と <strong>slant</strong> だ。
+						italic 筆記体のようなというか、最初から斜めでデザインされているもので、 slant は普通の文字を安直に斜めに倒したものである。
+						日本語は斜め文字専用書体のようなものがないから、普通 slant で対応することになる。
+					</p>
+					<p>
+						そこで何が起きるかというと、英字を斜めにしようとして italic 指定すると、同じ方法では日本語の文字が倒れない(そのようなフォントがない)のである。
+						よって、日本語の斜体のための slant を行うマクロを発見し、導入した。
+					</p>
+				</dd>
+				<dt><a href="https://github.com/titech-ssr/rogy-conf-journal-template/blob/c91/sty/30-styles.sty#L19-L30">日本語と英字の強調</a></dt>
+				<dd>
+					<p>
+						英語における強調は斜体(italic)で行うことになっている(更に強い強調は太字(bold)で行う)が、日本語の斜体は見辛い。
+						正確には、 italic はフォントが変わるので普通の文字との違いを判別しやすいが、日本語は斜体にしても slant なので、文字そのものの特徴があまり変わらず、違いが判りづらいのである。
+						そこで、 <code>\em</code> や <code>\emph</code> による強調で、 italic でなく bold を使うよう記述を追加した。
+					</p>
+				</dd>
+				<dt><a href="https://github.com/titech-ssr/rogy-conf-journal-template/blob/c91/sty/30-styles.sty#L33-L44">日本語と英字の等幅フォント</a></dt>
+				<dd>
+					<p>
+						TeX では英字で等幅フォントを使おうとすると typewriter 体を使うことになる。
+						ソースコードの表示とかで使うアレだ。
+					</p>
+					<p>
+						しかし日本語のタイプライター体はないため、他の等幅フォントで代用する必要があるが、実のところゴシック体の日本語文字(というより全角文字)は等幅であるから、これをそのまま利用できる。
+						よって、等幅フォントを指定されたとき、英字ではそのまま typewriter 、日本語等であれば gothic を使わせるようにした。
+					</p>
+				</dd>
+				<dt><a href="https://github.com/titech-ssr/rogy-conf-journal-template/blob/c91/sty/30-styles.sty#L47-L64">serif と gothic</a></dt>
+				<dd>
+					<p>
+						英字には serif と sans-serif という書体がある。
+						文字に「ひげ」のあるのが serif 、ないのが sans-serif だ。
+						日本語でいうと serif は明朝、 sans-serif はゴシックに相当する。
+					</p>
+					<p>
+						このような対応関係があるから、日本語と英数字交じりの文やブロックに <code>\sf</code> を使ったとき、英字は serif 、日本語は gothic になってほしいのだが、残念ながら LaTeX ではそうはならない。
+						<code>\sf</code> では英字だけが sans-serif となり、 <code>\gt</code> では日本語だけが gothic となる。
+						<code>\textsf</code> と <code>\textgt</code> は両方同時に使うと日本語と英数字両方がゴシックになるが、 <code>\sf</code> と <code>\gt</code> は同時に使っても最後の一方しか反映されないのである。
+					</p>
+					<p>
+						そこで、これらのマクロの根本にある <code>\sffamily</code> と <code>\gtfamily</code> を再定義し、どちらのコマンドを使っても日本語と英数字両方がゴシックになるようにした。
+					</p>
+				</dd>
+			</dl>
+		</section>
+	</section>
+
+	<section id="tex--individual-problems">
+		<h3>個別の問題<a href="#tex--individual-problems" class="permalink"></a></h3>
+		<p>
+			テンプレートや記事共通の問題だけでなく、個別の記事や記述に起因する問題もあった。
+		</p>
+
+		<section id="tex--individual-problems--overfull">
+			<h4>はみ出し<a href="#tex--individual-problems--overfull" class="permalink"></a></h4>
+			<p>
+				LaTeX で技術的な文章を書くと、これがまたよく横にはみ出るのだ。
+				長い URL やソースコード断片を含む文章、英字交じりの長いタイトルなどなど、本当にいろいろなものがはみ出る。
+				これらを、以下のようにして対処した。
+			</p>
+			<dl>
+				<dt>長い URL やソースコード断片を含む文章</dt>
+				<dd>
+					<p>
+						こういう場合のはみ出しは、 TeX エンジンが見た目良さげな改行のタイミングを見付けられなかったことが原因で発生する。
+						解決法としては、その段落を <code>\begin{sloppypar}</code> 〜 <code>\end{sloppypar}</code> で囲ってやることで、見た目が多少悪くなっても自動改行を多くしてやることである。
+						これでも URL などは僅かにはみ出したままの場合があるが、まあ許せるレベルにはマシになる。
+					</p>
+				</dd>
+				<dt>長いタイトルのはみ出し</dt>
+				<dd>
+					<p>
+						これは <a href="https://github.com/titech-ssr/rogy-conf-journal-template/commit/5901b28f5e766add41e228402a7947b1717870b7"><code>\raggedright</code> を使って</a>、右側に余白が大き目に空いてしまうことを許すことでどうにかした。
+					</p>
+				</dd>
+				<dt>listing の長い行のはみ出し</dt>
+				<dd>
+					<p>
+						これはコンマやイコール等、演算子や記号の前後で空白を入れなかった場合に発生しやすい。
+						対処としては、ソースコード中に空白を入れてもらうことになる。
+						(とはいえ、普通のコードでは空白は沢山入れようという規約で書いている人が多いので、そうそう起きない問題だが。)
+					</p>
+					<p>
+						メソッドチェーンなど、普通に書いていれば空白が入らない行などもあるが、こういう場合は元のソースコードで明示的に改行と行継続を使ってもらうしかない。
+					</p>
+				</dd>
+				<dt>数式のはみ出し</dt>
+				<dd>
+					<p>
+						こいつが相当厄介で、単に項が多いだけならまだしも、∫やらΣやらの中の式が長かったりすると、迂闊に改行もできない。
+						いや、できないことはないのだろうが、本人以外が勝手に改行を入れるというのは難しい。
+						このケースの対応策はいくつかある。
+					</p>
+					<ul>
+						<li>改行を入れる</li>
+						<li><code>\resizebox</code> や <code>\scalebox</code> で式を縮小する</li>
+						<li>文字間隔を狭める</li>
+					</ul>
+					<p>
+						今回の部誌では文字を詰めた。
+						<code>\!</code> や <code>\mathalpha{+}{</code> を手作業で並べていったのである。
+						一律でやると文字が詰まりすぎて可読性を損ねることもあるので、 PDF を目視確認しつつ調整していく。
+						おかげで、<strong>手作業の温かみのある数式</strong>が出来上がった。
+					</p>
+				</dd>
+			</dl>
+			<p>
+				どうも TeX は、見た目をどうにか良くしようとする割には、守ってほしいはずのルールをカジュアルに破りにくるので油断ならない。
+				PDF を生成するごとにじっくり眺めてはみ出しを確認する必要があるだろう。
+				(実は私は慌てていて大きなはみ出しを一箇所見逃してしまったのだが、まあここだけの話だ。)
+			</p>
+			<p>
+				それから、はみ出しとは紙面の外へ突き抜けることだけでなく、本来文字のないべき余白部分へ飛び出すのも指すのだというのが、意外と知られていなかった。
+				(要するに本文が<a href="http://zokeifile.musabi.ac.jp/%E7%89%88%E9%9D%A2/">版面</a>から出るべきでないというだけの話なのだが。)
+			</p>
+		</section>
+	</section>
+</section>
+
+<section id="japanese">
+	<h2>日本語<a href="#japanese" class="permalink"></a></h2>
+	<p>
+		書籍には特有のお約束というか常識のようなものがあり、印刷して頒布する以上はそのお約束に従うのが妥当である。
+		その方が体裁も整って見えるし、読者もよく知ったルールの枠の中で読めるので読み易いからだ。
+	</p>
+	<p>
+		とはいえ、周知が足りなかったり紙面の制約があったりすると、それを守るのも大変である。
+	</p>
+
+	<section id="japanese--paragraphs-and-newlines">
+		<h3>段落と改行<a href="#japanese--paragraphs-and-newlines" class="permalink"></a></h3>
+		<p>
+			書籍に限らずフォーマルな文章においては通常、文章の塊や区切りは段落単位で表現し、改行は区切りとして使わないことになっている(参考: <a href="http://www.kunishiro.sakura.ne.jp/column/30/c34.shtml">翻訳コラム 34: こんな日本語原稿が困ります（段落とパラグラフについて）</a>)。
+			しかしこれがネットになると話は別で、たとえばメールや掲示板など様々な場面で、文章は改行で区切り、また文章の途中であっても適宜改行を入れるのが読み易い文章とされる<a aria-describedby="footnote-label" id="ref-online-sentence" href="#footnote-online-sentence"></a>。
+		</p>
+		<p>
+			この辺りの書き方は個性と見ることもできそうな気もするし、ネットぽさを出したければそういう書き方をすることになるので、あまり細かく指定しなければ執筆者が勝手にいい感じにするだろうからあまり縛りたくないと最初は思っていた。
+			しかし、どうもそういうお作法を単に知らないだけで書いていると思わしき文章などがあり、結局確認をとったうえで修正することになった。
+		</p>
+		<p>
+			まあ普通に生活していれば本を書くような機会なんてそうそうない<a aria-describedby="footnote-label" id="ref-had-no-chance-to-write-book" href="#footnote-had-no-chance-to-write-book"></a>から、最初にこういったことはまとめて資料を作っておくべきだったと反省している。
+		</p>
+	</section>
+
+	<section id="japanese--punctuation-marks">
+		<h3>約物<a href="#japanese--punctuation-marks" class="permalink"></a></h3>
+		<p>
+			これもネットの(かなりカジュアルな)文章と書籍等の(割とフォーマルな)文章で使い方が分かれるところである。
+			というより、単にカジュアルな使い方で制限が著しく緩和されただけと捉えるべきだろうか。
+		</p>
+		<p>
+			たとえば三点リーダ「…」やダッシュ「—」は必ず偶数個連続で使うとか、「・・・」や「、、、」のような書き方を行わないとか、そういったルールは今回の部誌に適用すべきか悩んだ。
+			常識的な書籍であれば間違いなくそうすべきである。
+			しかし部誌はあくまでカジュアルなものであり、各執筆者がテーマも堅苦しさもバラバラの記事を書くのだから、どちらかというとブログ等 web 上の文章の文体と合わせた方が良いかもしれないと考え、結局このルールの適用は保留した。
+		</p>
+		<p>
+			読み辛いとかのフィードバックがあればそういった点にも言及するガイドラインを作ることになろうが、小説でも本格的書籍風<a aria-describedby="footnote-label" id="ref-typical-book-like" href="#footnote-typical-book-like"></a>でもない同人誌でそこまで拘る読者がいるものか、私にはわからない。
+		</p>
+	</section>
+
+	<section id="japanese--typo">
+		<h3>誤字脱字<a href="#japanese--typo" class="permalink"></a></h3>
+		<p>
+			誤字脱字や適当でない漢字の確認は厄介だ。
+			英語だったり分かち書きであれば <a href="https://lasr.cs.ucla.edu/geoff/ispell.html">ispell</a> のようなツールが使えるが、日本語の校正ソフトは正直よく知らない。
+			一応 RedPen のようなものは存在は知っていたが、使ったことがないしどこまで柔軟なのか知らなかった
+<a aria-describedby="footnote-label" id="ref-proofreading-flexibility" href="#footnote-proofreading-flexibility"></a>
+			ので、導入に踏み切れなかったのだ。
+			締切の短さが悪い！
+		</p>
+	</section>
+</section>
+
+<section id="other-problems">
+	<h2>その他の問題<a href="#other-problems" class="permalink"></a></h2>
+	<section id="other-problems--start-on-odd-pages">
+		<h3>右ページ開始ルール<a href="#other-problems--start-on-odd-pages" class="permalink"></a></h3>
+		<p>
+			横書き左綴じの本であれば、 part や chapter は右ページから開始するのが普通である。
+			が、空白ページのせいでページ数が増えてお金がかかるのも悲しい話なので、今回は各記事(つまり chapter)は左右どちらからでも開始させることにした。
+		</p>
+	</section>
+
+	<section id="other-problems--typescript-management">
+		<h3>原稿管理<a href="#other-problems--typescript-management" class="permalink"></a></h3>
+		<p>
+			原稿は git というか GitLab で管理していたが、あまり直接そこを利用してもらえなかった。
+			LDAP で部員全員のアカウントを用意しようという計画もあったのだがそれが今回に間に合わなかったというのと、単に git を常用していない執筆者がいたからである。
+			git を使っていない人には、メールで原稿を提出してもらうことになるが、そうなると当然 merge の負担は編集に降りかかる。
+		</p>
+		<p>
+			たとえば、成果物 PDF と更新された原稿ソース群(<code>git archive</code> で生成する)は定期的にメールで送るのだが、修正された原稿が最新版の原稿をベースにしていない場合がある。
+			このような場合、ひとまずファイルを上書きしてから <code>git add -p</code> で取り入れるべきでない古い部分を捨てながら stage することになる。
+		</p>
+		<p>
+			また、メールだと送信頻度が低くなるから前回の原稿との差分は大きくなる。
+			これをそのまま受け入れて add するか、小さな変更に <code>git add -p</code> で分解していくかを迫られることになる。
+		</p>
+		<p>
+			後半には画像や記事が増えてきて PDF のサイズが大きくなっていったのも怖いところである。
+			本当は記事が更新されればこまめにメールで送るべきなのだろうが、容量が大きいと躊躇が生まれるのだ。
+		</p>
+	</section>
+
+	<section id="other-problems--deadline">
+		<h3>締切<a href="#other-problems--deadline" class="permalink"></a></h3>
+		<p>
+			研究報告会が12/10だったため、それまでに研究報告会用の資料は出来ているだろうということで、最初の締切は12/09としていた。
+			しかしこれは考えが甘すぎた。
+			私自身、初稿は締切を過ぎてからの提出となったし、多くの人が締切をオーバーした。
+			話が急すぎたのである。
+			部誌の告知をもっと早い段階で行う必要があった。
+		</p>
+		<p>
+			また、原稿を受け取ってからの修正にもかなりの時間がかかった。
+			やはりメールでの原稿共有は効率が悪い。
+			確認や修正にも十分な時間をとれず、結局印刷所への入稿が超ギリギリになってしまった。
+		</p>
+		<figure>
+			<img src="./slack-capture.png" alt="入稿は超ギリギリだった" />
+			<figcaption>締切は17:00だったが、直前まで作業していた</figcaption>
+		</figure>
+	</section>
+</section>
+
+<section id="conclusion">
+	<h2>まとめ<a href="#conclusion" class="permalink"></a></h2>
+	<p>
+		こうしていろいろな苦労の末部誌が完成し、無事冬コミ(C91)で頒布できることとなったわけである。
+		後輩が似たようなつらぽよを背負うことのない未来を願っている。
+	</p>
+	<p>
+		ちなみに、教訓をまとめるとしたらこうだ。
+	</p>
+	<ul>
+		<li>git と issue tracker は使うべき。使わねばならない。</li>
+		<li>原稿の初稿締切から印刷所への入稿まで3〜4週間は欲しい。</li>
+		<li>文章の書き方とかソースコードの書き方とか基本的なルールは各自の常識に任せず明文化するべきである。
+			<ul>
+				<li>特に TeX のルールと日本語のルール。</li>
+				<li>使うべきマクロやパッケージと、その用法。</li>
+				<li>はみ出し等の小さなトラブルへの対処法。</li>
+			</ul>
+		</li>
+		<li>LaTeX は本当につらいので、他の技術を常に注視しておくべきである。</li>
+		<li><a href="https://github.com/titech-ssr/rogy-conf-journal-template/tree/develop">テンプレート</a>を是非活用してくれ。</li>
+	</ul>
+	<p>
+		ちなみにロ技研は <strong>1日目(木曜日) 西地区 ほ41b</strong> だそうだ。
+	</p>
+</section>
+
+<aside class="footnotes">
+	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
+	<ol>
+		<li id="footnote-strict-schema">
+			とはいえこのスキーマは、綺麗に構造化された文書において満たされるべき制約を示しているに過ぎないため、スキーマが窮屈に感じるのであれば、それは文書の構成が汚いということを意味している
+			<a href="#ref-strict-schema" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-docbook-xslt-from-scratch">
+			たまに HTML への変換のスタイルシートを作ろうとするのだが、大抵途中で挫折するか、 DocBook のサブセットへの対応で諦めてしまう。
+			xsltproc が貧弱なのも XSLT を書くのがつらい要因のひとつだ。
+			XSLT 3 使わせろ！
+			<a href="#ref-docbook-xslt-from-scratch" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-tex-env-without-texlive">
+			何とは言わない某 OS とかね
+			<a href="#ref-tex-env-without-texlive" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-latexmk-introduction">
+			詳細は<a href="http://blog.tokor.org/2015/11/26/latexmk%E3%81%A7%E6%A5%BD%E3%80%85LaTeX%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB/">ところさんのブログ</a>でも読んで
+			<a href="#ref-latexmk-introduction" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-automatic-extractbb">
+			<a href="https://twitter.com/aminophen/status/617502191180320768">このツイート</a>とか <a href="http://acetaminophen.hatenablog.com/entry/2015/06/14/162800">TeX Live 2015 で変わったこと、変わらなかったこと - Acetaminophen’s diary</a> とか参照
+			<a href="#ref-automatic-extractbb" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-referenced-kmc">
+			ｽﾞｮﾎﾝ系の学生としては KMC すげーなと思います。
+			†なしで尊敬。
+			あとページスタイルとかはパクリじゃないですよ本当です。
+			<a href="#ref-referenced-kmc" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-avoid-hard-maintenance">
+			たぶんこの慣習は後の世代まで続くと思う(続いて欲しい)のだが、ロ技研はロボット技術研究会であるから、部員の大半が TeX やデータ構造やプログラミングに馴染みがあるというわけではないので、テンプレートは後輩がメンテできる程度には簡潔にしておく必要があった
+			<a href="#ref-avoid-hard-maintenance" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-packages-orthogonality">
+			<a href="http://itchyny.hatenablog.com/entry/20130824/1377351527">lightline.vim作りました - プラグインの直交性について - プログラムモグモグ</a>
+			<a href="#ref-packages-orthogonality" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-online-sentence">
+			この辺りのお作法の違いは、ネット小説などで顕著に現れているので、読んでみると良いかもしれない。
+			書く人によって、書籍に準じていたり、段落がやたら小さかったり、過激な人だと文章単位で改行(改段落)していたりする。
+			また、鉤括弧による台詞の前後に空行を入れて地の文と隔離することが多いのもネット小説の文体の特徴だ。
+			<a href="#ref-online-sentence" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-had-no-chance-to-write-book">
+			偉そうなことを言っているが、私も書いたことはない
+			<a href="#ref-had-no-chance-to-write-book" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-typical-book-like">
+			たとえば天下の O'Reilly パロっぽい装丁でぶ厚かったり、明らかに実在の技術書を意識していたりとか。
+			でもよく考えると、ロ技研の部誌も表紙は十分実在のものを意識していたような……
+			<a href="#ref-typical-book-like" aria-label="Back to content">&#x21B5;</a>
+		</li>
+
+		<li id="footnote-proofreading-flexibility">
+			カジュアルな文章やネタの文章に対してあれこれ言われても鬱陶しいだけなのである。
+			もしかすると、その辺りもうまいサポートがあるのかもしれないが。
+			<a href="#ref-proofreading-flexibility" aria-label="Back to content">&#x21B5;</a>
+		</li>
+	</ol>
+</aside>
