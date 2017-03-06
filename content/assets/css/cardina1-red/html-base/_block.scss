@@ -30,6 +30,13 @@ p {
 	}
 }
 
+ul, ol {
+	margin: 0;
+	padding: 0;
+	ul, ol {
+		padding: 0 0 0 1em;
+	}
+}
 ul.no-marker {
 	list-style-type: none;
 }
