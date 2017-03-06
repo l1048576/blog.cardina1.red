@@ -40,6 +40,7 @@ $hr-border-top: 1px solid #aaa;
 body {
 	>header {
 		background: #333;
+		margin-bottom: #{$vertical-unit};
 		h1 {
 			$title-color: #999;
 			font-size: 1rem;
@@ -56,6 +57,7 @@ body {
 	>footer {
 		background: #333;
 		color: #ccc;
+		margin-top: #{$vertical-unit};
 		padding: 1rem 0;
 	}
 }
