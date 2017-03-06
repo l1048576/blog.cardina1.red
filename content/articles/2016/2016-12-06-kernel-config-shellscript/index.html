@@ -121,7 +121,7 @@ cp -f .config ".config-${DATETIME}"
 
 rm "${CONFFILE_TEMP}"
 </code></pre>
-		<figcaption><a href="https://gist.github.com/l1048576/a13dad6f904c4e86e99a69501393afe7#file-genconfig-sh"><code class="filepath">genconfig.sh</code></a></figcaption>
+		<figcaption><a href="https://gist.github.com/lo48576/a13dad6f904c4e86e99a69501393afe7#file-genconfig-sh"><code class="filepath">genconfig.sh</code></a></figcaption>
 	</figure>
 	<p>
 		というか実質 <code>sed</code> スクリプト。
@@ -227,7 +227,7 @@ rm "${CONFFILE_TEMP}"
             ##      tristate "Intel Core/Core2/Atom temperature sensor"
             SENSORS_CORETEMP=m
 </code></pre>
-			<figcaption><a href="https://gist.github.com/l1048576/a13dad6f904c4e86e99a69501393afe7#file-config-veg" target="_blank"><code class="filepath">config</code> の例</a>(抜粋)</figcaption>
+			<figcaption><a href="https://gist.github.com/lo48576/a13dad6f904c4e86e99a69501393afe7#file-config-veg" target="_blank"><code class="filepath">config</code> の例</a>(抜粋)</figcaption>
 		</figure>
 		<p>
 			<code>CONFIG_COMPAT_VDSO</code> や <code>CONFIG_I2C_CHARDEV</code> など、名前からは何故これを有効/無効にしたのかわからないような設定は結構ありますが、こうしてコメントとインデントで整理して書いてやることで、設定の意図や必要性がある程度明確にわかるようになります。
