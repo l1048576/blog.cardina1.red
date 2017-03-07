@@ -93,7 +93,7 @@ expression : assignment-expression
 		<p>
 			Cのように第3オペランドが<code>conditional-expression</code>であれば、<code>e = ((a ? b : c) = d);</code>のように解釈され、条件演算子が代入の左辺となる。
 			これはC言語においてはエラーである。
-			(一応、大昔にはこれを可能にするgcc拡張も存在した。<a href="#gcc-generalized-lvalue-extension">後述</a>。)
+			(一応、大昔にはこれを可能にするgcc拡張も存在した。<blog:xref linkend="gcc-generalized-lvalue-extension">後述</blog:xref>。)
 		</p>
 		<p>
 			一方、C++のように第3オペランドが<code>assignment-expression</code>であれば、<code>e = (a ? b : (c = d));</code>のように解釈される。

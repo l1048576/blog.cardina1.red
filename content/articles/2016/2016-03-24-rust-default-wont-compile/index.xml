@@ -16,7 +16,7 @@ excerpt: "Rust-1.7.0でDefault::default()を使ったコードのコンパイル
 >
 <p>
 	未解決。
-	<a href="#first-aid">応急処置</a>済。
+	<blog:xref linkend="first-aid">応急処置</blog:xref>済。
 </p>
 
 <blog:section id="abstract">

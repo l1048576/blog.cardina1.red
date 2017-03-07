@@ -26,11 +26,11 @@ excerpt: "エロゲのインストールに失敗した。つらい。エロゲ�
 		この記事は試行のログとつらぽよを吐き出す場所であり、大多数の人にとって、特に問題解決に寄与するものではないと思われる。
 	</p>
 	<p>
-		一応<a href="#conclusion">まとめ</a>は用意したのでそちらを参照。
+		一応<blog:xref linkend="conclusion" />は用意したのでそちらを参照。
 	</p>
 	<p>
 		問題は解決した。
-		<a href="#solved">追記2</a>を参照。
+		<blog:xref linkend="solved">追記2</blog:xref>を参照。
 	</p>
 </blog:section>
 

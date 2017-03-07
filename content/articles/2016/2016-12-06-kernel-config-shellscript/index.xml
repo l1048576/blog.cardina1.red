@@ -23,7 +23,7 @@ excerpt: "Linux の kernel config を秘伝のタレにしないための小さ�
 	<blog:title>概要</blog:title>
 	<p>
 		そろそろ普段使いのラップトップが壊れそうなので、別マシンへの移行の準備をしておきたさが高まっています。
-		Windows 8.1 を gentoo で上書きして以来、これまで様々な設定をしてきましたが、 <code class="dirpath">/etc</code> にあるファイルの多くはコピーで済まされる設定ファイル<blog:footnote id="ref-copyable-config-under-etc">
+		Windows 8.1 を gentoo で上書きして以来、これまで様々な設定をしてきましたが、 <code class="dirpath">/etc</code> にあるファイルの多くはコピーで済まされる設定ファイル<blog:footnote id="copyable-config-under-etc">
 			ほんまか？　と思うかもしれませんが、とりあえずインストール先の <code class="dirpath">etc</code> にコピーしておいてから <code>emerge</code> をすれば、後で <a href="https://wiki.gentoo.org/wiki/Dispatch-conf"><code>dispatch-conf</code></a> とかで merge できるので心配はないだろうと思います。
 			たぶん。
 		</blog:footnote>なので、移行にあたってそこまで問題になりません。
@@ -150,7 +150,7 @@ rm "${CONFFILE_TEMP}"
 				カーネルコンパイル。
 				私の場合:
 				<code>sudo genkernel --makeopts="-j4" --splash --no-clean --oldconfig all</code>
-				<blog:footnote id="ref-genkernel">
+				<blog:footnote id="genkernel">
 					私はゆとりなので <code>sys-kernel/genkernel-next</code> を使っています。
 					ちなみに <a href="https://wiki.gentoo.org/wiki/Genkernel/ja">gentoo wiki の当該項目のページ</a>では <code>sys-kernel/genkernel</code> を紹介していますが、このパッケージは古く <a href="https://gitweb.gentoo.org/repo/gentoo.git/diff/profiles/targets/systemd/package.mask?id=56bd759df1d0c750a065b8c845e93d5dfa6b549d">systemd と互換性がないらしい</a>ので、 next の方を使ってください。
 				</blog:footnote>
@@ -285,7 +285,7 @@ $
 			先述の通りですが、大雑把に言うと、既に <code>.config</code> として使えるファイルを複数指定すると、それらを merge して、ついでに<strong>指定されなかった項目を自動でよろしく設定してくれる</strong>ものです。
 		</p>
 		<p>
-			そして、私のスクリプトがあてにしている、自動でよろしく設定する部分は、シェルスクリプトではなく make によって行われます<blog:footnote id="ref-config-auto-filling">
+			そして、私のスクリプトがあてにしている、自動でよろしく設定する部分は、シェルスクリプトではなく make によって行われます<blog:footnote id="config-auto-filling">
 				Linux カーネルのツール群は、 make に必要なプログラムもまた必要に応じてコンパイルするものが多いので、たぶん <a href="https://www.kernel.org/doc/Documentation/kbuild/kconfig-language.txt">Kconfig</a> を解釈する部分はCのコード使ってるんじゃないかなぁと思います。
 				読んで確認してないので知りませんが。
 			</blog:footnote>。
@@ -428,12 +428,12 @@ while true; do
 			<blog:title>追記 (2016-12-06T00:20:25+0900)</blog:title>
 			<p>
 				もっと良い方法がありました。
-				<a href="#omake-postscript1-kernel_config_check_py">追記1</a>を参照。
+				<blog:xref linkend="omake-postscript1-kernel_config_check_py">追記1</blog:xref>を参照。
 			</p>
 		</aside>
 		<p>
 			<code class="filepath">/var/log/portage/elog/summary.log</code> に、過去 portage で emerge されたパッケージのメッセージが記録されています。
-			これを見て検索をかければ、どのパッケージがどのような設定を要求しているか、ある程度<blog:footnote id="ref-portage-elog-summary-log">
+			これを見て検索をかければ、どのパッケージがどのような設定を要求しているか、ある程度<blog:footnote id="portage-elog-summary-log">
 				カーネルオプションについては、 emerge 時に満たされていなかった条件だけがメッセージに出力されるため、必要な条件のすべてを確認するには、各パッケージの ebuild を確認する必要がある。
 			</blog:footnote>わかるでしょう。
 		</p>

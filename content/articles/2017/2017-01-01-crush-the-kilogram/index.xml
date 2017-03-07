@@ -51,10 +51,18 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 			<p>
 				単位が地域によって違うと面倒なので世界で統一された単位を使おう、というのが18世紀末の動向で、メートル法の始まりである。
 				既に200年以上前の人々が、ヤードポンド法のような、権力者の身体等を基準に定義される野蛮な単位から脱しようとしていたのだ。
-				現代ではヤードもポンドもオンスも、SI単位を用いて再定義されている<a aria-describedby="footnote-label" id="ref-multiple-miles" href="#footnote-multiple-miles"></a>。
+				現代ではヤードもポンドもオンスも、SI単位を用いて再定義されている<blog:footnote id="multiple-miles">
+					<a href="https://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%A4%E3%83%AB">マイル</a>など、メートルで定義されてなお統一されない単位もある。
+					国際マイル、測量マイル、法定マイル、国際<ruby>海里<rp>(</rp><rt>ノーティカルマイル</rt><rp>)</rp></ruby>……。
+					そこまでしてローカル単位を使いたい奴ら、中世から生き続けるゾンビか何かか？
+				</blog:footnote>。
 			</p>
 			<p>
-				さて現代ではどうかといえば、流れに逆らい相も変わらずフィートを使う某業界やらオンスを使う某国(地域？)やら、惰性か利権か知らないが野蛮人は沢山残っている<a aria-describedby="footnote-label" id="ref-inch-in-japan" href="#footnote-inch-in-japan"></a>。
+				さて現代ではどうかといえば、流れに逆らい相も変わらずフィートを使う某業界やらオンスを使う某国(地域？)やら、惰性か利権か知らないが野蛮人は沢山残っている<blog:footnote id="inch-in-japan">
+					たとえばディスプレイの「15型」は対角線の長さが 15 inch ということである。
+					日本では計量法でインチを商品スペックとして使ってはいけないので、「型」などという接尾辞で誤魔化しているのだ。
+					同様に土地の面積の「坪」などもアウトなので、これも平方メートルに併記してあるという言い訳で誤魔化されている。
+				</blog:footnote>。
 				<a href="http://www.sydrose.com/case100/287/">人工衛星を落としても</a>まだ統一された単位の重要性を学習しないのだろうか。
 			</p>
 			<p>
@@ -73,7 +81,9 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 		</p>
 		<p>
 			しかし、そんな現代でも、まだ物理単位が遍く再現性の光に照らされているというわけではない。
-			科学の祝福を受けていない単位、それは<strong>キログラム</strong>だ<a aria-describedby="footnote-label" id="ref-barbarous-si-base-units" href="#footnote-barbarous-si-base-units"></a>。
+			科学の祝福を受けていない単位、それは<strong>キログラム</strong>だ<blog:footnote id="barbarous-si-base-units">
+				実際には、物質量(mol)、アンペア(A)、カンデラ(cd)もキログラムに依存しているため、これらの再現性はキログラムのそれに依る
+			</blog:footnote>。
 		</p>
 	</blog:section>
 </blog:section>
@@ -121,7 +131,9 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 	<p>
 		さて、このように非常に重要なキログラム原器(とそのレプリカ)を全て破壊すれば、キログラムに依存する分野の科学や工業に復元困難な大ダメージを与えることができるのではなかろうか。
 		<strong><strong>キログラム原器同時破壊テロ</strong>の機運が高まっている</strong>。
-		キログラムが再現性の高い形で再定義されてしまう前、<strong>今がラストチャンス</strong>だ<a aria-describedby="footnote-label" id="ref-the-last-chance" href="#footnote-the-last-chance"></a>。
+		キログラムが再現性の高い形で再定義されてしまう前、<strong>今がラストチャンス</strong>だ<blog:footnote id="the-last-chance">
+			問題なく事が進めば、2018年の第26回国際度量衡総会(CGPM)で定義が改訂されるらしいので、残り1年しか余裕がない
+		</blog:footnote>。
 	</p>
 	<p>
 		何故キログラム原器の破壊が重要かといえば、これが科学と工業を壊滅させるための単純で根本的かつ効率の良い方法だからである。
@@ -224,35 +236,6 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 		<li><a href="https://togetter.com/li/1065087">キログラム原器の破壊と次期キログラムの定義についてメモ - Togetterまとめ</a></li>
 	</ul>
 </blog:section>
-
-<aside class="footnotes">
-	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
-	<ol>
-		<li id="footnote-multiple-miles">
-			<a href="https://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%A4%E3%83%AB">マイル</a>など、メートルで定義されてなお統一されない単位もある。
-			国際マイル、測量マイル、法定マイル、国際<ruby>海里<rp>(</rp><rt>ノーティカルマイル</rt><rp>)</rp></ruby>……。
-			そこまでしてローカル単位を使いたい奴ら、中世から生き続けるゾンビか何かか？
-			<a href="#ref-multiple-miles" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-inch-in-japan">
-			たとえばディスプレイの「15型」は対角線の長さが 15 inch ということである。
-			日本では計量法でインチを商品スペックとして使ってはいけないので、「型」などという接尾辞で誤魔化しているのだ。
-			同様に土地の面積の「坪」などもアウトなので、これも平方メートルに併記してあるという言い訳で誤魔化されている。
-			<a href="#ref-inch-in-japan" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-barbarous-si-base-units">
-			実際には、物質量(mol)、アンペア(A)、カンデラ(cd)もキログラムに依存しているため、これらの再現性はキログラムのそれに依る
-			<a href="#ref-barbarous-si-base-units" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-the-last-chance">
-			問題なく事が進めば、2018年の第26回国際度量衡総会(CGPM)で定義が改訂されるらしいので、残り1年しか余裕がない
-			<a href="#ref-the-last-chance" aria-label="Back to content">&#x21B5;</a>
-		</li>
-	</ol>
-</aside>
 
 <script async="async" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </blog:article>

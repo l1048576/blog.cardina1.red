@@ -151,13 +151,13 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 				<p>
 					しかし、この形式の欠点は、やはりタグの種類が多いことである。
 					リファレンスを眺めてどのようなタグがあるか把握すれば、あとは HTML などと同じくタグを付けるだけだが、慣れないうちは似たようなタグのどれを使うかなど迷うことだろう。
-					また、<a href="http://docbook.org/schemas/5x.html">スキーマ</a>も厳格に定められているため、窮屈に感じるかもしれない<blog:footnote id="ref-strict-schema">
+					また、<a href="http://docbook.org/schemas/5x.html">スキーマ</a>も厳格に定められているため、窮屈に感じるかもしれない<blog:footnote id="strict-schema">
 						とはいえこのスキーマは、綺麗に構造化された文書において満たされるべき制約を示しているに過ぎないため、スキーマが窮屈に感じるのであれば、それは文書の構成が汚いということを意味している
 					</blog:footnote>。
 				</p>
 				<p>
 					DocBook から他形式への変換に使う XSLT スタイルシートが大規模で複雑であり、自由度が高いとはいえカスタマイズに少々苦労するというのも欠点のひとつだ。
-					一応これは自分で書くこともできるのだが、さすがに私は FO や PDF の仕様までは知らないため、そこまでする気はなかなか起きない<blog:footnote id="ref-docbook-xslt-from-scratch">
+					一応これは自分で書くこともできるのだが、さすがに私は FO や PDF の仕様までは知らないため、そこまでする気はなかなか起きない<blog:footnote id="docbook-xslt-from-scratch">
 						たまに HTML への変換のスタイルシートを作ろうとするのだが、大抵途中で挫折するか、 DocBook のサブセットへの対応で諦めてしまう。
 						xsltproc が貧弱なのも XSLT を書くのがつらい要因のひとつだ。
 						XSLT 3 使わせろ！
@@ -184,7 +184,7 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 				</p>
 				<p>
 					しかし TeX の歴史は長く、そのぶん派生した処理系も多いため、環境を揃えるのが面倒である。
-					TeX Live なる処理系セットも存在するが、誰もがそれを使っているとも限らない<blog:footnote id="ref-tex-env-without-texlive">
+					TeX Live なる処理系セットも存在するが、誰もがそれを使っているとも限らない<blog:footnote id="tex-env-without-texlive">
 						何とは言わない某 OS とかね
 					</blog:footnote>。
 					最近でこそ Unicode 対応の処理系(uplatex 等)もあるが、それでもフォントの扱いなどに面倒があることも多く、また画像の扱いも大昔の慣習を引き摺っている場合があったりと、面倒なことがある。
@@ -288,7 +288,7 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 	<p>
 		もうひとつつらいのが、環境依存性だ。
 		TeX 処理系は多くあり、それぞれが特有のクラスファイルや設定を持っていたりするため、 TeX ファイルだけ他のマシンに移動してコンパイルしようとしても、処理系やオプションを合わせないと動かないなんてことはざらだ。
-		幸運にも、その用途については <a href="https://www.ctan.org/pkg/latexmk/">latexmk</a> が解決してくれる<blog:footnote id="ref-latexmk-introduction">
+		幸運にも、その用途については <a href="https://www.ctan.org/pkg/latexmk/">latexmk</a> が解決してくれる<blog:footnote id="latexmk-introduction">
 			詳細は<a href="http://blog.tokor.org/2015/11/26/latexmk%E3%81%A7%E6%A5%BD%E3%80%85LaTeX%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB/">ところさんのブログ</a>でも読んで
 		</blog:footnote>から、
 		<a href="https://github.com/titech-ssr/rogy-conf-journal-template/blob/c91/.latexmkrc"><code class="filepath">.latexmkrc</code> ファイルをテンプレートとして提供する</a>ことで執筆者間での環境の差異の吸収を試みた。
@@ -306,7 +306,7 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 			<p>
 				まず、<strong><code>\includegraphics</code> の <code>bb</code> オプションは今時不要である</strong>。
 				詳細は<a href="http://qiita.com/zr_tex8r/items/5413a29d5276acac3771">日本人のための LaTeX タブー集 ～画像読込編～ - Qiita</a> でも読んでほしいが、 bb というのは人間が原稿に直書きするようなパラメータではない。
-				しかも最近の TeX 処理系(TeX Live 2015 以降)はそもそも extractbb コマンドを自動で実行するため、 もはや<strong>ユーザが <code>bb</code> を指定したり .xbb ファイルを作成する必要はない</strong><blog:footnote id="ref-automatic-extractbb">
+				しかも最近の TeX 処理系(TeX Live 2015 以降)はそもそも extractbb コマンドを自動で実行するため、 もはや<strong>ユーザが <code>bb</code> を指定したり .xbb ファイルを作成する必要はない</strong><blog:footnote id="automatic-extractbb">
 					<a href="https://twitter.com/aminophen/status/617502191180320768">このツイート</a>とか <a href="http://acetaminophen.hatenablog.com/entry/2015/06/14/162800">TeX Live 2015 で変わったこと、変わらなかったこと - Acetaminophen’s diary</a> とか参照
 				</blog:footnote>。
 				そして、必要がないファイルを原稿リポジトリに含めるべきではない。
@@ -611,7 +611,7 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 			しかし部誌はあくまでカジュアルなものであり、各執筆者がテーマも堅苦しさもバラバラの記事を書くのだから、どちらかというとブログ等 web 上の文章の文体と合わせた方が良いかもしれないと考え、結局このルールの適用は保留した。
 		</p>
 		<p>
-			読み辛いとかのフィードバックがあればそういった点にも言及するガイドラインを作ることになろうが、小説でも本格的書籍風<blog:footnote id="ref-typical-book-like">
+			読み辛いとかのフィードバックがあればそういった点にも言及するガイドラインを作ることになろうが、小説でも本格的書籍風<blog:footnote id="typical-book-like">
 				たとえば天下の O'Reilly パロっぽい装丁でぶ厚かったり、明らかに実在の技術書を意識していたりとか。
 				でもよく考えると、ロ技研の部誌も表紙は十分実在のものを意識していたような……
 			</blog:footnote>でもない同人誌でそこまで拘る読者がいるものか、私にはわからない。
