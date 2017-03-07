@@ -52,7 +52,10 @@ excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 	<blog:section id="check-corruption-of-directx">
 		<blog:title>DirectX破損確認</blog:title>
 		<p>
-			普通のライブラリであればアンインストールするところだが、WindowsではDirectXのアンインストールは普通の手段ではできないことになっている<a aria-describedby="footnote-label" id="ref-footnote-directx-uninstall" href="#footnote-directx-uninstall"></a>。
+			普通のライブラリであればアンインストールするところだが、WindowsではDirectXのアンインストールは普通の手段ではできないことになっている<blog:footnote id="footnote-directx-uninstall">
+				<a href="https://answers.microsoft.com/en-us/windows/forum/windows_10-hardware/how-do-i-unistallreinstall-directx-on-windows-10/f703b4ef-74e1-434e-8fce-1e84743301a6">How do I unistall/reinstall directx on Windows 10? - Microsoft Community</a>
+				(2016/06/20 参照)
+			</blog:footnote>。
 			ということはこのファイルはWindows自身によって管理されているということであるから、システムファイルの破損チェックで改竄を確認できるはずである。
 		</p>
 		<p>
@@ -161,8 +164,13 @@ C:&#xA5;Users&#xA5;user1&gt;
 		<blog:title>オリジナルのDirectXファイル</blog:title>
 		<p>
 			さて、どこから純正のファイルを持ってくるか。
-			DirectXのインストーラ<a aria-describedby="footnote-label" id="ref-footnote-directx-installer" href="#footnote-directx-installer"></a>から持ってこられればそれが楽なのだが、どうも実はこの中にあるcabファイルのどれを展開しても<code class="filepath">d3d9.dll</code>が存在しなかったのである。<br />
-			そんなわけで、手っ取り早く他のWindows 10<a aria-describedby="footnote-label" id="ref-footnote-another-win10-machine" href="#footnote-another-win10-machine"></a>から持ってくるのが楽であろう。
+			DirectXのインストーラ<blog:footnote id="footnote-directx-installer">
+				<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">Download DirectX End-User Runtimes (June 2010) from Official Microsoft Download Center</a>
+				(2016/06/21 参照)
+			</blog:footnote>から持ってこられればそれが楽なのだが、どうも実はこの中にあるcabファイルのどれを展開しても<code class="filepath">d3d9.dll</code>が存在しなかったのである。<br />
+			そんなわけで、手っ取り早く他のWindows 10<blog:footnote id="footnote-another-win10-machine">
+				勿論、<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">目的のバージョンのDirectX</a>をインストール済であるべきだろう。
+			</blog:footnote>から持ってくるのが楽であろう。
 		</p>
 
 		<p>
@@ -189,7 +197,10 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 		</p>
 
 		<p>
-			コピーが完了すれば、作業は一応完了<a aria-describedby="footnote-label" id="ref-footnote-file-permission" href="#footnote-file-permission"></a>だ。
+			コピーが完了すれば、作業は一応完了<blog:footnote id="footnote-file-permission">
+				当然といえば当然ながら、<code class="filepath">d3d9.dll</code>とかは上書きしたユーザが所有者っぽい感じになるのだが、元通りTrustedInstallerユーザの所有に直すにはどうすればいいのかよくわからなかった。
+				まあセキュリティ的にはマズいかもしれないが、仮想マシンだしエロゲ動くようになったし、ひとまず放置することにする。
+			</blog:footnote>だ。
 			念のため再起動してからDirectXインストーラをもう一度くらい起動するのもアリだろう。
 			何か効果があるのかは知らないが。
 		</p>
@@ -219,32 +230,4 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 		</div>
 	</blog:section>
 </blog:section>
-
-<aside class="footnotes">
-	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
-	<ol>
-		<li id="footnote-directx-uninstall">
-			<a href="https://answers.microsoft.com/en-us/windows/forum/windows_10-hardware/how-do-i-unistallreinstall-directx-on-windows-10/f703b4ef-74e1-434e-8fce-1e84743301a6">How do I unistall/reinstall directx on Windows 10? - Microsoft Community</a>
-			(2016/06/20 参照)
-			<a href="#ref-footnote-directx-uninstall" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-directx-installer">
-			<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">Download DirectX End-User Runtimes (June 2010) from Official Microsoft Download Center</a>
-			(2016/06/21 参照)
-			<a href="#ref-footnote-directx-installer" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-another-win10-machine">
-			勿論、<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">目的のバージョンのDirectX</a>をインストール済であるべきだろう。
-			<a href="#ref-footnote-another-win10-machine" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-file-permission">
-			当然といえば当然ながら、<code class="filepath">d3d9.dll</code>とかは上書きしたユーザが所有者っぽい感じになるのだが、元通りTrustedInstallerユーザの所有に直すにはどうすればいいのかよくわからなかった。
-			まあセキュリティ的にはマズいかもしれないが、仮想マシンだしエロゲ動くようになったし、ひとまず放置することにする。
-			<a href="#ref-footnote-file-permission" aria-label="Back to content">&#x21B5;</a>
-		</li>
-	</ol>
-</aside>
 </blog:article>

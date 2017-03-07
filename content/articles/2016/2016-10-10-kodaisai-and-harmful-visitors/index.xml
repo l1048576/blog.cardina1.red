@@ -30,7 +30,9 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 	<p>
 		日曜日、工大祭のロ技研ブースを見ていた。
 		展示者の許可なく展示物に触る例がよく見られた。
-		他にもいろいろ迷惑行為があったようである<a aria-describedby="footnote-label" id="ref-footnote-harmful-actions" href="#footnote-harmful-actions"></a>。
+		他にもいろいろ迷惑行為があったようである<blog:footnote id="footnote-harmful-actions">
+			展示物や機材の乱暴な扱い、子供の不清潔な行為の放任などがあったようである。
+		</blog:footnote>。
 	</p>
 	<p>
 		一部の来客の問題行動を未然にどう防ぐか。
@@ -134,7 +136,9 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 				展示物の中には、触って良いものもあるかもしれない。
 				だからといって、来客は展示者に「展示物を触らせろ」「写真を撮らせろ」などと命令したり、許可なくそういった行為を行うことはできない。
 				展示者が展示物についての(大抵の場合は全ての)権利を持っているからだ。
-				<strong>来客は展示者の許可によって鑑賞(や、場合によっては操作や撮影)を許されているだけ</strong><a aria-describedby="footnote-label" id="ref-footnote-implicit-permission" href="#footnote-implicit-permission"></a>である。
+				<strong>来客は展示者の許可によって鑑賞(や、場合によっては操作や撮影)を許されているだけ</strong><blog:footnote id="footnote-implicit-permission">
+					明示的に「入場を許可します」「鑑賞を許可します」と言っていないため、そのような許可の存在を認識しない人もあるかもしれないが、そのような場合でも明示していないだけでやはり許可は出ていて、展示者や運営者はその許可を剥奪することができるのである。
+				</blog:footnote>である。
 				よって、展示者は何か被害が出る前に堂々と指示を出すべきではないだろうか。
 				事故が起きてからではもう遅い。
 			</p>
@@ -288,7 +292,9 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 		<blog:title>展示者も上から目線でいたいわけではない</blog:title>
 		<p>
 			少なくともロ技研における展示は金を取っているとかではなく、では何故展示するのかといえば、それは興味や関心を持ってほしい、また持った人に対して喜んでもらえる情報や体験を提示したいからである。
-			要するに、<strong>潜在的な同類、仲間、支援者に対する好意</strong>である<a aria-describedby="footnote-label" id="ref-footnote-purpose-of-exhibition" href="#footnote-purpose-of-exhibition"></a>。
+			要するに、<strong>潜在的な同類、仲間、支援者に対する好意</strong>である<blog:footnote id="footnote-purpose-of-exhibition">
+				無論、同じようなことをしている人やプロに観てもらって有用な意見を聞こう、などという自分自身のための動機なども少なからずあるだろうが、それは詳しくない人への好意を否定するものではない。
+			</blog:footnote>。
 		</p>
 		<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">あまりこういうことを言うものではないのだろうけど、工大祭展示は義務ではないし、展示者がお客様の言うことを聞く理由は全くないよね。ただ誠意と好意から展示や解説をしているだけなので。</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785415601153904640">2016年10月10日</a></blockquote>
 		<p>
@@ -324,26 +330,6 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 		<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">壊されるのがいやなら展示するなは失われやすいコミュニティ案件だと思う</p>&#x2014; Mizuho™ (@Mizuho32) <a href="https://twitter.com/Mizuho32/status/785421559368253440">2016年10月10日</a></blockquote>
 	</blog:section>
 </blog:section>
-
-<aside class="footnotes">
-	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
-	<ol>
-		<li id="footnote-harmful-actions">
-			展示物や機材の乱暴な扱い、子供の不清潔な行為の放任などがあったようである。
-			<a href="#ref-footnote-harmful-actions" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-implicit-permission">
-			明示的に「入場を許可します」「鑑賞を許可します」と言っていないため、そのような許可の存在を認識しない人もあるかもしれないが、そのような場合でも明示していないだけでやはり許可は出ていて、展示者や運営者はその許可を剥奪することができるのである。
-			<a href="#ref-footnote-implicit-permission" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-purpose-of-exhibition">
-			無論、同じようなことをしている人やプロに観てもらって有用な意見を聞こう、などという自分自身のための動機なども少なからずあるだろうが、それは詳しくない人への好意を否定するものではない。
-			<a href="#ref-footnote-purpose-of-exhibition" aria-label="Back to content">&#x21B5;</a>
-		</li>
-	</ol>
-</aside>
 
 <script async="async" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </blog:article>

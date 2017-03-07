@@ -16,7 +16,10 @@ excerpt: "CSSで喪に服す時代らしい。"
 <blog:section id="grayscale">
 	<blog:title>filter属性</blog:title>
 	<p>
-		喪に服すため黒い服を着る文化がどこから来たものなのかよく知らないが<a aria-describedby="footnote-label" id="ref-footnote-mourning-black" href="#footnote-mourning-black"></a>、少なくともタイにもそういう文化があるらしい。
+		喪に服すため黒い服を着る文化がどこから来たものなのかよく知らないが<blog:footnote id="footnote-mourning-black">
+			浄土真宗本願寺派総合研究所というところの<a href="http://j-soken.jp/files/book/sousou_005.pdf" target="_blank">この記事</a>を読むといろいろ書いてあるが、まとめるほど理解できていないので要約は書かずにおく。
+			(ちなみに浄土真宗本願寺派とは、かなり雑に言うと仏教のメジャーな一派である。)
+		</blog:footnote>、少なくともタイにもそういう文化があるらしい。
 	</p>
 	<p>
 		<time datetime="2016-10-13">先日(2016/10/13)</time><a href="https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%BC%E3%83%9E9%E4%B8%96" target="_blank">タイ国王ラーマ9世</a>の崩御でタイの/タイ国民向けのwebサイトが白黒(正確にはグレースケール)になっているようだが、どうやらこれがwebサイトの色使いを直していくとかでなく、追加のCSSスタイルで簡単に実現できるらしいと知った。
@@ -122,15 +125,4 @@ body {
 		<code>filter</code>をうまく使えば、制限されたデバイスや視覚障害者対応などにも役立つかもしれないと思った。
 	</p>
 </blog:section>
-
-<aside class="footnotes">
-	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
-	<ol>
-		<li id="footnote-mourning-black">
-			浄土真宗本願寺派総合研究所というところの<a href="http://j-soken.jp/files/book/sousou_005.pdf" target="_blank">この記事</a>を読むといろいろ書いてあるが、まとめるほど理解できていないので要約は書かずにおく。
-			(ちなみに浄土真宗本願寺派とは、かなり雑に言うと仏教のメジャーな一派である。)
-			<a href="#ref-footnote-mourning-black" aria-label="Back to content">&#x21B5;</a>
-		</li>
-	</ol>
-</aside>
 </blog:article>

@@ -65,7 +65,12 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 				たとえばバックアップのために、プロジェクトのディレクトリをコピーしてzipで保存した(<code class="filepath">hoge_project_20160627.zip</code>)としよう。
 				概念としては、<strong>このzipファイルが「コミット」だ</strong>。<br />
 				<small>(コミットを、「プロジェクトの(ファイル群の)スナップショットである」という表現をすることもあるが、こちらの方がわかりやすいという人もいるかもしれない。)</small><br />
-				実際には、gitはもっと効率的な形でファイルを保存するため、zipを使わず別の方式でやっている<a aria-describedby="footnote-label" id="ref-footnote-git-commit-representation" href="#footnote-git-commit-representation"></a>が、本質的には同じことである。
+				実際には、gitはもっと効率的な形でファイルを保存するため、zipを使わず別の方式でやっている<blog:footnote id="footnote-git-commit-representation">
+					実際の開発においては、変更は多数のファイルの一部だけであったり、大きなファイルのうち一部分だけであったりすることが多い。
+					つまり、共通部分が多いのである。
+					であれば、変化なしのファイルは省略して変化したファイルだけを、また、共通部分は省略して差分だけを保持できれば、サイズの削減が可能である。
+					よってgitでは、zipバックアップのように問答無用で全てのファイルをコピーして取っておくのではなく、必要な情報だけを適宜保存していくようになっている。
+				</blog:footnote>が、本質的には同じことである。
 			</p>
 			<p>
 				gitリポジトリにおけるコミット全体は、有向(非巡回)グラフを形成する。
@@ -339,18 +344,4 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		</dl>
 	</blog:section>
 </blog:section>
-
-
-<aside class="footnotes">
-	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
-	<ol>
-		<li id="footnote-git-commit-representation">
-			実際の開発においては、変更は多数のファイルの一部だけであったり、大きなファイルのうち一部分だけであったりすることが多い。
-			つまり、共通部分が多いのである。
-			であれば、変化なしのファイルは省略して変化したファイルだけを、また、共通部分は省略して差分だけを保持できれば、サイズの削減が可能である。
-			よってgitでは、zipバックアップのように問答無用で全てのファイルをコピーして取っておくのではなく、必要な情報だけを適宜保存していくようになっている。
-			<a href="#ref-footnote-git-commit-representation" aria-label="Back to content">&#x21B5;</a>
-		</li>
-	</ol>
-</aside>
 </blog:article>

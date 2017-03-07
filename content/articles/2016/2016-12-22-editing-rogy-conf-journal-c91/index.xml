@@ -151,11 +151,17 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 				<p>
 					しかし、この形式の欠点は、やはりタグの種類が多いことである。
 					リファレンスを眺めてどのようなタグがあるか把握すれば、あとは HTML などと同じくタグを付けるだけだが、慣れないうちは似たようなタグのどれを使うかなど迷うことだろう。
-					また、<a href="http://docbook.org/schemas/5x.html">スキーマ</a>も厳格に定められているため、窮屈に感じるかもしれない<a aria-describedby="footnote-label" id="ref-strict-schema" href="#footnote-strict-schema"></a>。
+					また、<a href="http://docbook.org/schemas/5x.html">スキーマ</a>も厳格に定められているため、窮屈に感じるかもしれない<blog:footnote id="ref-strict-schema">
+						とはいえこのスキーマは、綺麗に構造化された文書において満たされるべき制約を示しているに過ぎないため、スキーマが窮屈に感じるのであれば、それは文書の構成が汚いということを意味している
+					</blog:footnote>。
 				</p>
 				<p>
 					DocBook から他形式への変換に使う XSLT スタイルシートが大規模で複雑であり、自由度が高いとはいえカスタマイズに少々苦労するというのも欠点のひとつだ。
-					一応これは自分で書くこともできるのだが、さすがに私は FO や PDF の仕様までは知らないため、そこまでする気はなかなか起きない<a aria-describedby="footnote-label" id="ref-docbook-xslt-from-scratch" href="#footnote-docbook-xslt-from-scratch"></a>。
+					一応これは自分で書くこともできるのだが、さすがに私は FO や PDF の仕様までは知らないため、そこまでする気はなかなか起きない<blog:footnote id="ref-docbook-xslt-from-scratch">
+						たまに HTML への変換のスタイルシートを作ろうとするのだが、大抵途中で挫折するか、 DocBook のサブセットへの対応で諦めてしまう。
+						xsltproc が貧弱なのも XSLT を書くのがつらい要因のひとつだ。
+						XSLT 3 使わせろ！
+					</blog:footnote>。
 				</p>
 			</dd>
 			<dt><a href="https://www.w3.org/Graphics/SVG/">SVG</a></dt>
@@ -178,7 +184,9 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 				</p>
 				<p>
 					しかし TeX の歴史は長く、そのぶん派生した処理系も多いため、環境を揃えるのが面倒である。
-					TeX Live なる処理系セットも存在するが、誰もがそれを使っているとも限らない<a aria-describedby="footnote-label" id="ref-tex-env-without-texlive" href="#footnote-tex-env-without-texlive"></a>。
+					TeX Live なる処理系セットも存在するが、誰もがそれを使っているとも限らない<blog:footnote id="ref-tex-env-without-texlive">
+						何とは言わない某 OS とかね
+					</blog:footnote>。
 					最近でこそ Unicode 対応の処理系(uplatex 等)もあるが、それでもフォントの扱いなどに面倒があることも多く、また画像の扱いも大昔の慣習を引き摺っている場合があったりと、面倒なことがある。
 				</p>
 			</dd>
@@ -280,7 +288,9 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 	<p>
 		もうひとつつらいのが、環境依存性だ。
 		TeX 処理系は多くあり、それぞれが特有のクラスファイルや設定を持っていたりするため、 TeX ファイルだけ他のマシンに移動してコンパイルしようとしても、処理系やオプションを合わせないと動かないなんてことはざらだ。
-		幸運にも、その用途については <a href="https://www.ctan.org/pkg/latexmk/">latexmk</a> が解決してくれる<a aria-describedby="footnote-label" id="ref-latexmk-introduction" href="#footnote-latexmk-introduction"></a>から、
+		幸運にも、その用途については <a href="https://www.ctan.org/pkg/latexmk/">latexmk</a> が解決してくれる<blog:footnote id="ref-latexmk-introduction">
+			詳細は<a href="http://blog.tokor.org/2015/11/26/latexmk%E3%81%A7%E6%A5%BD%E3%80%85LaTeX%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB/">ところさんのブログ</a>でも読んで
+		</blog:footnote>から、
 		<a href="https://github.com/titech-ssr/rogy-conf-journal-template/blob/c91/.latexmkrc"><code class="filepath">.latexmkrc</code> ファイルをテンプレートとして提供する</a>ことで執筆者間での環境の差異の吸収を試みた。
 	</p>
 
@@ -296,7 +306,9 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 			<p>
 				まず、<strong><code>\includegraphics</code> の <code>bb</code> オプションは今時不要である</strong>。
 				詳細は<a href="http://qiita.com/zr_tex8r/items/5413a29d5276acac3771">日本人のための LaTeX タブー集 ～画像読込編～ - Qiita</a> でも読んでほしいが、 bb というのは人間が原稿に直書きするようなパラメータではない。
-				しかも最近の TeX 処理系(TeX Live 2015 以降)はそもそも extractbb コマンドを自動で実行するため、 もはや<strong>ユーザが <code>bb</code> を指定したり .xbb ファイルを作成する必要はない</strong><a aria-describedby="footnote-label" id="ref-automatic-extractbb" href="#footnote-automatic-extractbb"></a>。
+				しかも最近の TeX 処理系(TeX Live 2015 以降)はそもそも extractbb コマンドを自動で実行するため、 もはや<strong>ユーザが <code>bb</code> を指定したり .xbb ファイルを作成する必要はない</strong><blog:footnote id="ref-automatic-extractbb">
+					<a href="https://twitter.com/aminophen/status/617502191180320768">このツイート</a>とか <a href="http://acetaminophen.hatenablog.com/entry/2015/06/14/162800">TeX Live 2015 で変わったこと、変わらなかったこと - Acetaminophen’s diary</a> とか参照
+				</blog:footnote>。
 				そして、必要がないファイルを原稿リポジトリに含めるべきではない。
 				よって、私が回収した TeX ファイルからは、 <code>bb</code> オプションや .xbb ファイルは消去した。
 			</p>
@@ -365,7 +377,13 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 			<blog:title>基礎部分</blog:title>
 			<p>
 				本来であれば cls ファイルとか dtx ファイルとかを作って、外付けのスタイルでどうこうするのでなくドキュメントクラスから整備すべきだったのかもしれない。
-				が、参考にした<a aria-describedby="footnote-label" id="ref-referenced-kmc" href="#footnote-referenced-kmc"></a> <a href="https://github.com/kmc-jp/kmcbook/blob/b54311760f578cd590212ec6891cd486ee07e2b2/kmcclasses.dtx">KMC の <code class="filepath">kmcclasses.dtx</code></a> がどう考えても保守できなくなるタイプのクソデカファイルだった<a aria-describedby="footnote-label" id="ref-avoid-hard-maintenance" href="#footnote-avoid-hard-maintenance"></a>ので、素直に環境とプリアンブルを共通化することでどうにかしようということになった。
+				が、参考にした<blog:footnote id="referenced-kmc">
+					ｽﾞｮﾎﾝ系の学生としては KMC すげーなと思います。
+					†なしで尊敬。
+					あとページスタイルとかはパクリじゃないですよ本当です。
+				</blog:footnote> <a href="https://github.com/kmc-jp/kmcbook/blob/b54311760f578cd590212ec6891cd486ee07e2b2/kmcclasses.dtx">KMC の <code class="filepath">kmcclasses.dtx</code></a> がどう考えても保守できなくなるタイプのクソデカファイルだった<blog:footnote id="avoid-hard-maintenance">
+					たぶんこの慣習は後の世代まで続くと思う(続いて欲しい)のだが、ロ技研はロボット技術研究会であるから、部員の大半が TeX やデータ構造やプログラミングに馴染みがあるというわけではないので、テンプレートは後輩がメンテできる程度には簡潔にしておく必要があった
+				</blog:footnote>ので、素直に環境とプリアンブルを共通化することでどうにかしようということになった。
 			</p>
 			<p>
 				さて、記事毎の .tex ファイルにプリアンブルが(ほとんど)必要ない方法というと、 subfiles パッケージを使う方法と、 <code>\input</code> や <code>\include</code> を使う方法があるが、今回は本の生成意外にも記事単独コンパイルをできるようにしたいと考えていたので、 subfiles パッケージを使うことにした。
@@ -407,7 +425,9 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 			</p>
 			<p>
 				<code class="filepath">10-setup.sty</code> は、主に <code>\usepackage{}</code> を行うファイルである。
-				本当は <code>\usepackage</code> もその意味や用途毎に各ファイルへ分散させたかったが、パッケージ間で依存関係があったり、連携に余計なオプション指定が必要だったりと、パッケージの直交性<a aria-describedby="footnote-label" id="ref-packages-orthogonality" href="#footnote-packages-orthogonality"></a>が低かったため、一箇所にまとめざるを得なかった。
+				本当は <code>\usepackage</code> もその意味や用途毎に各ファイルへ分散させたかったが、パッケージ間で依存関係があったり、連携に余計なオプション指定が必要だったりと、パッケージの直交性<blog:footnote id="packages-orthogonality">
+					<a href="http://itchyny.hatenablog.com/entry/20130824/1377351527">lightline.vim作りました - プラグインの直交性について - プログラムモグモグ</a>
+				</blog:footnote>が低かったため、一箇所にまとめざるを得なかった。
 			</p>
 			<p>
 				他にもいろいろファイルはあるが、まあおおよそタイトルの通りだし、見ればわかる。
@@ -562,14 +582,20 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 		<blog:title>段落と改行</blog:title>
 		<p>
 			書籍に限らずフォーマルな文章においては通常、文章の塊や区切りは段落単位で表現し、改行は区切りとして使わないことになっている(参考: <a href="http://www.kunishiro.sakura.ne.jp/column/30/c34.shtml">翻訳コラム 34: こんな日本語原稿が困ります（段落とパラグラフについて）</a>)。
-			しかしこれがネットになると話は別で、たとえばメールや掲示板など様々な場面で、文章は改行で区切り、また文章の途中であっても適宜改行を入れるのが読み易い文章とされる<a aria-describedby="footnote-label" id="ref-online-sentence" href="#footnote-online-sentence"></a>。
+			しかしこれがネットになると話は別で、たとえばメールや掲示板など様々な場面で、文章は改行で区切り、また文章の途中であっても適宜改行を入れるのが読み易い文章とされる<blog:footnote id="online-sentence">
+				この辺りのお作法の違いは、ネット小説などで顕著に現れているので、読んでみると良いかもしれない。
+				書く人によって、書籍に準じていたり、段落がやたら小さかったり、過激な人だと文章単位で改行(改段落)していたりする。
+				また、鉤括弧による台詞の前後に空行を入れて地の文と隔離することが多いのもネット小説の文体の特徴だ。
+			</blog:footnote>。
 		</p>
 		<p>
 			この辺りの書き方は個性と見ることもできそうな気もするし、ネットぽさを出したければそういう書き方をすることになるので、あまり細かく指定しなければ執筆者が勝手にいい感じにするだろうからあまり縛りたくないと最初は思っていた。
 			しかし、どうもそういうお作法を単に知らないだけで書いていると思わしき文章などがあり、結局確認をとったうえで修正することになった。
 		</p>
 		<p>
-			まあ普通に生活していれば本を書くような機会なんてそうそうない<a aria-describedby="footnote-label" id="ref-had-no-chance-to-write-book" href="#footnote-had-no-chance-to-write-book"></a>から、最初にこういったことはまとめて資料を作っておくべきだったと反省している。
+			まあ普通に生活していれば本を書くような機会なんてそうそうない<blog:footnote id="had-no-chance-to-write-book">
+				偉そうなことを言っているが、私も書いたことはない
+			</blog:footnote>から、最初にこういったことはまとめて資料を作っておくべきだったと反省している。
 		</p>
 	</blog:section>
 
@@ -585,7 +611,10 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 			しかし部誌はあくまでカジュアルなものであり、各執筆者がテーマも堅苦しさもバラバラの記事を書くのだから、どちらかというとブログ等 web 上の文章の文体と合わせた方が良いかもしれないと考え、結局このルールの適用は保留した。
 		</p>
 		<p>
-			読み辛いとかのフィードバックがあればそういった点にも言及するガイドラインを作ることになろうが、小説でも本格的書籍風<a aria-describedby="footnote-label" id="ref-typical-book-like" href="#footnote-typical-book-like"></a>でもない同人誌でそこまで拘る読者がいるものか、私にはわからない。
+			読み辛いとかのフィードバックがあればそういった点にも言及するガイドラインを作ることになろうが、小説でも本格的書籍風<blog:footnote id="ref-typical-book-like">
+				たとえば天下の O'Reilly パロっぽい装丁でぶ厚かったり、明らかに実在の技術書を意識していたりとか。
+				でもよく考えると、ロ技研の部誌も表紙は十分実在のものを意識していたような……
+			</blog:footnote>でもない同人誌でそこまで拘る読者がいるものか、私にはわからない。
 		</p>
 	</blog:section>
 
@@ -595,7 +624,10 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 			誤字脱字や適当でない漢字の確認は厄介だ。
 			英語だったり分かち書きであれば <a href="https://lasr.cs.ucla.edu/geoff/ispell.html">ispell</a> のようなツールが使えるが、日本語の校正ソフトは正直よく知らない。
 			一応 RedPen のようなものは存在は知っていたが、使ったことがないしどこまで柔軟なのか知らなかった
-<a aria-describedby="footnote-label" id="ref-proofreading-flexibility" href="#footnote-proofreading-flexibility"></a>
+			<blog:footnote id="proofreading-flexibility">
+				カジュアルな文章やネタの文章に対してあれこれ言われても鬱陶しいだけなのである。
+				もしかすると、その辺りもうまいサポートがあるのかもしれないが。
+			</blog:footnote>
 			ので、導入に踏み切れなかったのだ。
 			締切の短さが悪い！
 		</p>
@@ -680,77 +712,4 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 		ちなみにロ技研は <strong>1日目(木曜日) 西地区 ほ41b</strong> だそうだ。
 	</p>
 </blog:section>
-
-<aside class="footnotes">
-	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
-	<ol>
-		<li id="footnote-strict-schema">
-			とはいえこのスキーマは、綺麗に構造化された文書において満たされるべき制約を示しているに過ぎないため、スキーマが窮屈に感じるのであれば、それは文書の構成が汚いということを意味している
-			<a href="#ref-strict-schema" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-docbook-xslt-from-scratch">
-			たまに HTML への変換のスタイルシートを作ろうとするのだが、大抵途中で挫折するか、 DocBook のサブセットへの対応で諦めてしまう。
-			xsltproc が貧弱なのも XSLT を書くのがつらい要因のひとつだ。
-			XSLT 3 使わせろ！
-			<a href="#ref-docbook-xslt-from-scratch" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-tex-env-without-texlive">
-			何とは言わない某 OS とかね
-			<a href="#ref-tex-env-without-texlive" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-latexmk-introduction">
-			詳細は<a href="http://blog.tokor.org/2015/11/26/latexmk%E3%81%A7%E6%A5%BD%E3%80%85LaTeX%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB/">ところさんのブログ</a>でも読んで
-			<a href="#ref-latexmk-introduction" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-automatic-extractbb">
-			<a href="https://twitter.com/aminophen/status/617502191180320768">このツイート</a>とか <a href="http://acetaminophen.hatenablog.com/entry/2015/06/14/162800">TeX Live 2015 で変わったこと、変わらなかったこと - Acetaminophen’s diary</a> とか参照
-			<a href="#ref-automatic-extractbb" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-referenced-kmc">
-			ｽﾞｮﾎﾝ系の学生としては KMC すげーなと思います。
-			†なしで尊敬。
-			あとページスタイルとかはパクリじゃないですよ本当です。
-			<a href="#ref-referenced-kmc" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-avoid-hard-maintenance">
-			たぶんこの慣習は後の世代まで続くと思う(続いて欲しい)のだが、ロ技研はロボット技術研究会であるから、部員の大半が TeX やデータ構造やプログラミングに馴染みがあるというわけではないので、テンプレートは後輩がメンテできる程度には簡潔にしておく必要があった
-			<a href="#ref-avoid-hard-maintenance" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-packages-orthogonality">
-			<a href="http://itchyny.hatenablog.com/entry/20130824/1377351527">lightline.vim作りました - プラグインの直交性について - プログラムモグモグ</a>
-			<a href="#ref-packages-orthogonality" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-online-sentence">
-			この辺りのお作法の違いは、ネット小説などで顕著に現れているので、読んでみると良いかもしれない。
-			書く人によって、書籍に準じていたり、段落がやたら小さかったり、過激な人だと文章単位で改行(改段落)していたりする。
-			また、鉤括弧による台詞の前後に空行を入れて地の文と隔離することが多いのもネット小説の文体の特徴だ。
-			<a href="#ref-online-sentence" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-had-no-chance-to-write-book">
-			偉そうなことを言っているが、私も書いたことはない
-			<a href="#ref-had-no-chance-to-write-book" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-typical-book-like">
-			たとえば天下の O'Reilly パロっぽい装丁でぶ厚かったり、明らかに実在の技術書を意識していたりとか。
-			でもよく考えると、ロ技研の部誌も表紙は十分実在のものを意識していたような……
-			<a href="#ref-typical-book-like" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-proofreading-flexibility">
-			カジュアルな文章やネタの文章に対してあれこれ言われても鬱陶しいだけなのである。
-			もしかすると、その辺りもうまいサポートがあるのかもしれないが。
-			<a href="#ref-proofreading-flexibility" aria-label="Back to content">&#x21B5;</a>
-		</li>
-	</ol>
-</aside>
 </blog:article>
