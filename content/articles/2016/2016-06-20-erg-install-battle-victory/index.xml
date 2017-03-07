@@ -15,9 +15,13 @@ opengraph:
 
 excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 ---
-
-<section id="tl-dr">
-	<h2>TL;DR<a href="#tl-dr" class="permalink"></a></h2>
+<?xml version="1.0"?>
+<blog:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:blog="https://blog.cardina1.red/2017-0307"
+>
+<blog:section id="tl-dr">
+	<blog:title>TL;DR</blog:title>
 	<p>
 		VirtualBox Guest AdditionsのDirect3D Support (Experimental)はWindows標準のDirectXライブラリを上書きするが、そのせいで一部ゲームでエラーが出て起動できなくなることがある。<br />
 		これは、DirectXの一部ファイルを本来のファイルで上書きしてやることで解決可能である。
@@ -25,18 +29,17 @@ excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 	<p>
 		問題遭遇編は<a href="../../15/erg-install-battle">エロゲインストールバトル</a>を参照。
 	</p>
-</section>
+</blog:section>
 
-<section id="environment">
-	<h2>環境<a href="#environment" class="permalink"></a></h2>
+<blog:section id="environment">
+	<blog:title>環境</blog:title>
 	<p>
 		環境は<a href="../../15/erg-install-battle">エロゲインストールバトル実行時と同様</a>である。
 	</p>
+</blog:section>
 
-</section>
-
-<section id="investigation">
-	<h2>調査<a href="#investigation" class="permalink"></a></h2>
+<blog:section id="investigation">
+	<blog:title>調査</blog:title>
 	<p>
 		ネイティブ環境のWindows 10で起動するとされていることと、DirectX 9のDLLでエラーが出ていることから、原因はVirtualBox特有でDirectX関連部分、すなわちVirtualBox Guest Additions(以下<strong>Guest Additions</strong>)によるDirect3D Support (Experimental)であろうと予想した。<br />
 		よって、Guest Additionsにより上書きされたであろうDirectX関連ファイルをMicrosoft公式のものに上書きしてやれば元に戻るであろうと考えた。
@@ -46,8 +49,8 @@ excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 		<figcaption>Guest Additionsで強制的に有効化されてしまうDirect3D Support</figcaption>
 	</figure>
 
-	<section id="check-corruption-of-directx">
-		<h3>DirectX破損確認<a href="#check-corruption-of-directx" class="permalink"></a></h3>
+	<blog:section id="check-corruption-of-directx">
+		<blog:title>DirectX破損確認</blog:title>
 		<p>
 			普通のライブラリであればアンインストールするところだが、WindowsではDirectXのアンインストールは普通の手段ではできないことになっている<a aria-describedby="footnote-label" id="ref-footnote-directx-uninstall" href="#footnote-directx-uninstall"></a>。
 			ということはこのファイルはWindows自身によって管理されているということであるから、システムファイルの破損チェックで改竄を確認できるはずである。
@@ -149,13 +152,13 @@ C:&#xA5;Users&#xA5;user1&gt;
 			やはり、DirectX関係のファイルが上書きされていたようだ。
 			予想通りであれば、これらを本来の(Microsoft純正の)ファイルに戻してやれば、トラブルを解決できるはずだ。
 		</p>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
 
-<section id="solved">
-	<h2>解決<a href="#solved" class="permalink"></a></h2>
-	<section id="original-directx-file">
-		<h3>オリジナルのDirectXファイル<a href="#original-directx-file"></a></h3>
+<blog:section id="solved">
+	<blog:title>解決</blog:title>
+	<blog:section id="original-directx-file">
+		<blog:title>オリジナルのDirectXファイル</blog:title>
 		<p>
 			さて、どこから純正のファイルを持ってくるか。
 			DirectXのインストーラ<a aria-describedby="footnote-label" id="ref-footnote-directx-installer" href="#footnote-directx-installer"></a>から持ってこられればそれが楽なのだが、どうも実はこの中にあるcabファイルのどれを展開しても<code class="filepath">d3d9.dll</code>が存在しなかったのである。<br />
@@ -190,10 +193,10 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 			念のため再起動してからDirectXインストーラをもう一度くらい起動するのもアリだろう。
 			何か効果があるのかは知らないが。
 		</p>
-	</section>
+	</blog:section>
 
-	<section id="result">
-		<h3>結果<a href="#result" class="permalink"></a></h3>
+	<blog:section id="result">
+		<blog:title>結果</blog:title>
 		<ul>
 			<li>
 				ものべのをはじめとする各ゲームの<a href="../../15/erg-install-battle#fig-monobeno-dx9-error">起動時のエラー</a>は出なくなった
@@ -214,8 +217,8 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 				<figcaption>まいてつ起動成功</figcaption>
 			</figure>
 		</div>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
 
 <aside class="footnotes">
 	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
@@ -244,3 +247,4 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 		</li>
 	</ol>
 </aside>
+</blog:article>

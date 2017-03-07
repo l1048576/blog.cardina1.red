@@ -9,14 +9,18 @@ kind: article
 
 excerpt: "Rust-1.7.0でDefault::default()を使ったコードのコンパイルが通らない、処理系の不具合と思われる挙動に遭遇した。回避策はあるが、つらい。"
 ---
-
+<?xml version="1.0"?>
+<blog:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:blog="https://blog.cardina1.red/2017-0307"
+>
 <p>
 	未解決。
 	<a href="#first-aid">応急処置</a>済。
 </p>
 
-<section id="abstract">
-	<h2>概要<a href="#abstract" class="permalink"></a></h2>
+<blog:section id="abstract">
+	<blog:title>概要</blog:title>
 	<p>
 		Rust-1.7で以下のコードのコンパイルが通らない。
 	</p>
@@ -63,20 +67,21 @@ pub fn main () {
 	<p>
 		やっぱりgithubでissueとか投げるべきなのかなぁ……
 	</p>
-</section>
-<section id="first-aid">
-	<h2>応急処置<a href="#first-aid" class="permalink"></a></h2>
+</blog:section>
+<blog:section id="first-aid">
+	<blog:title>応急処置</blog:title>
 	<p>
 		コード例のとおり、<code>Default::default()</code>が失敗するのは構造体全体に対してのみであるため、各メンバ変数それぞれについて<code>Default::default()</code>を呼び出すことで、意図した通りのオブジェクトを生成することは可能である。
 		メンバ変数が沢山あると大変だが、仕方がない……
 	</p>
-</section>
-<section id="postscript">
-	<h2>追記 (2016/03/24 02:23)<a href="#postscript" class="permalink"></a></h2>
+</blog:section>
+<blog:section id="postscript">
+	<blog:title>追記 (2016/03/24 02:23)</blog:title>
 	<p>
 		すごい後輩氏が該当issueを見付けてくれた。 &gt; <a href="https://github.com/rust-lang/rust/issues/26925" target="_blank">#[derive] is too conservative with field trait bounds · Issue #26925 · rust-lang/rust</a><br />
 		すごい。<br />
 		このissue、ここ4ヶ月ほど動きがないようだが、ひとまず動きを注視することにしてみようと思う。
 		(でも再燃させた方がよかったりするのかなぁ……)
 	</p>
-</section>
+</blog:section>
+</blog:article>

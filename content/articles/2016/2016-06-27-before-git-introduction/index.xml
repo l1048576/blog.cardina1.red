@@ -9,9 +9,13 @@ kind: article
 
 excerpt: "実際にgitを使ってみる前に知っておきたい概念とかを連ねてみる。"
 ---
-
-<section id="article-introduction">
-	<h2>はじめに<a href="#article-introduction" class="permalink"></a></h2>
+<?xml version="1.0"?>
+<blog:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:blog="https://blog.cardina1.red/2017-0307"
+>
+<blog:section id="article-introduction">
+	<blog:title>はじめに</blog:title>
 	<p>
 		git入門記事が巷に(というか主にwebに)満ち溢れる時代である。
 		で、私は「git使ってみよう！ほら簡単でしょ！」方式の入門記事を見る度に、「ブラックボックスっぽいなぁ」と思うわけである。
@@ -27,10 +31,10 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 	<p>
 		それから、GitHubとgitは全く別の概念なので、<strong>一旦GitHubのことは忘れること</strong>。
 	</p>
-</section>
+</blog:section>
 
-<section id="glossary">
-	<h2>用語集<a href="#glossary" class="permalink"></a></h2>
+<blog:section id="glossary">
+	<blog:title>用語集</blog:title>
 	<dl>
 		<dt id="noun-repository">
 			reposiotry, リポジトリ [名詞]
@@ -172,7 +176,7 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 				もし現在のファイルの状態からしか<a href="#noun-commit">コミット[名詞]</a>を作れないのでは、追加しない方の記事を一度削除して<a href="#verb-commit">コミット[動詞]</a>、という面倒な手順を踏むことになってしまうが、<a href="#noun-staging-area">ステージング・エリア</a>をうまく使ってやることで、<a href="#noun-working-directory">ワーキングディレクトリ</a>を変更することなく部分的に変更を<a href="#noun-commit">コミット</a>に追加することができる。
 			</p>
 			<aside class="note">
-				<h1>目的語</h1>
+				<blog:title>目的語</blog:title>
 				<p>
 					gitは<a href="#noun-diff">差分</a>ではなく<a href="#noun-commit">コミット[名詞]</a>(スナップショット)を保管するという特性から、addとかstageの目的語はふつうファイルになる。
 					しかし実際には、ファイルの変更の一部分のみが行われたものとして<a href="#verb-add">stageする</a>ことも可能なので、「&lt;変更を&gt;add/stageする」という形の用法も見掛ける。
@@ -211,12 +215,12 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 			</p>
 		</dd>
 	</dl>
-</section>
+</blog:section>
 
-<section id="commands">
-	<h2>コマンド<a href="#commands" class="permalink"></a></h2>
-	<section id="commands-files">
-		<h3>ファイル関連<a href="#commands-files" class="permalink"></a></h3>
+<blog:section id="commands">
+	<blog:title>コマンド</blog:title>
+	<blog:section id="commands-files">
+		<blog:title>ファイル関連</blog:title>
 		<dl>
 			<dt>
 				ワーキングディレクトリ→ステージング・エリア
@@ -290,17 +294,17 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		<p>
 			<code>cherry-pick</code>とか<code>rebase</code>はコミットではなくdiff基準で動作しているということに注意。
 		</p>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
 
-<section id="conclusion">
-	<h2>まとめ<a href="#conclusion" class="permalink"></a></h2>
+<blog:section id="conclusion">
+	<blog:title>まとめ</blog:title>
 	<p>
 		もう面倒になったので参考文献を見て。
 	</p>
 
-	<section id="reference">
-		<h3>参考サイト<a href="#reference" class="permalink"></a></h3>
+	<blog:section id="reference">
+		<blog:title>参考サイト</blog:title>
 		<dl>
 			<dt>
 				<a href="http://qiita.com/shuntaro_tamura/items/db1aef9cf9d78db50ffe">[git reset (--hard/--soft)]ワーキングツリー、インデックス、HEADを使いこなす方法 - Qiita</a>
@@ -333,8 +337,8 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 				</p>
 			</dd>
 		</dl>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
 
 
 <aside class="footnotes">
@@ -349,3 +353,4 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		</li>
 	</ol>
 </aside>
+</blog:article>

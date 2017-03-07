@@ -8,13 +8,17 @@ kind: article
 
 excerpt: "Rust-1.6でvalgrindを使うとSEGVすることがある場合の対処。"
 ---
-
+<?xml version="1.0"?>
+<blog:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:blog="https://blog.cardina1.red/2017-0307"
+>
 <p>
 	一応解決済。
 </p>
 
-<section id="abstract">
-	<h2>概要<a href="#abstract" class="permalink"></a></h2>
+<blog:section id="abstract">
+	<blog:title>概要</blog:title>
 	<p>
 		Rust-1.6でコンパイルしたコードのプロファイリングをvalgrindを使って行おうとしたところ、SEGVした。
 		もちろんvalgrindを使わず実行した場合にはSEGVしない。
@@ -140,4 +144,5 @@ $
 		本当はmemcheckじゃなくてcallgrind使おうとしてたんだけど、正直あまり良いデータ得られなかったのでやっぱ使わなくていいや。
 		lifetimeに圧倒的感謝。
 	</p>
-</section>
+</blog:section>
+</blog:article>

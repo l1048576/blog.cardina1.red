@@ -9,14 +9,18 @@ kind: article
 
 excerpt: "Linux の kernel config を秘伝のタレにしないための小さなシェルスクリプトを書いた"
 ---
-
+<?xml version="1.0"?>
+<blog:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:blog="https://blog.cardina1.red/2017-0307"
+>
 <p>
 	この記事は、 <a href="http://www.adventar.org/calendars/1493">Gentoo Advent Calendar 2016</a> の6日目の記事です。<br />
 	昨日の記事は <a href="http://neotaso.hatenablog.com/entry/2016/12/05/013636">Gentoo on Windows 10 (Gentoo Advent Calender 2016 5日目)</a>でした。
 </p>
 
-<section id="abstract">
-	<h2>概要<a href="#abstract" class="permalink"></a></h2>
+<blog:section id="abstract">
+	<blog:title>概要</blog:title>
 	<p>
 		そろそろ普段使いのラップトップが壊れそうなので、別マシンへの移行の準備をしておきたさが高まっています。
 		Windows 8.1 を gentoo で上書きして以来、これまで様々な設定をしてきましたが、 <code class="dirpath">/etc</code> にあるファイルの多くはコピーで済まされる設定ファイル<a aria-describedby="footnote-label" id="ref-copyable-config-under-etc" href="#footnote-copyable-config-under-etc"></a>なので、移行にあたってそこまで問題になりません。
@@ -41,8 +45,8 @@ excerpt: "Linux の kernel config を秘伝のタレにしないための小さ�
 		</li>
 	</ul>
 
-	<section id="abstract-target-readers">
-		<h3>対象読者<a href="#abstract-target-readers" class="permalink"></a></h3>
+	<blog:section id="abstract-target-readers">
+		<blog:title>対象読者</blog:title>
 		<p>
 			大雑把には、既に gentoo を使っていたりカーネルをコンパイルしている人向けです。
 		</p>
@@ -60,11 +64,11 @@ excerpt: "Linux の kernel config を秘伝のタレにしないための小さ�
 		<p>
 			残念ながら gentoo の布教記事ではございません。
 		</p>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
 
-<section id="merge_config_sh">
-	<h2><code>merge_config.sh</code><a href="#merge_config_sh" class="permalink"></a></h2>
+<blog:section id="merge_config_sh">
+	<blog:title><code>merge_config.sh</code></blog:title>
 	<p>
 		……と思って作ろうとしていましたが、よくよく調べてみると、 Linux カーネルのソース(gentoo であれば <code class="dirpath">/usr/src/linux</code> など)の <code class="filepath">scripts/kconfig/merge_config.sh</code> に、かなり近い目的のものがありました。
 		中身を読んでみると、ファイル名のとおり、設定ファイルとして有効なファイル同士の merge 用途のものであり、コメントやインデント、省略記法などは使えないようです。
@@ -88,10 +92,10 @@ excerpt: "Linux の kernel config を秘伝のタレにしないための小さ�
 			<code>CONFIG_</code> のプレフィックスを省略できる
 		</li>
 	</ul>
-</section>
+</blog:section>
 
-<section id="product">
-	<h2>成果物<a href="#product" class="permalink"></a></h2>
+<blog:section id="product">
+	<blog:title>成果物</blog:title>
 	<figure id="code-genconfig_sh">
 		<pre><code class="lang-sh language-sh" data-lang="sh">
 #!/bin/sh
@@ -127,8 +131,8 @@ rm "${CONFFILE_TEMP}"
 		というか実質 <code>sed</code> スクリプト。
 	</p>
 
-	<section id="usage">
-		<h3>つかいかた<a href="#usage" class="permalink"></a></h3>
+	<blog:section id="usage">
+		<blog:title>つかいかた</blog:title>
 		<ol>
 			<li>
 				スクリプトを保存して x フラグを立てる
@@ -150,10 +154,10 @@ rm "${CONFFILE_TEMP}"
 			ソースコードのディレクトリはデフォルトで <code class="dirpath">/usr/src/linux</code> ですが、 <code>SRC_DIR=/path/to/linux/source ./genconfig.sh</code> のようにすれば別の場所を使うことができます。
 			そのディレクトリのパーミッションによっては、 <code>sudo</code> は必要ないかもしれません。
 		</p>
-	</section>
+	</blog:section>
 
-	<section id="config-content">
-		<h3><code>config</code> ファイルの内容<a href="#config-content" class="permalink"></a></h3>
+	<blog:section id="config-content">
+		<blog:title><code>config</code> ファイルの内容</blog:title>
 		<p>
 			文法はシンプルです。
 		</p>
@@ -194,19 +198,19 @@ rm "${CONFFILE_TEMP}"
 		</p>
 		<figure id="code-genconfig_sh">
 			<pre><code>    # www-client:google-chrome-46.0.2490.80_p1:
-    # > CONFIG_COMPAT_VDSO causes segfaults (bug #556286)
+    # &gt; CONFIG_COMPAT_VDSO causes segfaults (bug #556286)
         ## config COMPAT_VDSO
         ##      def_bool n
         ##      prompt "Disable the 32-bit vDSO (needed for glibc 2.3.3)"
         COMPAT_VDSO=n
     # www-client/google-chrome-54.0.2840.71:
-    # > USER_NS is required for sandbox to work
+    # &gt; USER_NS is required for sandbox to work
         ## config USER_NS
         ##      bool "User namespace"
         USER_NS=y
 
     # media-sound/pulseaudio-7.0:
-    # > A preallocated buffer-size of 2048 (kB) or higher is recommended for the HD-audio driver!
+    # &gt; A preallocated buffer-size of 2048 (kB) or higher is recommended for the HD-audio driver!
         ## config SND_HDA_PREALLOC_SIZE
         ##      int "Pre-allocated buffer size for HD-audio driver"
         SND_HDA_PREALLOC_SIZE=2048
@@ -218,7 +222,7 @@ rm "${CONFFILE_TEMP}"
             TMPFS_POSIX_ACL=y
 
     # sys-apps/lm_sensors-3.4.0_p20160725:
-    # > sensors-detect requires CONFIG_I2C_CHARDEV to be enabled.
+    # &gt; sensors-detect requires CONFIG_I2C_CHARDEV to be enabled.
         ## config I2C_CHARDEV
         ##      tristate "I2C device interface"
         I2C_CHARDEV=m
@@ -234,7 +238,7 @@ rm "${CONFFILE_TEMP}"
 			私は面倒だったので使いませんでしたが、 vim などであれば fold marker を使って折り畳みできるようにすれば、より読み易くなるかもしれません。
 		</p>
 		<aside id="how-to-get-config-description" class="note">
-			<h1>config の項目の説明<a href="#how-to-get-config-description" class="permalink"></a></h1>
+			<blog:title>config の項目の説明</blog:title>
 			<p>
 				<code>find /usr/src/linux/ -name 'Kconfig*' | xargs grep --color=always -h -A 1 'config 'FOO</code> とかで検索すると、項目の <a href="https://www.kernel.org/doc/Documentation/kbuild/kconfig-language.txt">Kconfig</a> を探すことができるので、説明文を引っ張ってくるのに活用できます。
 			</p>
@@ -263,14 +267,14 @@ $
 				たまに複数マッチしたり説明文が入ってこない場合がありますが、その場合 <code>-H</code> でファイル名を表示させたり、 <code>-A 2</code> 等で後ろの行をより多く表示させたりすることでどうにかできます。
 			</p>
 		</aside>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
 
-<section id="explanation">
-	<h2>解説<a href="#explanation" class="permalink"></a></h2>
+<blog:section id="explanation">
+	<blog:title>解説</blog:title>
 
-	<section id="explanation-merge_config_sh">
-		<h3><code>merge_config.sh</code><a href="#config-content" class="permalink"></a></h3>
+	<blog:section id="explanation-merge_config_sh">
+		<blog:title><code>merge_config.sh</code></blog:title>
 		<p>
 			先述の通りですが、大雑把に言うと、既に <code>.config</code> として使えるファイルを複数指定すると、それらを merge して、ついでに<strong>指定されなかった項目を自動でよろしく設定してくれる</strong>ものです。
 		</p>
@@ -290,10 +294,10 @@ make KCONFIG_ALLCONFIG=$TMP_FILE $OUTPUT_ARG $ALLTARGET
 		<p>
 			<code>$ALLTARGET</code> は、デフォルトでは <code>alldefconfig</code> ですが、 <code>-n</code> オプションを付けて <code>merge_config.sh</code> を起動すると <code>allnoconfig</code> となります。
 		</p>
-	</section>
+	</blog:section>
 
-	<section id="explanation-make-alldefconfig">
-		<h3><code>make alldefconfig</code><a href="#explanation-make-alldefconfig" class="permalink"></a></h3>
+	<blog:section id="explanation-make-alldefconfig">
+		<blog:title><code>make alldefconfig</code></blog:title>
 		<p>
 			名前そのままですが、 <code>alldefconfig</code> は、与えられた config において未指定の項目に、<strong>デフォルト値</strong>を設定します。
 			同様に <code>allnoconfig</code> は、与えられた config において未指定の項目のすべてに、 <strong><code>n</code> (no)</strong> を設定します。
@@ -351,7 +355,7 @@ Configuration targets:
 			<figcaption><code class="filepath">genconfig.sh</code> の該当行をこのように変更する</figcaption>
 		</figure>
 		<aside id="merge_config_sh-option" class="tip">
-			<h1><code>merge_config.sh</code> のオプション<a href="#merge_config_sh-option" class="permalink"></a></h1>
+			<blog:title><code>merge_config.sh</code> のオプション</blog:title>
 			<p>
 				<code>-r</code> と <code>-n</code> を合わせて <code>-rn</code> とかはできないので注意してください。
 			</p>
@@ -369,7 +373,7 @@ while true; do
 			</figure>
 		</aside>
 		<aside id="allnoconfig-is-inconvenient" class="note">
-			<h1><code>allnoconfig</code> は不便<a href="#allnoconfig-is-inconvenient" class="permalink"></a></h1>
+			<blog:title><code>allnoconfig</code> は不便</blog:title>
 			<p>
 				常識的にこれは必要でしょ、というオプションでさえ、網羅して明示的に列挙しないと無効になります。
 				カーネルサイズをとにかく小さくするエクストリームスポーツとか、<a href="https://cpplover.blogspot.jp/2013/10/gentoo.html">起動を爆速にするエクストリームスポーツ</a>とかでなければ、普通に使うことはないかと思います。
@@ -378,11 +382,11 @@ while true; do
 				素直に <code>alldefconfig</code> を使って、必要ないものは <code>FOO=n</code> で明示的に無効にしてやるのが良いでしょう。
 			</p>
 		</aside>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
 
-<section id="conclusion">
-	<h2>まとめ<a href="#conclusion" class="permalink"></a></h2>
+<blog:section id="conclusion">
+	<blog:title>まとめ</blog:title>
 	<ul>
 		<li>
 			カーネルコンフィグ管理を手助けする簡単なスクリプトを書いた
@@ -406,14 +410,14 @@ while true; do
 			gentoo AdC なのにごめんなさい。
 		</li>
 	</ul>
-</section>
+</blog:section>
 
-<section id="omake">
-	<h2>おまけ<a href="#omake" class="permalink"></a></h2>
-	<section id="omake-portage-summary-log">
-		<h3>portage のログ<a href="#omake-portage-summary-log" class="permalink"></a></h3>
+<blog:section id="omake">
+	<blog:title>おまけ</blog:title>
+	<blog:section id="omake-portage-summary-log">
+		<blog:title>portage のログ</blog:title>
 		<aside class="tip ins">
-			<h1>追記 (2016-12-06T00:20:25+0900)</h1>
+			<blog:title>追記 (2016-12-06T00:20:25+0900)</blog:title>
 			<p>
 				もっと良い方法がありました。
 				<a href="#omake-postscript1-kernel_config_check_py">追記1</a>を参照。
@@ -438,7 +442,7 @@ while true; do
 				<pre><code class="lang-vim language-vim" data-lang="vim">
 au BufRead,BufNewFile */portage/elog/summary.log set filetype=portage-summary-log
 </code></pre>
-				<figcaption><code class="filepath">~/.config/nvim/ftdetect/portage-summary-log.vim</figcaption>
+				<figcaption><code class="filepath">~/.config/nvim/ftdetect/portage-summary-log.vim</code></figcaption>
 			</figure>
 
 			<figure id="code-portage-summary-log-vim-syntax-syntax">
@@ -452,7 +456,7 @@ syn spell notoplevel
 
 
 syn match logPackageAtom excludenl '[a-z-_]\+/[a-zA-Z0-9_\.-]\+' contained containedin=logPackageLine
-syn match logPackageLine excludenl '^>>> Messages generated by process .*:$' contains=logPackageAtom
+syn match logPackageLine excludenl '^&gt;&gt;&gt; Messages generated by process .*:$' contains=logPackageAtom
 
 syn match logKernelConfig excludenl 'CONFIG_[A-Z0-9_]\+' containedin=ALL
 
@@ -474,14 +478,14 @@ hi link logError Label
 
 let b:current_syntax = "portage-summary-log"
 </code></pre>
-				<figcaption><code class="filepath">~/.config/nvim/ftdetect/portage-summary-log.vim</figcaption>
+				<figcaption><code class="filepath">~/.config/nvim/ftdetect/portage-summary-log.vim</code></figcaption>
 			</figure>
 			<figcaption>適当なところに置いて使ってくださいな</figcaption>
 		</figure>
-	</section>
+	</blog:section>
 
-	<section id="omake-next-features">
-		<h3>次に欲しい機能<a href="#omake-next-features" class="permalink"></a></h3>
+	<blog:section id="omake-next-features">
+		<blog:title>次に欲しい機能</blog:title>
 		<p>
 			現状でそこそこ満足なので、今のところこれ以上リソースを注ぐつもりはありませんが、改良点があるとしたら以下の点です。
 		</p>
@@ -508,12 +512,11 @@ let b:current_syntax = "portage-summary-log"
 				</p>
 			</dd>
 		</dl>
-	</section>
+	</blog:section>
 
-	<section id="omake-postscript1-kernel_config_check_py">
-		<h3>追記1 (2016/12/06 00:12): <code>kernel-config-check.py</code><a href="#omake-postscript1-kernel_config_check_py" class="permalink"></a></h3>
-		<blockquote class="twitter-tweet" data-cards="hidden" data-lang="ja"><p lang="ja" dir="ltr">kernel config checkには kernel-config-check.py とか / “kernel config 生成(略記)のためのシェルスクリプト - 何とは言わない天然水飲みたさ” <a href="https://t.co/7X7AE3sXKx">https://t.co/7X7AE3sXKx</a></p>&mdash; このGentooの片隅に (@naota344) <a href="https://twitter.com/naota344/status/805790701610905600">2016年12月5日</a></blockquote>
-		<script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<blog:section id="omake-postscript1-kernel_config_check_py">
+		<blog:title>追記1 (2016/12/06 00:12): <code>kernel-config-check.py</code></blog:title>
+		<blockquote class="twitter-tweet" data-cards="hidden" data-lang="ja"><p lang="ja" dir="ltr">kernel config checkには kernel-config-check.py とか / “kernel config 生成(略記)のためのシェルスクリプト - 何とは言わない天然水飲みたさ” <a href="https://t.co/7X7AE3sXKx">https://t.co/7X7AE3sXKx</a></p>&#2014; このGentooの片隅に (@naota344) <a href="https://twitter.com/naota344/status/805790701610905600">2016年12月5日</a></blockquote>
 		<p>
 			<a href="https://gist.github.com/mrueg/cd19a20d2e712f61d2ea"><code class="filepath">kernel-config-check.py</code></a> というものを公開している方がいらっしゃるようで、これを使うと、インストール済のパッケージが要求するカーネルオプションを網羅できるようです。
 			すごい！
@@ -526,8 +529,8 @@ let b:current_syntax = "portage-summary-log"
 				<a href="https://gist.github.com/mrueg/cd19a20d2e712f61d2ea"><code class="filepath">kernel-config-check.py</code></a>
 			</figcaption>
 		</figure>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
 
 <aside class="footnotes">
 	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
@@ -556,3 +559,6 @@ let b:current_syntax = "portage-summary-log"
 		</li>
 	</ol>
 </aside>
+
+<script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</blog:article>

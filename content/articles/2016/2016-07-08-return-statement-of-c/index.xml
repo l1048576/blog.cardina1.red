@@ -8,9 +8,13 @@ kind: article
 
 excerpt: "C言語での\"return\"文は「値を返す」ものと解釈されがちだが、アセンブリ言語レベルでは単に「帰る(返る)」ものである。値を連れて返るのは追加機能だと考えるのが自然だ。"
 ---
-
-<section id="two-sorts-of-return">
-	<h2>2種類の"return"<a href="#two-sorts-of-return" class="permalink"></a></h2>
+<?xml version="1.0"?>
+<blog:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:blog="https://blog.cardina1.red/2017-0307"
+>
+<blog:section id="two-sorts-of-return">
+	<blog:title>2種類の"return"</blog:title>
 	<p>
 		C言語において、関数は戻り値を返したり返さなかったりする。
 	</p>
@@ -33,17 +37,16 @@ void do_nothing(void) {
 		ここで、(1)のような<code>return</code>を「値を返す」ものだと思い込んでしまっていると、(2)の<code>return;</code>の意味がわからなくなることがあるらしい。<br />
 		この記事では、C言語におけるreturnが「返す」ものでなく「帰る(返る)」ものと捉える方が自然であることを、コンパイル結果を見ながら示していく。
 	</p>
-</section>
+</blog:section>
 
-<section id="think-at-assembly-level">
-	<h2>アセンブリレベルで見る<a href="#think-at-assembly-level" class="permalink"></a></h2>
+<blog:section id="think-at-assembly-level">
+	<blog:title>アセンブリレベルで見る</blog:title>
 	<p>
 		ひとまず上記のtest.cをコンパイルした結果をアセンブリ言語で見てみよう。
 		環境は 64 bit Linux, gcc-5.4.0 である。
 	</p>
 
 	<figure id="cmdlog-compile-and-objdump">
-
 			<pre class="code code-terminal">
 $ <kbd>uname -a</kbd>
 Linux veg 4.6.3-gentoo #1 SMP PREEMPT Sun Jul 3 10:47:16 JST 2016 x86_64 Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz GenuineIntel GNU/Linux
@@ -55,7 +58,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 $ <kbd>gcc -O0 -c test.c</kbd>
 $ <kbd>objdump -d -M intel test.o >test.c-objdump</kbd>
-</code></pre>
+</pre>
 		<figcaption>コンパイルと逆アセンブル</figcaption>
 	</figure>
 
@@ -121,10 +124,10 @@ return;  // ret
 	<p>
 		すなわち<code>return</code>には本来、単に「<strong>関数の呼び出し元アドレスへ戻る</strong>」という自動詞的な意味しかなく、値を返すというのは「<strong>約束の場所に値を置いておく</strong>」という利便性のための<strong>追加機能</strong>である、と考えると自然である。
 	</p>
-</section>
+</blog:section>
 
-<section id="who-does-return">
-	<h2>おまけ: 誰が(何が)返るのか<a href="#who-does-return" class="permalink"></a></h2>
+<blog:section id="who-does-return">
+	<blog:title>おまけ: 誰が(何が)返るのか</blog:title>
 	<p>
 		<code>return</code>が「関数の呼び出し元アドレスへ戻る」という意味なのは良いとして、その主語は何なのか。<br />
 		これは「<strong>処理</strong>」であると考えられる。<br />
@@ -135,7 +138,7 @@ return;  // ret
 		(或いは、コードの実行されている行をちょこちょこ走る小人のようなものを想定しても良いだろう。)<br />
 		プログラマにとって身近なものでは、プログラムカウンタ(x86であれば<code>EIP</code>、x64であれば<code>RIP</code>)が近いかもしれない。
 	</p>
-</section>
+</blog:section>
 
 <aside class="footnotes">
 	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
@@ -159,3 +162,4 @@ return;  // ret
 		</li>
 	</ol>
 </aside>
+</blog:article>

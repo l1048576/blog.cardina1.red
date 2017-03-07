@@ -8,9 +8,13 @@ kind: article
 
 excerpt: "CSSで喪に服す時代らしい。"
 ---
-
-<section id="grayscale">
-	<h2>filter属性<a href="#grayscale" class="permalink"></a></h2>
+<?xml version="1.0"?>
+<blog:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:blog="https://blog.cardina1.red/2017-0307"
+>
+<blog:section id="grayscale">
+	<blog:title>filter属性</blog:title>
 	<p>
 		喪に服すため黒い服を着る文化がどこから来たものなのかよく知らないが<a aria-describedby="footnote-label" id="ref-footnote-mourning-black" href="#footnote-mourning-black"></a>、少なくともタイにもそういう文化があるらしい。
 	</p>
@@ -96,10 +100,10 @@ body {
 		ちなみにGoogle chromeも、2016/10/15時点でSVG要素に対するfilterに対応していない。
 		<strong>喪に服したいなら<a href="https://www.mozilla.org/ja/firefox/new/"><i class="fa fa-firefox"></i>firefox</a>だ！</strong>
 	</p>
-</section>
+</blog:section>
 
-<section id="mourning-with-ie">
-	<h2>IEでダイナミックに喪に服す (#575)<a href="#mourning-with-ie" class="permalink"></a></h2>
+<blog:section id="mourning-with-ie">
+	<blog:title>IEでダイナミックに喪に服す (#575)</blog:title>
 	<p>
 		さて問題は、<a href="https://developer.mozilla.org/ja/docs/Web/CSS/filter#Browser_compatibility">IEがCSS標準のfilterに対応していない</a>ことである。
 		よって、IEでは<code>filter: grayscale(1);</code>では喪に服せない。
@@ -110,14 +114,14 @@ body {
 		すなわち……<strong>IEで喪に服すにはDirectXが必要</strong>なのだ！<br />
 		タイのwebページのどの程度の割合がDirectXでの服喪に対応しているのか気になるところである。
 	</p>
-</section>
+</blog:section>
 
-<section id="others">
-	<h2>その他<a href="#others" class="permalink"></a></h2>
+<blog:section id="others">
+	<blog:title>その他</blog:title>
 	<p>
 		<code>filter</code>をうまく使えば、制限されたデバイスや視覚障害者対応などにも役立つかもしれないと思った。
 	</p>
-</section>
+</blog:section>
 
 <aside class="footnotes">
 	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
@@ -129,3 +133,4 @@ body {
 		</li>
 	</ol>
 </aside>
+</blog:article>

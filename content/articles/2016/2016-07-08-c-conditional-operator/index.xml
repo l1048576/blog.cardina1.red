@@ -9,9 +9,13 @@ kind: article
 
 excerpt: "C言語での条件演算子についてちょっと悩んだことがあったのでメモとして簡単なまとめ。"
 ---
-
-<section id="the-reason-middle-operand-is-not-conditional">
-	<h2>条件演算子の中央オペランド(第2オペランド)が<code>conditional-expression</code>でない理由<a href="#the-reason-middle-operand-is-not-conditional" class="permalink"></a></h2>
+<?xml version="1.0"?>
+<blog:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:blog="https://blog.cardina1.red/2017-0307"
+>
+<blog:section id="the-reason-middle-operand-is-not-conditional">
+	<blog:title>条件演算子の中央オペランド(第2オペランド)が<code>conditional-expression</code>でない理由</blog:title>
 	<p>
 		C11の規格(N1570)を見ると、条件演算子の文法はP467 (6.5.15)にて、以下のように記されている。
 		(文法はBNFで書き直したので、原文通りではない。)
@@ -59,8 +63,8 @@ expression : assignment-expression
 		(ちなみに、<code>assignment-expression</code>でも代入式は直接使えるようになるが、コンマがparenなしで使えなくなる。)
 	</p>
 
-	<section id="middle-operand-in-cplusplus">
-		<h3>C++における中央オペランド(第2オペランド)の文法<a href="#middle-operand-in-cplusplus" class="permalink"></a></h3>
+	<blog:section id="middle-operand-in-cplusplus">
+		<blog:title>C++における中央オペランド(第2オペランド)の文法</blog:title>
 		<p>
 			C++14の規格(N3797)においては、条件演算子の文法はCとは若干異なり、以下のように定義されている。
 		</p>
@@ -95,11 +99,11 @@ expression : assignment-expression
 			一方、C++のように第3オペランドが<code>assignment-expression</code>であれば、<code>e = (a ? b : (c = d));</code>のように解釈される。
 			C++特有の機能を使っていないからと言って、拡張子を<code>c</code>に直してしまうとコンパイルが通らなくなる例だ。
 		</p>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
 
-<section id="gcc-generalized-lvalue-extension">
-	<h2>条件演算子による式を左辺値として使えるようにするgcc拡張<a href="#gcc-generalized-lvalue-extension" class="permalink"></a></h2>
+<blog:section id="gcc-generalized-lvalue-extension">
+	<blog:title>条件演算子による式を左辺値として使えるようにするgcc拡張</blog:title>
 	<p>
 		私の記憶では、gcc独自拡張によって、C言語でも条件演算子による式を左辺値として使えるはずだったのだが、wandbox(gcc-4.8.2)で試してみたところ、コンパイルが通らなかった。
 	</p>
@@ -133,4 +137,5 @@ expression : assignment-expression
 		どうやら10年以上前に廃止された拡張だったらしい。<br />
 		コンパイラ拡張をできるだけ使わないように生きてきたとはいえ、今日に至るまで全く気付かなかったのは結構ショックだ。
 	</p>
-</section>
+</blog:section>
+</blog:article>
