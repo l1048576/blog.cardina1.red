@@ -131,4 +131,32 @@
 	</xsl:element>
 </xsl:template>
 
+<xsl:template match="blog:xref">
+	<xsl:variable name="linkend" select="@linkend" />
+	<xsl:variable name="target_node" select="/descendant-or-self::node()[@id=$linkend]" />
+	<xsl:choose>
+		<xsl:when test="count($target_node) &gt; 1">
+			<xsl:message terminate="yes">error: Multiple nodes exist with `@id=<xsl:value-of select="$linkend" />`.</xsl:message>
+		</xsl:when>
+		<xsl:when test="count($target_node) &lt; 1">
+			<xsl:message terminate="yes">error: No nodes exist with `@id=<xsl:value-of select="$linkend" />`.</xsl:message>
+		</xsl:when>
+	</xsl:choose>
+	<xsl:element name="a">
+		<xsl:attribute name="href">#<xsl:value-of select="$linkend" /></xsl:attribute>
+		<xsl:choose>
+			<xsl:when test="node()">
+				<xsl:copy-of select="node()" />
+			</xsl:when>
+			<xsl:when test="$target_node[blog:title]">
+				<xsl:apply-templates select="$target_node/blog:title/node()" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:message terminate="yes">error: `blog:xref[@linkend='<xsl:value-of select="$linkend" />']` has no content but `node()[@id='<xsl:value-of select="$linkend" />']` has no `child::blog:title` element.
+				</xsl:message>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:element>
+</xsl:template>
+
 </xsl:stylesheet>
