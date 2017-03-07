@@ -49,6 +49,38 @@
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template name="footnotes">
+	<xsl:element name="aside">
+		<xsl:attribute name="class">footnotes</xsl:attribute>
+		<xsl:element name="h1">
+			<xsl:attribute name="id">footnote-label</xsl:attribute>
+			<xsl:attribute name="class">footnote-label</xsl:attribute>
+			<xsl:text>脚注</xsl:text>
+		</xsl:element>
+		<xsl:element name="ol">
+			<xsl:attribute name="start">0</xsl:attribute>
+			<xsl:for-each select="//blog:footnote">
+				<xsl:variable name="footnote_index">
+					<xsl:call-template name="footnote-index" />
+				</xsl:variable>
+				<xsl:element name="li">
+					<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+					<!--<xsl:attribute name="value"><xsl:value-of select="$footnote_index" /></xsl:attribute>-->
+					<xsl:copy-of select="* | text()" />
+					<xsl:element name="a">
+						<xsl:attribute name="href">#ref-<xsl:value-of select="@id" /></xsl:attribute>
+						<xsl:text>&#x21B5;</xsl:text>
+					</xsl:element>
+				</xsl:element>
+			</xsl:for-each>
+		</xsl:element>
+	</xsl:element>
+</xsl:template>
+
+<xsl:template name="footnote-index">
+	<xsl:value-of select="count(preceding::blog:footnote) - count(ancestor::blog:article[0]/preceding::blog:footnote)" />
+</xsl:template>
+
 
 <xsl:template match="text()"><xsl:value-of select="."/></xsl:template>
 
@@ -58,6 +90,7 @@
 
 <xsl:template match="/blog:article">
 	<xsl:apply-templates />
+	<xsl:call-template name="footnotes" />
 </xsl:template>
 
 <xsl:template match="html:*">
@@ -82,6 +115,19 @@
 	<xsl:element name="h{number($header_level)}">
 		<xsl:call-template name="copy-attributes" />
 		<xsl:value-of select="." /><xsl:call-template name="parent-permalink" />
+	</xsl:element>
+</xsl:template>
+
+<xsl:template match="blog:footnote">
+	<xsl:element name="a">
+		<xsl:attribute name="id">ref-<xsl:value-of select="@id" /></xsl:attribute>
+		<xsl:attribute name="href">#<xsl:value-of select="@id" /></xsl:attribute>
+		<xsl:element name="sup">
+			<xsl:attribute name="class">footnote-marker</xsl:attribute>
+			<xsl:text>[</xsl:text>
+			<xsl:call-template name="footnote-index" />
+			<xsl:text>]</xsl:text>
+		</xsl:element>
 	</xsl:element>
 </xsl:template>
 
