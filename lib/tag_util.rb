@@ -39,8 +39,8 @@ module Larry
           content,
           # attributes
           {
-            :title => "Tag #{tag}",
-            :target_tag => "#{tag}",
+            title: "Tag #{tag}",
+            target_tag: "#{tag}",
           },
           # path
           page_path)

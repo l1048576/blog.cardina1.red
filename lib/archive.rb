@@ -44,8 +44,8 @@ module Larry
           '',
           # attributes
           {
-            :title => "Archive: #{year4}",
-            :year => year,
+            title: "Archive: #{year4}",
+            year: year,
           },
           # path
           page_path)
@@ -57,9 +57,9 @@ module Larry
             '',
             # attributes
             {
-              :title => "Archive: #{year4}/#{month2}",
-              :year => year,
-              :month => month,
+              title: "Archive: #{year4}/#{month2}",
+              year: year,
+              month: month,
             },
             # path
             page_path)
