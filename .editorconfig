@@ -4,7 +4,7 @@ root = true
 end_of_line = lf
 charset = utf-8
 
-[*.{html,xml,xsl}]
+[*.{html,xml,xsl,html.erb}]
 indent_style = tab
 indent_size = 2
 
