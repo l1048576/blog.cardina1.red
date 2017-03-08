@@ -81,12 +81,12 @@ compile '/list/*.html' do
   filter :relativize_paths, type: :html
 end
 
-compile '/archives/*/*.html' do
+compile %r[^/\d{4}/index\.html] do
   layout '/archive-by-year.html'
   filter :relativize_paths, type: :html
 end
 
-compile '/archives/*/*/*.html' do
+compile %r[^/\d{4}/\d{2}/index\.html] do
   layout '/archive-by-year-month.html'
   filter :relativize_paths, type: :html
 end

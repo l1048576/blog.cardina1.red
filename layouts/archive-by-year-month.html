@@ -1,13 +1,40 @@
 <% render '/page-base.*' do %>
-<% year = @item[:year] %>
-<% year4 = sprintf('%04d', @item[:year]) %>
-<% month = @item[:month] %>
-<% month2 = sprintf('%02d', @item[:month]) %>
-<% monthly_items = articles_by_year_month[year][month] %>
+<% year4 = @item[:year4] %>
 
 <section>
-	<h1>Archive: <%= link_to "#{year4}年", "/#{year4}/index.html" %> <%= month2 %>月</h1>
-	<%= render '/part/item-list.*', target_items: monthly_items, header_level: 2 %>
+	<h1>Archive: <%= link_to "#{year4}年", "/#{year4}/" %> <%= @item[:month2] %>月</h1>
+
+	<aside>
+		<div class="next-prev-link grid-row">
+			<div class="prev-link col-xs-12 col-md-6">
+				<% if @item[:next_ym_year4] %>
+					<%= link_to "&laquo; #{@item[:next_ym_year4]}年 #{@item[:next_ym_month2]}月", "/#{@item[:next_ym_year4]}/#{@item[:next_ym_month2]}/" %>
+				<% end %>
+			</div>
+			<div class="next-link col-xs-12 col-md-6 col-xs-end">
+				<% if @item[:prev_ym_year4] %>
+					<%= link_to "#{@item[:prev_ym_year4]}年 #{@item[:prev_ym_month2]}月 &raquo;", "/#{@item[:prev_ym_year4]}/#{@item[:prev_ym_month2]}/" %>
+				<% end %>
+			</div>
+		</div>
+	</aside>
+
+	<%= render '/part/item-list.*', target_items: sorted_articles[@item[:first_index]..@item[:last_index]], header_level: 2 %>
+
+	<aside>
+		<div class="next-prev-link grid-row">
+			<div class="prev-link col-xs-12 col-md-6">
+				<% if @item[:next_ym_year4] %>
+					<%= link_to "&laquo; #{@item[:next_ym_year4]}年 #{@item[:next_ym_month2]}月", "/#{@item[:next_ym_year4]}/#{@item[:next_ym_month2]}/" %>
+				<% end %>
+			</div>
+			<div class="next-link col-xs-12 col-md-6 col-xs-end">
+				<% if @item[:prev_ym_year4] %>
+					<%= link_to "#{@item[:prev_ym_year4]}年 #{@item[:prev_ym_month2]}月 &raquo;", "/#{@item[:prev_ym_year4]}/#{@item[:prev_ym_month2]}/" %>
+				<% end %>
+			</div>
+		</div>
+	</aside>
 </section>
 
 <% end %>
