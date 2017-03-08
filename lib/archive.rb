@@ -1,6 +1,7 @@
 module Larry
   module Archive
     include Nanoc::Helpers::HTMLEscape
+    ARCHIVE_LIST_CAPACITY = 15
 
     def articles_by_year_month
       blk = -> {
@@ -64,6 +65,45 @@ module Larry
             page_path)
         end
       end
+    end
+
+    def create_article_list_pages
+      num_pages = (sorted_articles.size + ARCHIVE_LIST_CAPACITY - 1) / ARCHIVE_LIST_CAPACITY
+      (0...num_pages).each do |page_index|
+        num_articles = if page_index == num_pages - 1
+          sorted_articles.size % ARCHIVE_LIST_CAPACITY
+        else
+          ARCHIVE_LIST_CAPACITY
+        end
+        index_first = page_index * ARCHIVE_LIST_CAPACITY
+        index_last = index_first + num_articles - 1
+        @items.create(
+          # content
+          '',
+          # attributes
+          {
+            title: "Archive[#{page_index}]",
+            index_first: index_first,
+            index_last: index_last,
+            num_articles: num_articles,
+            page_index: page_index,
+            num_pages: num_pages,
+          },
+          # path
+          "/list/#{page_index}.html")
+      end
+
+      periods = sorted_articles.reverse.each_slice(ARCHIVE_LIST_CAPACITY).map {|articles| [articles[0][:created_at], articles[-1][:created_at]]}
+      @items.create(
+        # content
+        '',
+        # attributes
+        {
+          title: 'Archive (list)',
+          periods: periods
+        },
+        # path
+        "/list/index.html")
     end
   end
 end

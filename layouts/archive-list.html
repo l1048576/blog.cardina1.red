@@ -1,0 +1,38 @@
+<% older_list_index = @item[:page_index] - 1 if @item[:page_index] > 0 %>
+<% newer_list_index = @item[:page_index] + 1 if @item[:page_index] < @item[:num_pages] - 1 %>
+<% older_list_item = @items["/list/#{older_list_index}.html"] if older_list_index %>
+<% newer_list_item = @items["/list/#{newer_list_index}.html"] if newer_list_index %>
+<% older_list_path = older_list_item.path if older_list_item %>
+<% newer_list_path = newer_list_item.path if newer_list_item %>
+<% render '/page-base.*',
+		prev_uri: older_list_path,
+		next_uri: newer_list_path do %>
+
+<section>
+	<h1><%= @item[:title] %></h1>
+	<p>
+		<%= @item[:index_first] + 1 %> - <%= @item[:index_last] + 1 %> 番目 (<%= @item[:num_articles] %> 件)
+		<%= @item[:page_index] + 1 %> / <%= @item[:num_pages] %> ページ
+		<br />
+		<%= link_to '一覧へ', '/list/index.html' %>
+	</p>
+
+	<%= render '/part/item-list.*', target_items: sorted_articles.reverse[@item[:index_first]..@item[:index_last]], header_level: 2 %>
+
+	<aside>
+		<div class="next-prev-link grid-row">
+			<div class="prev-link col-xs-12 col-md-6">
+				<% if older_list_item %>
+					<%= link_to '&laquo; older articles', older_list_item %>
+				<% end %>
+			</div>
+			<div class="next-link col-xs-12 col-md-6 col-xs-end">
+				<% if newer_list_item %>
+					<%= link_to 'newer articles &raquo;', newer_list_item %>
+				<% end %>
+			</div>
+		</div>
+	</aside>
+</section>
+
+<% end %>
