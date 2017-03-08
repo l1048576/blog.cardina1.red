@@ -9,9 +9,13 @@ kind: article
 
 excerpt: "プログラマは洗濯物を入れないことがある。"
 ---
-
-<section id="event">
-	<h2>事象<a href="#event" class="permalink"></a></h2>
+<?xml version="1.0"?>
+<blog:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:blog="https://blog.cardina1.red/2017-0307"
+>
+<blog:section id="event">
+	<blog:title>事象</blog:title>
 	<p>
 		先週の出来事。
 	</p>
@@ -34,33 +38,33 @@ excerpt: "プログラマは洗濯物を入れないことがある。"
 		理不尽だ。
 		外に出なかった場合の動作は未規定なので実装依存のはずである。
 	</p>
-</section>
+</blog:section>
 
-<section id="their-claim">
-	<h2>母に味方する主張<a href="#their-claim" class="permalink"></a></h2>
+<blog:section id="their-claim">
+	<blog:title>母に味方する主張</blog:title>
 	<p>
 		最適化で命令を単純化すべきである。
 		すなわち、条件分岐をなくし、常に一定のタイミングで洗濯物を入れるよう動作すべきである。
 	</p>
-</section>
+</blog:section>
 
-<section id="our-claim">
-	<h2>私に味方する主張<a href="#our-claim" class="permalink"></a></h2>
+<blog:section id="our-claim">
+	<blog:title>私に味方する主張</blog:title>
 	<p>
 		最適化でパフォーマンスを向上すべきである。
 		すなわち、可能な場合常に洗濯物を入れないべきである。
 	</p>
-</section>
+</blog:section>
 
-<section id="lesson">
-	<h2>教訓<a href="#lesson" class="permalink"></a></h2>
+<blog:section id="lesson">
+	<blog:title>教訓</blog:title>
 	<p>
 		実装依存の挙動は怖い。
 	</p>
-</section>
+</blog:section>
 
-<section id="references">
-	<h2>参考資料<a href="#references" class="permalink"></a></h2>
+<blog:section id="references">
+	<blog:title>参考資料</blog:title>
 	<ul>
 		<li>
 			<p>
@@ -74,4 +78,5 @@ excerpt: "プログラマは洗濯物を入れないことがある。"
 			</blockquote>
 		</li>
 	</ul>
-</section>
+</blog:section>
+</blog:article>

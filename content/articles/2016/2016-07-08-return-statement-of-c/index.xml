@@ -8,9 +8,13 @@ kind: article
 
 excerpt: "C言語での\"return\"文は「値を返す」ものと解釈されがちだが、アセンブリ言語レベルでは単に「帰る(返る)」ものである。値を連れて返るのは追加機能だと考えるのが自然だ。"
 ---
-
-<section id="two-sorts-of-return">
-	<h2>2種類の"return"<a href="#two-sorts-of-return" class="permalink"></a></h2>
+<?xml version="1.0"?>
+<blog:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:blog="https://blog.cardina1.red/2017-0307"
+>
+<blog:section id="two-sorts-of-return">
+	<blog:title>2種類の"return"</blog:title>
 	<p>
 		C言語において、関数は戻り値を返したり返さなかったりする。
 	</p>
@@ -33,17 +37,16 @@ void do_nothing(void) {
 		ここで、(1)のような<code>return</code>を「値を返す」ものだと思い込んでしまっていると、(2)の<code>return;</code>の意味がわからなくなることがあるらしい。<br />
 		この記事では、C言語におけるreturnが「返す」ものでなく「帰る(返る)」ものと捉える方が自然であることを、コンパイル結果を見ながら示していく。
 	</p>
-</section>
+</blog:section>
 
-<section id="think-at-assembly-level">
-	<h2>アセンブリレベルで見る<a href="#think-at-assembly-level" class="permalink"></a></h2>
+<blog:section id="think-at-assembly-level">
+	<blog:title>アセンブリレベルで見る</blog:title>
 	<p>
 		ひとまず上記のtest.cをコンパイルした結果をアセンブリ言語で見てみよう。
 		環境は 64 bit Linux, gcc-5.4.0 である。
 	</p>
 
 	<figure id="cmdlog-compile-and-objdump">
-
 			<pre class="code code-terminal">
 $ <kbd>uname -a</kbd>
 Linux veg 4.6.3-gentoo #1 SMP PREEMPT Sun Jul 3 10:47:16 JST 2016 x86_64 Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz GenuineIntel GNU/Linux
@@ -55,7 +58,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 $ <kbd>gcc -O0 -c test.c</kbd>
 $ <kbd>objdump -d -M intel test.o >test.c-objdump</kbd>
-</code></pre>
+</pre>
 		<figcaption>コンパイルと逆アセンブル</figcaption>
 	</figure>
 
@@ -112,50 +115,37 @@ return;  // ret
 
 	<p>
 		値を返す場合も何もせず返る場合も、全く同じ<code>ret</code>命令が呼ばれているのである。<br />
-		<code>ret</code>命令は、だいたい「関数の呼び出し元のアドレスにジャンプする」のような動作を行う、言ってみればgotoのようなものである<a aria-describedby="footnote-label" id="ref-footnote-ret-op" href="#footnote-ret-op"></a>。
+		<code>ret</code>命令は、だいたい「関数の呼び出し元のアドレスにジャンプする」のような動作を行う、言ってみればgotoのようなものである<blog:footnote id="footnote-ret-op">
+			実際は戻り先アドレスを取得するためのコールスタックの操作を伴うが、まあそこは今回の話題に関係ないのでスルーだ。
+		</blog:footnote>。
 	</p>
 	<p>
 		では、<code>add3()</code>では第1引数に3を足した値を返すが、これはどうやって呼び出し元に伝えられているのか。<br />
-		実は、戻り値は呼び出された関数が特定のレジスタ(CPU内の記憶領域)、ここでは<code>EAX</code>に格納し、呼び出し元がそのレジスタを参照することで値を得る、という決まりになっているのである<a aria-describedby="footnote-label" id="ref-footnote-calling-convention" href="#footnote-calling-convention"></a>。
+		実は、戻り値は呼び出された関数が特定のレジスタ(CPU内の記憶領域)、ここでは<code>EAX</code>に格納し、呼び出し元がそのレジスタを参照することで値を得る、という決まりになっているのである<blog:footnote id="footnote-calling-convention">
+			これを<a href="https://ja.wikipedia.org/wiki/%E5%91%BC%E5%87%BA%E8%A6%8F%E7%B4%84">呼出規約</a>(<a href="https://en.wikipedia.org/wiki/X86_calling_conventions">calling convention</a>)という。
+			今回例を示した64bit Linuxにおいては、<a href="https://ja.wikipedia.org/wiki/%E5%91%BC%E5%87%BA%E8%A6%8F%E7%B4%84#System_V_AMD64_ABI_.E5.91.BC.E5.87.BA.E8.A6.8F.E7.B4.84">System V AMD64 ABI</a><small>(<a href="https://en.wikipedia.org/wiki/X86_calling_conventions#System_V_AMD64_ABI">英語</a>)</small>が利用されており、戻り値は<code>RAX</code>レジスタに格納されるが、<code>EAX</code>は<code>RAX</code>の下位32bitであり、これに対して<code>add</code>命令を行うと、上位32bitは自動的にゼロクリアされる。
+		</blog:footnote>。
 	</p>
 	<p>
 		すなわち<code>return</code>には本来、単に「<strong>関数の呼び出し元アドレスへ戻る</strong>」という自動詞的な意味しかなく、値を返すというのは「<strong>約束の場所に値を置いておく</strong>」という利便性のための<strong>追加機能</strong>である、と考えると自然である。
 	</p>
-</section>
+</blog:section>
 
-<section id="who-does-return">
-	<h2>おまけ: 誰が(何が)返るのか<a href="#who-does-return" class="permalink"></a></h2>
+<blog:section id="who-does-return">
+	<blog:title>おまけ: 誰が(何が)返るのか</blog:title>
 	<p>
 		<code>return</code>が「関数の呼び出し元アドレスへ戻る」という意味なのは良いとして、その主語は何なのか。<br />
 		これは「<strong>処理</strong>」であると考えられる。<br />
 		「処理が進む」とか「処理が止まる」とか、そういう文脈での「処理」であって、プログラムやアルゴリズム自体を指しての「処理」ではない。
 	</p>
 	<p>
-		もっと言えば、ここでの「処理」とは実際には「実行中の命令が格納されているメモリアドレス上にいる仮想的な存在」のようなもの<a aria-describedby="footnote-label" id="ref-footnote-tm-head" href="#footnote-tm-head"></a>である。
-		(或いは、コードの実行されている行をちょこちょこ走る小人のようなものを想定しても良いだろう。)<br />
-		プログラマにとって身近なものでは、プログラムカウンタ(x86であれば<code>EIP</code>、x64であれば<code>RIP</code>)が近いかもしれない。
-	</p>
-</section>
-
-<aside class="footnotes">
-	<h1 class="footnote-label">脚注<a href="#footnotes" class="permalink"></a></h1>
-	<ol>
-		<li id="footnote-ret-op">
-			実際は戻り先アドレスを取得するためのコールスタックの操作を伴うが、まあそこは今回の話題に関係ないのでスルーだ。
-			<a href="#ref-footnote-ret-op" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-calling-convention">
-			これを<a href="https://ja.wikipedia.org/wiki/%E5%91%BC%E5%87%BA%E8%A6%8F%E7%B4%84">呼出規約</a>(<a href="https://en.wikipedia.org/wiki/X86_calling_conventions">calling convention</a>)という。
-			今回例を示した64bit Linuxにおいては、<a href="https://ja.wikipedia.org/wiki/%E5%91%BC%E5%87%BA%E8%A6%8F%E7%B4%84#System_V_AMD64_ABI_.E5.91.BC.E5.87.BA.E8.A6.8F.E7.B4.84">System V AMD64 ABI</a><small>(<a href="https://en.wikipedia.org/wiki/X86_calling_conventions#System_V_AMD64_ABI">英語</a>)</small>が利用されており、戻り値は<code>RAX</code>レジスタに格納されるが、<code>EAX</code>は<code>RAX</code>の下位32bitであり、これに対して<code>add</code>命令を行うと、上位32bitは自動的にゼロクリアされる。
-			<a href="#ref-footnote-calling-convention" aria-label="Back to content">&#x21B5;</a>
-		</li>
-
-		<li id="footnote-tm-head">
+		もっと言えば、ここでの「処理」とは実際には「実行中の命令が格納されているメモリアドレス上にいる仮想的な存在」のようなもの<blog:footnote id="footnote-tm-head">
 			そもそも現代のコンピュータやプログラムの多くは、大元では<a href="https://ja.wikipedia.org/wiki/%E3%83%81%E3%83%A5%E3%83%BC%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%9E%E3%82%B7%E3%83%B3">チューリングマシン</a>というコンピュータのモデルに基いている。
 			チューリングマシンとは、簡単に言えば「無限に長いテープに情報(プログラムとデータ両方)が乗っており、テープ上のデータを読めるヘッドが存在し、そのヘッドが前後(あるいは左右)に動きながらテープを書き換え、最終的に結果をテープ上に残して停止する」というような機械である。
 			この機械を念頭に喩えるなら、「処理」とは「チューリングマシンのヘッド」のようなものと考えてもいいかもしれない。
-			<a href="#ref-footnote-tm-head" aria-label="Back to content">&#x21B5;</a>
-		</li>
-	</ol>
-</aside>
+		</blog:footnote>である。
+		(或いは、コードの実行されている行をちょこちょこ走る小人のようなものを想定しても良いだろう。)<br />
+		プログラマにとって身近なものでは、プログラムカウンタ(x86であれば<code>EIP</code>、x64であれば<code>RIP</code>)が近いかもしれない。
+	</p>
+</blog:section>
+</blog:article>

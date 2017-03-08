@@ -15,23 +15,27 @@ opengraph:
 
 excerpt: "エロゲのインストールに失敗した。つらい。エロゲしたかっただけなのにどうしてこんな目に。"
 ---
-
-<section id="tl-dr">
-	<h2>TL;DR<a href="#tl-dr" class="permalink"></a></h2>
+<?xml version="1.0"?>
+<blog:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:blog="https://blog.cardina1.red/2017-0307"
+>
+<blog:section id="tl-dr">
+	<blog:title>TL;DR</blog:title>
 	<p>
 		この記事は試行のログとつらぽよを吐き出す場所であり、大多数の人にとって、特に問題解決に寄与するものではないと思われる。
 	</p>
 	<p>
-		一応<a href="#conclusion">まとめ</a>は用意したのでそちらを参照。
+		一応<blog:xref linkend="conclusion" />は用意したのでそちらを参照。
 	</p>
 	<p>
 		問題は解決した。
-		<a href="#solved">追記2</a>を参照。
+		<blog:xref linkend="solved">追記2</blog:xref>を参照。
 	</p>
-</section>
+</blog:section>
 
-<section id="environment">
-	<h2>環境<a href="#environment" class="permalink"></a></h2>
+<blog:section id="environment">
+	<blog:title>環境</blog:title>
 	<p>
 		仮想マシン上のWindows 10でインストール・起動を試みた。
 		ホストはgentoo 64-bitである。
@@ -90,10 +94,10 @@ excerpt: "エロゲのインストールに失敗した。つらい。エロゲ�
 			</tr>
 		</tbody>
 	</table>
-</section>
+</blog:section>
 
-<section id="installing-anaoto">
-	<h2>あなオトのインストール<a href="#installing-anaoto" class="permalink"></a></h2>
+<blog:section id="installing-anaoto">
+	<blog:title>あなオトのインストール</blog:title>
 	<table class="visual">
 		<caption>スペック</caption>
 		<tbody>
@@ -120,8 +124,8 @@ excerpt: "エロゲのインストールに失敗した。つらい。エロゲ�
 		</tbody>
 	</table>
 
-	<section id="anaoto-install-challenge-1">
-		<h3>インストールチャレンジ 1回目<a href="#anaoto-install-challenge-1" class="permalink"></a></h3>
+	<blog:section id="anaoto-install-challenge-1">
+		<blog:title>インストールチャレンジ 1回目</blog:title>
 		<p data-paratitle="Autorunでのスタートアップ起動からのDirectXインストール">
 			DVDDを突っ込み、autorun(「スタートアップ」)を起動する。
 			問題なく動く。<br />
@@ -156,10 +160,10 @@ excerpt: "エロゲのインストールに失敗した。つらい。エロゲ�
 			<img src="monobeno-dx9-error.png" alt="ものべのでも同様のエラーが出る図" />
 			<figcaption>『ものべの』でも同じエラーが出るが、こちらはその後問題なく起動する</figcaption>
 		</figure>
-	</section>
+	</blog:section>
 
-	<section id="anaoto-install-challenge-2">
-		<h3>インストールチャレンジ 2回目<a href="#anaoto-install-challenge-2" class="permalink"></a></h3>
+	<blog:section id="anaoto-install-challenge-2">
+		<blog:title>インストールチャレンジ 2回目</blog:title>
 		<p data-paratitle="スタートアップ失敗">
 			再起動とアンインストール後、改めてインストールを試みる。
 			結果がこれ:
@@ -185,11 +189,11 @@ autorun.exe は動作を停止しました
 			スタートアップ(autorun)を経由せず直接DVD上のインストーラやDirectXインストーラを実行したりと色々試したが、
 			結局スタートアップは起動せず、ゲームも起動に失敗しつづけた。
 		</p>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
 
-<section id="installing-koinaka">
-	<h2>こいなかのインストール<a href="#installing-koinaka" class="permalink"></a></h2>
+<blog:section id="installing-koinaka">
+	<blog:title>こいなかのインストール</blog:title>
 	<p>
 		翌朝になっても相変わらず解決策が見えなかったため、<strong>諦めて別のゲームを入れることにした</strong>。
 	</p>
@@ -219,8 +223,8 @@ autorun.exe は動作を停止しました
 		</tbody>
 	</table>
 
-	<section id="anaoto-install-challenge">
-		<h3>インストールチャレンジ<a href="#anaoto-install-challenge" class="permalink"></a></h3>
+	<blog:section id="anaoto-install-challenge">
+		<blog:title>インストールチャレンジ</blog:title>
 		<p data-paratitle="お約束のインストール失敗">
 			まず普通にDVDを入れてインストーラを起動する。
 			こいなかでは、あなオトのようにランチャー的なものは用意されておらず、普通にInstallShieldのインストーラが起動した。
@@ -276,11 +280,11 @@ autorun.exe は動作を停止しました
 			<img src="koinaka-run.png" alt="こいなか起動の図" />
 			<figcaption>起動成功。よーし、致すぞ！</figcaption>
 		</figure>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
 
-<section id="conclusion">
-	<h2>まとめ<a href="#conclusion" class="permalink"></a></h2>
+<blog:section id="conclusion">
+	<blog:title>まとめ</blog:title>
 	<ul>
 		<li>
 			ソフマップで良さげなエロゲを見付けたからといって衝動買いするべからず。
@@ -301,28 +305,26 @@ autorun.exe は動作を停止しました
 	<p>
 		twitter上での実況は<a href="http://togetter.com/li/987957">エロゲインストールバトル - Togetterまとめ</a>にまとめてある。
 	</p>
-</section>
+</blog:section>
 
-<section id="note">
-	<h2>付記<a href="#note" class="permalink"></a></h2>
-	<section id="reason-of-impulse-buying">
-		<h3>衝動買いの理由<a href="#reason-of-impulse-buying" class="permalink"></a></h3>
+<blog:section id="note">
+	<blog:title>付記</blog:title>
+	<blog:section id="reason-of-impulse-buying">
+		<blog:title>衝動買いの理由</blog:title>
 		<p>
 			中学校の同級生とソフマップに行ったら初回特典付きのものを発見した。
 			以前から気になっていたというのもあり購入を決めた。
 		</p>
 
 		<noscript>
-			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">←数年ぶりに中学の同級生と再開した流れでえっちなゲームを3本買ったのがこちら</p>&mdash; Windowsを殺して俺も死ぬ (@L16777216) <a href="https://twitter.com/L16777216/status/728882674077573120">2016年5月7日</a></blockquote>
-			<!--<script async="async" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>-->
+			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">←数年ぶりに中学の同級生と再開した流れでえっちなゲームを3本買ったのがこちら</p>&#x2014; Windowsを殺して俺も死ぬ (@L16777216) <a href="https://twitter.com/L16777216/status/728882674077573120">2016年5月7日</a></blockquote>
 		</noscript>
 
-		<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">致したいね <a href="https://t.co/If7XDNVDfR">pic.twitter.com/If7XDNVDfR</a></p>&mdash; Windowsを殺して俺も死ぬ (@L16777216) <a href="https://twitter.com/L16777216/status/728969641331023872">2016年5月7日</a></blockquote>
-		<script async="async" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-	</section>
+		<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">致したいね <a href="https://t.co/If7XDNVDfR">pic.twitter.com/If7XDNVDfR</a></p>&#x2014; Windowsを殺して俺も死ぬ (@L16777216) <a href="https://twitter.com/L16777216/status/728969641331023872">2016年5月7日</a></blockquote>
+	</blog:section>
 
-	<section id="maitetsu-error">
-		<h3>追記(<time datetime="2016-06-18T21:10:25+0900">2016-06-18</time>): まいてつ体験版起動失敗<a href="#maitetsu-error" class="permalink"></a></h3>
+	<blog:section id="maitetsu-error">
+		<blog:title>追記(<time datetime="2016-06-18T21:10:25+0900">2016-06-18</time>): まいてつ体験版起動失敗</blog:title>
 		<figure id="fig-maitetsu-run-error">
 			<img src="maitetsu-run-error1.png" alt="まいてつ体験版起動時に出る最初のエラーの図" />
 			<img src="maitetsu-run-error2.png" alt="まいてつ体験版起動時に出る2つめのエラーの図" />
@@ -333,13 +335,16 @@ autorun.exe は動作を停止しました
 			同じメーカーの『ものべの』が起動するからと完全に油断していた。
 			最悪だ。
 		</p>
-	</section>
+	</blog:section>
 
-	<section id="solved">
-		<h3>追記2(<time datetime="2016-06-21T23:15:14+0900">2016-06-21</time>): 解決<a href="#solved" class="permalink"></a></h3>
+	<blog:section id="solved">
+		<blog:title>追記2(<time datetime="2016-06-21T23:15:14+0900">2016-06-21</time>): 解決</blog:title>
 		<p>
 			問題は解決された。
 			<a href="../../20/erg-install-battle-victory">エロゲインストールバトルに勝利</a>を参照。
 		</p>
-	</section>
-</section>
+	</blog:section>
+</blog:section>
+
+<script async="async" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</blog:article>
