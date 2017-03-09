@@ -11,16 +11,14 @@
 			}
 		</style>
 		<tbody>
-			<% @item[:year_months].each do |year, months| %>
-				<% year4 = sprintf('%04d', year) %>
+			<% @item[:year_months].each do |year4, months| %>
 				<tr>
 					<th>
 						<%= link_to "#{year4} 年", @items[source_path_for_archive(year4)] %>
 					</th>
-					<% (1..12).each do |month| %>
+					<% months.each do |month2| %>
 						<td>
-							<% if months.include?(month) %>
-								<% month2 = sprintf('%02d', month) %>
+							<% if month2 %>
 								<%= link_to "#{month2}", @items[source_path_for_archive(year4, month2)] %>
 							<% else %>
 								-

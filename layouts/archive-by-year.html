@@ -17,7 +17,7 @@
 	<%= render '/part/archive-top-link.html' %>
 	<%= prev_next %>
 
-	<% @item[:months].each do |_month, month2, fl| %>
+	<% @item[:months].each do |month2, fl| %>
 		<% first_index, last_index = fl %>
 		<section>
 			<h2><%= link_to "#{year4}/#{month2}", @items[source_path_for_archive(year4, month2)] %></h2>

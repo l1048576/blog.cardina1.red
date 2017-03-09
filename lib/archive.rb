@@ -84,14 +84,12 @@ module Larry
         } # [(year, [(month, ym_index, (first_i, last_i))])]
       y_mifls_arr.each_with_index do |(year, m_i_fl_arr), year_index|
         # m_i_fl_arr: [(month, ym_index, (first_i, last_i))]
-        next_year = years[year_index - 1] if year_index > 0
-        prev_year = years[year_index + 1] if year_index < years.size - 1
         year4 = sprintf('%04d', year)
-        next_year4 = sprintf('%04d', next_year) if next_year
-        prev_year4 = sprintf('%04d', prev_year) if prev_year
-        # months: [(month, month2, (first_i, last_i))]
+        next_year4 = sprintf('%04d', years[year_index - 1]) if year_index > 0
+        prev_year4 = sprintf('%04d', years[year_index + 1]) if year_index < years.size - 1
+        # months: [(month2, (first_i, last_i))]
         months = m_i_fl_arr.map {|month, _i, fl|
-          [month, sprintf('%02d', month), fl]
+          [sprintf('%02d', month), fl]
         }
 
         # Create an yearly archive.
@@ -127,7 +125,6 @@ module Larry
             {
               title: "Archive: #{year4}",
               year4: year4,
-              month: month,
               month2: month2,
               next_year4_month2: next_year4_month2,
               prev_year4_month2: prev_year4_month2,
@@ -138,9 +135,11 @@ module Larry
             source_path_for_archive(year4, month2))
         end
       end
-      # y_ms: [(year, [month])]
-      y_ms = y_mifls_arr.map {|year, m_i_fl_arr|
-        [year, m_i_fl_arr.map {|month, _i, _fl| month}]
+      # y4_m2s: [(year4, [month2])]
+      y4_m2s = y_mifls_arr.map {|year, m_i_fl_arr|
+        months = m_i_fl_arr.map {|month, _i, _fl| month}
+        m2s = (1..12).map {|m| sprintf('%02d', m) if months.include?(m)}
+        [sprintf('%04d', year), m2s]
       }
       @items.create(
         # content
@@ -148,7 +147,7 @@ module Larry
         # attributes
         {
           title: "Archive (date)",
-          year_months: y_ms,
+          year_months: y4_m2s,
         },
         # path
         source_path_for_archive)
