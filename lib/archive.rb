@@ -190,7 +190,7 @@ module Larry
         # attributes
         {
           title: 'Archive (list)',
-          periods: periods
+          periods: periods,
         },
         # path
         source_path_for_article_list)
