@@ -111,7 +111,7 @@ module Larry
             months: months,
           },
           # path
-          "/#{year4}/index.html")
+          source_path_for_archive(year4))
 
         # Create monthly archives.
         m_i_fl_arr.each do |m_i_fl|
@@ -143,7 +143,7 @@ module Larry
               last_index: last_index,
             },
             # path
-            "/#{year4}/#{month2}/index.html")
+            source_path_for_archive(year4, month2))
         end
       end
       # y_ms: [(year, [month])]
@@ -159,7 +159,7 @@ module Larry
           year_months: y_ms,
         },
         # path
-        "/archive.html")
+        source_path_for_archive)
     end
 
     def create_article_list_pages
@@ -185,7 +185,7 @@ module Larry
             num_pages: num_pages,
           },
           # path
-          "/list/#{page_index}.html")
+          source_path_for_article_list(page_index))
       end
 
       periods = sorted_articles.reverse.each_slice(ARCHIVE_LIST_CAPACITY).map {|articles| [articles[0][:created_at], articles[-1][:created_at]]}
@@ -198,7 +198,29 @@ module Larry
           periods: periods
         },
         # path
-        "/list/index.html")
+        source_path_for_article_list)
+    end
+
+    def source_path_for_archive(year=nil, month=nil)
+      if year.nil?
+        '/archive.html'
+      else
+        year = sprintf('%04d', year) if year.is_a?(Integer)
+        if month.nil?
+          "/#{year}/index.html"
+        else
+          month = sprintf('%04d', month) if month.is_a?(Integer)
+          "/#{year}/#{month}/index.html"
+        end
+      end
+    end
+
+    def source_path_for_article_list(page=nil)
+      if page.nil?
+        '/list/index.html'
+      else
+        "/list/#{page}.html"
+      end
     end
   end
 end

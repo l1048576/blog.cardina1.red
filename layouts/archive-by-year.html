@@ -7,12 +7,12 @@
 		<div class="next-prev-link grid-row">
 			<div class="prev-link col-xs-12 col-md-6">
 				<% if @item[:next_year4] %>
-					<%= link_to "&laquo; #{@item[:next_year4]}年", "/#{@item[:next_year4]}/" %>
+					<%= link_to "&laquo; #{@item[:next_year4]}年", @items[source_path_for_archive(@item[:next_year4])] %>
 				<% end %>
 			</div>
 			<div class="next-link col-xs-12 col-md-6 col-xs-end">
 				<% if @item[:prev_year4] %>
-					<%= link_to "#{@item[:prev_year4]}年 &raquo;", "/#{@item[:prev_year4]}/" %>
+					<%= link_to "#{@item[:prev_year4]}年 &raquo;", @items[source_path_for_archive(@item[:prev_year4])] %>
 				<% end %>
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 		<% first_index = m_m2_fl[2][0] %>
 		<% last_index = m_m2_fl[2][1] %>
 		<section>
-			<h2><%= link_to "#{year4}/#{month2}", "/#{year4}/#{month2}/" %></h2>
+			<h2><%= link_to "#{year4}/#{month2}", @items[source_path_for_archive(year4, month2)] %></h2>
 			<%= render '/part/item-list.*', target_items: sorted_articles[first_index..last_index], header_level: 3 %>
 		</section>
 	<% end %>
@@ -33,12 +33,12 @@
 		<div class="next-prev-link grid-row">
 			<div class="prev-link col-xs-12 col-md-6">
 				<% if @item[:next_year4] %>
-					<%= link_to "&laquo; #{@item[:next_year4]}年", "/#{@item[:next_year4]}/" %>
+					<%= link_to "&laquo; #{@item[:next_year4]}年", @items[source_path_for_archive(@item[:next_year4])] %>
 				<% end %>
 			</div>
 			<div class="next-link col-xs-12 col-md-6 col-xs-end">
 				<% if @item[:prev_year4] %>
-					<%= link_to "#{@item[:prev_year4]}年 &raquo;", "/#{@item[:prev_year4]}/" %>
+					<%= link_to "#{@item[:prev_year4]}年 &raquo;", @items[source_path_for_archive(@item[:prev_year4])] %>
 				<% end %>
 			</div>
 		</div>
