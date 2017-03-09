@@ -90,9 +90,21 @@
 	<xsl:message terminate="yes">error: unknown element `blog:<xsl:value-of select="local-name(.)" />`.</xsl:message>
 </xsl:template>
 
-<xsl:template match="/blog:article">
-	<xsl:apply-templates />
-	<xsl:call-template name="footnotes" />
+<xsl:template match="/"><xsl:apply-templates /></xsl:template>
+
+<xsl:template match="blog:div">
+	<xsl:element name="div">
+		<xsl:call-template name="copy-attributes" />
+		<xsl:apply-templates />
+	</xsl:element>
+</xsl:template>
+
+<xsl:template match="blog:article">
+	<xsl:element name="article">
+		<xsl:call-template name="copy-attributes" />
+		<xsl:apply-templates />
+		<xsl:call-template name="footnotes" />
+	</xsl:element>
 </xsl:template>
 
 <xsl:template match="html:*">
