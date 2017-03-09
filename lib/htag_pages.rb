@@ -13,8 +13,8 @@ module Larry
           '',
           # attributes
           {
-            :title => "Tag: #{current_tag}",
-            :target => current_tag,
+            title: "Tag: #{current_tag}",
+            target: current_tag,
           },
           # path
           htag_base_dir + current_tag + '/index.html')
@@ -23,7 +23,7 @@ module Larry
           '',
           # attributes
           {
-            :tag_node => tag_node,
+            tag_node: tag_node,
           },
           # path
           htag_base_dir + current_tag + '/index.json')

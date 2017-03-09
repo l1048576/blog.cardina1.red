@@ -3,7 +3,6 @@
 # Preprocess {{{1
 
 preprocess do
-  #create_tag_pages
   create_archive_pages
   create_htag_pages('/tags/', items: articles)
   create_article_list_pages
@@ -17,15 +16,20 @@ ignore '/**/_*'
 ignore '/**/.*.swp'
 
 
+compile '/archive.html' do
+  layout '/archive-date.*'
+  filter :relativize_paths, type: :html
+end
+
 compile '/articles/**/*.xml' do
-  filter :larry_xsl, :xsl => 'xsl/blog-article-xml.xsl'
-  filter :colorize_syntax, :default_colorizer => :pygmentsrb
+  filter :larry_xsl, xsl: 'xsl/blog-article-xml.xsl'
+  filter :colorize_syntax, default_colorizer: :pygmentsrb
   layout '/article.*'
   filter :relativize_paths, type: :html
 end
 
 compile '/articles/**/*.html' do
-  filter :colorize_syntax, :default_colorizer => :pygmentsrb
+  filter :colorize_syntax, default_colorizer: :pygmentsrb
   layout '/article.*'
   filter :relativize_paths, type: :html
 end
@@ -35,17 +39,6 @@ compile '/assets/**/*.scss' do
   filter :relativize_paths, type: :css
 end
 
-#compile '/tags/index.html.erb' do
-  #filter :erb
-  #layout '/page-base.*'
-  #filter :relativize_paths, type: :html
-#end
-
-#compile '/tags/**/*' do
-  #layout '/tag-page.*'
-  #filter :relativize_paths, type: :html
-#end
-
 compile '/tags/index.html.erb' do
   filter :erb
   layout '/page-base.*'
@@ -53,7 +46,7 @@ compile '/tags/index.html.erb' do
 end
 
 compile '/tags/search.html' do
-  filter :colorize_syntax, :default_colorizer => :pygmentsrb
+  filter :colorize_syntax, default_colorizer: :pygmentsrb
   layout '/page-base.*'
   filter :relativize_paths, type: :html
 end
@@ -81,12 +74,12 @@ compile '/list/*.html' do
   filter :relativize_paths, type: :html
 end
 
-compile '/archives/*/*.html' do
+compile %r[^/\d{4}/index\.html] do
   layout '/archive-by-year.html'
   filter :relativize_paths, type: :html
 end
 
-compile '/archives/*/*/*.html' do
+compile %r[^/\d{4}/\d{2}/index\.html] do
   layout '/archive-by-year-month.html'
   filter :relativize_paths, type: :html
 end
@@ -109,8 +102,8 @@ end
 compile '/**/*' do
 end
 
-# /articles/**/yyyy-mm-dd-slug/**/index.{html,adoc} => /yyyy/mm/dd/slug/**/index.html
-# /articles/**/yyyy-mm-dd-slug/**/*.{html,adoc} => /yyyy/mm/dd/slug/**/*/index.html
+# /articles/**/yyyy-mm-dd-slug/**/index.{html,adoc,xml} => /yyyy/mm/dd/slug/**/index.html
+# /articles/**/yyyy-mm-dd-slug/**/*.{html,adoc,xml} => /yyyy/mm/dd/slug/**/*/index.html
 route %r[^/articles/(?:[^/]+/)*(\d{4})-(\d{2})-(\d{2})-(.+?)(?:/index)?\.(?:html|adoc|xml)$] do |yyyy, mm, dd, slug_relpath|
   "/#{yyyy}/#{mm}/#{dd}/#{slug_relpath}/index.html"
 end
@@ -126,10 +119,6 @@ end
 
 route '/assets/**/*' do
   @item.identifier.to_s
-end
-
-route %r[/archives(/.*)] do |relpath|
-  relpath[0]
 end
 
 route '/**/*.{html,json}.erb' do

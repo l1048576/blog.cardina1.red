@@ -8,3 +8,4 @@ items_descendant = tag_node.item_descendant.collect{|item| @items[item.identifie
 	items_descendant: items_descendant,
 }.to_json
 %>
+<%# vim: set ft=eruby : %>
