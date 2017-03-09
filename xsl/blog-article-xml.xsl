@@ -50,17 +50,24 @@
 </xsl:template>
 
 <xsl:template name="footnotes">
-	<xsl:if test="//blog:footnote">
+	<xsl:variable name="article_id" select="generate-id(.)" />
+	<xsl:if test="//blog:footnote[generate-id(ancestor::blog:article[1]) = $article_id]">
+		<xsl:variable name="header_level">
+			<xsl:call-template name="header-level" />
+		</xsl:variable>
 		<xsl:element name="aside">
 			<xsl:attribute name="class">footnotes</xsl:attribute>
-			<xsl:element name="h1">
+			<xsl:element name="h{$header_level + 1}">
 				<xsl:attribute name="id">footnote-label</xsl:attribute>
 				<xsl:attribute name="class">footnote-label</xsl:attribute>
 				<xsl:text>脚注</xsl:text>
 			</xsl:element>
 			<xsl:element name="ol">
 				<xsl:attribute name="start">0</xsl:attribute>
-				<xsl:for-each select="//blog:footnote">
+					<xsl:for-each select="//blog:footnote[generate-id(ancestor::blog:article[1]) = $article_id]">
+					<xsl:if test="not(@id)">
+						<xsl:message terminate="yes">error: No `@id` found for `blog:footnote`.</xsl:message>
+					</xsl:if>
 					<xsl:variable name="footnote_index">
 						<xsl:call-template name="footnote-index" />
 					</xsl:variable>
@@ -80,7 +87,8 @@
 </xsl:template>
 
 <xsl:template name="footnote-index">
-	<xsl:value-of select="count(preceding::blog:footnote) - count(ancestor::blog:article[0]/preceding::blog:footnote)" />
+	<xsl:variable name="article_id" select="generate-id(ancestor::blog:article[1])" />
+	<xsl:value-of select="count(preceding::blog:footnote[generate-id(ancestor::blog:article[1]) = $article_id])" />
 </xsl:template>
 
 
