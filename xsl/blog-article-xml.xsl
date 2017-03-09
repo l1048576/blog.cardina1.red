@@ -50,31 +50,33 @@
 </xsl:template>
 
 <xsl:template name="footnotes">
-	<xsl:element name="aside">
-		<xsl:attribute name="class">footnotes</xsl:attribute>
-		<xsl:element name="h1">
-			<xsl:attribute name="id">footnote-label</xsl:attribute>
-			<xsl:attribute name="class">footnote-label</xsl:attribute>
-			<xsl:text>脚注</xsl:text>
-		</xsl:element>
-		<xsl:element name="ol">
-			<xsl:attribute name="start">0</xsl:attribute>
-			<xsl:for-each select="//blog:footnote">
-				<xsl:variable name="footnote_index">
-					<xsl:call-template name="footnote-index" />
-				</xsl:variable>
-				<xsl:element name="li">
-					<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
-					<!--<xsl:attribute name="value"><xsl:value-of select="$footnote_index" /></xsl:attribute>-->
-					<xsl:copy-of select="* | text()" />
-					<xsl:element name="a">
-						<xsl:attribute name="href">#ref-<xsl:value-of select="@id" /></xsl:attribute>
-						<xsl:text>&#x21B5;</xsl:text>
+	<xsl:if test="//blog:footnote">
+		<xsl:element name="aside">
+			<xsl:attribute name="class">footnotes</xsl:attribute>
+			<xsl:element name="h1">
+				<xsl:attribute name="id">footnote-label</xsl:attribute>
+				<xsl:attribute name="class">footnote-label</xsl:attribute>
+				<xsl:text>脚注</xsl:text>
+			</xsl:element>
+			<xsl:element name="ol">
+				<xsl:attribute name="start">0</xsl:attribute>
+				<xsl:for-each select="//blog:footnote">
+					<xsl:variable name="footnote_index">
+						<xsl:call-template name="footnote-index" />
+					</xsl:variable>
+					<xsl:element name="li">
+						<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+						<!--<xsl:attribute name="value"><xsl:value-of select="$footnote_index" /></xsl:attribute>-->
+						<xsl:copy-of select="* | text()" />
+						<xsl:element name="a">
+							<xsl:attribute name="href">#ref-<xsl:value-of select="@id" /></xsl:attribute>
+							<xsl:text>&#x21B5;</xsl:text>
+						</xsl:element>
 					</xsl:element>
-				</xsl:element>
-			</xsl:for-each>
+				</xsl:for-each>
+			</xsl:element>
 		</xsl:element>
-	</xsl:element>
+	</xsl:if>
 </xsl:template>
 
 <xsl:template name="footnote-index">
