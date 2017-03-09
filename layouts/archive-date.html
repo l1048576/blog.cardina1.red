@@ -1,0 +1,35 @@
+<% render '/page-base.*' do %>
+
+<section>
+	<h1><%= @item[:title] %></h1>
+	<table>
+		<style type="text/css" scoped="scoped">
+			td {
+				text-align: center;
+			}
+		</style>
+		<tbody>
+			<% @item[:year_months].each do |y_ms| %>
+				<% year4 = sprintf('%04d', y_ms[0]) %>
+				<% months = y_ms[1] %>
+				<tr>
+					<th>
+						<%= link_to "#{year4} 年", "/#{year4}/" %>
+					</th>
+					<% (1..12).each do |month| %>
+						<td>
+							<% if months.include?(month) %>
+								<% month2 = sprintf('%02d', month) %>
+								<%= link_to "#{month2}", "/#{year4}/#{month2}/" %>
+							<% else %>
+								-
+							<% end %>
+						</td>
+					<% end %>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</section>
+
+<% end %>

@@ -146,6 +146,20 @@ module Larry
             "/#{year4}/#{month2}/index.html")
         end
       end
+      # y_ms: [(year, [month])]
+      y_ms = y_mifls_arr.map {|y_mifls|
+        [y_mifls[0], y_mifls[1].map {|mi_fl| mi_fl[0]}]
+      }
+      @items.create(
+        # content
+        '',
+        # attributes
+        {
+          title: "Archive",
+          year_months: y_ms,
+        },
+        # path
+        "/archive.html")
     end
 
     def create_article_list_pages
