@@ -1,19 +1,21 @@
 <% render '/page-base.*' do %>
 <% year4 = @item[:year4] %>
+<% next_year_link = if next_year4 = @item[:next_year4]
+		link_to "&laquo; #{next_year4}年", @items[source_path_for_archive(next_year4)]
+	end %>
+<% prev_year_link = if prev_year4 = @item[:prev_year4]
+		link_to "#{prev_year4}年 &raquo;", @items[source_path_for_archive(prev_year4)]
+	end %>
 
 <section>
 	<h1>Archive: <%= year4 %>年</h1>
 	<aside>
 		<div class="next-prev-link grid-row">
 			<div class="prev-link col-xs-12 col-md-6">
-				<% if @item[:next_year4] %>
-					<%= link_to "&laquo; #{@item[:next_year4]}年", @items[source_path_for_archive(@item[:next_year4])] %>
-				<% end %>
+				<%= next_year_link %>
 			</div>
 			<div class="next-link col-xs-12 col-md-6 col-xs-end">
-				<% if @item[:prev_year4] %>
-					<%= link_to "#{@item[:prev_year4]}年 &raquo;", @items[source_path_for_archive(@item[:prev_year4])] %>
-				<% end %>
+				<%= prev_year_link %>
 			</div>
 		</div>
 	</aside>
@@ -29,14 +31,10 @@
 	<aside>
 		<div class="next-prev-link grid-row">
 			<div class="prev-link col-xs-12 col-md-6">
-				<% if @item[:next_year4] %>
-					<%= link_to "&laquo; #{@item[:next_year4]}年", @items[source_path_for_archive(@item[:next_year4])] %>
-				<% end %>
+				<%= next_year_link %>
 			</div>
 			<div class="next-link col-xs-12 col-md-6 col-xs-end">
-				<% if @item[:prev_year4] %>
-					<%= link_to "#{@item[:prev_year4]}年 &raquo;", @items[source_path_for_archive(@item[:prev_year4])] %>
-				<% end %>
+				<%= prev_year_link %>
 			</div>
 		</div>
 	</aside>
