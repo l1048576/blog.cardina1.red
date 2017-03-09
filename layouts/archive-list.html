@@ -9,6 +9,7 @@
 <% render '/page-base.*',
 		prev_uri: older_list_item&.path,
 		next_uri: newer_list_item&.path do %>
+<% prev_next = render '/part/prev-next-page.*', prev_link: older_list_link, next_link: newer_list_link %>
 
 <section>
 	<h1><%= @item[:title] %></h1>
@@ -19,18 +20,11 @@
 		<%= link_to '一覧へ', @items[source_path_for_article_list] %>
 	</p>
 
+	<%= prev_next %>
+
 	<%= render '/part/item-list.*', target_items: sorted_articles.reverse[@item[:index_first]..@item[:index_last]], header_level: 2 %>
 
-	<aside>
-		<div class="next-prev-link grid-row">
-			<div class="prev-link col-xs-12 col-md-6">
-				<%= older_list_link %>
-			</div>
-			<div class="next-link col-xs-12 col-md-6 col-xs-end">
-				<%= newer_list_link %>
-			</div>
-		</div>
-	</aside>
+	<%= prev_next %>
 </section>
 
 <% end %>

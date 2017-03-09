@@ -10,19 +10,11 @@
 		prev_uri: next_year_item&.path,
 		next_uri: prev_year_item&.path do %>
 <% year4 = @item[:year4] %>
+<% prev_next = render '/part/prev-next-page.*', prev_link: next_year_link, next_link: prev_year_link %>
 
 <section>
 	<h1>Archive: <%= year4 %>年</h1>
-	<aside>
-		<div class="next-prev-link grid-row">
-			<div class="prev-link col-xs-12 col-md-6">
-				<%= next_year_link %>
-			</div>
-			<div class="next-link col-xs-12 col-md-6 col-xs-end">
-				<%= prev_year_link %>
-			</div>
-		</div>
-	</aside>
+	<%= prev_next %>
 
 	<% @item[:months].each do |_month, month2, fl| %>
 		<% first_index, last_index = fl %>
@@ -32,16 +24,7 @@
 		</section>
 	<% end %>
 
-	<aside>
-		<div class="next-prev-link grid-row">
-			<div class="prev-link col-xs-12 col-md-6">
-				<%= next_year_link %>
-			</div>
-			<div class="next-link col-xs-12 col-md-6 col-xs-end">
-				<%= prev_year_link %>
-			</div>
-		</div>
-	</aside>
+	<%= prev_next %>
 </section>
 
 <% end %>
