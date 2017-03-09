@@ -73,6 +73,7 @@ module Larry
     def create_archive_pages
       # years: [year]
       years = article_years
+      # years_months: [(year, month)]
       years_months = article_years_and_months
       # ym_fl_arr: [((year, month), (first_i, last_i))]
       ym_fl_arr = article_years_and_months_indices
