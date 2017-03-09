@@ -9,9 +9,8 @@
 			}
 		</style>
 		<tbody>
-			<% @item[:year_months].each do |y_ms| %>
-				<% year4 = sprintf('%04d', y_ms[0]) %>
-				<% months = y_ms[1] %>
+			<% @item[:year_months].each do |year, months| %>
+				<% year4 = sprintf('%04d', year) %>
 				<tr>
 					<th>
 						<%= link_to "#{year4} 年", @items[source_path_for_archive(year4)] %>

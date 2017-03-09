@@ -8,11 +8,10 @@ module Larry
     # (currently unused.)
     def article_years_indices
       blk = -> {
-        sorted_articles.map.with_index {|item, i| [item, i]} # [(item, index)]
-        group_by {|it_i| it_i[0][:created_at].year}.to_a.sort.reverse. # [(year, [(item, index)])]
-          map {|y_its_is|
-            minmax = y_its_is[1].map {|it_i| it_i[1]}.minmax
-            [y_its_is[0], minmax]
+        sorted_articles.map.with_index. # [(item, index)]
+        group_by {|item, _i| item[:created_at].year}.to_a.sort.reverse. # [(year, [(item, index)])]
+          map {|year, it_i_arr|
+            [year, it_i_arr.map {|_item, i| i}.minmax]
           } # [(year, (first_index, last_index))]
       }
       if @items.frozen?
@@ -39,16 +38,15 @@ module Larry
     # [(year, month), (first_index, last_index))]
     def article_years_and_months_indices
       blk = -> {
-        sorted_articles.map.with_index {|item, i| [item, i]}. # [(item, index)]
-          group_by {|it_i|
-            created_at = it_i[0][:created_at]
+        sorted_articles.map.with_index. # [(item, index)]
+          group_by {|item, _i|
+            created_at = item[:created_at]
             [created_at.year, created_at.month]
           }. # [((year, month), [(item, index)])]
-          map {|ym_its_is|
-            minmax = ym_its_is[1].map {|it_i| it_i[1]}.minmax
-            [ym_its_is[0], minmax]
+          map {|ym, it_i_arr|
+            [ym, it_i_arr.map {|_item, i| i}.minmax]
           }. # [((year, month), (first_index, last_index))]
-          sort_by {|ym_fl| ym_fl[0]}.reverse # Descending order of year & month.
+          sort_by {|ym, _fl| ym}.reverse # Descending order of year & month.
       }
       if @items.frozen?
         @article_years_and_months_indices ||= blk.call
@@ -79,23 +77,21 @@ module Larry
       ym_fl_arr = article_years_and_months_indices
       # y_mifls_arr: [(year, [month, ym_index, (first_i, last_i)])]
       y_mifls_arr = ym_fl_arr.
-        map.with_index {|ym_fl, i| [ym_fl[0], i, ym_fl[1]]}. # [((year, month), ym_index, (first_i, last_i))]
-        group_by {|ym_i_fl| ym_i_fl[0][0]}.to_a.sort.reverse. # [(year, [((year, month), ym_index, (first_i, last_i))])]
-        map {|y_ymifls| [y_ymifls[0], y_ymifls[1].map {|ym_i_fl|
-          [ym_i_fl[0][1], ym_i_fl[1], ym_i_fl[2]]
-        }]} # [(year, [(month, ym_index, (first_i, last_i))])]
-      y_mifls_arr.each_with_index do |y_mifls, year_index|
-        year = y_mifls[0]
+        map.with_index {|(ym, fl), i| [ym, i, fl]}. # [((year, month), ym_index, (first_i, last_i))]
+        group_by {|(year, _m), _i, _fl| year}.to_a.sort.reverse. # [(year, [((year, month), ym_index, (first_i, last_i))])]
+        map {|year, ym_i_fl_arr|
+          [year, ym_i_fl_arr.map {|(_y, month), i, fl| [month, i, fl]}]
+        } # [(year, [(month, ym_index, (first_i, last_i))])]
+      y_mifls_arr.each_with_index do |(year, m_i_fl_arr), year_index|
         # m_i_fl_arr: [(month, ym_index, (first_i, last_i))]
-        m_i_fl_arr = y_mifls[1]
         next_year = years[year_index - 1] if year_index > 0
         prev_year = years[year_index + 1] if year_index < years.size - 1
         year4 = sprintf('%04d', year)
         next_year4 = sprintf('%04d', next_year) if next_year
         prev_year4 = sprintf('%04d', prev_year) if prev_year
         # months: [(month, month2, (first_i, last_i))]
-        months = m_i_fl_arr.map {|m_i_fl|
-          [m_i_fl[0], sprintf('%02d', m_i_fl[0]), m_i_fl[2]]
+        months = m_i_fl_arr.map {|month, _i, fl|
+          [month, sprintf('%02d', month), fl]
         }
 
         # Create an yearly archive.
@@ -114,18 +110,14 @@ module Larry
           source_path_for_archive(year4))
 
         # Create monthly archives.
-        m_i_fl_arr.each do |m_i_fl|
-          month = m_i_fl[0]
-          ym_index = m_i_fl[1]
-          first_index = m_i_fl[2][0]
-          last_index = m_i_fl[2][1]
-          next_ym = years_months[ym_index - 1] if ym_index > 0
-          prev_ym = years_months[ym_index + 1] if ym_index < years_months.size - 1
+        m_i_fl_arr.each do |month, ym_index, (first_index, last_index)|
+          next_year, next_month = years_months[ym_index - 1] if ym_index > 0
+          prev_year, prev_month = years_months[ym_index + 1] if ym_index < years_months.size - 1
           month2 = sprintf('%02d', month)
-          next_ym_year4 = sprintf('%04d', next_ym[0]) if next_ym
-          next_ym_month2 = sprintf('%02d', next_ym[1]) if next_ym
-          prev_ym_year4 = sprintf('%04d', prev_ym[0]) if prev_ym
-          prev_ym_month2 = sprintf('%02d', prev_ym[1]) if prev_ym
+          next_year4 = sprintf('%04d', next_year) if next_year
+          next_month2 = sprintf('%02d', next_month) if next_month
+          prev_year4 = sprintf('%04d', prev_year) if prev_year
+          prev_month2 = sprintf('%02d', prev_month) if prev_month
           @items.create(
             # content
             '',
@@ -135,10 +127,10 @@ module Larry
               year4: year4,
               month: month,
               month2: month2,
-              next_ym_year4: next_ym_year4,
-              next_ym_month2: next_ym_month2,
-              prev_ym_year4: prev_ym_year4,
-              prev_ym_month2: prev_ym_month2,
+              next_ym_year4: next_year4,
+              next_ym_month2: next_month2,
+              prev_ym_year4: prev_year4,
+              prev_ym_month2: prev_month2,
               first_index: first_index,
               last_index: last_index,
             },
@@ -147,8 +139,8 @@ module Larry
         end
       end
       # y_ms: [(year, [month])]
-      y_ms = y_mifls_arr.map {|y_mifls|
-        [y_mifls[0], y_mifls[1].map {|mi_fl| mi_fl[0]}]
+      y_ms = y_mifls_arr.map {|year, m_i_fl_arr|
+        [year, m_i_fl_arr.map {|month, _i, _fl| month}]
       }
       @items.create(
         # content
@@ -188,7 +180,7 @@ module Larry
           source_path_for_article_list(page_index))
       end
 
-      periods = sorted_articles.reverse.each_slice(ARCHIVE_LIST_CAPACITY).map {|articles| [articles[0][:created_at], articles[-1][:created_at]]}
+      periods = sorted_articles.reverse.each_slice(ARCHIVE_LIST_CAPACITY).map {|articles| [articles.first[:created_at], articles.last[:created_at]]}
       @items.create(
         # content
         '',
