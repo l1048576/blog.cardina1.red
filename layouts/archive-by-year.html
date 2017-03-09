@@ -14,6 +14,7 @@
 
 <section>
 	<h1>Archive: <%= year4 %>年</h1>
+	<%= render '/part/archive-top-link.html' %>
 	<%= prev_next %>
 
 	<% @item[:months].each do |_month, month2, fl| %>

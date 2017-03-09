@@ -13,11 +13,10 @@
 
 <section>
 	<h1><%= @item[:title] %></h1>
+	<%= render '/part/archive-top-link.html' %>
 	<p>
 		<%= @item[:index_first] + 1 %> - <%= @item[:index_last] + 1 %> 番目 (<%= @item[:num_articles] %> 件)
 		<%= @item[:page_index] + 1 %> / <%= @item[:num_pages] %> ページ
-		<br />
-		<%= link_to '一覧へ', @items[source_path_for_article_list] %>
 	</p>
 
 	<%= prev_next %>

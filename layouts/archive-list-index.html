@@ -2,6 +2,7 @@
 
 <section>
 	<h1><%= @item[:title] %></h1>
+	<%= render '/part/archive-top-link.html' %>
 
 	<ol start="0">
 		<% @item[:periods].each_with_index do |created_at, i| %>
