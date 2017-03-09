@@ -154,8 +154,12 @@ module Larry
         source_path_for_archive)
     end
 
+    def article_list_num_pages
+      (articles.size + ARCHIVE_LIST_CAPACITY - 1) / ARCHIVE_LIST_CAPACITY
+    end
+
     def create_article_list_pages
-      num_pages = (sorted_articles.size + ARCHIVE_LIST_CAPACITY - 1) / ARCHIVE_LIST_CAPACITY
+      num_pages = article_list_num_pages
       (0...num_pages).each do |page_index|
         num_articles = if page_index == num_pages - 1
           sorted_articles.size % ARCHIVE_LIST_CAPACITY
@@ -207,10 +211,11 @@ module Larry
       end
     end
 
+    # page: Integer
     def source_path_for_article_list(page=nil)
       if page.nil?
         '/list/index.html'
-      else
+      elsif page >= 0 && page < article_list_num_pages
         "/list/#{page}.html"
       end
     end
