@@ -1,11 +1,15 @@
-<% render '/page-base.*' do %>
+<% if next_year4 = @item[:next_year4]
+		next_year_item = @items[source_path_for_archive(next_year4)]
+		next_year_link = link_to "&laquo; #{next_year4}年", next_year_item
+	end %>
+<% if prev_year4 = @item[:prev_year4]
+		prev_year_item = @items[source_path_for_archive(prev_year4)]
+		prev_year_link = link_to "#{prev_year4}年 &raquo;", prev_year_item
+	end %>
+<% render '/page-base.*',
+		prev_uri: next_year_item&.path,
+		next_uri: prev_year_item&.path do %>
 <% year4 = @item[:year4] %>
-<% next_year_link = if next_year4 = @item[:next_year4]
-		link_to "&laquo; #{next_year4}年", @items[source_path_for_archive(next_year4)]
-	end %>
-<% prev_year_link = if prev_year4 = @item[:prev_year4]
-		link_to "#{prev_year4}年 &raquo;", @items[source_path_for_archive(prev_year4)]
-	end %>
 
 <section>
 	<h1>Archive: <%= year4 %>年</h1>

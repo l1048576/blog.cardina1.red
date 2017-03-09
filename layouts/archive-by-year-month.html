@@ -1,11 +1,15 @@
-<% render '/page-base.*' do %>
+<% if (next_year4, next_month2 = @item[:next_year4_month2])
+		next_month_item = @items[source_path_for_archive(next_year4, next_month2)]
+		next_month_link = link_to "&laquo; #{next_year4}年 #{next_month2}月", next_month_item
+	end %>
+<% if (prev_year4, prev_month2 = @item[:prev_year4_month2])
+		prev_month_item = @items[source_path_for_archive(prev_year4, prev_month2)]
+		prev_month_link = link_to "#{prev_year4}年 #{prev_month2}月 &raquo;", prev_month_item
+	end %>
+<% render '/page-base.*',
+		prev_uri: next_month_item&.path,
+		next_uri: prev_month_item&.path do %>
 <% year4 = @item[:year4] %>
-<% next_month_link = if (next_year4, next_month2 = @item[:next_year4_month2])
-		link_to "&laquo; #{@item[:next_year4]}年 #{@item[:next_month2]}月", @items[source_path_for_archive(next_year4, next_month2)]
-	end %>
-<% prev_month_link = if (prev_year4, prev_month2 = @item[:prev_year4_month2])
-		link_to "#{@item[:prev_year4]}年 #{@item[:prev_month2]}月 &raquo;", @items[source_path_for_archive(prev_year4, prev_month2)]
-	end %>
 
 <section>
 	<h1>Archive: <%= link_to "#{year4}年", @items[source_path_for_archive(year4)] %> <%= @item[:month2] %>月</h1>

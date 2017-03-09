@@ -111,13 +111,15 @@ module Larry
 
         # Create monthly archives.
         m_i_fl_arr.each do |month, ym_index, (first_index, last_index)|
-          next_year, next_month = years_months[ym_index - 1] if ym_index > 0
-          prev_year, prev_month = years_months[ym_index + 1] if ym_index < years_months.size - 1
+          next_year_month = years_months[ym_index - 1] if ym_index > 0
+          prev_year_month = years_months[ym_index + 1] if ym_index < years_months.size - 1
           month2 = sprintf('%02d', month)
-          next_year4 = sprintf('%04d', next_year) if next_year
-          next_month2 = sprintf('%02d', next_month) if next_month
-          prev_year4 = sprintf('%04d', prev_year) if prev_year
-          prev_month2 = sprintf('%02d', prev_month) if prev_month
+          next_year4_month2 = if ((y, m) = next_year_month)
+                                [sprintf('%04d', y), sprintf('%02d', m)]
+                              end
+          prev_year4_month2 = if ((y, m) = prev_year_month)
+                                [sprintf('%04d', y), sprintf('%02d', m)]
+                              end
           @items.create(
             # content
             '',
@@ -127,10 +129,8 @@ module Larry
               year4: year4,
               month: month,
               month2: month2,
-              next_ym_year4: next_year4,
-              next_ym_month2: next_month2,
-              prev_ym_year4: prev_year4,
-              prev_ym_month2: prev_month2,
+              next_year4_month2: next_year4_month2,
+              prev_year4_month2: prev_year4_month2,
               first_index: first_index,
               last_index: last_index,
             },

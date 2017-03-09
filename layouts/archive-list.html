@@ -1,12 +1,11 @@
-<% newer_list_item = if src_path = source_path_for_article_list(@item[:page_index] - 1)
-		@items[src_path]
+<% if src_path = source_path_for_article_list(@item[:page_index] - 1)
+		newer_list_item = @items[src_path]
+		newer_list_link = link_to 'newer articles &raquo;', newer_list_item
 	end %>
-<% older_list_item = if src_path = source_path_for_article_list(@item[:page_index] + 1)
-		@items[src_path]
+<% if src_path = source_path_for_article_list(@item[:page_index] + 1)
+		older_list_item = @items[src_path]
+		older_list_link = link_to '&laquo; older articles', older_list_item
 	end %>
-<% older_list_link = link_to '&laquo; older articles', older_list_item if older_list_item %>
-<% newer_list_link = link_to 'newer articles &raquo;', newer_list_item if newer_list_item %>
-
 <% render '/page-base.*',
 		prev_uri: older_list_item&.path,
 		next_uri: newer_list_item&.path do %>
