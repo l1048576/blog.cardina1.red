@@ -8,7 +8,9 @@ created_at: 2016-03-12T00:40:15+0900
 	<section>
 		<h2><i class="fa fa-clock-o"></i>Archive</h2>
 		<ul>
-			<li><a href="/list/"><i class="fa fa-list"></i> 一覧</a></li>
+			<li>
+				<%= link_to '<i class="fa fa-list"></i> 一覧', @items['/list/index.html'] %>
+			</li>
 		</ul>
 	</section>
 	<section>
@@ -17,6 +19,6 @@ created_at: 2016-03-12T00:40:15+0900
 	</section>
 	<section>
 		<h2><i class="fa fa-user"></i>おまえだれ</h2>
-		<a href="about.html">あばうと</a>
+		<%= link_to 'あばうと', @items['/about.html'] %>
 	</section>
 </section>
