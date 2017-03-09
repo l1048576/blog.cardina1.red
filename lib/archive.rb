@@ -147,7 +147,7 @@ module Larry
         '',
         # attributes
         {
-          title: "Archive",
+          title: "Archive (date)",
           year_months: y_ms,
         },
         # path
