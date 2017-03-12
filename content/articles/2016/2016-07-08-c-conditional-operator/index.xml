@@ -13,7 +13,9 @@ excerpt: "C言語での条件演算子についてちょっと悩んだことが
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2016-07-08-c-conditional-operator"
 >
+<eh:title>C言語の条件演算子に関する雑記</eh:title>
 <eh:section id="the-reason-middle-operand-is-not-conditional">
 	<eh:title>条件演算子の中央オペランド(第2オペランド)が<code>conditional-expression</code>でない理由</eh:title>
 	<p>

@@ -16,7 +16,9 @@ excerpt: "mltermでHomeやEndキーがうまく動かなかったため、原因
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2015-11-18-mlterm-terminfo"
 >
+<eh:title>mltermのterminfoがおかしかった件</eh:title>
 <p>
 	解決済。
 </p>

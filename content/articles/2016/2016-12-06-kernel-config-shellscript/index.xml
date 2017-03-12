@@ -13,7 +13,9 @@ excerpt: "Linux の kernel config を秘伝のタレにしないための小さ�
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2016-12-06-kernel-config-shellscript"
 >
+<eh:title>kernel config 生成(略記)のためのシェルスクリプト</eh:title>
 <p>
 	この記事は、 <a href="http://www.adventar.org/calendars/1493">Gentoo Advent Calendar 2016</a> の6日目の記事です。<br />
 	昨日の記事は <a href="http://neotaso.hatenablog.com/entry/2016/12/05/013636">Gentoo on Windows 10 (Gentoo Advent Calender 2016 5日目)</a>でした。
