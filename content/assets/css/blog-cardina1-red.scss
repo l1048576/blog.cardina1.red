@@ -62,14 +62,8 @@ body {
 	}
 }
 
-article {
-	>aside.article-info {
-		font-size: 0.7rem;
-	}
-	>footer {
-		margin-top: 1rem;
-		border-top: 1px solid #999;
-	}
+aside.article-info {
+	font-size: 0.7rem;
 }
 
 .post-list-item {

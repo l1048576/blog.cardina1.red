@@ -5,26 +5,23 @@
 <%- render '/page-base.*',
 		prev_uri: prev_path,
 		next_uri: next_path do -%>
-
-<article>
-	<h1><%= h @item[:title] %></h1>
-	<aside class="article-info">
-		<%= render '/part/created-at.*' -%>
-		<%-#= render '/part/tags.*' -%>
-		<%= render '/part/htags.*' -%>
-	</aside>
-	<hr />
-	<%= yield -%>
-	<aside>
-		<div class="next-prev-link grid-row">
-			<div class="prev-link col-xs-12 col-md-6">
-				<%= newer_article -%>
-			</div>
-			<div class="next-link col-xs-12 col-md-6 col-xs-end">
-				<%= older_article -%>
-			</div>
+<aside class="article-info">
+	<%= render '/part/created-at.*' -%>
+	<%-#= render '/part/tags.*' -%>
+	<%= render '/part/htags.*' -%>
+</aside>
+<hr />
+<%= yield -%>
+<hr />
+<aside>
+	<div class="next-prev-link grid-row">
+		<div class="prev-link col-xs-12 col-md-6">
+			<%= newer_article -%>
 		</div>
-	</aside>
-</article>
+		<div class="next-link col-xs-12 col-md-6 col-xs-end">
+			<%= older_article -%>
+		</div>
+	</div>
+</aside>
 <%- end -%>
 <%-# vim: set ft=eruby : -%>
