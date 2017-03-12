@@ -8,6 +8,7 @@ module Larry
     def initialize(html_mode=false)
       @content = "<!DOCTYPE html>\n".dup
       @is_prev_tag_omissible = false
+      @is_prev_tag_ignored = false
       @is_html_mode = html_mode
     end
 
@@ -76,6 +77,7 @@ module Larry
       if name.downcase == 'meta' && is_html_elem(uri)
         if attrs.any? {|attr| attr.localname == 'http-equiv' && attr.value.downcase == 'content-type' }
           # This node should be omitted.
+          @is_prev_tag_ignored = true
           return
         end
       end
@@ -102,6 +104,10 @@ module Larry
     end
 
     def end_element_namespace(name, prefix=nil, uri=nil)
+      if @is_prev_tag_ignored
+        @is_prev_tag_ignored = false
+        return
+      end
       if @is_prev_tag_omissible
         if is_close_tag_omissible(name, uri)
           @content << ' />'
@@ -115,6 +121,9 @@ module Larry
     end
 
     def cdata_block(text)
+      if @is_prev_tag_ignored
+        return
+      end
       update_omissibility
       if @is_html_mode
         # Content inside `script` tag is treated as CDATA by
@@ -126,16 +135,25 @@ module Larry
     end
 
     def characters(text)
+      if @is_prev_tag_ignored
+        return
+      end
       update_omissibility
       @content << escape_text(text)
     end
 
     def comment(text)
+      if @is_prev_tag_ignored
+        return
+      end
       update_omissibility
       @content << '<!-- ' << text << '-->'
     end
 
     def processing_instruction(name, content)
+      if @is_prev_tag_ignored
+        return
+      end
       # If `name.downcase == 'xml'`, it may be XML decleration.
       # Ignore it.
       if name.downcase != 'xml'
