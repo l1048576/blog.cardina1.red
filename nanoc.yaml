@@ -97,4 +97,4 @@ deploy:
     default:
         kind: rsync
         dst: "www@blog.cardina1.red:"
-        options: [ "-av", "--checksum", "--delete-after", "-e", "ssh -i ~/.ssh/id_ed25519.www@blog.cardina1.red" ]
+        options: [ "-av", "--checksum", "--delete-after", "-e", "ssh" ]
