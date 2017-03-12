@@ -150,7 +150,7 @@ module Larry
       if @is_prev_tag_ignored
         return
       end
-      # If `name.downcase == 'xml'`, it may be XML decleration.
+      # If `name.downcase == 'xml'`, it may be XML declaration.
       # Ignore it.
       if name.downcase != 'xml'
         update_omissibility
