@@ -13,9 +13,9 @@ opengraph:
 excerpt: "mltermでHomeやEndキーがうまく動かなかったため、原因を究明し解決した。"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
 <p>
 	解決済。
@@ -24,8 +24,8 @@ excerpt: "mltermでHomeやEndキーがうまく動かなかったため、原因
 	何度か失敗したので、必要な手順だけ読みたければ<a href="#abstract">概要</a>と<a href="#conclusion">まとめ</a>だけ参照。
 </p>
 
-<blog:section id="abstract">
-	<blog:title>概要</blog:title>
+<eh:section id="abstract">
+	<eh:title>概要</eh:title>
 	<p>
 		<a href="https://wiki.archlinuxjp.org/index.php/Zsh#.E3.82.AD.E3.83.BC.E3.83.90.E3.82.A4.E3.83.B3.E3.83.89">Zsh - ArchWiki</a>を参考に以下のようなコードを書いたのだが、これが何故かmltermで動かない。
 	</p>
@@ -45,10 +45,10 @@ key[End]=${terminfo[kend]}
 	<p>
 		mltermのソースコードと一緒に配られているterminfoのソースを使おうにも、それも駄目だった。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="understand-the-situation">
-	<blog:title>状況把握</blog:title>
+<eh:section id="understand-the-situation">
+	<eh:title>状況把握</eh:title>
 
 	<figure>
 		<pre class="code code-terminal">$ <kbd>printf '%q' "${terminfo[khome]}"</kbd>
@@ -63,15 +63,15 @@ $'\033'\[H
 	</p>
 
 	<aside class="note">
-		<blog:title><code>%q</code></blog:title>
+		<eh:title><code>%q</code></eh:title>
 		<p>
 			<code>printf '%q'</code>は、bashやzshでないと使えない。
 		</p>
 	</aside>
-</blog:section>
+</eh:section>
 
-<blog:section id="investigation">
-	<blog:title>調査</blog:title>
+<eh:section id="investigation">
+	<eh:title>調査</eh:title>
 	<p>何処からかmlterm-256colorのterminfoが導入されているようなので、それを把握する。</p>
 	<figure>
 		<pre class="code code-terminal">$ <kbd>infocmp mlterm-256color | head -2</kbd>
@@ -97,7 +97,7 @@ $ <kbd>ncurses6-config --version</kbd>
 	</p>
 
 	<aside class="tip">
-		<blog:title><code>qfile</code></blog:title>
+		<eh:title><code>qfile</code></eh:title>
 		<p>
 			<code>qfile</code>コマンドは、gentooでは<code>app-portage/portage-utils</code>パッケージにある。
 		</p>
@@ -134,12 +134,12 @@ mlterm version 3.5.0
 	<p>
 		これに追従できていなかったのだろう。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="cope">
-	<blog:title>対処</blog:title>
-	<blog:section id="upstream-file-is-outdated">
-		<blog:title>本家ファイルからして古かった</blog:title>
+<eh:section id="cope">
+	<eh:title>対処</eh:title>
+	<eh:section id="upstream-file-is-outdated">
+		<eh:title>本家ファイルからして古かった</eh:title>
 		<p>
 			mlterm本家のterminfoをユーザーローカルで導入すればいいと、この時は思っていたのだ。
 		</p>
@@ -165,7 +165,7 @@ mlterm version 3.5.0
 		</p>
 
 		<aside class="note">
-			<blog:title>Experimental</blog:title>
+			<eh:title>Experimental</eh:title>
 			<p>
 				いや、実は<code class="filepath">doc/term/README.term</code>に以下のように書いてある。
 			</p>
@@ -176,10 +176,10 @@ mlterm version 3.5.0
 				Experimentalだから、おかしくても仕方がないよね！！！
 			</p>
 		</aside>
-	</blog:section>
+	</eh:section>
 
-	<blog:section id="edit-manually">
-		<blog:title>自力で編集</blog:title>
+	<eh:section id="edit-manually">
+		<eh:title>自力で編集</eh:title>
 		<p>
 			仕方ないので、これをベースに自分でシーケンスの変更を適用していく。
 		</p>
@@ -216,10 +216,10 @@ mlterm version 3.5.0
 		<p>
 			これをコンパイルし、<code class="filepath">~/.terminfo/m/mlterm-256color</code>というファイルとして置いてやればよい。
 		</p>
-	</blog:section>
+	</eh:section>
 
-	<blog:section id="compile-terminfo-source">
-		<blog:title>terminfoのソースのコンパイル</blog:title>
+	<eh:section id="compile-terminfo-source">
+		<eh:title>terminfoのソースのコンパイル</eh:title>
 		<p>
 			これといって特筆することもない。
 			本当にコンパイルするだけだ。
@@ -241,7 +241,7 @@ lrwxrwxrwx 1 larry larry    6 2015-11-18 13:24 mlterm-256color -> mlterm
 		</p>
 
 		<aside class="warning">
-			<blog:title>ticの実行ユーザ</blog:title>
+			<eh:title>ticの実行ユーザ</eh:title>
 			<p>
 				root権限で<code>tic</code>を実行すると、<code class="dirpath">/usr/share/terminfo</code>等のシステムデフォルトのディレクトリへファイルを生成してしまうかもしれない。
 				この挙動を望まないのであれば、<code>TERMINFO</code>環境変数か<code>-o</code>オプションで<code class="dirpath">~/.terminfo</code>等のディレクトリを指定すること。
@@ -250,11 +250,11 @@ lrwxrwxrwx 1 larry larry    6 2015-11-18 13:24 mlterm-256color -> mlterm
 		<p>
 			これにて問題は解決した...と思うじゃん？
 		</p>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
-<blog:section id="solved">
-	<blog:title>解決</blog:title>
+<eh:section id="solved">
+	<eh:title>解決</eh:title>
 	<p>
 		残念ながらこの状態だと、<code>tmux</code>が256色出してくれない。
 	</p>
@@ -295,7 +295,7 @@ lrwxrwxrwx 1 larry larry    6 2015-11-18 13:24 mlterm-256color -> mlterm
 	</figure>
 
 	<aside class="tip">
-		<blog:title>究明の方法</blog:title>
+		<eh:title>究明の方法</eh:title>
 		<p>
 			<code>vimdiff &lt;(infocmp -A /usr/share/terminfo mlterm-256color | sed -e 's/, /,\n\t/g') &lt;(infocmp mlterm-256color | sed -e 's/, /,\n\t/g')</code>して、異なるそれぞれの項目をマージしてコンパイルし、確認していく。
 		</p>
@@ -355,12 +355,12 @@ $ <kbd>tic mlterm-256color.ti</kbd>
 	<p>
 		これでやっと意図した結果が得られた(何を隠そう、先の「期待される結果」の画像はこのファイルを使ったものだ)。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="conclusion">
-	<blog:title>まとめ</blog:title>
-	<blog:section id="conclusion--problem">
-		<blog:title>問題</blog:title>
+<eh:section id="conclusion">
+	<eh:title>まとめ</eh:title>
+	<eh:section id="conclusion--problem">
+		<eh:title>問題</eh:title>
 		<ul>
 			<li>
 				ncurses6に含まれている<code>mlterm-256color</code>のterminfoは古く、一部キーが正常に認識されない原因になる。
@@ -377,9 +377,9 @@ $ <kbd>tic mlterm-256color.ti</kbd>
 				</ul>
 			</li>
 		</ul>
-	</blog:section>
-	<blog:section id="conclusion--operations">
-		<blog:title>手順</blog:title>
+	</eh:section>
+	<eh:section id="conclusion--operations">
+		<eh:title>手順</eh:title>
 		<p>
 			<code>mlterm-256color</code>のterminfoのファイルがインストールされているか確認する。
 			このファイルがncursesによるものであるのが理想的だ。
@@ -424,6 +424,6 @@ $ <kbd>ls /usr/share/terminfo/m/mlterm-256color</kbd>
 		<p>
 			これでおしまい。
 		</p>
-	</blog:section>
-</blog:section>
-</blog:article>
+	</eh:section>
+</eh:section>
+</eh:article>

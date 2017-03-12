@@ -11,26 +11,26 @@ kind: article
 excerpt: "ConoHaのVPSにCoreOSを入れると、cloud-config.yamlの一部項目が上書きされ、無視されてしまう。その原因と解決策のメモ。"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
 <p>
 	解決済。
 </p>
 
-<blog:section id="abstract">
-	<blog:title>概要</blog:title>
+<eh:section id="abstract">
+	<eh:title>概要</eh:title>
 	<p>
 		私は、GMOから提供されている<a href="https://www.conoha.jp/" target="_blank">ConoHa</a>というVPSサービスを利用している。
 		(このブログのサーバもConoHaのサーバだ。)
 		ここではサーバを起動する際、様々なOS(プレーンなものからアプリケーション導入済のものまで)を初期イメージとして選択できる。
-		複数のサービスをコンテナで提供しようというとき便利な<a href="https://coreos.com/" target="_blank">CoreOS</a>はその選択肢にない(<time>2016-10-08</time>現在)ため自力でインストールすることになる<blog:footnote id="footnote-install-coreos">
+		複数のサービスをコンテナで提供しようというとき便利な<a href="https://coreos.com/" target="_blank">CoreOS</a>はその選択肢にない(<time>2016-10-08</time>現在)ため自力でインストールすることになる<eh:footnote id="footnote-install-coreos">
 			私はArch linuxのイメージを使って作成したVPSにISOイメージを設定して起動した。
 			(なお、Arch linux自体は一度も起動していない)。
 			他のdistroだと別の内容になっているのかもしれない。
 			Archしか選択したことがないのでわからないが。
-		</blog:footnote>が、<strong>CoreOSのインストールや設定更新は、設定ファイルひとつとコマンドひとつで実行できる</strong>ので、そこには特に大きな問題はない。
+		</eh:footnote>が、<strong>CoreOSのインストールや設定更新は、設定ファイルひとつとコマンドひとつで実行できる</strong>ので、そこには特に大きな問題はない。
 	</p>
 	<p>
 		問題はないはずだったのだが、実際にはインストールすると以下のような状況になる。
@@ -65,14 +65,14 @@ excerpt: "ConoHaのVPSにCoreOSを入れると、cloud-config.yamlの一部項�
 	<p>
 		これは私の気付いたことだけなので、他にも上書きされてしまう設定があるかもしれない。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="cause-and-solution">
-	<blog:title>原因と解決策</blog:title>
+<eh:section id="cause-and-solution">
+	<eh:title>原因と解決策</eh:title>
 	<p>
-		この現象の原因は、ConoHa側で用意された光学ドライブ<code>/dev/sr1</code><blog:footnote id="footnote-conoha-sr1">
+		この現象の原因は、ConoHa側で用意された光学ドライブ<code>/dev/sr1</code><eh:footnote id="footnote-conoha-sr1">
 			このドライブ内のファイルは、VPS作成時に指定したrootパスワードやSSH秘密鍵などを設定するために使われる。
-		</blog:footnote>にある。
+		</eh:footnote>にある。
 		これがCoreOSの設定が格納されているものとして認識されてしまい、中のファイルがロードされることで、ユーザの設定(<code class="filepath">/var/lib/coreos-install/user_data</code>)を上書きしてしまうためである。
 	</p>
 	<p>
@@ -127,7 +127,7 @@ write_files:
 		これで設定を反映し、再起動すれば完璧だ。
 	</p>
 	<aside id="reboot-twice" class="note">
-		<blog:title>再起動は場合によっては2回</blog:title>
+		<eh:title>再起動は場合によっては2回</eh:title>
 		<p>
 			再起動が必要だ。
 			実際にはudevルールのリロードとCoreOS設定反映の2つを行えば十分なのだが、面倒だしhostnameの変更などを伴うので、素直に再起動するべきだろう。
@@ -137,5 +137,5 @@ write_files:
 			よって、<code>coreos-install</code>後にISOイメージを除去して起動する1回目の再起動と、1回目の再起動後に<code class="dirpath">/etc</code>にルールファイルが作られてからの再起動の、<strong>計2回の再起動が必要</strong>になる。
 		</p>
 	</aside>
-</blog:section>
-</blog:article>
+</eh:section>
+</eh:article>

@@ -8,12 +8,12 @@ kind: article
 excerpt: "客の挙動の制御に限界がある以上、展示者と運営者が適切に対応するほかない。"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
 <aside class="important">
-	<blog:title>偏った意見</blog:title>
+	<eh:title>偏った意見</eh:title>
 	<p>
 		この記事に書いたことは全て個人の考えであり、いかなる団体の意見を代表するものでもない。
 	</p>
@@ -25,14 +25,14 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 	</p>
 </aside>
 
-<blog:section id="abstract">
-	<blog:title>概要</blog:title>
+<eh:section id="abstract">
+	<eh:title>概要</eh:title>
 	<p>
 		日曜日、工大祭のロ技研ブースを見ていた。
 		展示者の許可なく展示物に触る例がよく見られた。
-		他にもいろいろ迷惑行為があったようである<blog:footnote id="footnote-harmful-actions">
+		他にもいろいろ迷惑行為があったようである<eh:footnote id="footnote-harmful-actions">
 			展示物や機材の乱暴な扱い、子供の不清潔な行為の放任などがあったようである。
-		</blog:footnote>。
+		</eh:footnote>。
 	</p>
 	<p>
 		一部の来客の問題行動を未然にどう防ぐか。
@@ -40,10 +40,10 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 	</p>
 	<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">「一部非常識な来客に対する工大祭展示側の不満」をトゥギャりました。 <a href="https://t.co/qYgln7UVRh">https://t.co/qYgln7UVRh</a></p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785381957462921216">2016年10月10日</a></blockquote>
 	<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">いえ、私の主張は至ってシンプルで、<br />・展示会において展示者・運営者は来客に特定の行為を禁止する権利がある<br />・工大祭展示において、客の要求を聞く義務は、その要求がロ技研、工大祭運営、東工大、日本の法などによって認められる権利に関するものでない限り、そもそも存在しない<br />これだけです</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785420263487791104">2016年10月10日</a></blockquote>
-</blog:section>
+</eh:section>
 
-<blog:section id="cause-of-harmful-behavior">
-	<blog:title>来客の問題行動の原因</blog:title>
+<eh:section id="cause-of-harmful-behavior">
+	<eh:title>来客の問題行動の原因</eh:title>
 	<p>
 		何故一部の来客は展示者にとって害となる行動をすることがあるのか。
 	</p>
@@ -76,31 +76,31 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 		書いていて悲しくなってきた。
 		常識ある諸氏には信じられないかもしれない。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="causes-and-measures">
-	<blog:title>原因と対策</blog:title>
+<eh:section id="causes-and-measures">
+	<eh:title>原因と対策</eh:title>
 	<p>
 		上で挙げた原因に対し、どのように対処すべきか。
 	</p>
 
-	<blog:section id="ignorance-and-carelessness">
-		<blog:title>客の知識と注意の欠如</blog:title>
+	<eh:section id="ignorance-and-carelessness">
+		<eh:title>客の知識と注意の欠如</eh:title>
 		<p>
 			これはシンプルである。
 			欠如が問題なら補充すれば良い。
 			注意喚起や危険行為の指摘を行おう。
 		</p>
 
-		<blog:section id="being-unaware-of-risk">
-			<blog:title>自分達の行動が危険であることを理解していない/気付いていない場合</blog:title>
+		<eh:section id="being-unaware-of-risk">
+			<eh:title>自分達の行動が危険であることを理解していない/気付いていない場合</eh:title>
 			<p>
 				「<strong>危険ですので</strong>○○しないでください」「<strong>安全性確保のため</strong>、展示者にお声かけください」等の言葉で、危険性の存在について注意喚起すれば良い。
 			</p>
-		</blog:section>
+		</eh:section>
 
-		<blog:section id="taking-no-notice">
-			<blog:title>展示者や運営者の指示を見ていない・聞いていない場合</blog:title>
+		<eh:section id="taking-no-notice">
+			<eh:title>展示者や運営者の指示を見ていない・聞いていない場合</eh:title>
 			<p>
 				指示や注意喚起を積極的に、大々的に行うべきである。
 			</p>
@@ -111,11 +111,11 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 				ましてや、入場無料、登録不要の展示会ともなればいちいち確認をとるのは入場の敷居を高くし、展示者と来客双方にとって不利益になってしまうだろう。
 			</p>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">ロ技研、入口にデデーンと「許可なく展示物に触らないでください」とか「展示者の許可なくお子様が作品を触ることのないようお願いします」とか巨大看板立てるべきでしょ</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785377676659830785">2016年10月10日</a></blockquote>
-		</blog:section>
-	</blog:section>
+		</eh:section>
+	</eh:section>
 
-	<blog:section id="arrogance-of-visitors">
-		<blog:title>客の傲慢</blog:title>
+	<eh:section id="arrogance-of-visitors">
+		<eh:title>客の傲慢</eh:title>
 		<p>
 			これは難しい。
 			来客の人格を矯正する権利を展示者は持たないからだ。
@@ -126,8 +126,8 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 			本当に必要とされる場面で使われない権利など、存在しないも同然だ。
 		</p>
 
-		<blog:section id="action-without-permission">
-			<blog:title>自分の行動に許可など不要だと思っている場合</blog:title>
+		<eh:section id="action-without-permission">
+			<eh:title>自分の行動に許可など不要だと思っている場合</eh:title>
 			<p>
 				お客様は神様だとでも思っているのだろうか。<br />
 				はっきり言うが、展示者(或いは運営者)と来客は明らかに対等ではないし、一般に来客の行動は制限される。
@@ -136,9 +136,9 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 				展示物の中には、触って良いものもあるかもしれない。
 				だからといって、来客は展示者に「展示物を触らせろ」「写真を撮らせろ」などと命令したり、許可なくそういった行為を行うことはできない。
 				展示者が展示物についての(大抵の場合は全ての)権利を持っているからだ。
-				<strong>来客は展示者の許可によって鑑賞(や、場合によっては操作や撮影)を許されているだけ</strong><blog:footnote id="footnote-implicit-permission">
+				<strong>来客は展示者の許可によって鑑賞(や、場合によっては操作や撮影)を許されているだけ</strong><eh:footnote id="footnote-implicit-permission">
 					明示的に「入場を許可します」「鑑賞を許可します」と言っていないため、そのような許可の存在を認識しない人もあるかもしれないが、そのような場合でも明示していないだけでやはり許可は出ていて、展示者や運営者はその許可を剥奪することができるのである。
-				</blog:footnote>である。
+				</eh:footnote>である。
 				よって、展示者は何か被害が出る前に堂々と指示を出すべきではないだろうか。
 				事故が起きてからではもう遅い。
 			</p>
@@ -155,10 +155,10 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 				権利を持つ展示者に、来客に対して下手に出る義務はない。
 				（無論、自分の考えで勝手にそうする分には個人や団体の自由だが。）
 			</p>
-		</blog:section>
+		</eh:section>
 
-		<blog:section id="order-for-exhibitors">
-			<blog:title>展示者に対する要求は受け入れられて当然であると思っている場合</blog:title>
+		<eh:section id="order-for-exhibitors">
+			<eh:title>展示者に対する要求は受け入れられて当然であると思っている場合</eh:title>
 			<p>
 				上で述べたのと全く同じである。
 				来客は展示者の上位の存在に認められた権利以外を持たない。
@@ -168,10 +168,10 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 			</p>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">親「ほら、お兄さんに頼んで触らせてもらいな」<br />子供「触っていいですか？」<br />僕「ごめん、無理」<br /><br />親「は？なんでダメなんですか？」</p>&#x2014; 八九寺の吊りスカート職人 (@PLM_precure) <a href="https://twitter.com/PLM_precure/status/785376881117757440">2016年10月10日</a></blockquote>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">許可を得るというのが形式的な行為だと信じきっている例はよく見受けられる(例: イラスト投稿サイトにおける「お借りします」等) &gt;RT</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785377200635727872">2016年10月10日</a></blockquote>
-		</blog:section>
+		</eh:section>
 
-		<blog:section id="tolerating-childrens-harm">
-			<blog:title>子供のする問題行動は許されるべき/許されて当然と思っている場合</blog:title>
+		<eh:section id="tolerating-childrens-harm">
+			<eh:title>子供のする問題行動は許されるべき/許されて当然と思っている場合</eh:title>
 			<p>
 				そんなわけがない。
 				何を考えているんだと言いたくなる。
@@ -179,10 +179,10 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 				つまり最初から問題を防いだり軽減する気のない付き添いの大人に対して甘い対応をする理由はない。
 				展示者や運営者は付き添いに対して厳しく注意し、或いは子供と共に退場することを指示すべきである。
 			</p>
-		</blog:section>
+		</eh:section>
 
-		<blog:section id="manipulation-without-permission">
-			<blog:title>展示物が機械やパソコンであれば触ることができるのは当然であると思っている場合</blog:title>
+		<eh:section id="manipulation-without-permission">
+			<eh:title>展示物が機械やパソコンであれば触ることができるのは当然であると思っている場合</eh:title>
 			<p>
 				動くものだから動かせて当然、というのもよくわからない考えである。
 				たとえばどこかに飛行機が展示されていたとして、<strong>飛行機は飛ばすものだからといってそれを来客が飛ばして良い理由にはならない</strong>。
@@ -192,10 +192,10 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">べつに触れる展示が触れなければいけない理由はない(たとえば飛行機の展示で飛行機を客が飛ばせるようにする義理はない)と思うので、子供や大人が展示に勝手に触るのは、やはり「勝手に」触ってるし問題ある行為なんですよね。触ってくれと明示している展示を触るのは何の問題もないのだけれど</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785409441977937921">2016年10月10日</a></blockquote>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">ラジコンを展示してあるからといって客が許可なく触るのは問題だし、スイッチがあるからといって客が許可なく押すのは問題だし、パソコンが置いてあって客が許可されていない方法で操作するのは問題だし、「勝手に」というのはそういう「許可されない行為をする」ということなので、自明に問題です</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785409868274425856">2016年10月10日</a></blockquote>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">まぁ展示については博物館とほぼ同じ対応でいいと思ってる<br />てか博物館じゃん</p>&#x2014; Mizuho™ (@Mizuho32) <a href="https://twitter.com/Mizuho32/status/785422263386382336">2016年10月10日</a></blockquote>
-		</blog:section>
+		</eh:section>
 
-		<blog:section id="requirement-for-immutability">
-			<blog:title>展示物は壊れるべきでない、壊れるのは展示者が悪いと思っている場合</blog:title>
+		<eh:section id="requirement-for-immutability">
+			<eh:title>展示物は壊れるべきでない、壊れるのは展示者が悪いと思っている場合</eh:title>
 			<p>
 				ゲームセンターの機械を壊して「壊れるような機械を置くのが悪い」などという言い訳が通じるとでも思っているのだろうか。
 				金銭のやりとりのある施設でさえ、乱暴な扱いで者を壊せば壊した側が悪い。
@@ -214,19 +214,19 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 				「わざとじゃないから許せよ」「謝ったんだから許せよ」などという主張をまともに取り合う必要があるのか、個々のケースについて慎重に検討すべきだ。
 			</p>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">展示中に唐突にキーボードをバンバン叩く人がいてつい笑顔で手首握りつぶしそうになったの反省している</p>&#x2014; phi16 (@phi16_) <a href="https://twitter.com/phi16_/status/785377559185805312">2016年10月10日</a></blockquote>
-		</blog:section>
-	</blog:section>
+		</eh:section>
+	</eh:section>
 
-	<blog:section id="careless-of-exhibitors">
-		<blog:title>展示者の不注意</blog:title>
+	<eh:section id="careless-of-exhibitors">
+		<eh:title>展示者の不注意</eh:title>
 		<p>
 			不注意が原因なら注意しよう。
 			ただし人力での注意は得てして不完全なので、自動化しよう。
 			具体的には看板にする、入口で必ず確認しなければ入れないようにする、などである。
 		</p>
 
-		<blog:section id="insufficient-cautions">
-			<blog:title>注意事項の提示が十分でない場合</blog:title>
+		<eh:section id="insufficient-cautions">
+			<eh:title>注意事項の提示が十分でない場合</eh:title>
 			<p>
 				十分に提示しよう。
 				項目が多すぎると却って読まれず注意されない場合もあるから、程々にシンプルにする必要はあるだろう。
@@ -238,10 +238,10 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 			</p>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">まあなに、モンスタークレーマーみたいなクソが増えてきている中で「常識」という常識的な発想を非常識人に勝手に仮定した我々の敗北だよ</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785378107163152384">2016年10月10日</a></blockquote>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">電子レンジに猫を入れないことは明文化しなければならないし、展示物に勝手に触れないことはもっと明確に主張していかなければならない</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785378219805376512">2016年10月10日</a></blockquote>
-		</blog:section>
+		</eh:section>
 
-		<blog:section id="too-few-observers">
-			<blog:title>監視・巡回・制止する人間が不足している場合</blog:title>
+		<eh:section id="too-few-observers">
+			<eh:title>監視・巡回・制止する人間が不足している場合</eh:title>
 			<p>
 				どうにかするしかない。
 				たとえば展示者が離席する場合、近くの関係者が来客が勝手に触るのを制止したりとか、ある程度人数に余裕を持っておくとか。
@@ -249,10 +249,10 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 			</p>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">まあね、工大祭みたいな場に関しては子供や展示に理解のない大人がくることが目に見えてるわけだから、展示する方も対策はしておくべきですよって感じ</p>&#x2014; グラたん (@stylish_beta) <a href="https://twitter.com/stylish_beta/status/785409842634645504">2016年10月10日</a></blockquote>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">泥棒がモノを盗むのは悪いことだしどう考えても泥棒のせいだけど、泥棒がこの世にいるのが分かってる以上は鍵を閉めて家を出るべき、みたいな議論</p>&#x2014; グラたん (@stylish_beta) <a href="https://twitter.com/stylish_beta/status/785410106343120896">2016年10月10日</a></blockquote>
-		</blog:section>
+		</eh:section>
 
-		<blog:section id="insufficient-guidelines-and-preparedness">
-			<blog:title>制止する覚悟や基準、ガイドラインが不足している場合</blog:title>
+		<eh:section id="insufficient-guidelines-and-preparedness">
+			<eh:title>制止する覚悟や基準、ガイドラインが不足している場合</eh:title>
 			<p>
 				言うまでもないが、基準やガイドラインが不十分である場合へ対処したいなら、基準やガイドラインを作ることである。
 				来客としても、統一された基準やルールの提示がないとわかりづらいしミスも起きる。
@@ -278,23 +278,23 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 			<blockquote class="twitter-tweet" data-conversation="none" data-lang="ja"><p lang="ja" dir="ltr">暴力に訴えろと言っているわけではなくて、そういう危機的状況において部員がとれる手段が実質的に存在しない/規定されていない/制約や抵抗が強い、というのが大いに問題なのではないかという話をしています</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785424303848173569">2016年10月10日</a></blockquote>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">たとえばそこで先生や警備員を呼ぶだとかはひとつの正解ですよね</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785424387558154240">2016年10月10日</a></blockquote>
 			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">部員は権利を持っていて、それを必ずしも部員が直接に行使する必要はないかもしれないけど、誰かがそれを行使しないと収束しない事態というのは十分に有り得るわけだし、そういったリスクから目をそらさず恐れ、そして対策してほしいということです</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785424792564355072">2016年10月10日</a></blockquote>
-		</blog:section>
-	</blog:section>
-</blog:section>
+		</eh:section>
+	</eh:section>
+</eh:section>
 
-<blog:section id="other-things">
-	<blog:title>その他</blog:title>
+<eh:section id="other-things">
+	<eh:title>その他</eh:title>
 	<p>
 		誤解されそうなこととか、どこかで聞いた反対意見に対する意見とか。
 	</p>
 
-	<blog:section id="uekara-mesen">
-		<blog:title>展示者も上から目線でいたいわけではない</blog:title>
+	<eh:section id="uekara-mesen">
+		<eh:title>展示者も上から目線でいたいわけではない</eh:title>
 		<p>
 			少なくともロ技研における展示は金を取っているとかではなく、では何故展示するのかといえば、それは興味や関心を持ってほしい、また持った人に対して喜んでもらえる情報や体験を提示したいからである。
-			要するに、<strong>潜在的な同類、仲間、支援者に対する好意</strong>である<blog:footnote id="footnote-purpose-of-exhibition">
+			要するに、<strong>潜在的な同類、仲間、支援者に対する好意</strong>である<eh:footnote id="footnote-purpose-of-exhibition">
 				無論、同じようなことをしている人やプロに観てもらって有用な意見を聞こう、などという自分自身のための動機なども少なからずあるだろうが、それは詳しくない人への好意を否定するものではない。
-			</blog:footnote>。
+			</eh:footnote>。
 		</p>
 		<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">あまりこういうことを言うものではないのだろうけど、工大祭展示は義務ではないし、展示者がお客様の言うことを聞く理由は全くないよね。ただ誠意と好意から展示や解説をしているだけなので。</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785415601153904640">2016年10月10日</a></blockquote>
 		<p>
@@ -309,10 +309,10 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 		</p>
 		<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">工大祭で触れる展示が多いのは、興味や関心を持ってほしい、またその興味関心に応えたいという、客の善意を仮定した現象だと思うので、潜在的であれ害になる人間に対して対策を行わないのは良くない</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785410708070469632">2016年10月10日</a></blockquote>
 		<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">これは不快感やマナーだけの問題ではなくて、作品の損壊や身体の安全性に関わる問題なので、展示者や運営は問題ある人を追い出す強権を行使できないといけないと思うんですよ、それをどのレベルの人間に対して発動することにするかは運用の問題ですが</p>&#x2014; ㉅㊛の天然㊌㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/785408813784444928">2016年10月10日</a></blockquote>
-	</blog:section>
+	</eh:section>
 
-	<blog:section id="obligation-and-harm">
-		<blog:title>「義務で展示しているわけではないのだから(自由意志で展示しているのだから)、子供が展示物に無許可で触るのくらい大目に見るべき」という意見</blog:title>
+	<eh:section id="obligation-and-harm">
+		<eh:title>「義務で展示しているわけではないのだから(自由意志で展示しているのだから)、子供が展示物に無許可で触るのくらい大目に見るべき」という意見</eh:title>
 		<p>
 			義務であろうとなかろうと、無許可の危険行為が悪なのは当然である。
 			「嫌々やってるなら同情もできるが、好きでやってるんだからリスクも折り込み済だろ」という意見であれば、それは論外である。
@@ -328,8 +328,8 @@ excerpt: "客の挙動の制御に限界がある以上、展示者と運営者�
 			誰も得をしない行為を堂々と薦められても困る。
 		</p>
 		<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">壊されるのがいやなら展示するなは失われやすいコミュニティ案件だと思う</p>&#x2014; Mizuho™ (@Mizuho32) <a href="https://twitter.com/Mizuho32/status/785421559368253440">2016年10月10日</a></blockquote>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
 <script async="async" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</blog:article>
+</eh:article>

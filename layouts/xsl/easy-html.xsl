@@ -6,8 +6,8 @@
 	xmlns:mml="http://www.w3.org/1998/Math/MathML"
 	xmlns:svg="http://www.w3.org/2000/svg"
 	xmlns:xl="http://www.w3.org/1999/xlink"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
-	exclude-result-prefixes="xsl html mml svg xl blog"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	exclude-result-prefixes="xsl html mml svg xl eh"
 >
 <!-- set output format -->
 <xsl:output method="html" encoding="utf-8" indent="yes" omit-xml-declaration="yes" />
@@ -32,9 +32,9 @@
 
 <xsl:template name="section-level">
 	<xsl:value-of select="count(
-			ancestor::blog:article |
+			ancestor::eh:article |
 			ancestor::html:article |
-			ancestor::blog:section |
+			ancestor::eh:section |
 			ancestor::html:section)" />
 </xsl:template>
 
@@ -51,7 +51,7 @@
 
 <xsl:template name="footnotes">
 	<xsl:variable name="article_id" select="generate-id(.)" />
-	<xsl:if test="//blog:footnote[generate-id(ancestor::blog:article[1]) = $article_id]">
+	<xsl:if test="//eh:footnote[generate-id(ancestor::eh:article[1]) = $article_id]">
 		<xsl:variable name="header_level">
 			<xsl:call-template name="header-level" />
 		</xsl:variable>
@@ -64,9 +64,9 @@
 			</xsl:element>
 			<xsl:element name="ol">
 				<xsl:attribute name="start">0</xsl:attribute>
-					<xsl:for-each select="//blog:footnote[generate-id(ancestor::blog:article[1]) = $article_id]">
+					<xsl:for-each select="//eh:footnote[generate-id(ancestor::eh:article[1]) = $article_id]">
 					<xsl:if test="not(@id)">
-						<xsl:message terminate="yes">error: No `@id` found for `blog:footnote`.</xsl:message>
+						<xsl:message terminate="yes">error: No `@id` found for `eh:footnote`.</xsl:message>
 					</xsl:if>
 					<xsl:variable name="footnote_index">
 						<xsl:call-template name="footnote-index" />
@@ -87,27 +87,27 @@
 </xsl:template>
 
 <xsl:template name="footnote-index">
-	<xsl:variable name="article_id" select="generate-id(ancestor::blog:article[1])" />
-	<xsl:value-of select="count(preceding::blog:footnote[generate-id(ancestor::blog:article[1]) = $article_id])" />
+	<xsl:variable name="article_id" select="generate-id(ancestor::eh:article[1])" />
+	<xsl:value-of select="count(preceding::eh:footnote[generate-id(ancestor::eh:article[1]) = $article_id])" />
 </xsl:template>
 
 
 <xsl:template match="text()"><xsl:value-of select="."/></xsl:template>
 
-<xsl:template match="blog:*">
-	<xsl:message terminate="yes">error: unknown element `blog:<xsl:value-of select="local-name(.)" />`.</xsl:message>
+<xsl:template match="eh:*">
+	<xsl:message terminate="yes">error: unknown element `eh:<xsl:value-of select="local-name(.)" />`.</xsl:message>
 </xsl:template>
 
 <xsl:template match="/"><xsl:apply-templates /></xsl:template>
 
-<xsl:template match="blog:div">
+<xsl:template match="eh:div">
 	<xsl:element name="div">
 		<xsl:call-template name="copy-attributes" />
 		<xsl:apply-templates />
 	</xsl:element>
 </xsl:template>
 
-<xsl:template match="blog:article">
+<xsl:template match="eh:article">
 	<xsl:element name="article">
 		<xsl:call-template name="copy-attributes" />
 		<xsl:apply-templates />
@@ -122,14 +122,14 @@
 	</xsl:element>
 </xsl:template>
 
-<xsl:template match="blog:section">
+<xsl:template match="eh:section">
 	<xsl:element name="section">
 		<xsl:call-template name="copy-attributes" />
 		<xsl:apply-templates />
 	</xsl:element>
 </xsl:template>
 
-<xsl:template match="blog:title">
+<xsl:template match="eh:title">
 	<xsl:variable name="header_level">
 		<xsl:call-template name="header-level" />
 	</xsl:variable>
@@ -140,7 +140,7 @@
 	</xsl:element>
 </xsl:template>
 
-<xsl:template match="blog:footnote">
+<xsl:template match="eh:footnote">
 	<xsl:element name="a">
 		<xsl:attribute name="id">ref-<xsl:value-of select="@id" /></xsl:attribute>
 		<xsl:attribute name="href">#<xsl:value-of select="@id" /></xsl:attribute>
@@ -153,7 +153,7 @@
 	</xsl:element>
 </xsl:template>
 
-<xsl:template match="blog:xref">
+<xsl:template match="eh:xref">
 	<xsl:variable name="linkend" select="@linkend" />
 	<xsl:variable name="target_node" select="/descendant-or-self::node()[@id=$linkend]" />
 	<xsl:choose>
@@ -170,11 +170,11 @@
 			<xsl:when test="node()">
 				<xsl:copy-of select="node()" />
 			</xsl:when>
-			<xsl:when test="$target_node[blog:title]">
-				<xsl:apply-templates select="$target_node/blog:title/node()" />
+			<xsl:when test="$target_node[eh:title]">
+				<xsl:apply-templates select="$target_node/eh:title/node()" />
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:message terminate="yes">error: `blog:xref[@linkend='<xsl:value-of select="$linkend" />']` has no content but `node()[@id='<xsl:value-of select="$linkend" />']` has no `child::blog:title` element.
+				<xsl:message terminate="yes">error: `eh:xref[@linkend='<xsl:value-of select="$linkend" />']` has no content but `node()[@id='<xsl:value-of select="$linkend" />']` has no `child::eh:title` element.
 				</xsl:message>
 			</xsl:otherwise>
 		</xsl:choose>

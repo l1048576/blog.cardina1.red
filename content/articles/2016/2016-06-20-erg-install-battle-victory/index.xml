@@ -16,12 +16,12 @@ opengraph:
 excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
-<blog:section id="tl-dr">
-	<blog:title>TL;DR</blog:title>
+<eh:section id="tl-dr">
+	<eh:title>TL;DR</eh:title>
 	<p>
 		VirtualBox Guest AdditionsのDirect3D Support (Experimental)はWindows標準のDirectXライブラリを上書きするが、そのせいで一部ゲームでエラーが出て起動できなくなることがある。<br />
 		これは、DirectXの一部ファイルを本来のファイルで上書きしてやることで解決可能である。
@@ -29,17 +29,17 @@ excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 	<p>
 		問題遭遇編は<a href="../../15/erg-install-battle">エロゲインストールバトル</a>を参照。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="environment">
-	<blog:title>環境</blog:title>
+<eh:section id="environment">
+	<eh:title>環境</eh:title>
 	<p>
 		環境は<a href="../../15/erg-install-battle">エロゲインストールバトル実行時と同様</a>である。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="investigation">
-	<blog:title>調査</blog:title>
+<eh:section id="investigation">
+	<eh:title>調査</eh:title>
 	<p>
 		ネイティブ環境のWindows 10で起動するとされていることと、DirectX 9のDLLでエラーが出ていることから、原因はVirtualBox特有でDirectX関連部分、すなわちVirtualBox Guest Additions(以下<strong>Guest Additions</strong>)によるDirect3D Support (Experimental)であろうと予想した。<br />
 		よって、Guest Additionsにより上書きされたであろうDirectX関連ファイルをMicrosoft公式のものに上書きしてやれば元に戻るであろうと考えた。
@@ -49,13 +49,13 @@ excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 		<figcaption>Guest Additionsで強制的に有効化されてしまうDirect3D Support</figcaption>
 	</figure>
 
-	<blog:section id="check-corruption-of-directx">
-		<blog:title>DirectX破損確認</blog:title>
+	<eh:section id="check-corruption-of-directx">
+		<eh:title>DirectX破損確認</eh:title>
 		<p>
-			普通のライブラリであればアンインストールするところだが、WindowsではDirectXのアンインストールは普通の手段ではできないことになっている<blog:footnote id="footnote-directx-uninstall">
+			普通のライブラリであればアンインストールするところだが、WindowsではDirectXのアンインストールは普通の手段ではできないことになっている<eh:footnote id="footnote-directx-uninstall">
 				<a href="https://answers.microsoft.com/en-us/windows/forum/windows_10-hardware/how-do-i-unistallreinstall-directx-on-windows-10/f703b4ef-74e1-434e-8fce-1e84743301a6">How do I unistall/reinstall directx on Windows 10? - Microsoft Community</a>
 				(2016/06/20 参照)
-			</blog:footnote>。
+			</eh:footnote>。
 			ということはこのファイルはWindows自身によって管理されているということであるから、システムファイルの破損チェックで改竄を確認できるはずである。
 		</p>
 		<p>
@@ -155,22 +155,22 @@ C:&#xA5;Users&#xA5;user1&gt;
 			やはり、DirectX関係のファイルが上書きされていたようだ。
 			予想通りであれば、これらを本来の(Microsoft純正の)ファイルに戻してやれば、トラブルを解決できるはずだ。
 		</p>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
-<blog:section id="solved">
-	<blog:title>解決</blog:title>
-	<blog:section id="original-directx-file">
-		<blog:title>オリジナルのDirectXファイル</blog:title>
+<eh:section id="solved">
+	<eh:title>解決</eh:title>
+	<eh:section id="original-directx-file">
+		<eh:title>オリジナルのDirectXファイル</eh:title>
 		<p>
 			さて、どこから純正のファイルを持ってくるか。
-			DirectXのインストーラ<blog:footnote id="footnote-directx-installer">
+			DirectXのインストーラ<eh:footnote id="footnote-directx-installer">
 				<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">Download DirectX End-User Runtimes (June 2010) from Official Microsoft Download Center</a>
 				(2016/06/21 参照)
-			</blog:footnote>から持ってこられればそれが楽なのだが、どうも実はこの中にあるcabファイルのどれを展開しても<code class="filepath">d3d9.dll</code>が存在しなかったのである。<br />
-			そんなわけで、手っ取り早く他のWindows 10<blog:footnote id="footnote-another-win10-machine">
+			</eh:footnote>から持ってこられればそれが楽なのだが、どうも実はこの中にあるcabファイルのどれを展開しても<code class="filepath">d3d9.dll</code>が存在しなかったのである。<br />
+			そんなわけで、手っ取り早く他のWindows 10<eh:footnote id="footnote-another-win10-machine">
 				勿論、<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8109">目的のバージョンのDirectX</a>をインストール済であるべきだろう。
-			</blog:footnote>から持ってくるのが楽であろう。
+			</eh:footnote>から持ってくるのが楽であろう。
 		</p>
 
 		<p>
@@ -197,17 +197,17 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 		</p>
 
 		<p>
-			コピーが完了すれば、作業は一応完了<blog:footnote id="footnote-file-permission">
+			コピーが完了すれば、作業は一応完了<eh:footnote id="footnote-file-permission">
 				当然といえば当然ながら、<code class="filepath">d3d9.dll</code>とかは上書きしたユーザが所有者っぽい感じになるのだが、元通りTrustedInstallerユーザの所有に直すにはどうすればいいのかよくわからなかった。
 				まあセキュリティ的にはマズいかもしれないが、仮想マシンだしエロゲ動くようになったし、ひとまず放置することにする。
-			</blog:footnote>だ。
+			</eh:footnote>だ。
 			念のため再起動してからDirectXインストーラをもう一度くらい起動するのもアリだろう。
 			何か効果があるのかは知らないが。
 		</p>
-	</blog:section>
+	</eh:section>
 
-	<blog:section id="result">
-		<blog:title>結果</blog:title>
+	<eh:section id="result">
+		<eh:title>結果</eh:title>
 		<ul>
 			<li>
 				ものべのをはじめとする各ゲームの<a href="../../15/erg-install-battle#fig-monobeno-dx9-error">起動時のエラー</a>は出なくなった
@@ -228,6 +228,6 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 				<figcaption>まいてつ起動成功</figcaption>
 			</figure>
 		</div>
-	</blog:section>
-</blog:section>
-</blog:article>
+	</eh:section>
+</eh:section>
+</eh:article>

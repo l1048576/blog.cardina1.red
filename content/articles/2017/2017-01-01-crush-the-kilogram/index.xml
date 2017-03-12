@@ -10,25 +10,25 @@ kind: article
 excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の真なる光明で人類を照らせ"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
-<blog:section id="new-years-resolution">
-	<blog:title>今年の目標</blog:title>
+<eh:section id="new-years-resolution">
+	<eh:title>今年の目標</eh:title>
 	<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">あぁ＾〜同時多発テロでキログラム原器のレプリカと本家を全て破壊して人類の文明を破滅させたいんじゃぁ＾〜</p>&#x2014; ㉅㊛のルートノード㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/814818732962770945">2016年12月30日</a></blockquote>
-</blog:section>
+</eh:section>
 
 <aside class="important">
-	<blog:title>この記事は犯罪予告ではない</blog:title>
+	<eh:title>この記事は犯罪予告ではない</eh:title>
 	<p>
 		テロの教唆でもないです。
 		通報しないで。
 	</p>
 </aside>
 
-<blog:section id="si">
-	<blog:title>国際単位系</blog:title>
+<eh:section id="si">
+	<eh:title>国際単位系</eh:title>
 	<p>
 		<strong>国際単位系</strong>、略称<strong>SI</strong>というものがある。
 		度量衡、物理単位を定めた国際規格のようなものである。
@@ -39,30 +39,30 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 		SI基本単位を用いると、たとえばWikipediaの例にあるように、ワット(W)は kg·m<sup>2</sup>·s<sup>-3</sup> 、ヘルツ(Hz)は s<sup>-1</sup> と表現されるが、この調子で全ての物理単位を表現できるということである。
 	</p>
 
-	<blog:section id="si--definition-of-base-units">
-		<blog:title>SI基本単位の定義</blog:title>
+	<eh:section id="si--definition-of-base-units">
+		<eh:title>SI基本単位の定義</eh:title>
 		<p>
 			さて、かつてメートルやキログラム等の単位が定められたとき、水であったり地球であったりといった自然のものを活用して定義が行われた。
 			王様の足やら古代人の食べるパンの量やらといった、ローカルで再現性の欠片もないような単位から離脱したわけである。
 		</p>
 
 		<aside class="note">
-			<blog:title>野蛮な単位とマシな単位</blog:title>
+			<eh:title>野蛮な単位とマシな単位</eh:title>
 			<p>
 				単位が地域によって違うと面倒なので世界で統一された単位を使おう、というのが18世紀末の動向で、メートル法の始まりである。
 				既に200年以上前の人々が、ヤードポンド法のような、権力者の身体等を基準に定義される野蛮な単位から脱しようとしていたのだ。
-				現代ではヤードもポンドもオンスも、SI単位を用いて再定義されている<blog:footnote id="multiple-miles">
+				現代ではヤードもポンドもオンスも、SI単位を用いて再定義されている<eh:footnote id="multiple-miles">
 					<a href="https://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%A4%E3%83%AB">マイル</a>など、メートルで定義されてなお統一されない単位もある。
 					国際マイル、測量マイル、法定マイル、国際<ruby>海里<rp>(</rp><rt>ノーティカルマイル</rt><rp>)</rp></ruby>……。
 					そこまでしてローカル単位を使いたい奴ら、中世から生き続けるゾンビか何かか？
-				</blog:footnote>。
+				</eh:footnote>。
 			</p>
 			<p>
-				さて現代ではどうかといえば、流れに逆らい相も変わらずフィートを使う某業界やらオンスを使う某国(地域？)やら、惰性か利権か知らないが野蛮人は沢山残っている<blog:footnote id="inch-in-japan">
+				さて現代ではどうかといえば、流れに逆らい相も変わらずフィートを使う某業界やらオンスを使う某国(地域？)やら、惰性か利権か知らないが野蛮人は沢山残っている<eh:footnote id="inch-in-japan">
 					たとえばディスプレイの「15型」は対角線の長さが 15 inch ということである。
 					日本では計量法でインチを商品スペックとして使ってはいけないので、「型」などという接尾辞で誤魔化しているのだ。
 					同様に土地の面積の「坪」などもアウトなので、これも平方メートルに併記してあるという言い訳で誤魔化されている。
-				</blog:footnote>。
+				</eh:footnote>。
 				<a href="http://www.sydrose.com/case100/287/">人工衛星を落としても</a>まだ統一された単位の重要性を学習しないのだろうか。
 			</p>
 			<p>
@@ -81,15 +81,15 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 		</p>
 		<p>
 			しかし、そんな現代でも、まだ物理単位が遍く再現性の光に照らされているというわけではない。
-			科学の祝福を受けていない単位、それは<strong>キログラム</strong>だ<blog:footnote id="barbarous-si-base-units">
+			科学の祝福を受けていない単位、それは<strong>キログラム</strong>だ<eh:footnote id="barbarous-si-base-units">
 				実際には、物質量(mol)、アンペア(A)、カンデラ(cd)もキログラムに依存しているため、これらの再現性はキログラムのそれに依る
-			</blog:footnote>。
+			</eh:footnote>。
 		</p>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
-<blog:section id="ipk">
-	<blog:title>国際キログラム原器</blog:title>
+<eh:section id="ipk">
+	<eh:title>国際キログラム原器</eh:title>
 	<p>
 		キログラムの定義は、2016年12月31日現在、「<strong>国際キログラム原器の質量</strong>」である。
 		ということは、キログラム原器の質量が変われば、定義よりキログラムの大きさも変わってしまうということになる。
@@ -112,10 +112,10 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 		これを正確な軽量をしたいからと頻繁に持ち出したり移動しては、汚れの付着や破損のおそれなどがあるから、そのようなことは怖くてできない。
 		そこで、国際キログラム原器はいくつもの複製が作られ、日本を含めた世界各国へ配布されている。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="redifining-kilogram">
-	<blog:title>キログラムの再定義</blog:title>
+<eh:section id="redifining-kilogram">
+	<eh:title>キログラムの再定義</eh:title>
 	<p>
 		こんな状況では良くないということで、キログラムも(他のSI基本単位と同じように)再現性のある物理現象で定義しなおそうという話がある。
 		<a href="https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%A9%E3%83%B3%E3%82%AF%E5%AE%9A%E6%95%B0">プランク定数</a>(単位 J・s = s<sup>-1</sup>・m<sup>2</sup>・kg)を用いて、既に良い形で定義された <a href="https://ja.wikipedia.org/wiki/%E6%96%B0%E3%81%97%E3%81%84SI%E3%81%AE%E5%AE%9A%E7%BE%A9#.E3.82.AD.E3.83.AD.E3.82.B0.E3.83.A9.E3.83.A0">m と s を用いて再定義を行う方法</a>や、 <a href="http://natgeo.nikkeibp.co.jp/atcl/news/15/a/072100020/">Si 原子の結晶を作って個数を精密に調整・計算することで重さを再定義する方法</a>などがあるらしい。
@@ -124,16 +124,16 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 	<p>
 		ともあれ、今のところはまだ国際キログラム原器がキログラムの定義である。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="wanna-crush-ipk">
-	<blog:title>国際キログラム原器を破壊したい</blog:title>
+<eh:section id="wanna-crush-ipk">
+	<eh:title>国際キログラム原器を破壊したい</eh:title>
 	<p>
 		さて、このように非常に重要なキログラム原器(とそのレプリカ)を全て破壊すれば、キログラムに依存する分野の科学や工業に復元困難な大ダメージを与えることができるのではなかろうか。
 		<strong><strong>キログラム原器同時破壊テロ</strong>の機運が高まっている</strong>。
-		キログラムが再現性の高い形で再定義されてしまう前、<strong>今がラストチャンス</strong>だ<blog:footnote id="the-last-chance">
+		キログラムが再現性の高い形で再定義されてしまう前、<strong>今がラストチャンス</strong>だ<eh:footnote id="the-last-chance">
 			問題なく事が進めば、2018年の第26回国際度量衡総会(CGPM)で定義が改訂されるらしいので、残り1年しか余裕がない
-		</blog:footnote>。
+		</eh:footnote>。
 	</p>
 	<p>
 		何故キログラム原器の破壊が重要かといえば、これが科学と工業を壊滅させるための単純で根本的かつ効率の良い方法だからである。
@@ -154,10 +154,10 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 	<p>
 		きっと成功の暁には(もしかすると失敗しても)、文明への反逆者としてその名を科学史に残せるに違いない。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="how-it-would-be-in-real">
-	<blog:title>実際どうなの</blog:title>
+<eh:section id="how-it-would-be-in-real">
+	<eh:title>実際どうなの</eh:title>
 	<p>
 		大ダメージとはいうが、実際文明への影響はどうなのだろうか。
 	</p>
@@ -187,20 +187,20 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 		どうなるのか、気になるところだ。
 		実際に破壊してみればわかることだが。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="sci-fi">
-	<blog:title>そんなSFが読みたい</blog:title>
+<eh:section id="sci-fi">
+	<eh:title>そんなSFが読みたい</eh:title>
 	<p>
 		<strong><a href="#natural-units">自然単位系</a>原理主義者</strong>とか、僅かな測量の誤差で人生を狂わされた人とか、人類の愚かさに絶望した人とか、そんな感じの主人公がキログラム原器同時破壊テロを起こして社会を大混乱に陥れる、そんなSFが読みたい。
 	</p>
 	<p>
 		<small>や、実際に誰かがやってくれてもいいが、さすがに笑っていられなくなるからなあ。</small>
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="natural-units">
-	<blog:title>補足: 自然単位系</blog:title>
+<eh:section id="natural-units">
+	<eh:title>補足: 自然単位系</eh:title>
 	<p>
 		自然単位系というものがある。
 		真空中の光速度や素電荷、陽子や電子の静止質量など、物理定数(値の変化しない物理量)を適当に(単位空間の正規な基底となるように)選択し、(それらの値が1となるようなスケールの)単位系として使おうというものである。
@@ -209,10 +209,10 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 	<p>
 		この単位系には、恣意性の排除意外にも、単位スケールの変換に必要とされる定数が消えることによる<a href="https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%A9%E3%83%B3%E3%82%AF%E5%8D%98%E4%BD%8D%E7%B3%BB">物理学の方程式の単純化</a>というメリットもある。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="references">
-	<blog:title>参考資料</blog:title>
+<eh:section id="references">
+	<eh:title>参考資料</eh:title>
 	<ul>
 		<li>キログラム
 			<ul>
@@ -235,7 +235,7 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 		<li><a href="http://www.sydrose.com/case100/287/">失敗百選-単位系の取り間違いで火星探査機が行方不明</a></li>
 		<li><a href="https://togetter.com/li/1065087">キログラム原器の破壊と次期キログラムの定義についてメモ - Togetterまとめ</a></li>
 	</ul>
-</blog:section>
+</eh:section>
 
 <script async="async" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</blog:article>
+</eh:article>

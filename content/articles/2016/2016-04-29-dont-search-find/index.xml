@@ -10,14 +10,14 @@ kind: article
 excerpt: "ブログにありがちな「タグ」と「カテゴリ」について思うところがあったので書いておく。ついでにこのブログでの実装のことも。"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
-<blog:section id="categories-and-tags">
-	<blog:title>カテゴリとタグ</blog:title>
-	<blog:section id="incovenient-tags-and-categories-feature">
-		<blog:title>不便なカテゴリ機能とタグ機能</blog:title>
+<eh:section id="categories-and-tags">
+	<eh:title>カテゴリとタグ</eh:title>
+	<eh:section id="incovenient-tags-and-categories-feature">
+		<eh:title>不便なカテゴリ機能とタグ機能</eh:title>
 		<p>
 			大抵のブログサービスには「タグ」や「カテゴリ」といった機能がある。
 			(場合によっては「ラベル」とかの名前になっているかもしれない。)
@@ -60,9 +60,9 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 			</table>
 			<figcaption>そもそも別の機能として存在する必要があるのか？</figcaption>
 		</figure>
-	</blog:section>
-	<blog:section id="category-as-path">
-		<blog:title>パス中のカテゴリ</blog:title>
+	</eh:section>
+	<eh:section id="category-as-path">
+		<eh:title>パス中のカテゴリ</eh:title>
 		<p>
 			パス(URLのホスト部以降)にカテゴリを使っているケースはよく見掛けるが、カテゴリを1つに限定するのはそのせいもあるだろう。
 			ひとつの記事に複数のURLを割り当てると、(場合によるが)扱いが面倒だし、なによりユーザが記事の同一性を判定できなくなってしまう。
@@ -72,9 +72,9 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 			そういった理由もあり、このブログではURLにカテゴリやタグなどは一切使わず、日付と記事の名称のみで決定している。<br />
 			そして、その仕様ゆえに、このブログではタグを階層化し複数指定可能にすることで、検索性を向上させた。
 		</p>
-	</blog:section>
-	<blog:section id="things-intended-to-be-represented-with-categories-and-tags">
-		<blog:title>カテゴリとタグが本来表現したかったもの</blog:title>
+	</eh:section>
+	<eh:section id="things-intended-to-be-represented-with-categories-and-tags">
+		<eh:title>カテゴリとタグが本来表現したかったもの</eh:title>
 		<p>
 			では、カテゴリとタグは本来何を表現するのに適しているのか。
 		</p>
@@ -94,9 +94,9 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 		<p>
 			このように考えると、カテゴリは特定の空間の中を、そのカテゴリに関連するテーマで絞り込むもので、タグは異なる空間同士の共通部分を、一方の分類とは関係ない基準で絞り込んで選択するものである、と捉えられる。
 		</p>
-	</blog:section>
-	<blog:section id="usage-of-hierarchical-tags">
-		<blog:title>階層化されたタグの用法</blog:title>
+	</eh:section>
+	<eh:section id="usage-of-hierarchical-tags">
+		<eh:title>階層化されたタグの用法</eh:title>
 		<p>
 			わざわざ書くようなことではないが、タグを記事の集合として扱えばいい。<br />
 			……そんなのは誰だって思い付くことで、本当の問題は集合を指定しておきながら検索として集合演算を実装していないということだ。
@@ -116,16 +116,16 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 			すなわち、<strong>タグ機能を有効に活用するためには、集合演算(最低でもunion, intersection, difference)によるタグ指定の実装は必須</strong>なのである。
 			これらの機能を欠いたタグ機能など、片手落ちだ。
 		</p>
-	</blog:section>
-</blog:section>
-<blog:section id="tags-at-this-blog">
-	<blog:title>このブログでのタグ機能</blog:title>
+	</eh:section>
+</eh:section>
+<eh:section id="tags-at-this-blog">
+	<eh:title>このブログでのタグ機能</eh:title>
 	<p>
 		偉そうに語ったところで、このブログでのタグの実装(2016/04/30時点)がどのようなものか説明する。<br />
 		詳しくは<a href="/tags/search.html">このブログでのタグ検索ページ</a>を見るのが早いだろう。
 	</p>
-	<blog:section id="descrendant-tags">
-		<blog:title>子孫タグ</blog:title>
+	<eh:section id="descrendant-tags">
+		<eh:title>子孫タグ</eh:title>
 		<p>
 			カテゴリや階層化されたタグの親子関係が集合の包含関係にあたることは前述の通りだが、逆に言えば、
 			特定のタグを持つ記事を抽出しようとしたとき、そのタグ(が表現する記事の集合)が包含するタグについても同時に抽出できるのが望ましいということになる。
@@ -137,9 +137,9 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 		<p>
 			名前が長いので縮めた方が良さそうだとは思っているが、良い略が思い浮かばず放置されている。
 		</p>
-	</blog:section>
-	<blog:section id="set-operations-on-tags">
-		<blog:title>タグに対する集合演算</blog:title>
+	</eh:section>
+	<eh:section id="set-operations-on-tags">
+		<eh:title>タグに対する集合演算</eh:title>
 		<p>
 			<a href="/tags/search.html">このブログでのタグ検索</a>では、もちろん差集合を含めて集合演算を実装した。
 			<code>or</code>, <code>and</code>, <code>xor</code>, <code>difference</code>の4つだ。
@@ -152,16 +152,16 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 		<p>
 			これらも割と頻繁に使われそうな気がしないでもないので、略として記号(<code>|</code>とか<code>&amp;</code>とか)を使えるようにするべきかもしれない。
 		</p>
-	</blog:section>
-	<blog:section id="json-query">
-		<blog:title>JSONによる検索クエリ</blog:title>
+	</eh:section>
+	<eh:section id="json-query">
+		<eh:title>JSONによる検索クエリ</eh:title>
 		<p>
 			本当はツリービューのUIとかD&amp;Dとかを用意して、マウスでポチポチ指定できるようにするべきだったのだろうが、検索コードを書いたら力尽きた。
 			べつに私はLISPerというわけではないが、どうせ頭の中で木構造を思い浮かべるのなら、最初から木構造を直接書けるようにしておくのが合理的だろう、と思ったのも特別なUIを用意しなかった理由でもある。
 		</p>
-	</blog:section>
-	<blog:section id="universal-complement">
-		<blog:title>補集合は全体集合にのみ許される</blog:title>
+	</eh:section>
+	<eh:section id="universal-complement">
+		<eh:title>補集合は全体集合にのみ許される</eh:title>
 		<p>
 			この仕様の決定には少々悩んだ。
 			検索クエリをそのまま論理式として読み取れば、NOT演算に相当するものがあってもおかしくないからだ。
@@ -185,14 +185,14 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 			無論、クエリ全体の否定は差集合だけではできない(全体集合が必要である)が、勿論同様の理由で全体集合も通常のクエリとして用意したくなかったので、
 			最後の最後で一度だけ補集合の計算を許すことで、検索クエリの表現力を全く落とさず、計算量を抑え気味の検索ができるようにした。
 		</p>
-	</blog:section>
-	<blog:section id="ecmascript6-set">
-		<blog:title>EcmaScript6のSetクラス</blog:title>
+	</eh:section>
+	<eh:section id="ecmascript6-set">
+		<eh:title>EcmaScript6のSetクラス</eh:title>
 		<p>
 			好都合にも、EcmaScript6からは<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">Setクラス</a>や<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Mapクラス</a>が実装されているため、記事の集合の表現にはこれを用いた。
 			しかし奇妙なことに、集合に対する演算は(unionやintersectionでさえも！)実装されていなかったため、配列を経由してfilterしたり結合して、再びその結果の配列をSetにする、といったよくわからない回り道をすることになった。
 			そのうち標準で実装される日が来るのだろうか……期待したい。
 		</p>
-	</blog:section>
-</blog:section>
-</blog:article>
+	</eh:section>
+</eh:section>
+</eh:article>

@@ -22,7 +22,7 @@ compile '/archive.html' do
 end
 
 compile '/articles/**/*.xml' do
-  filter :larry_xsl, xsl: '/xsl/blog-article-xml.xsl'
+  filter :larry_xsl, xsl: '/xsl/easy-html.xsl'
   filter :colorize_syntax, default_colorizer: :pygmentsrb
   layout '/article.*'
   filter :relativize_paths, type: :html

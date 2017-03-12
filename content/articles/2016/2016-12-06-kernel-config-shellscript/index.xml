@@ -10,23 +10,23 @@ kind: article
 excerpt: "Linux の kernel config を秘伝のタレにしないための小さなシェルスクリプトを書いた"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
 <p>
 	この記事は、 <a href="http://www.adventar.org/calendars/1493">Gentoo Advent Calendar 2016</a> の6日目の記事です。<br />
 	昨日の記事は <a href="http://neotaso.hatenablog.com/entry/2016/12/05/013636">Gentoo on Windows 10 (Gentoo Advent Calender 2016 5日目)</a>でした。
 </p>
 
-<blog:section id="abstract">
-	<blog:title>概要</blog:title>
+<eh:section id="abstract">
+	<eh:title>概要</eh:title>
 	<p>
 		そろそろ普段使いのラップトップが壊れそうなので、別マシンへの移行の準備をしておきたさが高まっています。
-		Windows 8.1 を gentoo で上書きして以来、これまで様々な設定をしてきましたが、 <code class="dirpath">/etc</code> にあるファイルの多くはコピーで済まされる設定ファイル<blog:footnote id="copyable-config-under-etc">
+		Windows 8.1 を gentoo で上書きして以来、これまで様々な設定をしてきましたが、 <code class="dirpath">/etc</code> にあるファイルの多くはコピーで済まされる設定ファイル<eh:footnote id="copyable-config-under-etc">
 			ほんまか？　と思うかもしれませんが、とりあえずインストール先の <code class="dirpath">etc</code> にコピーしておいてから <code>emerge</code> をすれば、後で <a href="https://wiki.gentoo.org/wiki/Dispatch-conf"><code>dispatch-conf</code></a> とかで merge できるので心配はないだろうと思います。
 			たぶん。
-		</blog:footnote>なので、移行にあたってそこまで問題になりません。
+		</eh:footnote>なので、移行にあたってそこまで問題になりません。
 	</p>
 	<p>
 		問題なのは、カーネルの <code class="filepath">.config</code> です。
@@ -48,8 +48,8 @@ excerpt: "Linux の kernel config を秘伝のタレにしないための小さ�
 		</li>
 	</ul>
 
-	<blog:section id="abstract-target-readers">
-		<blog:title>対象読者</blog:title>
+	<eh:section id="abstract-target-readers">
+		<eh:title>対象読者</eh:title>
 		<p>
 			大雑把には、既に gentoo を使っていたりカーネルをコンパイルしている人向けです。
 		</p>
@@ -67,11 +67,11 @@ excerpt: "Linux の kernel config を秘伝のタレにしないための小さ�
 		<p>
 			残念ながら gentoo の布教記事ではございません。
 		</p>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
-<blog:section id="merge_config_sh">
-	<blog:title><code>merge_config.sh</code></blog:title>
+<eh:section id="merge_config_sh">
+	<eh:title><code>merge_config.sh</code></eh:title>
 	<p>
 		……と思って作ろうとしていましたが、よくよく調べてみると、 Linux カーネルのソース(gentoo であれば <code class="dirpath">/usr/src/linux</code> など)の <code class="filepath">scripts/kconfig/merge_config.sh</code> に、かなり近い目的のものがありました。
 		中身を読んでみると、ファイル名のとおり、設定ファイルとして有効なファイル同士の merge 用途のものであり、コメントやインデント、省略記法などは使えないようです。
@@ -95,10 +95,10 @@ excerpt: "Linux の kernel config を秘伝のタレにしないための小さ�
 			<code>CONFIG_</code> のプレフィックスを省略できる
 		</li>
 	</ul>
-</blog:section>
+</eh:section>
 
-<blog:section id="product">
-	<blog:title>成果物</blog:title>
+<eh:section id="product">
+	<eh:title>成果物</eh:title>
 	<figure id="code-genconfig_sh">
 		<pre><code class="lang-sh language-sh" data-lang="sh">
 #!/bin/sh
@@ -134,8 +134,8 @@ rm "${CONFFILE_TEMP}"
 		というか実質 <code>sed</code> スクリプト。
 	</p>
 
-	<blog:section id="usage">
-		<blog:title>つかいかた</blog:title>
+	<eh:section id="usage">
+		<eh:title>つかいかた</eh:title>
 		<ol>
 			<li>
 				スクリプトを保存して x フラグを立てる
@@ -150,20 +150,20 @@ rm "${CONFFILE_TEMP}"
 				カーネルコンパイル。
 				私の場合:
 				<code>sudo genkernel --makeopts="-j4" --splash --no-clean --oldconfig all</code>
-				<blog:footnote id="genkernel">
+				<eh:footnote id="genkernel">
 					私はゆとりなので <code>sys-kernel/genkernel-next</code> を使っています。
 					ちなみに <a href="https://wiki.gentoo.org/wiki/Genkernel/ja">gentoo wiki の当該項目のページ</a>では <code>sys-kernel/genkernel</code> を紹介していますが、このパッケージは古く <a href="https://gitweb.gentoo.org/repo/gentoo.git/diff/profiles/targets/systemd/package.mask?id=56bd759df1d0c750a065b8c845e93d5dfa6b549d">systemd と互換性がないらしい</a>ので、 next の方を使ってください。
-				</blog:footnote>
+				</eh:footnote>
 			</li>
 		</ol>
 		<p>
 			ソースコードのディレクトリはデフォルトで <code class="dirpath">/usr/src/linux</code> ですが、 <code>SRC_DIR=/path/to/linux/source ./genconfig.sh</code> のようにすれば別の場所を使うことができます。
 			そのディレクトリのパーミッションによっては、 <code>sudo</code> は必要ないかもしれません。
 		</p>
-	</blog:section>
+	</eh:section>
 
-	<blog:section id="config-content">
-		<blog:title><code>config</code> ファイルの内容</blog:title>
+	<eh:section id="config-content">
+		<eh:title><code>config</code> ファイルの内容</eh:title>
 		<p>
 			文法はシンプルです。
 		</p>
@@ -244,7 +244,7 @@ rm "${CONFFILE_TEMP}"
 			私は面倒だったので使いませんでしたが、 vim などであれば fold marker を使って折り畳みできるようにすれば、より読み易くなるかもしれません。
 		</p>
 		<aside id="how-to-get-config-description" class="note">
-			<blog:title>config の項目の説明</blog:title>
+			<eh:title>config の項目の説明</eh:title>
 			<p>
 				<code>find /usr/src/linux/ -name 'Kconfig*' | xargs grep --color=always -h -A 1 'config 'FOO</code> とかで検索すると、項目の <a href="https://www.kernel.org/doc/Documentation/kbuild/kconfig-language.txt">Kconfig</a> を探すことができるので、説明文を引っ張ってくるのに活用できます。
 			</p>
@@ -273,22 +273,22 @@ $
 				たまに複数マッチしたり説明文が入ってこない場合がありますが、その場合 <code>-H</code> でファイル名を表示させたり、 <code>-A 2</code> 等で後ろの行をより多く表示させたりすることでどうにかできます。
 			</p>
 		</aside>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
-<blog:section id="explanation">
-	<blog:title>解説</blog:title>
+<eh:section id="explanation">
+	<eh:title>解説</eh:title>
 
-	<blog:section id="explanation-merge_config_sh">
-		<blog:title><code>merge_config.sh</code></blog:title>
+	<eh:section id="explanation-merge_config_sh">
+		<eh:title><code>merge_config.sh</code></eh:title>
 		<p>
 			先述の通りですが、大雑把に言うと、既に <code>.config</code> として使えるファイルを複数指定すると、それらを merge して、ついでに<strong>指定されなかった項目を自動でよろしく設定してくれる</strong>ものです。
 		</p>
 		<p>
-			そして、私のスクリプトがあてにしている、自動でよろしく設定する部分は、シェルスクリプトではなく make によって行われます<blog:footnote id="config-auto-filling">
+			そして、私のスクリプトがあてにしている、自動でよろしく設定する部分は、シェルスクリプトではなく make によって行われます<eh:footnote id="config-auto-filling">
 				Linux カーネルのツール群は、 make に必要なプログラムもまた必要に応じてコンパイルするものが多いので、たぶん <a href="https://www.kernel.org/doc/Documentation/kbuild/kconfig-language.txt">Kconfig</a> を解釈する部分はCのコード使ってるんじゃないかなぁと思います。
 				読んで確認してないので知りませんが。
-			</blog:footnote>。
+			</eh:footnote>。
 		</p>
 		<figure id="code-merge_config_sh">
 			<pre><code class="lang-sh language-sh" data-lang="sh">
@@ -302,10 +302,10 @@ make KCONFIG_ALLCONFIG=$TMP_FILE $OUTPUT_ARG $ALLTARGET
 		<p>
 			<code>$ALLTARGET</code> は、デフォルトでは <code>alldefconfig</code> ですが、 <code>-n</code> オプションを付けて <code>merge_config.sh</code> を起動すると <code>allnoconfig</code> となります。
 		</p>
-	</blog:section>
+	</eh:section>
 
-	<blog:section id="explanation-make-alldefconfig">
-		<blog:title><code>make alldefconfig</code></blog:title>
+	<eh:section id="explanation-make-alldefconfig">
+		<eh:title><code>make alldefconfig</code></eh:title>
 		<p>
 			名前そのままですが、 <code>alldefconfig</code> は、与えられた config において未指定の項目に、<strong>デフォルト値</strong>を設定します。
 			同様に <code>allnoconfig</code> は、与えられた config において未指定の項目のすべてに、 <strong><code>n</code> (no)</strong> を設定します。
@@ -363,7 +363,7 @@ Configuration targets:
 			<figcaption><code class="filepath">genconfig.sh</code> の該当行をこのように変更する</figcaption>
 		</figure>
 		<aside id="merge_config_sh-option" class="tip">
-			<blog:title><code>merge_config.sh</code> のオプション</blog:title>
+			<eh:title><code>merge_config.sh</code> のオプション</eh:title>
 			<p>
 				<code>-r</code> と <code>-n</code> を合わせて <code>-rn</code> とかはできないので注意してください。
 			</p>
@@ -381,7 +381,7 @@ while true; do
 			</figure>
 		</aside>
 		<aside id="allnoconfig-is-inconvenient" class="note">
-			<blog:title><code>allnoconfig</code> は不便</blog:title>
+			<eh:title><code>allnoconfig</code> は不便</eh:title>
 			<p>
 				常識的にこれは必要でしょ、というオプションでさえ、網羅して明示的に列挙しないと無効になります。
 				カーネルサイズをとにかく小さくするエクストリームスポーツとか、<a href="https://cpplover.blogspot.jp/2013/10/gentoo.html">起動を爆速にするエクストリームスポーツ</a>とかでなければ、普通に使うことはないかと思います。
@@ -390,11 +390,11 @@ while true; do
 				素直に <code>alldefconfig</code> を使って、必要ないものは <code>FOO=n</code> で明示的に無効にしてやるのが良いでしょう。
 			</p>
 		</aside>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
-<blog:section id="conclusion">
-	<blog:title>まとめ</blog:title>
+<eh:section id="conclusion">
+	<eh:title>まとめ</eh:title>
 	<ul>
 		<li>
 			カーネルコンフィグ管理を手助けする簡単なスクリプトを書いた
@@ -418,24 +418,24 @@ while true; do
 			gentoo AdC なのにごめんなさい。
 		</li>
 	</ul>
-</blog:section>
+</eh:section>
 
-<blog:section id="omake">
-	<blog:title>おまけ</blog:title>
-	<blog:section id="omake-portage-summary-log">
-		<blog:title>portage のログ</blog:title>
+<eh:section id="omake">
+	<eh:title>おまけ</eh:title>
+	<eh:section id="omake-portage-summary-log">
+		<eh:title>portage のログ</eh:title>
 		<aside class="tip ins">
-			<blog:title>追記 (2016-12-06T00:20:25+0900)</blog:title>
+			<eh:title>追記 (2016-12-06T00:20:25+0900)</eh:title>
 			<p>
 				もっと良い方法がありました。
-				<blog:xref linkend="omake-postscript1-kernel_config_check_py">追記1</blog:xref>を参照。
+				<eh:xref linkend="omake-postscript1-kernel_config_check_py">追記1</eh:xref>を参照。
 			</p>
 		</aside>
 		<p>
 			<code class="filepath">/var/log/portage/elog/summary.log</code> に、過去 portage で emerge されたパッケージのメッセージが記録されています。
-			これを見て検索をかければ、どのパッケージがどのような設定を要求しているか、ある程度<blog:footnote id="portage-elog-summary-log">
+			これを見て検索をかければ、どのパッケージがどのような設定を要求しているか、ある程度<eh:footnote id="portage-elog-summary-log">
 				カーネルオプションについては、 emerge 時に満たされていなかった条件だけがメッセージに出力されるため、必要な条件のすべてを確認するには、各パッケージの ebuild を確認する必要がある。
-			</blog:footnote>わかるでしょう。
+			</eh:footnote>わかるでしょう。
 		</p>
 		<p>
 			vim で見易いよう、簡単な syntax を用意しておきました。
@@ -492,10 +492,10 @@ let b:current_syntax = "portage-summary-log"
 			</figure>
 			<figcaption>適当なところに置いて使ってくださいな</figcaption>
 		</figure>
-	</blog:section>
+	</eh:section>
 
-	<blog:section id="omake-next-features">
-		<blog:title>次に欲しい機能</blog:title>
+	<eh:section id="omake-next-features">
+		<eh:title>次に欲しい機能</eh:title>
 		<p>
 			現状でそこそこ満足なので、今のところこれ以上リソースを注ぐつもりはありませんが、改良点があるとしたら以下の点です。
 		</p>
@@ -522,10 +522,10 @@ let b:current_syntax = "portage-summary-log"
 				</p>
 			</dd>
 		</dl>
-	</blog:section>
+	</eh:section>
 
-	<blog:section id="omake-postscript1-kernel_config_check_py">
-		<blog:title>追記1 (2016/12/06 00:12): <code>kernel-config-check.py</code></blog:title>
+	<eh:section id="omake-postscript1-kernel_config_check_py">
+		<eh:title>追記1 (2016/12/06 00:12): <code>kernel-config-check.py</code></eh:title>
 		<blockquote class="twitter-tweet" data-cards="hidden" data-lang="ja"><p lang="ja" dir="ltr">kernel config checkには kernel-config-check.py とか / “kernel config 生成(略記)のためのシェルスクリプト - 何とは言わない天然水飲みたさ” <a href="https://t.co/7X7AE3sXKx">https://t.co/7X7AE3sXKx</a></p>&#2014; このGentooの片隅に (@naota344) <a href="https://twitter.com/naota344/status/805790701610905600">2016年12月5日</a></blockquote>
 		<p>
 			<a href="https://gist.github.com/mrueg/cd19a20d2e712f61d2ea"><code class="filepath">kernel-config-check.py</code></a> というものを公開している方がいらっしゃるようで、これを使うと、インストール済のパッケージが要求するカーネルオプションを網羅できるようです。
@@ -539,8 +539,8 @@ let b:current_syntax = "portage-summary-log"
 				<a href="https://gist.github.com/mrueg/cd19a20d2e712f61d2ea"><code class="filepath">kernel-config-check.py</code></a>
 			</figcaption>
 		</figure>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
 <script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-</blog:article>
+</eh:article>

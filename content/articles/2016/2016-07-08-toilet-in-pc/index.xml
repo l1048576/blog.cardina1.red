@@ -9,12 +9,12 @@ kind: article
 excerpt: "コンピュータにもトイレは必要だし、リビングでウンコをするのは間違っている。"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
-<blog:section id="live-along-with-shit">
-	<blog:title>ウンコとともに生きる</blog:title>
+<eh:section id="live-along-with-shit">
+	<eh:title>ウンコとともに生きる</eh:title>
 	<p>
 		人間はウンコをする。<br />
 		極めて多くの生物がウンコをする。<br />
@@ -22,8 +22,8 @@ excerpt: "コンピュータにもトイレは必要だし、リビングでウ�
 		リビングでウンコをしないのである。
 	</p>
 
-	<blog:section id="shit-called-windows">
-		<blog:title>Windowsというウンコ</blog:title>
+	<eh:section id="shit-called-windows">
+		<eh:title>Windowsというウンコ</eh:title>
 		<p>
 			さて、世の中にはWindowsというウンコが満ちているが、今すぐにWindowsを社会からなくすことは不可能だろう——人間がウンコをしないで生きられないのと同じように。<br />
 			しかし驚くべきことに、リビングでウンコをする人はいないのに、Windowsとかいうウンコの上でコンピュータを使うすべての作業を行おうとする人が多数いるのである。
@@ -34,18 +34,18 @@ excerpt: "コンピュータにもトイレは必要だし、リビングでウ�
 			Windowsというウンコは、当然トイレで扱うべきである。<br />
 			PCにおけるトイレ、隔離された空間とは、すなわち<strong>仮想環境</strong>である。
 		</p>
-	</blog:section>
+	</eh:section>
 
-	<blog:section id="virtual-environment">
-		<blog:title>仮想環境</blog:title>
+	<eh:section id="virtual-environment">
+		<eh:title>仮想環境</eh:title>
 		<p>
 			仮想環境とは、親の(大抵はコンピュータ上で直接動いている)環境から隔離された、仮想的なコンピュータやOSのこと、またそれらを動かすためのソフトウェアのことである。<br />
 			喩えて言うなら、この世界を親環境とすれば、夢の中や創作などが仮想環境である。
 			夢の中でいくらウンコをしようと、現実世界は臭くならない。
-			(尤も、夢の中でウンコをしたと思ったら現実でも漏らしていることはあるが、これは<strong>脆弱性</strong><blog:footnote id="footnote-vulnerability">
+			(尤も、夢の中でウンコをしたと思ったら現実でも漏らしていることはあるが、これは<strong>脆弱性</strong><eh:footnote id="footnote-vulnerability">
 				実際の(というかコンピュータ上の)仮想環境でも同じようなことはあって、本来隔離されていて親環境には影響のないはずの行動が、親環境に影響を与えてしまうことがある。
 				これを悪用されると、せっかく隔離したウンコの臭いが外に漏れ出して大変なことになってしまう。
-			</blog:footnote>である。)
+			</eh:footnote>である。)
 		</p>
 		<p>
 			仮想環境の典型例は<strong>仮想マシン</strong>である。
@@ -55,29 +55,29 @@ excerpt: "コンピュータにもトイレは必要だし、リビングでウ�
 		</p>
 		<p>
 			この制約によって、危険なプログラムやデータ、あまりに巨大で環境を汚すようなソフトウェア等を隔離して、他への影響を与えないようにできる。<br />
-			これが役に立つのは、典型的にはコンピュータウイルス感染やサイバー攻撃<blog:footnote id="footnote-usage-of-virtual-environment-1">
+			これが役に立つのは、典型的にはコンピュータウイルス感染やサイバー攻撃<eh:footnote id="footnote-usage-of-virtual-environment-1">
 				たとえばWebサービス等の動くサーバは、様々な攻撃のリスクに晒されている。
 				外部に露出するサービスを仮想環境上で動かしていれば、もし攻撃に負けてマシンを乗っ取られても親の環境には影響がなく、汚染された仮想環境を破棄して作り直せば済むので、仮想環境はそういった用途でよく活用されている。
 				(サーバ用途でよく使われるものとして、<a href="https://www.docker.com/">Docker</a>などが有名だ。)
-			</blog:footnote>、データやシステム破壊等のリスクがある場合である<blog:footnote id="footnote-usage-of-virtual-environment-2">
+			</eh:footnote>、データやシステム破壊等のリスクがある場合である<eh:footnote id="footnote-usage-of-virtual-environment-2">
 				アプリケーションやOSの開発などにも使われることがある。
 				もしバグなどでシステムやデータを破壊するような事態が発生してしまっても、隔離された環境であれば親環境へ悪影響を及ぼさずに済むからだ。
 				この特徴を活用して、コンピュータウイルスの解析などにも仮想環境は使われている。
-			</blog:footnote>。
+			</eh:footnote>。
 		</p>
 		<p>
 			さて、Windowsはウンコであるし、使っていればいろいろな良くない臭いが漏れ出してくる。
 			その不快な臭いのなかで生活するのは健康的だとは言い難い。<br />
 			<strong>ウンコはトイレという隔離空間でするべきだし、Windowsは仮想環境という隔離空間で動かすべきである</strong>。
 		</p>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
-<blog:section id="isolate-shit">
-	<blog:title>ウンコを隔離する</blog:title>
+<eh:section id="isolate-shit">
+	<eh:title>ウンコを隔離する</eh:title>
 
-	<blog:section id="middle-ages-of-it-era">
-		<blog:title>IT時代の中世</blog:title>
+	<eh:section id="middle-ages-of-it-era">
+		<eh:title>IT時代の中世</eh:title>
 		<p>
 			ネット小説でよく見掛ける「中世ヨーロッパ」という表現であるが、この時代の人々はウンコを窓から道端に捨てていたという。<br />
 			或いは中国などでも、北京五輪までは屋外のどこでも用を足していたらしい。
@@ -90,10 +90,10 @@ excerpt: "コンピュータにもトイレは必要だし、リビングでウ�
 		<p>
 			そう、我々がIT社会において現代人として生きるためには、コンピュータにもトイレが不可欠なのである。
 		</p>
-	</blog:section>
+	</eh:section>
 
-	<blog:section id="dual-boot">
-		<blog:title>デュアルブート</blog:title>
+	<eh:section id="dual-boot">
+		<eh:title>デュアルブート</eh:title>
 		<p>
 			WindowsとLinux、あるいはWindowsとMac等をデュアルブートで利用する人々もいる。<br />
 			デュアルブートであれば、たしかに非Windows環境を使っているときにWindowsの臭いが漏れ出してくることはほとんどないだろう。
@@ -111,15 +111,15 @@ excerpt: "コンピュータにもトイレは必要だし、リビングでウ�
 		<p>
 			デュアルブートを検討するなら、あなたが<strong>本当にリビングと同じ広さのトイレを必要としているのか</strong>、よく考えるべきだ。
 		</p>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
-<blog:section id="conclusion">
-	<blog:title>まとめ</blog:title>
+<eh:section id="conclusion">
+	<eh:title>まとめ</eh:title>
 	<p>
 		現代人はトイレでウンコをする。<strong>リビングでウンコをしない</strong>。<br />
 		<strong>Windowsはウンコ</strong>である。<br />
 		よって、<strong>Windowsは<ruby>トイレ<rp>《</rp><rt>仮想環境</rt><rp>》</rp></ruby>へと隔離されるべき</strong>である。
 	</p>
-</blog:section>
-</blog:article>
+</eh:section>
+</eh:article>

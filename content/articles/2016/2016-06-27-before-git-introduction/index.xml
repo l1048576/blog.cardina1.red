@@ -10,12 +10,12 @@ kind: article
 excerpt: "実際にgitを使ってみる前に知っておきたい概念とかを連ねてみる。"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
-<blog:section id="article-introduction">
-	<blog:title>はじめに</blog:title>
+<eh:section id="article-introduction">
+	<eh:title>はじめに</eh:title>
 	<p>
 		git入門記事が巷に(というか主にwebに)満ち溢れる時代である。
 		で、私は「git使ってみよう！ほら簡単でしょ！」方式の入門記事を見る度に、「ブラックボックスっぽいなぁ」と思うわけである。
@@ -31,10 +31,10 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 	<p>
 		それから、GitHubとgitは全く別の概念なので、<strong>一旦GitHubのことは忘れること</strong>。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="glossary">
-	<blog:title>用語集</blog:title>
+<eh:section id="glossary">
+	<eh:title>用語集</eh:title>
 	<dl>
 		<dt id="noun-repository">
 			reposiotry, リポジトリ [名詞]
@@ -65,12 +65,12 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 				たとえばバックアップのために、プロジェクトのディレクトリをコピーしてzipで保存した(<code class="filepath">hoge_project_20160627.zip</code>)としよう。
 				概念としては、<strong>このzipファイルが「コミット」だ</strong>。<br />
 				<small>(コミットを、「プロジェクトの(ファイル群の)スナップショットである」という表現をすることもあるが、こちらの方がわかりやすいという人もいるかもしれない。)</small><br />
-				実際には、gitはもっと効率的な形でファイルを保存するため、zipを使わず別の方式でやっている<blog:footnote id="footnote-git-commit-representation">
+				実際には、gitはもっと効率的な形でファイルを保存するため、zipを使わず別の方式でやっている<eh:footnote id="footnote-git-commit-representation">
 					実際の開発においては、変更は多数のファイルの一部だけであったり、大きなファイルのうち一部分だけであったりすることが多い。
 					つまり、共通部分が多いのである。
 					であれば、変化なしのファイルは省略して変化したファイルだけを、また、共通部分は省略して差分だけを保持できれば、サイズの削減が可能である。
 					よってgitでは、zipバックアップのように問答無用で全てのファイルをコピーして取っておくのではなく、必要な情報だけを適宜保存していくようになっている。
-				</blog:footnote>が、本質的には同じことである。
+				</eh:footnote>が、本質的には同じことである。
 			</p>
 			<p>
 				gitリポジトリにおけるコミット全体は、有向(非巡回)グラフを形成する。
@@ -82,15 +82,15 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		</dt>
 		<dd>
 			<p>
-				<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>を作ること。
+				<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を作ること。
 			</p>
 			<p>
-				<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>を「zipで保存されたプロジェクト」で喩えたが、これに合わせて言うなら、コミットするとは「プロジェクトをzipで保存する」行為をいう。
+				<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を「zipで保存されたプロジェクト」で喩えたが、これに合わせて言うなら、コミットするとは「プロジェクトをzipで保存する」行為をいう。
 			</p>
 			<p>
-				では何から<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>を作るかといえば、直観的には「現在のプロジェクト(ファイル群)の状態」(<blog:xref linkend="noun-working-directory">ワーキングディレクトリ</blog:xref>)からである。
-				しかし、実はgitでは間に一段挟んで、ファイルを即座に保存するのではなく、<blog:xref linkend="noun-staging-area">ステージング・エリア</blog:xref>に追加されたファイルを、そこに追加された状態で保存することになっている。<br />
-				詳細は<blog:xref linkend="noun-staging-area">ステージング・エリア</blog:xref>を参照。
+				では何から<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を作るかといえば、直観的には「現在のプロジェクト(ファイル群)の状態」(<eh:xref linkend="noun-working-directory">ワーキングディレクトリ</eh:xref>)からである。
+				しかし、実はgitでは間に一段挟んで、ファイルを即座に保存するのではなく、<eh:xref linkend="noun-staging-area">ステージング・エリア</eh:xref>に追加されたファイルを、そこに追加された状態で保存することになっている。<br />
+				詳細は<eh:xref linkend="noun-staging-area">ステージング・エリア</eh:xref>を参照。
 			</p>
 		</dd>
 
@@ -100,13 +100,13 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		</dt>
 		<dd>
 			<p>
-				<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>を(<blog:xref linkend="noun-working-directory">ワーキングディレクトリ</blog:xref>に)展開し再現すること。
+				<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を(<eh:xref linkend="noun-working-directory">ワーキングディレクトリ</eh:xref>に)展開し再現すること。
 			</p>
 			<p>
-				<blog:xref linkend="verb-commit">コミット[動詞]</blog:xref>を「プロジェクトをコピーしてzipで保存する」ことだと喩えたが、これをなぞるなら、チェックアウトとは「zipを展開してプロジェクトに上書きすることで、別の状態のプロジェクトを再現する」ということである。
+				<eh:xref linkend="verb-commit">コミット[動詞]</eh:xref>を「プロジェクトをコピーしてzipで保存する」ことだと喩えたが、これをなぞるなら、チェックアウトとは「zipを展開してプロジェクトに上書きすることで、別の状態のプロジェクトを再現する」ということである。
 			</p>
 			<p>
-				<blog:xref linkend="noun-branch">ブランチ</blog:xref>をチェックアウトするというのは、ブランチが実際にはひとつのコミットを指すポインタのようなものであるから、「ブランチで指されたコミットをチェックアウトする」という意味である。
+				<eh:xref linkend="noun-branch">ブランチ</eh:xref>をチェックアウトするというのは、ブランチが実際にはひとつのコミットを指すポインタのようなものであるから、「ブランチで指されたコミットをチェックアウトする」という意味である。
 			</p>
 		</dd>
 
@@ -129,7 +129,7 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		<dd>
 			<p>
 				普通の英語で言うと「枝」。<br />
-				gitの文脈では、ブランチはある<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>を指すラベルのようなものであり、また、そのコミットを含む先祖の一連のコミット(つまり、履歴が繋がっている、以前のコミット)を意味する。
+				gitの文脈では、ブランチはある<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を指すラベルのようなものであり、また、そのコミットを含む先祖の一連のコミット(つまり、履歴が繋がっている、以前のコミット)を意味する。
 				詳しくは「git branch commit」とかでGoogleで画像検索した方がわかりやすいだろう。
 			</p>
 		</dd>
@@ -139,7 +139,7 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		</dt>
 		<dd>
 			<p>
-				次の<blog:xref linkend="verb-commit">コミット[動詞]</blog:xref>で作成される<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>に保存されるファイル群(の追加や変更)。
+				次の<eh:xref linkend="verb-commit">コミット[動詞]</eh:xref>で作成される<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>に保存されるファイル群(の追加や変更)。
 			</p>
 			<ul>
 				<li>
@@ -149,12 +149,12 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 							前回のコミットに含まれていたファイルは、staging areaにあるファイルで置き換えられる。
 						</li>
 						<li>
-							前回のコミットに含まれていなかったファイルは、次の<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>から新規追加される。
+							前回のコミットに含まれていなかったファイルは、次の<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>から新規追加される。
 						</li>
 					</ul>
 				</li>
 				<li>
-					staging areaから排除された(<em>unstage</em>された)ファイルは、次の<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>に含まれなくなる。
+					staging areaから排除された(<em>unstage</em>された)ファイルは、次の<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>に含まれなくなる。
 				</li>
 				<li>
 					staging areaに追加されなかったファイルは、前回のコミットでの内容がそのまま引き継がれる。
@@ -173,18 +173,18 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		</dt>
 		<dd>
 			<p>
-				新規ファイルやファイルの変更を次のコミットに含むために、<strong><blog:xref linkend="noun-staging-area">ステージング・エリア</blog:xref>に追加すること</strong>。<br />
+				新規ファイルやファイルの変更を次のコミットに含むために、<strong><eh:xref linkend="noun-staging-area">ステージング・エリア</eh:xref>に追加すること</strong>。<br />
 				逆に、stageされた新規ファイルや変更されたファイルをステージング・エリアから取り除くことを<em>unstage</em>とも言う。
 			</p>
 			<p>
-				たとえば「ブログを管理してるgitリポジトリで、前回の<blog:xref linkend="noun-commit">コミット</blog:xref>の状態から2記事を新しく追加したけど、まず1記事だけ追加した状態の<blog:xref linkend="noun-commit">コミット</blog:xref>を作っておきたい」などのケースは実際よくあることだ。<br />
-				もし現在のファイルの状態からしか<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>を作れないのでは、追加しない方の記事を一度削除して<blog:xref linkend="verb-commit">コミット[動詞]</blog:xref>、という面倒な手順を踏むことになってしまうが、<blog:xref linkend="noun-staging-area">ステージング・エリア</blog:xref>をうまく使ってやることで、<blog:xref linkend="noun-working-directory">ワーキングディレクトリ</blog:xref>を変更することなく部分的に変更を<blog:xref linkend="noun-commit">コミット</blog:xref>に追加することができる。
+				たとえば「ブログを管理してるgitリポジトリで、前回の<eh:xref linkend="noun-commit">コミット</eh:xref>の状態から2記事を新しく追加したけど、まず1記事だけ追加した状態の<eh:xref linkend="noun-commit">コミット</eh:xref>を作っておきたい」などのケースは実際よくあることだ。<br />
+				もし現在のファイルの状態からしか<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を作れないのでは、追加しない方の記事を一度削除して<eh:xref linkend="verb-commit">コミット[動詞]</eh:xref>、という面倒な手順を踏むことになってしまうが、<eh:xref linkend="noun-staging-area">ステージング・エリア</eh:xref>をうまく使ってやることで、<eh:xref linkend="noun-working-directory">ワーキングディレクトリ</eh:xref>を変更することなく部分的に変更を<eh:xref linkend="noun-commit">コミット</eh:xref>に追加することができる。
 			</p>
 			<aside class="note">
-				<blog:title>目的語</blog:title>
+				<eh:title>目的語</eh:title>
 				<p>
-					gitは<blog:xref linkend="noun-diff">差分</blog:xref>ではなく<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>(スナップショット)を保管するという特性から、addとかstageの目的語はふつうファイルになる。
-					しかし実際には、ファイルの変更の一部分のみが行われたものとして<blog:xref linkend="verb-add">stageする</blog:xref>ことも可能なので、「&lt;変更を&gt;add/stageする」という形の用法も見掛ける。
+					gitは<eh:xref linkend="noun-diff">差分</eh:xref>ではなく<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>(スナップショット)を保管するという特性から、addとかstageの目的語はふつうファイルになる。
+					しかし実際には、ファイルの変更の一部分のみが行われたものとして<eh:xref linkend="verb-add">stageする</eh:xref>ことも可能なので、「&lt;変更を&gt;add/stageする」という形の用法も見掛ける。
 				</p>
 			</aside>
 		</dd>
@@ -195,11 +195,11 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		</dt>
 		<dd>
 			<p>
-				グラフの用語で言うなら、<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>や<blog:xref linkend="noun-staging-area">ステージング・エリア</blog:xref>のファイルがノードで、diff(差分)はエッジ(辺)だ。<br />
+				グラフの用語で言うなら、<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>や<eh:xref linkend="noun-staging-area">ステージング・エリア</eh:xref>のファイルがノードで、diff(差分)はエッジ(辺)だ。<br />
 				よって、diffはコミット間以外でも、コミットとステージング・エリア間やステージング・エリアとワーキングディレクトリ間でも考えることができる。
 			</p>
 			<p>
-				diffが何に役立つかというと、<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>間で何がどう変更されたかを確認できたり、またあるdiffを別の<blog:xref linkend="noun-branch">ブランチ</blog:xref>や<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>に適用(rebase/cherrypick)することで、<strong>ある<blog:xref linkend="noun-branch">ブランチ</blog:xref>での変更を別の<blog:xref linkend="noun-branch">ブランチ</blog:xref>へ同様に適用する</strong>ことができる。<br />
+				diffが何に役立つかというと、<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>間で何がどう変更されたかを確認できたり、またあるdiffを別の<eh:xref linkend="noun-branch">ブランチ</eh:xref>や<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>に適用(rebase/cherrypick)することで、<strong>ある<eh:xref linkend="noun-branch">ブランチ</eh:xref>での変更を別の<eh:xref linkend="noun-branch">ブランチ</eh:xref>へ同様に適用する</strong>ことができる。<br />
 				要するに「安定版用のブランチで行われたバグ修正を、不安定版用ブランチにも持ってくる」ということが簡単に可能になる。<br />
 				また、<strong>過去の変更をなかったことにする(revert)</strong>こともできる。
 				(取り消したいdiffの逆の変更を適用すればいい。)
@@ -211,7 +211,7 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		</dt>
 		<dd>
 			<p>
-				ある共通の<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>から分岐した2つのブランチを融合し、新しくひとつの<blog:xref linkend="noun-commit">コミット[名詞]</blog:xref>を作ること。
+				ある共通の<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>から分岐した2つのブランチを融合し、新しくひとつの<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を作ること。
 			</p>
 			<p>
 				共通のファイルはそのまま使用。
@@ -220,12 +220,12 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 			</p>
 		</dd>
 	</dl>
-</blog:section>
+</eh:section>
 
-<blog:section id="commands">
-	<blog:title>コマンド</blog:title>
-	<blog:section id="commands-files">
-		<blog:title>ファイル関連</blog:title>
+<eh:section id="commands">
+	<eh:title>コマンド</eh:title>
+	<eh:section id="commands-files">
+		<eh:title>ファイル関連</eh:title>
 		<dl>
 			<dt>
 				ワーキングディレクトリ→ステージング・エリア
@@ -299,17 +299,17 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		<p>
 			<code>cherry-pick</code>とか<code>rebase</code>はコミットではなくdiff基準で動作しているということに注意。
 		</p>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
-<blog:section id="conclusion">
-	<blog:title>まとめ</blog:title>
+<eh:section id="conclusion">
+	<eh:title>まとめ</eh:title>
 	<p>
 		もう面倒になったので参考文献を見て。
 	</p>
 
-	<blog:section id="reference">
-		<blog:title>参考サイト</blog:title>
+	<eh:section id="reference">
+		<eh:title>参考サイト</eh:title>
 		<dl>
 			<dt>
 				<a href="http://qiita.com/shuntaro_tamura/items/db1aef9cf9d78db50ffe">[git reset (--hard/--soft)]ワーキングツリー、インデックス、HEADを使いこなす方法 - Qiita</a>
@@ -342,6 +342,6 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 				</p>
 			</dd>
 		</dl>
-	</blog:section>
-</blog:section>
-</blog:article>
+	</eh:section>
+</eh:section>
+</eh:article>

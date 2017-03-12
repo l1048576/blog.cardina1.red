@@ -10,12 +10,12 @@ kind: article
 excerpt: "C言語での条件演算子についてちょっと悩んだことがあったのでメモとして簡単なまとめ。"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
-<blog:section id="the-reason-middle-operand-is-not-conditional">
-	<blog:title>条件演算子の中央オペランド(第2オペランド)が<code>conditional-expression</code>でない理由</blog:title>
+<eh:section id="the-reason-middle-operand-is-not-conditional">
+	<eh:title>条件演算子の中央オペランド(第2オペランド)が<code>conditional-expression</code>でない理由</eh:title>
 	<p>
 		C11の規格(N1570)を見ると、条件演算子の文法はP467 (6.5.15)にて、以下のように記されている。
 		(文法はBNFで書き直したので、原文通りではない。)
@@ -63,8 +63,8 @@ expression : assignment-expression
 		(ちなみに、<code>assignment-expression</code>でも代入式は直接使えるようになるが、コンマがparenなしで使えなくなる。)
 	</p>
 
-	<blog:section id="middle-operand-in-cplusplus">
-		<blog:title>C++における中央オペランド(第2オペランド)の文法</blog:title>
+	<eh:section id="middle-operand-in-cplusplus">
+		<eh:title>C++における中央オペランド(第2オペランド)の文法</eh:title>
 		<p>
 			C++14の規格(N3797)においては、条件演算子の文法はCとは若干異なり、以下のように定義されている。
 		</p>
@@ -93,17 +93,17 @@ expression : assignment-expression
 		<p>
 			Cのように第3オペランドが<code>conditional-expression</code>であれば、<code>e = ((a ? b : c) = d);</code>のように解釈され、条件演算子が代入の左辺となる。
 			これはC言語においてはエラーである。
-			(一応、大昔にはこれを可能にするgcc拡張も存在した。<blog:xref linkend="gcc-generalized-lvalue-extension">後述</blog:xref>。)
+			(一応、大昔にはこれを可能にするgcc拡張も存在した。<eh:xref linkend="gcc-generalized-lvalue-extension">後述</eh:xref>。)
 		</p>
 		<p>
 			一方、C++のように第3オペランドが<code>assignment-expression</code>であれば、<code>e = (a ? b : (c = d));</code>のように解釈される。
 			C++特有の機能を使っていないからと言って、拡張子を<code>c</code>に直してしまうとコンパイルが通らなくなる例だ。
 		</p>
-	</blog:section>
-</blog:section>
+	</eh:section>
+</eh:section>
 
-<blog:section id="gcc-generalized-lvalue-extension">
-	<blog:title>条件演算子による式を左辺値として使えるようにするgcc拡張</blog:title>
+<eh:section id="gcc-generalized-lvalue-extension">
+	<eh:title>条件演算子による式を左辺値として使えるようにするgcc拡張</eh:title>
 	<p>
 		私の記憶では、gcc独自拡張によって、C言語でも条件演算子による式を左辺値として使えるはずだったのだが、wandbox(gcc-4.8.2)で試してみたところ、コンパイルが通らなかった。
 	</p>
@@ -137,5 +137,5 @@ expression : assignment-expression
 		どうやら10年以上前に廃止された拡張だったらしい。<br />
 		コンパイラ拡張をできるだけ使わないように生きてきたとはいえ、今日に至るまで全く気付かなかったのは結構ショックだ。
 	</p>
-</blog:section>
-</blog:article>
+</eh:section>
+</eh:article>

@@ -10,16 +10,16 @@ kind: article
 excerpt: "Rustで T: From<U> のとき From<MyStruct<U>> for MyStruct<T> を実装したいが、無理だった。 From や Into を実装する代わりに、 map() メソッドを用意してやることで解決とする。"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
 <p>
 	一応解決済。
 </p>
 
-<blog:section id="abstract">
-	<blog:title>概要</blog:title>
+<eh:section id="abstract">
+	<eh:title>概要</eh:title>
 	<p>
 		Rust (2016-08-23時点でのstableな最新は Rust-1.11.0) で以下のようなことを行いたい。
 		要するに、型パラメータが変換可能なとき、外側の構造体もまた変換可能であるようにしたい。
@@ -122,10 +122,10 @@ p_f64 { 3, 4 }
 		一方、またもや<code>From</code>のreflexivityより、<code>Point&lt;T&gt;</code>に対してcore crateで<code>From&lt;Ponit&lt;T&gt;&gt; for Point&lt;T&gt;</code>が実装される。<br />
 		斯くして<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;T&gt;</code>が二重で実装され、衝突と相成ったわけである。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="solution">
-	<blog:title>とりあえずの解決策</blog:title>
+<eh:section id="solution">
+	<eh:title>とりあえずの解決策</eh:title>
 	<p>
 		<code>map</code>メソッドを定義する。<br />
 		<a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.map"><code>Option::map</code></a>のようなものだ。
@@ -169,5 +169,5 @@ p_f64: Point { x: 3, y: 4 }
 		もしかすると、オーバーロード関連の機能の具合によっては<code>From</code>などで実装できるようになるのかもしれないが、今のところstableでは使えないので、せめてstdにある<code>Option</code>や<code>Result</code>とインターフェースを合わせて実装してしまうことにした。<br />
 		<code>foo.map(|v| v.into())</code>よりも<code>foo.map(Into::into)</code>の方が、2文字短くなるし意図もわかりやすいというのがポイントだ。
 	</p>
-</blog:section>
-</blog:article>
+</eh:section>
+</eh:article>

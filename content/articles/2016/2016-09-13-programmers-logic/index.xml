@@ -10,12 +10,12 @@ kind: article
 excerpt: "プログラマは洗濯物を入れないことがある。"
 ---
 <?xml version="1.0"?>
-<blog:article
+<eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:blog="https://blog.cardina1.red/2017-0307"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
 >
-<blog:section id="event">
-	<blog:title>事象</blog:title>
+<eh:section id="event">
+	<eh:title>事象</eh:title>
 	<p>
 		先週の出来事。
 	</p>
@@ -38,33 +38,33 @@ excerpt: "プログラマは洗濯物を入れないことがある。"
 		理不尽だ。
 		外に出なかった場合の動作は未規定なので実装依存のはずである。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="their-claim">
-	<blog:title>母に味方する主張</blog:title>
+<eh:section id="their-claim">
+	<eh:title>母に味方する主張</eh:title>
 	<p>
 		最適化で命令を単純化すべきである。
 		すなわち、条件分岐をなくし、常に一定のタイミングで洗濯物を入れるよう動作すべきである。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="our-claim">
-	<blog:title>私に味方する主張</blog:title>
+<eh:section id="our-claim">
+	<eh:title>私に味方する主張</eh:title>
 	<p>
 		最適化でパフォーマンスを向上すべきである。
 		すなわち、可能な場合常に洗濯物を入れないべきである。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="lesson">
-	<blog:title>教訓</blog:title>
+<eh:section id="lesson">
+	<eh:title>教訓</eh:title>
 	<p>
 		実装依存の挙動は怖い。
 	</p>
-</blog:section>
+</eh:section>
 
-<blog:section id="references">
-	<blog:title>参考資料</blog:title>
+<eh:section id="references">
+	<eh:title>参考資料</eh:title>
 	<ul>
 		<li>
 			<p>
@@ -78,5 +78,5 @@ excerpt: "プログラマは洗濯物を入れないことがある。"
 			</blockquote>
 		</li>
 	</ul>
-</blog:section>
-</blog:article>
+</eh:section>
+</eh:article>
