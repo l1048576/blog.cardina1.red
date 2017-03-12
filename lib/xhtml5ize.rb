@@ -4,6 +4,11 @@ module Larry
     attr_reader :content
 
     HTML_NS = 'http://www.w3.org/1999/xhtml'
+    HTML_TAGS_TO_OMIT_END = [
+      'base', 'meta', 'link',
+      'br', 'hr', 'img', 'source', 'embed',
+      'param', 'track', 'area', 'col',
+    ]
 
     def initialize(html_mode=false)
       # HTML validation by Nu Html Checker (https://validator.w3.org/nu/)
@@ -32,15 +37,7 @@ module Larry
 
     def is_close_tag_omissible(name, uri)
       if is_html_elem(uri)
-        case name.downcase
-        when 'meta', 'link', 'br', 'hr'
-          # HTML has some tags whose close tag should be omitted.
-          true
-        else
-          # Basically HTML elements (like `a`, `i`, `script`, etc...)
-          # are not allowed to omit close tag.
-          false
-        end
+        HTML_TAGS_TO_OMIT_END.include?(name.downcase)
       else
         # Always true for non-HTML elements.
         true
