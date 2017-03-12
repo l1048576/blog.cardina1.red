@@ -1,0 +1,71 @@
+// $name: Font name.
+// $url: URL without file extension. File extension will be specified by `$exts`.
+// $weight: Weight.
+// $style: Style.
+// $local: Local font name.
+// $exts: File extensions.
+@mixin font-face($name, $url, $weight: null, $style: null, $locals: $name, $exts: woff2 woff) {
+	$src: ();
+	@if $locals {
+		@each $local in $locals {
+			$src: append($src, local(quote($local)), comma);
+		}
+	}
+
+	$formats: (
+		eot: "embedded-opentype",
+		"eot?#iefix": "embedded-opentype",
+		otf: "opentype",
+		svg: "svg",
+		ttf: "truetype",
+		woff: "woff",
+		woff2: "woff2",
+	);
+	@each $ext in $exts {
+		$format: map-get($formats, $ext);
+		$src: append($src, url(quote($url) + '.' + quote($ext)) format(quote($format)), comma);
+	}
+
+	@font-face {
+		font-family: quote($name);
+		font-style: $style;
+		font-weight: $weight;
+		@if index($exts, "eot?#iefix") {
+			src: url(quote($url + ".eot"));
+		}
+		src: $src;
+	}
+}
+
+// $name: Font name.
+// $url-prefix: URL without font weight and file extension.
+// $weights: (weight-number: remote-url-suffix local-font-name-suffix?)*
+// $style: Style.
+// $local: Local font name.
+// $local-prefixes: Local font name prefixes. For example, "Foo" is given as a prefix,
+//                  `local(Foo bold)` or something will be specified as `src`.
+// $exts: File extensions.
+@mixin define-font-face-set($name, $url-prefix, $weights: (), $style: null, $local-prefixes: $name, $exts: woff2 woff) {
+	@each $weight, $weight-names in $weights {
+		$remote-weight: nth($weight-names, 1);
+		$local-weight: $remote-weight;
+		@if length($weight-names) >= 2 {
+			$local-weight: nth($weight-names, 2);
+		}
+		$local-fonts: ();
+		@each $local-prefix in $local-prefixes {
+			$local-fonts: append($local-fonts, $local-prefix + " " + $local-weight, comma);
+		}
+		@include font-face(
+			$name,
+			$url-prefix + $remote-weight,
+			$weight,
+			$style,
+			$local-fonts,
+			$exts);
+	}
+}
+
+@mixin scss-local-scope() {
+	@content;
+}

@@ -1,0 +1,25 @@
+// Noto Sans Japanese (Japanese).
+// Use Google Fonts Early Access.
+// See https://googlefonts.github.io/japanese/#notosansjapanese .
+@include scss-local-scope() {
+	// weights: remote url suffix, local font name suffix (optional)
+	$weights: (
+		100: "Thin",
+		200: "Light",
+		300: "DemiLight",
+		400: "Regular",
+		500: "Medium",
+		700: "Bold",
+		900: "Black",
+	);
+	// Android has local 'Noto Sans CJK JP'.
+	$local-prefixes: "Noto Sans CJK JP" "Noto Sans Japanese";
+
+	@include define-font-face-set(
+		"Noto Sans Japanese",
+		"https://fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-",
+		$weights,
+		normal,
+		$local-prefixes,
+		woff2 woff otf);
+}
