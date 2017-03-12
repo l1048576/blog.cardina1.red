@@ -166,8 +166,6 @@ ul.htags {
 
 
 // Footnote.
-// See https://www.sitepoint.com/accessible-footnotes-css/ .
-
 aside.footnotes {
 	font-size: 80%;
 	margin-bottom: $vertical-unit;
@@ -178,7 +176,8 @@ aside.footnotes {
 		content: " ";
 		margin: $vertical-unit auto;
 	}
-	h1 {
+	>h1, >h2, >h3, >h4, >h5, >h6 {
+		@extend %reset-header-style;
 		margin-top: 0;
 		font-size: 1.8em;
 	}

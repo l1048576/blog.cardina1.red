@@ -36,7 +36,8 @@
 			ancestor::eh:article |
 			ancestor::html:article |
 			ancestor::eh:section |
-			ancestor::html:section)" />
+			ancestor::html:section |
+			ancestor::html:aside)" />
 </xsl:template>
 
 <xsl:template name="header-level">
@@ -44,7 +45,6 @@
 		<xsl:call-template name="section-level" />
 	</xsl:param>
 	<xsl:choose>
-		<xsl:when test="parent::html:aside">1</xsl:when>
 		<xsl:when test="$section_level &lt;= 6"><xsl:value-of select="$section_level" /></xsl:when>
 		<xsl:otherwise>6</xsl:otherwise>
 	</xsl:choose>
@@ -58,7 +58,8 @@
 		</xsl:variable>
 		<xsl:element name="aside">
 			<xsl:attribute name="class">footnotes</xsl:attribute>
-			<xsl:element name="h{$header_level + 1}">
+			<!-- 2 = uncounted `eh:article`(1) + parent `aside` (1) -->
+			<xsl:element name="h{$header_level + 2}">
 				<xsl:attribute name="id">footnote-label</xsl:attribute>
 				<xsl:attribute name="class">footnote-label</xsl:attribute>
 				<xsl:text>脚注</xsl:text>
