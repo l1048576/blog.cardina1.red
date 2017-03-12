@@ -52,7 +52,7 @@ module Larry
       serialized_doc = xml_doc.to_xml(save_with: ::Nokogiri::XML::Node::SaveOptions::new.no_declaration.no_empty_tags)
 
       # Omit close tags which are not allowed in HTML5.
-      serialized_doc.gsub(/><\/(?:meta|link|br)>/, ' />')
+      serialized_doc.gsub(/><\/(?:meta|link|br|hr)>/, ' />')
     end
 
     def replace_cdata(node, doc=node)
