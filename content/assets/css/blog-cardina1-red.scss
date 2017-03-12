@@ -44,7 +44,7 @@ body {
 		.site-title {
 			$title-color: #999;
 			font-size: 1rem;
-			font-weight: bold;
+			font-weight: normal;
 			color: $title-color;
 			margin-top: 0;
 			>a {
@@ -230,7 +230,7 @@ article {
 	body >header {
 		.site-title {
 			font-size: 2rem;
-			font-weight: normal;
+			font-weight: bold;
 		}
 	}
 }
