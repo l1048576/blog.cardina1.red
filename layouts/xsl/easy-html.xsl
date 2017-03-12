@@ -10,7 +10,8 @@
 	exclude-result-prefixes="xsl html mml svg xl eh"
 >
 <!-- set output format -->
-<xsl:output method="html" encoding="utf-8" indent="yes" omit-xml-declaration="yes" />
+<!--<xsl:output method="html" encoding="utf-8" indent="yes" omit-xml-declaration="yes" />-->
+<xsl:output method="xml" encoding="utf-8" indent="yes" omit-xml-declaration="yes" />
 
 
 <xsl:template name="copy-attributes">

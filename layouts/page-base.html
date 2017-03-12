@@ -20,7 +20,7 @@
 	<%- if @next_uri %><link rel="next" href="<%= @next_uri %>" /><% end -%>
 	<%- if excerpt = @item[:excerpt] %><meta name="description" content="<%= h excerpt %>" /><% end -%>
 	<%= render '/part/metadata-for-sns.*' -%>
-	<meta name="generator" content="Nanoc <%= Nanoc::VERSION %>">
+	<meta name="generator" content="Nanoc <%= Nanoc::VERSION %>" />
 	<%= render '/part/google-analytics.*', id: 'UA-81669327-1' -%>
 </head>
 <body>
