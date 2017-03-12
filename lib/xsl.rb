@@ -4,7 +4,7 @@ module Larry
     identifier :larry_xsl
     requires 'nokogiri'
 
-    def run(_content, params = {})
+    def run(content, params = {})
       Nanoc::Extra::JRubyNokogiriWarner.check_and_warn
 
       xsl_path = params[:xsl]
@@ -13,8 +13,9 @@ module Larry
       end
 
       parse_opts = ::Nokogiri::XML::ParseOptions::new.strict.norecover.nonoent
-      xml = ::Nokogiri::XML(assigns[:content], nil, nil, parse_opts)
-      xsl = ::Nokogiri::XSLT(File.open(xsl_path))
+      xml = ::Nokogiri::XML(content, nil, nil, parse_opts)
+      #xsl = ::Nokogiri::XSLT(File.open(xsl_path))
+      xsl = ::Nokogiri::XSLT(@layouts[xsl_path].raw_content)
 
       xsl.apply_to(xml, ::Nokogiri::XSLT.quote_params(params[:params] || {}))
     end
