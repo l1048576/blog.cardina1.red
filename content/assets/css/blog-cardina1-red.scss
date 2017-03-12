@@ -186,32 +186,6 @@ aside.footnotes {
 article {
 	counter-reset: footnotes;
 }
-a[aria-describedby="footnote-label"] {
-	// Increment counter.
-	counter-increment: footnotes;
-	// Reset link style to make it appear like regular text.
-	text-decoration: none;
-	color: inherit;
-	cursor: default;
-	outline: none;
-
-	&::after {
-		content: '[' counter(footnotes) ']';
-		vertical-align: super;
-		font-size: 0.5em;
-		margin-left: 0.1em;
-		color: blue;
-		text-decoration: underline;
-		cursor: pointer;
-	}
-	&:focus::after {
-		outline: thin dotted;
-		outline-offset: 0.1em;
-	}
-}
-[aria-label="Back to content"] {
-	font-size: 80%;
-}
 
 
 // Responsive.
