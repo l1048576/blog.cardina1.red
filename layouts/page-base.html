@@ -5,45 +5,26 @@
 	<title><%= h @item[:title] %> - 何とは言わない天然水飲みたさ</title>
 	<!-- font awesome -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-
-	<!-- normalize css -->
-	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" />-->
 	<!-- sanitize.css -->
 	<link rel="stylesheet" href="/assets/css/sanitize.css" />
-
 	<!-- pygments -->
 	<link rel="stylesheet" href="/assets/css/pygments/colorful.css" />
 	<!--<link rel="stylesheet" href="/assets/css/pygments/monokai.css" />-->
-
 	<!-- original css -->
 	<link rel="stylesheet" href="/assets/css/blog-cardina1-red.css" />
-
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-
 	<link rel="canonical" href="<%= @config[:base_url] + @item.path %>" />
-
 	<!-- atom feed -->
 	<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="何とは言わない天然水飲みたさ" />
-
-	<% if @prev_uri %>
-		<link rel="prev" href="<%= @prev_uri %>" />
-	<% end %>
-	<% if @next_uri %>
-		<link rel="next" href="<%= @next_uri %>" />
-	<% end %>
-
-	<% if excerpt = @item[:excerpt] %>
-		<meta name="description" content="<%= h excerpt %>" />
-	<% end %>
-
-	<%= render '/part/metadata-for-sns.*' %>
-
+	<%- if @prev_uri %><link rel="prev" href="<%= @prev_uri %>" /><% end -%>
+	<%- if @next_uri %><link rel="next" href="<%= @next_uri %>" /><% end -%>
+	<%- if excerpt = @item[:excerpt] %><meta name="description" content="<%= h excerpt %>" /><% end -%>
+	<%= render '/part/metadata-for-sns.*' -%>
 	<meta name="generator" content="Nanoc <%= Nanoc::VERSION %>">
-
-	<%= render '/part/google-analytics.*', id: 'UA-81669327-1' %>
+	<%= render '/part/google-analytics.*', id: 'UA-81669327-1' -%>
 </head>
 <body>
-	<%= render '/part/browser-warnings.*' %>
+	<%= render '/part/browser-warnings.*' -%>
 	<header>
 		<div class="size-container">
 			<h1><a href="/">何とは言わない天然水飲みたさ</a></h1>
@@ -51,7 +32,7 @@
 	</header>
 	<main>
 		<div class="size-container">
-			<%= yield %>
+			<%= yield -%>
 		</div>
 	</main>
 	<footer>
@@ -60,4 +41,4 @@
 	</footer>
 </body>
 </html>
-<%# vim: set ft=eruby : %>
+<%-# vim: set ft=eruby : -%>

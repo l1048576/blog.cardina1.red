@@ -1,6 +1,6 @@
-<% target = @target || @item %>
-<% if htags = target[:htags] %>
-	<% htags_root = '/tags/' %>
+<%- target = @target || @item -%>
+<%- if htags = target[:htags] -%>
+	<%- htags_root = '/tags/' -%>
 	<div class="htags">
 		<div>
 			<a href="<%= htags_root %>index.html">
@@ -9,12 +9,12 @@
 		</div>
 		<!-- TODO: support ARIA breadcrumbs -->
 		<ul class="no-marker">
-			<% htags.each do |tag| %>
+			<%- htags.each do |tag| -%>
 				<li><ul class="htags">
-					<%= htag_breadcrumb_li tag, htags_root %>
+					<%= htag_breadcrumb_li tag, htags_root -%>
 				</ul></li>
-			<% end %>
+			<%- end -%>
 		</ul>
 	</div>
-<% end %>
-<%# vim: set ft=eruby : %>
+<%- end -%>
+<%-# vim: set ft=eruby : -%>

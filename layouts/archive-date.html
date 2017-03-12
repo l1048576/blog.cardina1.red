@@ -1,9 +1,7 @@
-<% render '/page-base.*' do %>
-
+<%- render '/page-base.*' do -%>
 <section>
 	<h1><%= @item[:title] %></h1>
-	<%= render '/part/archive-top-link.html' %>
-
+	<%= render '/part/archive-top-link.html' -%>
 	<table class="visual">
 		<style type="text/css" scoped="scoped">
 			td {
@@ -11,25 +9,24 @@
 			}
 		</style>
 		<tbody>
-			<% @item[:year_months].each do |year4, months| %>
+			<%- @item[:year_months].each do |year4, months| -%>
 				<tr>
 					<th>
-						<%= link_to "#{year4} 年", @items[source_path_for_archive(year4)] %>
+						<%= link_to "#{year4} 年", @items[source_path_for_archive(year4)] -%>
 					</th>
-					<% months.each do |month2| %>
+					<%- months.each do |month2| -%>
 						<td>
-							<% if month2 %>
-								<%= link_to "#{month2}", @items[source_path_for_archive(year4, month2)] %>
-							<% else %>
+							<%- if month2 -%>
+								<%= link_to "#{month2}", @items[source_path_for_archive(year4, month2)] -%>
+							<%- else -%>
 								-
-							<% end %>
+							<%- end -%>
 						</td>
-					<% end %>
+					<%- end -%>
 				</tr>
-			<% end %>
+			<%- end -%>
 		</tbody>
 	</table>
 </section>
-
-<% end %>
-<%# vim: set ft=eruby : %>
+<%- end -%>
+<%-# vim: set ft=eruby : -%>

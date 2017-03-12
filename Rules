@@ -129,6 +129,6 @@ route '/**/*' do
   @item.identifier.to_s
 end
 
-layout '/**/*', :erb
+layout '/**/*', :erb, trim_mode: '-'
 
 # vim: set foldmethod=marker :

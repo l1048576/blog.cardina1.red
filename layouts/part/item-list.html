@@ -1,22 +1,22 @@
-<% header_level = @header_level || 2 %>
-<% header_open_tag = "<h#{header_level}>" %>
-<% header_close_tag = "</h#{header_level}>" %>
-<% @target_items.each do |item| %>
+<%- header_level = @header_level || 2 -%>
+<%- header_open_tag = "<h#{header_level}>" -%>
+<%- header_close_tag = "</h#{header_level}>" -%>
+<%- @target_items.each do |item| -%>
 	<section>
-		<%= header_open_tag %><%= link_to "#{h item[:title]}", item %><%= header_close_tag %>
+		<%= header_open_tag %><%= link_to "#{h item[:title]}", item %><%= header_close_tag -%>
 		<div style="font-size: 80%"><!-- article metadata -->
-			<%= render '/part/created-at.*', target: item %>
-			<%= render '/part/htags.*', target: item %>
+			<%= render '/part/created-at.*', target: item -%>
+			<%= render '/part/htags.*', target: item -%>
 		</div>
 		<div><!-- excerpt -->
-			<% if excerpt = item[:excerpt] %>
+			<%- if excerpt = item[:excerpt] -%>
 				<p>
-					<%= h excerpt %>
+					<%= h excerpt -%>
 				</p>
-			<% else %>
+			<%- else -%>
 				<p>(No summary provided.)</p>
-			<% end %>
+			<%- end -%>
 		</div>
 	</section>
-<% end %>
-<%# vim: set ft=eruby : %>
+<%- end -%>
+<%-# vim: set ft=eruby : -%>

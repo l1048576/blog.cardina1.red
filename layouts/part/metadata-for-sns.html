@@ -1,21 +1,20 @@
-<% target = @target || @item %>
-<% og = target[:opengraph] %>
-
-<% description = target[:excerpt] || '何とは言わない天然水飲みたい' %>
+<%- target = @target || @item -%>
+<%- og = target[:opengraph] -%>
+<%- description = target[:excerpt] || '何とは言わない天然水飲みたい' -%>
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@L1048576" />
 <meta name="twitter:creator" content="@L1048576" />
 <meta name="og:title" content="<%= h target[:title] %>" />
 <meta name="og:description" content="<%= h description %>" />
-<% if og && og[:image] %>
-	<% if og[:image_base] == 'relpath' # relative path %>
-		<% current_dir = target.path.gsub(/\/[^\/]*$/, '/') %>
-		<% image_url = @config[:base_url] + current_dir + og[:image] %>
-	<% elsif og[:image_base] == 'abspath' # absolute path %>
-		<% image_url = @config[:base_url] + og[:image] %>
-	<% else # absolute url %>
-		<% image_url = og[:image] %>
-	<% end %>
+<%- if og && og[:image] -%>
+	<%- if og[:image_base] == 'relpath' # relative path -%>
+		<%- current_dir = target.path.gsub(/\/[^\/]*$/, '/') -%>
+		<%- image_url = @config[:base_url] + current_dir + og[:image] -%>
+	<%- elsif og[:image_base] == 'abspath' # absolute path -%>
+		<%- image_url = @config[:base_url] + og[:image] -%>
+	<%- else # absolute url -%>
+		<%- image_url = og[:image] -%>
+	<%- end -%>
 	<meta name="og:image" content="<%= h image_url %>" />
-<% end %>
-<%# vim: set ft=eruby : %>
+<%- end -%>
+<%-# vim: set ft=eruby : -%>
