@@ -1,9 +1,5 @@
-
-@font-face {
-	font-family: 'VL Gothic';
-	src: url('/assets/font/VL-Gothic-Regular.woff') format('woff');
-}
-@font-face {
-	font-family: 'VL PGothic';
-	src: url('/assets/font/VL-PGothic-Regular.woff') format('woff');
-}
+@import 'font/font-util';
+@import 'font/mplus-1p';
+//@import 'font/rounded-mplus-1c';
+//@import 'font/noto-sans-jp';
+@import 'font/fira-code';
