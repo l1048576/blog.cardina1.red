@@ -36,7 +36,8 @@
 			ancestor::eh:article |
 			ancestor::html:article |
 			ancestor::eh:section |
-			ancestor::html:section)" />
+			ancestor::html:section |
+			ancestor::html:aside)" />
 </xsl:template>
 
 <xsl:template name="header-level">
@@ -44,11 +45,12 @@
 		<xsl:call-template name="section-level" />
 	</xsl:param>
 	<xsl:choose>
-		<xsl:when test="parent::html:aside">1</xsl:when>
 		<xsl:when test="$section_level &lt;= 6"><xsl:value-of select="$section_level" /></xsl:when>
 		<xsl:otherwise>6</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
+
+<xsl:template name="footnotes-section-id"><xsl:value-of select="concat('footnotes__', @id)" /></xsl:template>
 
 <xsl:template name="footnotes">
 	<xsl:variable name="article_id" select="generate-id(.)" />
@@ -58,7 +60,11 @@
 		</xsl:variable>
 		<xsl:element name="aside">
 			<xsl:attribute name="class">footnotes</xsl:attribute>
-			<xsl:element name="h{$header_level + 1}">
+			<xsl:if test="@id">
+				<xsl:attribute name="id"><xsl:call-template name="footnotes-section-id" /></xsl:attribute>
+			</xsl:if>
+			<!-- 2 = uncounted `eh:article`(1) + parent `aside` (1) -->
+			<xsl:element name="h{$header_level + 2}">
 				<xsl:attribute name="id">footnote-label</xsl:attribute>
 				<xsl:attribute name="class">footnote-label</xsl:attribute>
 				<xsl:text>脚注</xsl:text>
@@ -75,7 +81,7 @@
 					<xsl:element name="li">
 						<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
 						<!--<xsl:attribute name="value"><xsl:value-of select="$footnote_index" /></xsl:attribute>-->
-						<xsl:copy-of select="* | text()" />
+						<xsl:apply-templates select="node()" />
 						<xsl:element name="a">
 							<xsl:attribute name="href">#ref-<xsl:value-of select="@id" /></xsl:attribute>
 							<xsl:text>&#x21B5;</xsl:text>

@@ -12,7 +12,9 @@ excerpt: "C言語での\"return\"文は「値を返す」ものと解釈され�
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2016-07-08-return-statement-of-c"
 >
+<eh:title>C言語での<code>return</code>は他動詞ではなく自動詞</eh:title>
 <eh:section id="two-sorts-of-return">
 	<eh:title>2種類の"return"</eh:title>
 	<p>

@@ -4,10 +4,19 @@ module Larry
     attr_reader :content
 
     HTML_NS = 'http://www.w3.org/1999/xhtml'
+    HTML_TAGS_TO_OMIT_END = [
+      'base', 'meta', 'link',
+      'br', 'hr', 'img', 'source', 'embed',
+      'param', 'track', 'area', 'col',
+    ]
 
     def initialize(html_mode=false)
+      # HTML validation by Nu Html Checker (https://validator.w3.org/nu/)
+      # failes with XML declaration.
+      #@content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE html>\n".dup
       @content = "<!DOCTYPE html>\n".dup
       @is_prev_tag_omissible = false
+      @is_prev_tag_ignored = false
       @is_html_mode = html_mode
     end
 
@@ -21,26 +30,14 @@ module Larry
     end
 
     def is_html_elem(uri)
-      if @is_html_mode
-        # HTML namespace would be omitted.
-        uri.nil?
-      else
-        # HTML namespace might (or might not) be omitted.
-        uri.nil? || uri == HTML_NS
-      end
+      # In HTML, HTML namespace would be omitted.
+      # In XML, HTML namespace might (or might not) be omitted.
+      uri.nil? || (!@is_html_mode && uri == HTML_NS)
     end
 
     def is_close_tag_omissible(name, uri)
       if is_html_elem(uri)
-        case name.downcase
-        when 'meta', 'link', 'br', 'hr'
-          # HTML has some tags whose close tag should be omitted.
-          true
-        else
-          # Basically HTML elements (like `a`, `i`, `script`, etc...)
-          # are not allowed to omit close tag.
-          false
-        end
+        HTML_TAGS_TO_OMIT_END.include?(name.downcase)
       else
         # Always true for non-HTML elements.
         true
@@ -76,6 +73,7 @@ module Larry
       if name.downcase == 'meta' && is_html_elem(uri)
         if attrs.any? {|attr| attr.localname == 'http-equiv' && attr.value.downcase == 'content-type' }
           # This node should be omitted.
+          @is_prev_tag_ignored = true
           return
         end
       end
@@ -102,6 +100,10 @@ module Larry
     end
 
     def end_element_namespace(name, prefix=nil, uri=nil)
+      if @is_prev_tag_ignored
+        @is_prev_tag_ignored = false
+        return
+      end
       if @is_prev_tag_omissible
         if is_close_tag_omissible(name, uri)
           @content << ' />'
@@ -115,6 +117,9 @@ module Larry
     end
 
     def cdata_block(text)
+      if @is_prev_tag_ignored
+        return
+      end
       update_omissibility
       if @is_html_mode
         # Content inside `script` tag is treated as CDATA by
@@ -126,17 +131,26 @@ module Larry
     end
 
     def characters(text)
+      if @is_prev_tag_ignored
+        return
+      end
       update_omissibility
       @content << escape_text(text)
     end
 
     def comment(text)
+      if @is_prev_tag_ignored
+        return
+      end
       update_omissibility
       @content << '<!-- ' << text << '-->'
     end
 
     def processing_instruction(name, content)
-      # If `name.downcase == 'xml'`, it may be XML decleration.
+      if @is_prev_tag_ignored
+        return
+      end
+      # If `name.downcase == 'xml'`, it may be XML declaration.
       # Ignore it.
       if name.downcase != 'xml'
         update_omissibility

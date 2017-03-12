@@ -13,7 +13,9 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2016-04-29-dont-search-find"
 >
+<eh:title>探すな、絞り込め / 或いは階層化されたタグの話</eh:title>
 <eh:section id="categories-and-tags">
 	<eh:title>カテゴリとタグ</eh:title>
 	<eh:section id="incovenient-tags-and-categories-feature">

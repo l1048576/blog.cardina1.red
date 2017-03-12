@@ -13,7 +13,9 @@ excerpt: "Rust-1.7.0でDefault::default()を使ったコードのコンパイル
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2016-03-24-rust-default-wont-conpile"
 >
+<eh:title>Rust-1.7.0でDefault::default()を使ったコードのコンパイルが通らない、処理系の不具合と思われる挙動</eh:title>
 <p>
 	未解決。
 	<eh:xref linkend="first-aid">応急処置</eh:xref>済。

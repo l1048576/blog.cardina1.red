@@ -28,12 +28,18 @@ h1, h2, h3, h4, h5, h6 {
 $header-elems: h1, h2, h3, h4, h5, h6;
 
 // Define %h1 - %h6.
+$header-custom-props: font-size, border, border-top, border-right, border-bottom, border-left, padding, color, background;
 @each $elem in $header-elems {
-	$header-custom-props: font-size, border, border-top, border-right, border-bottom, border-left, padding, color, background;
 	%#{$elem} {
 		@each $prop in $header-custom-props {
 			#{$prop}: var(--#{$elem}-#{$prop});
 		}
+	}
+}
+
+%reset-header-style {
+	@each $prop in $header-custom-props {
+		#{$prop}: unset;
 	}
 }
 

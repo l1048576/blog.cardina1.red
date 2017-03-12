@@ -41,9 +41,10 @@ body {
 	>header {
 		background: #333;
 		margin-bottom: #{$vertical-unit};
-		h1 {
+		.site-title {
 			$title-color: #999;
 			font-size: 1rem;
+			font-weight: bold;
 			color: $title-color;
 			margin-top: 0;
 			>a {
@@ -62,14 +63,8 @@ body {
 	}
 }
 
-article {
-	>aside.article-info {
-		font-size: 0.7rem;
-	}
-	>footer {
-		margin-top: 1rem;
-		border-top: 1px solid #999;
-	}
+aside.article-info {
+	font-size: 0.7rem;
 }
 
 .post-list-item {
@@ -166,8 +161,6 @@ ul.htags {
 
 
 // Footnote.
-// See https://www.sitepoint.com/accessible-footnotes-css/ .
-
 aside.footnotes {
 	font-size: 80%;
 	margin-bottom: $vertical-unit;
@@ -178,7 +171,8 @@ aside.footnotes {
 		content: " ";
 		margin: $vertical-unit auto;
 	}
-	h1 {
+	>h1, >h2, >h3, >h4, >h5, >h6 {
+		@extend %reset-header-style;
 		margin-top: 0;
 		font-size: 1.8em;
 	}
@@ -191,32 +185,6 @@ aside.footnotes {
 }
 article {
 	counter-reset: footnotes;
-}
-a[aria-describedby="footnote-label"] {
-	// Increment counter.
-	counter-increment: footnotes;
-	// Reset link style to make it appear like regular text.
-	text-decoration: none;
-	color: inherit;
-	cursor: default;
-	outline: none;
-
-	&::after {
-		content: '[' counter(footnotes) ']';
-		vertical-align: super;
-		font-size: 0.5em;
-		margin-left: 0.1em;
-		color: blue;
-		text-decoration: underline;
-		cursor: pointer;
-	}
-	&:focus::after {
-		outline: thin dotted;
-		outline-offset: 0.1em;
-	}
-}
-[aria-label="Back to content"] {
-	font-size: 80%;
 }
 
 
@@ -260,8 +228,9 @@ a[aria-describedby="footnote-label"] {
 		--li-margin: 0 0 0 2rem;
 	}
 	body >header {
-		h1 {
+		.site-title {
 			font-size: 2rem;
+			font-weight: normal;
 		}
 	}
 }

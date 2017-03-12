@@ -12,7 +12,9 @@ excerpt: "CSSで喪に服す時代らしい。"
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2016-10-15-mourning-with-css"
 >
+<eh:title>CSSで喪に服す</eh:title>
 <eh:section id="grayscale">
 	<eh:title>filter属性</eh:title>
 	<p>
