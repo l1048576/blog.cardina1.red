@@ -41,9 +41,10 @@ body {
 	>header {
 		background: #333;
 		margin-bottom: #{$vertical-unit};
-		h1 {
+		.site-title {
 			$title-color: #999;
 			font-size: 1rem;
+			font-weight: bold;
 			color: $title-color;
 			margin-top: 0;
 			>a {
@@ -253,8 +254,9 @@ a[aria-describedby="footnote-label"] {
 		--li-margin: 0 0 0 2rem;
 	}
 	body >header {
-		h1 {
+		.site-title {
 			font-size: 2rem;
+			font-weight: normal;
 		}
 	}
 }
