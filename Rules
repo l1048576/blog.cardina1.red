@@ -10,10 +10,8 @@ end
 
 # }}}1
 
-# sass partial.
+# sass partials.
 ignore '/**/_*'
-# vim tmp file.
-ignore '/**/.*.swp'
 
 
 compile '/archive.html' do
