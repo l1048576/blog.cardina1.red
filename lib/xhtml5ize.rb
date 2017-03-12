@@ -6,6 +6,9 @@ module Larry
     HTML_NS = 'http://www.w3.org/1999/xhtml'
 
     def initialize(html_mode=false)
+      # HTML validation by Nu Html Checker (https://validator.w3.org/nu/)
+      # failes with XML declaration.
+      #@content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE html>\n".dup
       @content = "<!DOCTYPE html>\n".dup
       @is_prev_tag_omissible = false
       @is_prev_tag_ignored = false
