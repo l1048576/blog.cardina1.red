@@ -182,4 +182,20 @@
 	</xsl:element>
 </xsl:template>
 
+<!-- Font Awesome icon. -->
+<xsl:template match="eh:fa-icon">
+	<xsl:if test="not(@icon)">
+		<xsl:message terminate="yes">error: `eh:fa-icon` does not have an `@icon` attribute.</xsl:message>
+	</xsl:if>
+	<xsl:element name="i">
+		<xsl:attribute name="class">
+			<xsl:text>fa fa-</xsl:text>
+			<xsl:value-of select="@icon" />
+			<xsl:if test="@class">
+				<xsl:value-of select="concat(' ', @class)" /></xsl:if>
+		</xsl:attribute>
+		<xsl:attribute name="aria-hidden">true</xsl:attribute>
+	</xsl:element>
+</xsl:template>
+
 </xsl:stylesheet>
