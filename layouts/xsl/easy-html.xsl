@@ -75,7 +75,7 @@
 					<xsl:element name="li">
 						<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
 						<!--<xsl:attribute name="value"><xsl:value-of select="$footnote_index" /></xsl:attribute>-->
-						<xsl:copy-of select="* | text()" />
+						<xsl:apply-templates select="node()" />
 						<xsl:element name="a">
 							<xsl:attribute name="href">#ref-<xsl:value-of select="@id" /></xsl:attribute>
 							<xsl:text>&#x21B5;</xsl:text>
