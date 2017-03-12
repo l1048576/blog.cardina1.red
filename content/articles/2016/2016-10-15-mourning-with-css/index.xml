@@ -108,7 +108,7 @@ body {
 </eh:section>
 
 <eh:section id="mourning-with-ie">
-	<eh:title>IEでダイナミックに喪に服す (#575)</eh:title>
+	<eh:title>IEでダイレクトに喪に服す (#字足らず)</eh:title>
 	<p>
 		さて問題は、<a href="https://developer.mozilla.org/ja/docs/Web/CSS/filter#Browser_compatibility">IEがCSS標準のfilterに対応していない</a>ことである。
 		よって、IEでは<code>filter: grayscale(1);</code>では喪に服せない。
