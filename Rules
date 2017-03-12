@@ -26,8 +26,10 @@ compile '/articles/**/*.xml' do
   filter :larry_xsl, xsl: '/xsl/easy-html.xsl'
   filter :colorize_syntax, default_colorizer: :pygmentsrb, syntax: :xml
   layout '/article.*'
-  filter :relativize_paths, type: :xml
-  filter :xhtml5ize, type: :xml
+  # Output of layout '/article.*' is non-XML HTML (which may contain
+  # external references specific to HTML and not available in XML).
+  filter :relativize_paths, type: :html
+  filter :xhtml5ize, type: :html
 end
 
 compile '/articles/**/*.html' do
