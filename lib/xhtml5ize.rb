@@ -22,13 +22,9 @@ module Larry
     end
 
     def is_html_elem(uri)
-      if @is_html_mode
-        # HTML namespace would be omitted.
-        uri.nil?
-      else
-        # HTML namespace might (or might not) be omitted.
-        uri.nil? || uri == HTML_NS
-      end
+      # In HTML, HTML namespace would be omitted.
+      # In XML, HTML namespace might (or might not) be omitted.
+      uri.nil? || (!@is_html_mode && uri == HTML_NS)
     end
 
     def is_close_tag_omissible(name, uri)
