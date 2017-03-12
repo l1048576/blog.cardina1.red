@@ -50,6 +50,8 @@
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template name="footnotes-section-id"><xsl:value-of select="concat('footnotes__', @id)" /></xsl:template>
+
 <xsl:template name="footnotes">
 	<xsl:variable name="article_id" select="generate-id(.)" />
 	<xsl:if test="//eh:footnote[generate-id(ancestor::eh:article[1]) = $article_id]">
@@ -58,6 +60,9 @@
 		</xsl:variable>
 		<xsl:element name="aside">
 			<xsl:attribute name="class">footnotes</xsl:attribute>
+			<xsl:if test="@id">
+				<xsl:attribute name="id"><xsl:call-template name="footnotes-section-id" /></xsl:attribute>
+			</xsl:if>
 			<!-- 2 = uncounted `eh:article`(1) + parent `aside` (1) -->
 			<xsl:element name="h{$header_level + 2}">
 				<xsl:attribute name="id">footnote-label</xsl:attribute>
