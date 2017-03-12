@@ -5,6 +5,8 @@
 <%- render '/page-base.*',
 		prev_uri: prev_path,
 		next_uri: next_path do -%>
+<%- prev_next = render '/part/prev-next-page.*', prev_link: newer_article, next_link: older_article -%>
+<%= prev_next -%>
 <aside class="article-info">
 	<%= render '/part/created-at.*' -%>
 	<%-#= render '/part/tags.*' -%>
@@ -13,15 +15,6 @@
 <hr />
 <%= yield -%>
 <hr />
-<aside>
-	<div class="next-prev-link grid-row">
-		<div class="prev-link col-xs-12 col-md-6">
-			<%= newer_article -%>
-		</div>
-		<div class="next-link col-xs-12 col-md-6 col-xs-end">
-			<%= older_article -%>
-		</div>
-	</div>
-</aside>
+<%= prev_next -%>
 <%- end -%>
 <%-# vim: set ft=eruby : -%>
