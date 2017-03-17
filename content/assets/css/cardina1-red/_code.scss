@@ -63,3 +63,11 @@ code {
 		}
 	}
 }
+
+// Ignore font settings by sanitize.css.
+code, pre.code.code-terminal {
+	kbd, samp {
+		@extend %code-noligature;
+		font-size: inherit;
+	}
+}
