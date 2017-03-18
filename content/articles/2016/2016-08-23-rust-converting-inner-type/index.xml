@@ -1,5 +1,6 @@
 ---
 created_at: 2016-08-23T23:46:43+0900
+updated_at: 2017-03-18T20:17:56+0900
 title: "Rustで T: From<U> のとき From<MyStruct<U>> for MyStruct<T> を実装したい"
 htags:
   - "computer/programming/language/rust"
@@ -170,6 +171,51 @@ p_f64: Point { x: 3, y: 4 }
 		どうにかして<code>From</code>か<code>Into</code>を実装したかったが、無理そうな雰囲気があったので妥協した。<br />
 		もしかすると、オーバーロード関連の機能の具合によっては<code>From</code>などで実装できるようになるのかもしれないが、今のところstableでは使えないので、せめてstdにある<code>Option</code>や<code>Result</code>とインターフェースを合わせて実装してしまうことにした。<br />
 		<code>foo.map(|v| v.into())</code>よりも<code>foo.map(Into::into)</code>の方が、2文字短くなるし意図もわかりやすいというのがポイントだ。
+	</p>
+</eh:section>
+
+<eh:section id="solution2">
+	<eh:title>追記 (2017/03/18): 解決策2</eh:title>
+	<p>
+		良い方法が紹介されている記事があった:
+		<a href="https://ferrisellis.com/posts/rust-implementing-units-for-types/">Math with distances in Rust: safety and correctness across units</a>
+	</p>
+	<figure>
+		<pre><code class="lang-rust language-rust" data-lang="rust">#[derive(Debug, Clone, Copy)]
+struct Point&lt;T: Clone + Copy&gt; {
+    pub x: T,
+    pub y: T,
+}
+
+impl&lt;'a, T, U&gt; From&lt;&amp;'a Point&lt;T&gt;&gt; for Point&lt;U&gt;
+    where T: 'a + Clone + Copy,
+          U: Clone + Copy + From&lt;T&gt;,
+{
+    fn from(o: &amp;'a Point&lt;T&gt;) -&gt; Self {
+        Point {
+            x: o.x.into(),
+            y: o.y.into(),
+        }
+    }
+}
+
+fn main() {
+    let p_i16 = Point::&lt;i16&gt; {
+        x: 3,
+        y: 4,
+    };
+    println!("p_i16: {:?}", p_i16);
+    let p_f64: Point&lt;f64&gt; = (&amp;p_i16).into();
+    println!("p_f64: {:?}", p_f64);
+    let p_f32 = Point::&lt;f32&gt;::from(&amp;p_i16);
+    println!("p_f32: {:?}", p_f32);
+}
+</code></pre>
+		<figcaption>コンパイルの通るバージョンその2 (<a href="https://play.rust-lang.org/?code=%23%5Bderive(Debug%2C%20Clone%2C%20Copy)%5D%0Astruct%20Point%3CT%3A%20Clone%20%2B%20Copy%3E%20%7B%0A%20%20%20%20pub%20x%3A%20T%2C%0A%20%20%20%20pub%20y%3A%20T%2C%0A%7D%0A%0Aimpl%3C%27a%2C%20T%2C%20U%3E%20From%3C%26%27a%20Point%3CT%3E%3E%20for%20Point%3CU%3E%0A%20%20%20%20where%20T%3A%20%27a%20%2B%20Clone%20%2B%20Copy%2C%0A%20%20%20%20%20%20%20%20%20%20U%3A%20Clone%20%2B%20Copy%20%2B%20From%3CT%3E%2C%0A%7B%0A%20%20%20%20fn%20from(o%3A%20%26%27a%20Point%3CT%3E)%20-%3E%20Self%20%7B%0A%20%20%20%20%20%20%20%20Point%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20x%3A%20o.x.into()%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20y%3A%20o.y.into()%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%7D%0A%0Afn%20main()%20%7B%0A%20%20%20%20let%20p_i16%20%3D%20Point%3A%3A%3Ci16%3E%20%7B%0A%20%20%20%20%20%20%20%20x%3A%203%2C%0A%20%20%20%20%20%20%20%20y%3A%204%2C%0A%20%20%20%20%7D%3B%0A%20%20%20%20println!(%22p_i16%3A%20%7B%3A%3F%7D%22%2C%20p_i16)%3B%0A%20%20%20%20let%20p_f64%3A%20Point%3Cf64%3E%20%3D%20(%26p_i16).into()%3B%0A%20%20%20%20println!(%22p_f64%3A%20%7B%3A%3F%7D%22%2C%20p_f64)%3B%0A%20%20%20%20let%20p_f32%20%3D%20Point%3A%3A%3Cf32%3E%3A%3Afrom(%26p_i16)%3B%0A%20%20%20%20println!(%22p_f32%3A%20%7B%3A%3F%7D%22%2C%20p_f32)%3B%0A%7D&amp;version=stable&amp;backtrace=0" target="_blank">Rust Playgroundへのリンク</a>)</figcaption>
+	</figure>
+	<p>
+		<code>T</code> と <code>&amp;T</code> は別の型として扱われるから、これを使い分ければ core crate での reflexivity law の実装と競合しないということである。
+		参照を使う都合 move ができなくなるため、実装によっては素朴な実装より効率が悪くなるかもしれないが、こうして内部の型を変換したいという場合の多くは数値やら copy 可能な単純な型だろうから、そうした場合にはオーバーヘッドもなくユーザにとっても煩雑でない、効果的な方法であるといえるだろう。
 	</p>
 </eh:section>
 </eh:article>
