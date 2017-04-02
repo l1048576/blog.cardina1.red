@@ -46,7 +46,7 @@ pub fn main () {
     println!("s: {:?}", s);
 }
 </code></pre>
-	<figcaption>コンパイルの通らないバージョン (<a href="https://play.rust-lang.org/?code=use%20std%3A%3Afmt%3A%3ADebug%3B%0A%0A%23[derive%28Debug%2C%20Default%29]%0Astruct%20Struct%3CT%3A%20Debug%3E%20{%0A%20%20%20%20pub%20opt%3A%20Option%3CT%3E%2C%0A}%0A%0Aimpl%3CT%3A%20Debug%3E%20Struct%3CT%3E%20{%0A%20%20%20%20pub%20fn%20new%28%29%20-%3E%20Self%20{%0A%20%20%20%20%20%20%20%20Default%3A%3Adefault%28%29%20%2F%2F%20bad%0A%20%20%20%20%20%20%20%20%2F%2FStruct%20{%20opt%3A%20Default%3A%3Adefault%28%29%2C%20}%20%2F%2F%20ok%0A%20%20%20%20}%0A}%0A%0A%0A%0Apub%20fn%20main%20%28%29%20{%0A%20%20%20%20let%20s%20%3D%20Struct%3A%3A%3Ci32%3E%3A%3Anew%28%29%3B%0A%20%20%20%20println!%28%22s%3A%20{%3A%3F}%22%2C%20s%29%3B%0A}&amp;version=stable" target="_blank">Rust Playgroundへのリンク</a>)</figcaption>
+		<figcaption>コンパイルの通らないバージョン (<a href="https://play.rust-lang.org/?code=use%20std%3A%3Afmt%3A%3ADebug%3B%0A%0A%23[derive%28Debug%2C%20Default%29]%0Astruct%20Struct%3CT%3A%20Debug%3E%20{%0A%20%20%20%20pub%20opt%3A%20Option%3CT%3E%2C%0A}%0A%0Aimpl%3CT%3A%20Debug%3E%20Struct%3CT%3E%20{%0A%20%20%20%20pub%20fn%20new%28%29%20-%3E%20Self%20{%0A%20%20%20%20%20%20%20%20Default%3A%3Adefault%28%29%20%2F%2F%20bad%0A%20%20%20%20%20%20%20%20%2F%2FStruct%20{%20opt%3A%20Default%3A%3Adefault%28%29%2C%20}%20%2F%2F%20ok%0A%20%20%20%20}%0A}%0A%0A%0A%0Apub%20fn%20main%20%28%29%20{%0A%20%20%20%20let%20s%20%3D%20Struct%3A%3A%3Ci32%3E%3A%3Anew%28%29%3B%0A%20%20%20%20println!%28%22s%3A%20{%3A%3F}%22%2C%20s%29%3B%0A}&amp;version=stable" target="_blank">Rust Playgroundへのリンク</a>)</figcaption>
 	</figure>
 	<figure>
 		<pre>&lt;anon&gt;:10:9: 10:25 error: the trait `core::default::Default` is not implemented for the type `T` [E0277]
