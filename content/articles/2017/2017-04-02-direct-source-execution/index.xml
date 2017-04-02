@@ -3,7 +3,7 @@ created_at: 2017-04-02T16:43:54+0900
 title: "ソースコード直接実行のテクニック"
 htags:
   - "computer/programming"
-  - "computer/programming/language/C"
+  - "computer/programming/language/c"
   - "computer/programming/language/c++"
   - "computer/programming/language/rust"
   - "computer/programming/language/shell"
