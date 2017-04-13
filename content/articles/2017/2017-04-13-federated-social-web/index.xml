@@ -1,0 +1,432 @@
+---
+created_at: 2017-04-13T16:51:31+0900
+updated_at: 2017-04-14T00:10:00+0900
+title: "gnusocial や mastodon の哲学"
+htags:
+  - "computer/gnu-social"
+  - "思想/computer"
+kind: article
+
+excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良いのか。 federated social web の思想について。"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2017-04-13-federated-social-web"
+>
+<eh:title>gnusocial や mastodon の哲学</eh:title>
+<p>
+	mastodon が急に話題になってきた。
+	しかし、その哲学についてはあまり理解されていないように感じる。
+</p>
+<p>
+	mastodon や GNU Social は、単なる「ポスト twitter 」<strong>ではない</strong>。
+	この記事では、 twitter の根本的な問題や、それに対する mastodon 等の思想を解説する。
+</p>
+<p>
+	キーワードだけ先に書いておこう。
+</p>
+<ul>
+	<li>federation (連合)</li>
+	<li>decentralization (脱中央集権)</li>
+	<li>オープン (オープンソース、オープンな仕様)</li>
+</ul>
+
+<eh:section id="tl-dr">
+	<eh:title>長い文章を読みたくない人のためのまとめ</eh:title>
+	<p>
+		でも、できれば本文も読んでほしいです。
+	</p>
+	<ul>
+		<li>
+			mastodon などでは、どこか<strong>信頼できる運営者のサーバにひとつアカウントを作って</strong>、そこから他のサーバのアカウントをフォローすることができます。
+			(サーバはグループのような意味を持つものではなく、単に自分の情報がどこで管理されるかを決めるものにすぎません。)
+			無理して複数のサーバにアカウントを取る必要はありません。
+		</li>
+		<li>
+			mastodon では、自分のサーバ (VPS 、自宅サーバ、 etc...) にサービスを立てることができます。
+		</li>
+		<li>
+			mastodon や GNU Social が重視しているのは、<strong>ユーザの自由</strong>です。
+			これが twitter 等との大きな違いです。
+		</li>
+		<li>
+			IRC に似ていますが、大きな違いとしては <strong>notice がすべてサーバに保存されること</strong>です。
+			IRC はクライアント(や proxy) にしかログが残りませんが、 GNU Social や mastodon は<strong>マイクロブログサービス</strong>なので、サーバ側にデータを保存する仕組みになっています。
+		</li>
+	</ul>
+</eh:section>
+
+<eh:section id="twitters-issues">
+	<eh:title>twitter の問題</eh:title>
+	<p>
+		twitter には、以下のような問題がある。
+	</p>
+	<ul>
+		<li>
+			twitter が落ちるとみんな死ぬ
+			<ul>
+				<li>仕組みからして仕方ないけど、そうは言っても致命的</li>
+			</ul>
+		</li>
+		<li>
+			ツイートのデータが(基本的に) twitter 社のサーバにしか残らない
+			<ul>
+				<li>
+					外部サービスでの保存や自分のツイートのダウンロードはできるが、「昔TLに流れてきたはずのあのツイートが見付からない」という事例には無力
+				</li>
+			</ul>
+		</li>
+		<li>
+			悪意ある第三者により、アカウントの凍結やツイートの削除の強制などの制限や弾圧を受けることがある
+			<ul>
+				<li>えっちな絵を書く人たちが「ツイレディ」と呼ばれる過激派にスパム報告されまくってブロックされる事例とか</li>
+				<li>違法ではないはずの画像の投稿でも規約違反扱いされたり</li>
+				<li>運営者による検閲や規制があったら、避ける手段は存在しない</li>
+			</ul>
+		</li>
+		<li>
+			仕様が twitter 社の一存で決まる
+			<ul>
+				<li>ユーザの意見は(おそらく、普通は)取り入れられない</li>
+				<li>開発者は黙って追従するしかない</li>
+				<li>なんならサードパーティのクライアント開発者を締め出したりもする</li>
+			</ul>
+		</li>
+		<li>
+			仕様のみならず、実装(ソースコード)も公開されない
+			<ul>
+				<li>会社なので仕方ないところもあるが、そうはいってもプロプライエタリ</li>
+				<li>たとえば公式の twitter に問題があったとき、ユーザが修正する手段はない</li>
+				<li>無論改造もできない</li>
+			</ul>
+		</li>
+	</ul>
+	<p>
+		これらの問題は、つまるところマイクロブロギングサービスが<strong>twitter という単一のサービスに依存している</strong>ところに原因がある。
+		プラットフォームを単一の運営者が管理していて(中央集権)、逆らえないため、自由が制限されているのである。
+		そういった自由を SNS のユーザが取り戻すための思想が、 <strong>federated social web</strong> だ。
+	</p>
+</eh:section>
+
+<eh:section id="how-federated-social-web-solve-the-problems">
+	<eh:title>Federated social web はどう問題を解決するか</eh:title>
+	<p>
+		federation とは「連合」である。
+		federated social web
+		<eh:footnote id="footnote-federated-social-web">federated social network, distributed social network 等いろいろな呼び方があるが、結局は同じ思想である</eh:footnote>
+		とは、 SNS のサーバを各々が持ったり複数用意することで不要な制約を受けないようにし、それでいてサーバ間で連携することで巨大なひとつの SNS として利用できるようにするという思想であり、またその思想が目指すネットワークサービスのことである。
+	</p>
+	<p>
+		この思想は、先に挙げた twitter の問題を以下のように解決する。
+	</p>
+	<table class="visual">
+		<thead>
+			<tr>
+				<th>問題</th>
+				<th>解決</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>twitter が落ちると皆死ぬ</td>
+				<td>サーバはコミュニティや個人で別々になっており、道連れで死んだり断絶が発生することはない</td>
+			</tr>
+			<tr>
+				<td>ツイートが twitter のサーバにしか残らない</td>
+				<td>
+					<p>
+						notice (ツイート相当の情報)は、受信者のアカウントのあるサーバ全てで複製して保存される。
+						発信者のサーバが死んでも、受信者のサーバには情報が残るので、リンクが切れて参照が潰れることは避けられる。
+					</p>
+					<p>
+						自分の notice だけでなく、自分の TL に流れてきたすべての notice が、受信者のサーバに保存される。
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					悪意ある第三者により、アカウントの凍結やツイートの削除の強制などの制限や弾圧を受けることがある
+				</td>
+				<td>
+					<p>
+						サーバの運営者のポリシーによる。
+						たとえば政治的な主張を発信するなら、政治的な主張を弾圧しないようなサーバでアカウントを用意すればいい。
+						えっちな画像を投稿したければ、そういった画像に対して理解があり過剰に反応しない運営者のサーバにアカウントを用意すればいい。
+					</p>
+					<p>
+						他人を完全に信用しなくとも、自分でインスタンス(サーバ)を運営し、自分でそこにアカウントを作ることである。
+						これなら、検閲や BAN もない。
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>仕様が twitter 社の一存で決まる</td>
+				<td>
+					国際的な組織 (W3C 等)に管理されたオープンな(公開されていて閲覧に制限のない)仕様が定められている。
+					議論も行われる。
+				</td>
+			</tr>
+			<tr>
+				<td>仕様のみならず、実装(ソースコード)も公開されない</td>
+				<td>
+					<p>
+						オープンソースである。
+						実装の詳細も公開されるし、もし不満があれば改造して使ったりすることもできる。
+					</p>
+					<p>
+						プラグイン等の機能もある場合があり、 twitter 連携などいろいろな機能の追加もできる。
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</eh:section>
+
+<eh:section id="what-is-gnusocial-and-mastodon">
+	<eh:title>GNU Social とは、 mastodon とは何か</eh:title>
+	<p>
+		<strong>GNU Social</strong> や <strong>mastodon</strong> は、 OStatus というプロトコル(通信やデータの規格)を実装した、 federated social web のための web サービス、またそのためのアプリケーションである。
+	</p>
+	<p>
+		OStatus はオープンな(公開された)仕様であり、 twitter のように運営者の一存で仕様が変化したりはせず、また隠された仕様なども存在しない。
+		よって、 OStatus を実装したアプリケーションは誰でも開発することができる。
+	</p>
+	<p>
+		mastodon は <a href="https://github.com/tootsuite/mastodon"><q lang="en">A GNU Social-compatible microblogging server</q> と説明されている</a>が、つまりこれは OStatus を実装しているということである。
+		ただそれだけであるが、つまり公開された仕様によっているということなので、全く別で開発された互換サービスと連携できる。
+	</p>
+
+	<eh:section id="federation">
+		<eh:title>連合を作る</eh:title>
+		<p>
+			GNU Social 互換サービスを運用しているインスタンス(サーバ)には、たとえば有名な(というか私が知っている)ところでは、以下のようなものがある。
+		</p>
+		<ul>
+			<li><a href="https://freezepeach.xyz/">freezepeach.xyz</a> (言論の自由を大切にしてるのかな？ 児ポの投稿禁止が唯一のルールやでと書いてある)</li>
+			<li><a href="https://gs.smuglo.li/">gs.smuglo.li</a> (えっちな絵とかよく流れてるので注意。たぶん運営者がえっちなイラストに理解がある)</li>
+			<li><a href="https://social.pzn.lgbt/">social.pzn.lgbt</a> (LGBTPZN について議論してたりする人たちの集まっているインスタンス。ぶっちゃけ私もよく知らない。詳細は <a href="http://lgbtpzn.tk/">LGBTPZNポータル</a> を参照)</li>
+			<li><a href="https://quitter.se/">quitter.se</a> (twitter から逃げてきた人たちが集まったインスタンスらしい)</li>
+			<li><a href="https://mstdn.jp/">mstdn.jp</a></li>
+			<li><a href="https://mstdn.io/">mstdn.io</a></li>
+			<li><a href="https://mastodon.cloud/">mastodon.cloud</a></li>
+		</ul>
+		<p>
+			複数のインスタンスがあるが、問題ない。
+			フォローしたいアカウントのページを開き、「リモートフォロー」などのボタンを押せば、自分の居るのとは別のインスタンスのアカウントもフォローできる。
+			実際、私は自分のサーバに立てたインスタンスの
+			<a href="https://gnusocial.cardina1.red/lo48576/">gnusocial.cardina1.red</a>
+			にアカウントを持っているが、そこから他のインスタンス(上に挙げたようなもの)のアカウントもフォローしている。
+		</p>
+		<p>
+			このように、他の誰かでなく、信頼できる人(自分でもいい)の運用するインスタンスに居ることで、中央集権された自由のないサービスから解放されようというのが、 GNU Social や mastodon が twitter と本質的に違うところである。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="articles">
+	<eh:title>巷の記事、紹介</eh:title>
+
+	<eh:section id="misunderstanding">
+		<eh:title>誤解や不理解</eh:title>
+		<p>
+			最近急に話題になった mastodon だが、 ASCII.jp の記事「<a href="http://ascii.jp/elem/000/001/465/1465842/">ASCII.jp：Twitterのライバル？　実は、新しい「マストドン」（Mastodon）とは！｜遠藤諭のプログラミング＋日記</a>」はどうにも mastodon の思想がよく理解されないまま書かれているように感じる。
+		</p>
+		<p>
+			たとえば、以下のような記述があった。
+		</p>
+		<blockquote>
+			Twitterは、どこまでもだだっ広くて、なんの垣根もない草原のような感じだった。
+			それに対して、Mastodonは、土地に根差して活動しやすくなっている。
+			ちょうど、なんの制約もなく空を飛んでつぶやいているTweet（さえずる）と、集団をつくってはToot（吠える）の違いだろうか？
+		</blockquote>
+		<p>
+			mastodon は、それぞれが自身や同志のためのインスタンスを立てやすい
+			<eh:footnote id="footnote-owning-instance">これは federation を進めるために必要なことであり、実際 docker 等で楽にインスタンスを立てる手段が用意されている</eh:footnote>
+			というのは事実だが、「土地に根差して活動しやすく〜」っというのは見方が偏っている。
+			似た人々が集まるのは、自分たちに理解のある運営者のインスタンスに集まることが自分たちの自由のために重要だからであって、フォロー関係がインスタンスを跨げる以上、同じ趣味の人々が同じインスタンスに集まることはあまり意味がない。
+		</p>
+		<blockquote>
+			たとえば、 Twitter にあてはめたらトランプ陣営と非トランプ陣営で真っ二つのインスタンスの連邦ができそうである。
+		</blockquote>
+		<p>
+			中央集権的なサービスの問題は、「トランプ陣営」だとか「非トランプ陣営」などといった政治的主張や思想などが(スパブロ攻撃等で)弾圧され、言論の自由が奪われかねないことにある。
+			Federated social web 流の考えかたであれば、政治的主張が弾圧されず積極的に議論ができるような、つまり「政治的な主張や議論を積極的に交わせるインスタンス」が立つだろう。
+			(無論、陣営ごとにインスタンスが立つこともあるかもしれないが、内々に篭って外と隔絶するようなやりかたは、 federation を真っ向から否定するものであるし、 GNU Social や mustodon の目指すところの反対である。)
+		</p>
+		<p>
+			そもそもこの記事では decentralization (脱中央集権)の考え方に触れておらず、あまりに表面的な紹介である。
+			繰り返し言うが、 mastodon は単なる twitter クローンやちょっと良くなった代替などではない。
+		</p>
+	</eh:section>
+
+	<eh:section id="itmedia-article">
+		<eh:title>ITmedia の記事は良い</eh:title>
+		<p>
+			ITmedia NEWSの記事「<a href="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">ポストTwitter？　急速に流行中「マストドン」とは - ITmedia NEWS</a>」は良い記事であるといえるだろう。
+		</p>
+		<blockquote>
+			Twitterとの大きな違いは、サイトが1つではなく複数に分散していることだ。
+		</blockquote>
+		<blockquote>
+			Rochkoさんは「Mastodonは分散化したプラットフォームであり、コミュニケーションが単一の企業に独占されるリスクを避けられる」と説明。
+			Twitterの弱点をカバーする“ポストTwitter”を意識して制作したようだ。
+		</blockquote>
+		<p>
+			その通りである。
+			mastodon (や互換サービス)の目指すところは、脱中央集権と federation (連合)による分散プラットフォームである。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="implementations">
+	<eh:title>その他の実装など</eh:title>
+	<eh:section id="implementations--gnusocial-compatible">
+		<eh:title>GNU Social と互換</eh:title>
+		<p>
+			要するに OStatus を実装しているもの。
+			mastodon は "GNU Social-compatible" であるが、このような実装はいくつか存在する。
+		</p>
+		<dl>
+			<dt><a href="https://www.gnu.org/software/social/">GNU Social</a></dt>
+			<dd>
+				GNU が開発している本家。
+				リポジトリは <a href="https://git.gnu.io/gnu/gnu-social">git.gnu.io</a> 。
+			</dd>
+			<dt><a href="https://mastodon.social/about">mastodon</a></dt>
+			<dd>
+				最近話題になっている実装。
+				TweetDeck 風の UI が特徴？
+				新しい実装なので、内部も結構洗練されてるのではないかと思う。
+				リポジトリは <a href="https://github.com/tootsuite/mastodon">GitHub</a> 。
+			</dd>
+			<dt><a href="https://joindiaspora.com/">Diaspora</a></dt>
+			<dd>
+				名前しか知らない。
+				リポジトリは <a href="https://github.com/diaspora/diaspora">GitHub</a> 。
+			</dd>
+		</dl>
+	</eh:section>
+
+	<eh:section id="implementations--gnusocial-incompatible">
+		<eh:title>GNU Social と非互換</eh:title>
+		<p>
+			OStatus とは違うプロトコルで実装されているが、やはり federated social web を目指して作られたサービスやソフトウェアもある。
+		</p>
+		<dl>
+			<dt><a href="https://matrix.org/">matrix</a></dt>
+			<dd>
+				こちらはプロトコルが新規に設計されており、 OStatus より洗練されている。
+				(とはいえ、それをライトユーザが実感するかは別の話だが。)
+				json ベースの通信や、ビデオチャット等との統合、人間のユーザ以外の IoT デバイスからの利用等も見据えた拡張性の高くシンプルな仕様など、純粋なマイクロブログサービスとは多少目標が異なっている。
+				リポジトリは <a href="https://github.com/matrix-org/synapse">GitHub</a> 。
+				(個人的には、リファレンス実装 (synapse) が Python2 なのがちょっと悲しい。)
+			</dd>
+		</dl>
+	</eh:section>
+</eh:section>
+
+<eh:section id="terms-differences">
+	<eh:title>おまけ: 言葉の違い</eh:title>
+	<p>
+		同じプロトコル (OStatus) を使っているのに、何故かサービス毎に使っている用語が違ったりするので、比較表を載せておきます。
+	</p>
+	<table class="visual">
+		<thead>
+			<tr>
+				<th>twitter</th>
+				<th>GNU Social</th>
+				<th>GNU Social (Qvitter plugin)</th>
+				<th>mastodon</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>tweet (ツイート)</td>
+				<td>notice (ノーティス)</td>
+				<td>quip (クイップ)</td>
+				<td>toot (トゥート)</td>
+			</tr>
+			<tr>
+				<td>retweet (リツイート)</td>
+				<td>repeat (リピート)</td>
+				<td>requip (リクイップ)</td>
+				<td>boost (ブースト)</td>
+			</tr>
+			<tr>
+				<td>follow (フォロー)</td>
+				<td>subscribe (サブスクライブ)</td>
+				<td>follow (フォロー)</td>
+				<td>follow (フォロー)</td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		なんだかなぁ。
+	</p>
+	<blockquote>
+		<p>
+			Qvitterの何が嫌かって、例えば投稿された物を元々"notice"だった奴を"quip"というような、インフラに乗っかっておいてその文化を分断しに行く姿勢が嫌い
+		</p>
+		<footer>
+			——<a href="https://js4.in/alttw/notice/5192">はいこん(js4.in)(obsoletestandard), 2017-03-04(Sat) 21:17:40</a>
+		</footer>
+	</blockquote>
+</eh:section>
+
+<eh:section id="see-also">
+	<eh:title>参考になりそうなリンク</eh:title>
+	<dl>
+		<dt><a href="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">ポストTwitter？　急速に流行中「マストドン」とは - ITmedia NEWS</a></dt>
+		<dd>
+			mastodon の紹介記事。
+		</dd>
+		<dt><a href="http://hitoasa.hateblo.jp/entry/20101013/1286950786">OStatusの仕様をかいつまんで適当に和訳するよ - hito_asaの日記</a></dt>
+		<dd>
+			OStatus の仕様についての解説。
+		</dd>
+		<dt><a href="http://ja.akionux.net/wiki/index.php/GNU_social%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">GNU socialのインストール - Akionux-wiki</a></dt>
+		<dd>
+			GNU Social のインストールについての記事。
+			GNU Social の概要について説明あり。
+		</dd>
+		<dt><a href="https://hakabahitoyo.wordpress.com/2017/01/08/gnu-social-%E3%81%AE%E3%83%9C%E3%83%83%E3%83%88%E3%82%92-c-%E3%81%A7%E4%BD%9C%E3%82%8B/">GNU Social のボットを C++ で作る | 墓場一夜 (WordPress.com)</a></dt>
+		<dd>
+			GNU Social や Qvitter plugin の概要について説明あり。
+			ちなみに "We have 1 simple rule" というのは、一時期 <a href="https://freezepeach.xyz">freezepeach.xyz</a> というインスタンスで「マイクロブロガー連合は道徳と団結を大切にして、中央集権化された資本主義なサービスからの離脱を目指しています。」という定型文の代わりに表示されていたメッセージ。
+		</dd>
+		<dt><a href="https://www.w3.org/community/fedsocweb/">Federated Social Web Community Group</a></dt>
+		<dd>
+			非営利の国際標準化団体 W3C の、 federated social web 関連の仕様策定のためのグループ。
+			最近活動の形跡が見えないので超心配だが、たぶん <a href="https://www.w3.org/community/fedid/">Federated Identities for the Open Web Community Group</a> の活動が優先されているのだと思う。
+			そう信じたい。
+		</dd>
+		<dt>私の GNU Social の投稿</dt>
+		<dd>
+			<p>
+				暇ならリンク先の notice から始まる conversation を読んでみてください。
+			</p>
+			<ul>
+				<li>
+					<a href="https://gnusocial.cardina1.red/notice/9745">他のインスタンスの notice を repeat するにはちょっとした条件があるという話</a>
+				</li>
+				<li>
+					<a href="https://gnusocial.cardina1.red/notice/9337">自前のインスタンス立てるといいよねという話</a>
+				</li>
+				<li>
+					<blockquote>
+						<p>
+							gnu socialの鯖、自分で立てないと結局twitter社に依存するかGS鯖缶の思想と運用に依存するかしかなくなるので、dockerとか使って自前でどうにかできるのが最適だし、是非自前鯖に乗せるべき
+						</p>
+						<footer>
+							——<a href="https://gnusocial.cardina1.red/notice/9329">@lo48576, 2017-04-12 23:29</a>
+						</footer>
+					</blockquote>
+				</li>
+			</ul>
+		</dd>
+	</dl>
+</eh:section>
+
+</eh:article>
