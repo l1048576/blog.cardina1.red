@@ -90,3 +90,12 @@ pre {
 	// FIXME: from %code-block in `__code.scss`.
 	background: #f4f4f4;
 }
+
+blockquote {
+	>p:first-child {
+		margin-top: 0;
+	}
+	>p:last-child {
+		margin-bottom: 0;
+	}
+}
