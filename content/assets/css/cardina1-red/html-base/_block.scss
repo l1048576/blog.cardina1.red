@@ -77,8 +77,10 @@ figure {
 }
 
 blockquote {
+	@extend %independent-block;
 	border-left: 0.3rem solid #ccc;
 	padding: 0.5rem;
+	margin: 0.5rem 0;
 }
 
 pre {
@@ -87,8 +89,4 @@ pre {
 	border: 1px solid #eeeef8;
 	// FIXME: from %code-block in `__code.scss`.
 	background: #f4f4f4;
-}
-
-blockquote {
-	@extend %independent-block;
 }
