@@ -17,12 +17,12 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 >
 <eh:title>gnusocial や mastodon の哲学</eh:title>
 <p>
-	mastodon が急に話題になってきた。
+	Mastodon が急に話題になってきた。
 	しかし、その哲学についてはあまり理解されていないように感じる。
 </p>
 <p>
-	mastodon や GNU Social は、単なる「ポスト twitter 」<strong>ではない</strong>。
-	この記事では、 twitter の根本的な問題や、それに対する mastodon 等の思想を解説する。
+	Mastodon や GNU Social は、単なる「ポスト twitter 」<strong>ではない</strong>。
+	この記事では、 twitter の根本的な問題や、それに対する Mastodon 等の思想を解説する。
 </p>
 <p>
 	キーワードだけ先に書いておこう。
@@ -40,20 +40,20 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 	</p>
 	<ul>
 		<li>
-			mastodon や GNU Social などでは、どこか<strong>信頼できる運営者のサーバにひとつアカウントを作って</strong>、そこから他のサーバのアカウントをフォローすることができます。
+			Mastodon や GNU Social などでは、どこか<strong>信頼できる運営者のサーバにひとつアカウントを作って</strong>、そこから他のサーバのアカウントをフォローすることができます。
 			(サーバはグループのような意味を持つものではなく、単に自分の情報がどこで管理されるかを決めるものにすぎません。)
 			無理して複数のサーバにアカウントを取る必要はありません。
 		</li>
 		<li>
-			mastodon や GNU Social では、自分のサーバ (VPS 、自宅サーバ、 etc...) にサービスを立てることができます。
+			Mastodon や GNU Social では、自分のサーバ (VPS 、自宅サーバ、 etc...) にサービスを立てることができます。
 		</li>
 		<li>
-			mastodon や GNU Social などが重視しているのは、<strong>ユーザの自由</strong>です。
+			Mastodon や GNU Social などが重視しているのは、<strong>ユーザの自由</strong>です。
 			これが twitter 等との大きな違いです。
 		</li>
 		<li>
 			IRC に似ていますが、大きな違いとしては <strong>notice がすべてサーバに保存されること</strong>です。
-			IRC はクライアント(や proxy) にしかログが残りませんが、 GNU Social や mastodon は<strong>マイクロブログサービス</strong>なので、サーバ側にデータを保存する仕組みになっています。
+			IRC はクライアント(や proxy) にしかログが残りませんが、 GNU Social や Mastodon は<strong>マイクロブログサービス</strong>なので、サーバ側にデータを保存する仕組みになっています。
 		</li>
 	</ul>
 </eh:section>
@@ -185,16 +185,16 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 </eh:section>
 
 <eh:section id="what-is-gnusocial-and-mastodon">
-	<eh:title>GNU Social とは、 mastodon とは何か</eh:title>
+	<eh:title>GNU Social とは、 Mastodon とは何か</eh:title>
 	<p>
-		<strong>GNU Social</strong> や <strong>mastodon</strong> は、 OStatus というプロトコル(通信やデータの規格)を実装した、 federated social web のための web サービス、またそのためのアプリケーションである。
+		<strong>GNU Social</strong> や <strong>Mastodon</strong> は、 OStatus というプロトコル(通信やデータの規格)を実装した、 federated social web のための web サービス、またそのためのアプリケーションである。
 	</p>
 	<p>
 		OStatus はオープンな(公開された)仕様であり、 twitter のように運営者の一存で仕様が変化したりはせず、また隠された仕様なども存在しない。
 		よって、 OStatus を実装したアプリケーションは誰でも開発することができる。
 	</p>
 	<p>
-		mastodon は <a href="https://github.com/tootsuite/mastodon"><q lang="en">A GNU Social-compatible microblogging server</q> と説明されている</a>が、つまりこれは OStatus を実装しているということである。
+		Mastodon は <a href="https://github.com/tootsuite/mastodon"><q lang="en">A GNU Social-compatible microblogging server</q> と説明されている</a>が、つまりこれは OStatus を実装しているということである。
 		ただそれだけであるが、つまり公開された仕様によっているということなので、全く別で開発された互換サービスと連携できる。
 	</p>
 
@@ -220,7 +220,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			にアカウントを持っているが、そこから他のインスタンス(上に挙げたようなもの)のアカウントもフォローしている。
 		</p>
 		<p>
-			このように、他の誰かでなく、信頼できる人(自分でもいい)の運用するインスタンスに居ることで、中央集権された自由のないサービスから解放されようというのが、 GNU Social や mastodon が twitter と本質的に違うところである。
+			このように、他の誰かでなく、信頼できる人(自分でもいい)の運用するインスタンスに居ることで、中央集権された自由のないサービスから解放されようというのが、 GNU Social や Mastodon が twitter と本質的に違うところである。
 		</p>
 	</eh:section>
 </eh:section>
@@ -231,7 +231,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 	<eh:section id="misunderstanding">
 		<eh:title>誤解や不理解</eh:title>
 		<p>
-			最近急に話題になった mastodon だが、 ASCII.jp の記事「<a href="http://ascii.jp/elem/000/001/465/1465842/">ASCII.jp：Twitterのライバル？　実は、新しい「マストドン」（Mastodon）とは！｜遠藤諭のプログラミング＋日記</a>」はどうにも mastodon の思想がよく理解されないまま書かれているように感じる。
+			最近急に話題になった Mastodon だが、 ASCII.jp の記事「<a href="http://ascii.jp/elem/000/001/465/1465842/">ASCII.jp：Twitterのライバル？　実は、新しい「マストドン」（Mastodon）とは！｜遠藤諭のプログラミング＋日記</a>」はどうにも Mastodon の思想がよく理解されないまま書かれているように感じる。
 		</p>
 		<p>
 			たとえば、以下のような記述があった。
@@ -242,7 +242,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			ちょうど、なんの制約もなく空を飛んでつぶやいているTweet（さえずる）と、集団をつくってはToot（吠える）の違いだろうか？
 		</blockquote>
 		<p>
-			mastodon は、それぞれが自身や同志のためのインスタンスを立てやすい
+			Mastodon は、それぞれが自身や同志のためのインスタンスを立てやすい
 			<eh:footnote id="footnote-owning-instance">これは federation を進めるために必要なことであり、実際 docker 等で楽にインスタンスを立てる手段が用意されている</eh:footnote>
 			というのは事実だが、「土地に根差して活動しやすく〜」っというのは見方が偏っている。
 			似た人々が集まるのは、自分たちに理解のある運営者のインスタンスに集まることが自分たちの自由のために重要だからであって、フォロー関係がインスタンスを跨げる以上、同じ趣味の人々が同じインスタンスに集まることはあまり意味がない。
@@ -257,7 +257,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 		</p>
 		<p>
 			そもそもこの記事では decentralization (脱中央集権)の考え方に触れておらず、あまりに表面的な紹介である。
-			繰り返し言うが、 mastodon は単なる twitter クローンやちょっと良くなった代替などではない。
+			繰り返し言うが、 Mastodon は単なる twitter クローンやちょっと良くなった代替などではない。
 		</p>
 	</eh:section>
 
@@ -275,7 +275,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 		</blockquote>
 		<p>
 			その通りである。
-			mastodon (や互換サービス)の目指すところは、脱中央集権と federation (連合)による分散プラットフォームである。
+			Mastodon (や互換サービス)の目指すところは、脱中央集権と federation (連合)による分散プラットフォームである。
 		</p>
 	</eh:section>
 </eh:section>
@@ -286,7 +286,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 		<eh:title>GNU Social と互換</eh:title>
 		<p>
 			要するに OStatus を実装しているもの。
-			mastodon は "GNU Social-compatible" であるが、このような実装はいくつか存在する。
+			Mastodon は "GNU Social-compatible" であるが、このような実装はいくつか存在する。
 		</p>
 		<dl>
 			<dt><a href="https://www.gnu.org/software/social/">GNU Social</a></dt>
@@ -295,7 +295,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 				プラグインでの拡張(たとえば twitter 連携など)ができる。
 				リポジトリは <a href="https://git.gnu.io/gnu/gnu-social">git.gnu.io</a> 。
 			</dd>
-			<dt><a href="https://mastodon.social/about">mastodon</a></dt>
+			<dt><a href="https://mastodon.social/about">Mastodon</a></dt>
 			<dd>
 				最近話題になっている実装。
 				TweetDeck 風の UI が特徴？
@@ -339,7 +339,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 				<th>twitter</th>
 				<th>GNU Social</th>
 				<th>GNU Social (Qvitter plugin)</th>
-				<th>mastodon</th>
+				<th>Mastodon</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -381,7 +381,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 	<dl>
 		<dt><a href="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">ポストTwitter？　急速に流行中「マストドン」とは - ITmedia NEWS</a></dt>
 		<dd>
-			mastodon の紹介記事。
+			Mastodon の紹介記事。
 		</dd>
 		<dt><a href="http://hitoasa.hateblo.jp/entry/20101013/1286950786">OStatusの仕様をかいつまんで適当に和訳するよ - hito_asaの日記</a></dt>
 		<dd>
