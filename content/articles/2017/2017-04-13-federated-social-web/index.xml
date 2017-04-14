@@ -588,6 +588,11 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 						<li>
 							「どのインスタンスの運営者もよく知りません。これでは登録できません！」→それなら仕方がありません。
 							どうにかして探すか、甘んじて大手を信用する(そしてある程度のリスクを許容する)か、諦めてください。
+							<small>
+								ヒント:
+								たとえば <a href="https://twitter.com/pixiv/status/852879122183278593">pixiv がインスタンスを立てたようです</a>。
+								あなたは pixiv を信用しますか？
+							</small>
 						</li>
 						<li>
 							<blockquote>
