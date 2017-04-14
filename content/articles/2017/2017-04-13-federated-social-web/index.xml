@@ -40,15 +40,15 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 	</p>
 	<ul>
 		<li>
-			mastodon などでは、どこか<strong>信頼できる運営者のサーバにひとつアカウントを作って</strong>、そこから他のサーバのアカウントをフォローすることができます。
+			mastodon や GNU Social などでは、どこか<strong>信頼できる運営者のサーバにひとつアカウントを作って</strong>、そこから他のサーバのアカウントをフォローすることができます。
 			(サーバはグループのような意味を持つものではなく、単に自分の情報がどこで管理されるかを決めるものにすぎません。)
 			無理して複数のサーバにアカウントを取る必要はありません。
 		</li>
 		<li>
-			mastodon では、自分のサーバ (VPS 、自宅サーバ、 etc...) にサービスを立てることができます。
+			mastodon や GNU Social では、自分のサーバ (VPS 、自宅サーバ、 etc...) にサービスを立てることができます。
 		</li>
 		<li>
-			mastodon や GNU Social が重視しているのは、<strong>ユーザの自由</strong>です。
+			mastodon や GNU Social などが重視しているのは、<strong>ユーザの自由</strong>です。
 			これが twitter 等との大きな違いです。
 		</li>
 		<li>
@@ -292,6 +292,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			<dt><a href="https://www.gnu.org/software/social/">GNU Social</a></dt>
 			<dd>
 				GNU が開発している本家。
+				プラグインでの拡張(たとえば twitter 連携など)ができる。
 				リポジトリは <a href="https://git.gnu.io/gnu/gnu-social">git.gnu.io</a> 。
 			</dd>
 			<dt><a href="https://mastodon.social/about">mastodon</a></dt>
