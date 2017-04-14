@@ -278,6 +278,20 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			Mastodon (や互換サービス)の目指すところは、脱中央集権と federation (連合)による分散プラットフォームである。
 		</p>
 	</eh:section>
+
+	<eh:section id="netlab-article">
+		<eh:title>ねとらぼの記事も良い感じ</eh:title>
+		<p>
+			ねとらぼも記事を書いている: 「<a href="http://nlab.itmedia.co.jp/nl/articles/1704/13/news160.html">ポストTwitter有力候補？　500文字まで書き込めるオープンソースSNS「マストドン」が脚光浴びる - ねとらぼ</a>」。
+		</p>
+		<blockquote>
+			「分散型」をうたうマストドンでは、誰でもサーバ（インスタンス）を立ち上げることができ、どこか1つにトラブルがあっても、他のインスタンスが生きていればサービスを継続することが可能となっています。
+			また、運営会社の倒産により突然のサービス終了……といった事態も避けられます。
+		</blockquote>
+		<blockquote>
+			ちなみに最初にどのインスタンスで始めても、ちゃんと世界中のユーザーとつながることができるのでご安心を。
+		</blockquote>
+	</eh:section>
 </eh:section>
 
 <eh:section id="implementations">
@@ -380,6 +394,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 	<eh:title>参考になりそうなリンク</eh:title>
 	<dl>
 		<dt><a href="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">ポストTwitter？　急速に流行中「マストドン」とは - ITmedia NEWS</a></dt>
+		<dt><a href="http://nlab.itmedia.co.jp/nl/articles/1704/13/news160.html">ポストTwitter有力候補？　500文字まで書き込めるオープンソースSNS「マストドン」が脚光浴びる - ねとらぼ</a></dt>
 		<dd>
 			Mastodon の紹介記事。
 		</dd>
