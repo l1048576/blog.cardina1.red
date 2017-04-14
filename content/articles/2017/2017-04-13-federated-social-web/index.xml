@@ -1,6 +1,6 @@
 ---
 created_at: 2017-04-13T16:51:31+0900
-updated_at: 2017-04-14T13:38:04+0900
+updated_at: 2017-04-14T16:21:57+0900
 title: "gnusocial や mastodon の哲学"
 htags:
   - "computer/gnu-social"
@@ -47,6 +47,10 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 				<li>
 					<strong>自分用のインスタンス(サーバ)を立てて</strong>そこに自分のアカウントを作るのが、一番安心かも。
 					これならサーバ管理者による情報の悪用等を心配する必要もありません。
+				</li>
+				<li>
+					個人の(自分の)サーバで<strong>他人の登録を受け付ける必要はありません</strong>。
+					自分のアカウントだけ置いて使うことができます。
 				</li>
 			</ul>
 		</li>
@@ -164,6 +168,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 					<p>
 						他人を完全に信用しなくとも、自分でインスタンスを運営し、自分でそこにアカウントを作ることもできる。
 						これなら、検閲や BAN もない。
+						自分のアカウント専用のインスタンスにしてしまえば、他人が法的にヤバい書き込みをして云々という問題も避けやすくなるし、問題がある投稿を自分でサーバから消すこともできる。
 					</p>
 				</td>
 			</tr>
@@ -398,9 +403,15 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 
 <eh:section id="setting-up-a-new-instance">
 	<eh:title>おまけ: 自前のサーバにインスタンスを立てるなら</eh:title>
-	<p>
-		楽したい人には Mastodon の方がおすすめ。
-	</p>
+	<ul>
+		<li>
+			楽したい人には Mastodon の方がおすすめ。
+		</li>
+		<li>
+			ユーザの登録機能は無効化した方が良い。
+			個人で見ず知らずの他人の投稿に責任を持ち管理するのは流石に面倒すぎる。
+		</li>
+	</ul>
 
 	<eh:section id="installing-gnu-social-is-a-bit-hard">
 		<eh:title>GNU Social のインストールはちょっと難しい</eh:title>
