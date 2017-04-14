@@ -1,6 +1,6 @@
 ---
 created_at: 2017-04-13T16:51:31+0900
-updated_at: 2017-04-14T00:10:00+0900
+updated_at: 2017-04-14T09:54:26+0900
 title: "gnusocial や mastodon の哲学"
 htags:
   - "computer/gnu-social"
@@ -388,6 +388,44 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			——<a href="https://js4.in/alttw/notice/5192">はいこん(js4.in)(obsoletestandard), 2017-03-04(Sat) 21:17:40</a>
 		</footer>
 	</blockquote>
+</eh:section>
+
+<eh:section id="setting-up-a-new-instance">
+	<eh:title>おまけ: 自前のサーバにインスタンスを立てるなら</eh:title>
+	<p>
+		楽したい人には Mastodon の方がおすすめ。
+	</p>
+
+	<eh:section id="installing-gnu-social-is-a-bit-hard">
+		<eh:title>GNU Social のインストールはちょっと難しい</eh:title>
+		<p>
+			GNU Social は、公式では以下のようなインストール手段が用意されている。
+		</p>
+		<ul>
+			<li><a href="https://git.gnu.io/gnu/gnu-social/blob/1.2.x/INSTALL#L77">アーカイブをダウンロードして展開する (INSTALL ファイル)</a></li>
+			<li><a href="https://git.gnu.io/gnu/gnu-social/tree/1.2.x#unstable-version">git で引っ張ってくる</a></li>
+		</ul>
+		<p>
+			公式の docker ファイル等は用意されていないため、手動でメンテナンスするか、自前で書くことになる。
+			プラグインでの拡張も、アーカイブを展開するか git を使うことで管理する。
+		</p>
+		<p>
+			ちなみに私の場合、 <code class="filepath">Dockerfile</code> と <code class="filepath">docker-compose.yaml</code> とシェルスクリプトを書いて、コンテナ化と自動更新を行うようにしている。
+		</p>
+		<p>
+			そこそこ面倒で、最低でもサーバに環境を構築しシェルスクリプトを書いたりコマンドを叩くくらいの知識は必要である。
+		</p>
+	</eh:section>
+
+	<eh:section id="installing-mastodon-looks-easy">
+		<eh:title>Mastodon のインストールは簡単そう</eh:title>
+		<p>
+			Mastodon では、<a href="https://github.com/tootsuite/mastodon/tree/v1.1.2#running-with-docker-and-docker-compose">公式に docker や docker-compose を使う方法が用意されている</a> ので、 GNU Social に比べればかなり楽そうである。
+		</p>
+		<p>
+			今からインストールをすることをおすすめするなら、 Mastodon の方だろう。
+		</p>
+	</eh:section>
 </eh:section>
 
 <eh:section id="see-also">
