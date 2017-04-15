@@ -1,6 +1,6 @@
 ---
 created_at: 2017-04-13T16:51:31+0900
-updated_at: 2017-04-15T01:27:58+0900
+updated_at: 2017-04-15T11:24:03+0900
 title: "gnusocial や mastodon の哲学"
 htags:
   - "computer/gnu-social"
@@ -479,6 +479,13 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			非営利の国際標準化団体 W3C の、 federated social web 関連の仕様策定のためのグループ。
 			最近活動の形跡が見えないので超心配だが、たぶん <a href="https://www.w3.org/community/fedid/">Federated Identities for the Open Web Community Group</a> の活動が優先されているのだと思う。
 			そう信じたい。
+		</dd>
+		<dt><a href="https://cpplover.blogspot.jp/2017/04/blog-post_15.html">本の虫: そろそろマストドンについて語っておくか</a></dt>
+		<dd>
+			GNU Social や Mastodon (というより、そもそも OStatus) の設計が、(理想の実現のためには)技術的にイケてないという話。
+			思想からすると、すべての個々人がサーバ(や、同等の動作をするアプリケーション)を持ってネットワークに参加するべきだが、難易度やコストからそれは現実的ではない。
+			P2P はもう少し理想に近いが、それでさえ BitTorrent 以外のプロトコルは廃れてしまった。
+			ままならないものだ。
 		</dd>
 		<dt>私の GNU Social の投稿</dt>
 		<dd>
