@@ -4,7 +4,7 @@
 <%- current_node = articles_htag_items_tree.get_node(target_htag) -%>
 <%- max_items = @item[:max_items] || 200 -%>
 <section>
-	<h1><%= h @item[:title] %></h1>
+	<h1><%= @item[:title] %></h1>
 	<ul>
 		<li>
 			exact match: <%= current_node.item_exact.size -%>

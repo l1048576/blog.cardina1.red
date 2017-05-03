@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8" />
-	<title><%= h @item[:title] %> - 何とは言わない天然水飲みたさ</title>
+	<title><%= @item[:title] %> - 何とは言わない天然水飲みたさ</title>
 	<!-- font awesome -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<!-- sanitize.css -->
@@ -18,7 +18,7 @@
 	<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="何とは言わない天然水飲みたさ" />
 	<%- if @prev_uri %><link rel="prev" href="<%= @prev_uri %>" /><% end -%>
 	<%- if @next_uri %><link rel="next" href="<%= @next_uri %>" /><% end -%>
-	<%- if excerpt = @item[:excerpt] %><meta name="description" content="<%= h excerpt %>" /><% end -%>
+	<%- if excerpt = @item[:excerpt] %><meta name="description" content="<%= excerpt %>" /><% end -%>
 	<%= render '/part/metadata-for-sns.*' -%>
 	<meta name="generator" content="Nanoc <%= Nanoc::VERSION %>" />
 	<%= render '/part/google-analytics.*', id: 'UA-81669327-1' -%>
