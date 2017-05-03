@@ -204,7 +204,7 @@ rm "${CONFFILE_TEMP}"
 		<p>
 			で、たとえば実際に私が使っている設定(の抜粋)は以下のようになります。
 		</p>
-		<figure id="code-genconfig_sh">
+		<figure id="config-file-example">
 			<pre><code>    # www-client:google-chrome-46.0.2490.80_p1:
     # &gt; CONFIG_COMPAT_VDSO causes segfaults (bug #556286)
         ## config COMPAT_VDSO
@@ -358,7 +358,7 @@ Configuration targets:
 		<p>
 			もし私のスクリプトで <code>allnoconfig</code> を使いたい場合、 <code>./scripts/kconfig/merge_config.sh</code> の呼び出しで <code>-n</code> を追加しましょう。
 		</p>
-		<figure id="code-genconfig_sh">
+		<figure id="code-add-allnoconfig-option">
 			<pre><code class="lang-sh language-sh" data-lang="sh">
 ./scripts/kconfig/merge_config.sh -n -r "${CONFFILE_TEMP}"
 </code></pre>
