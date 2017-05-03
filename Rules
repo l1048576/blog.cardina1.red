@@ -6,6 +6,17 @@ preprocess do
   create_archive_pages
   create_htag_pages('/tags/', items: articles)
   create_article_list_pages
+
+  @items.each do |i|
+    if title = i[:title]
+      i[:title_raw] = title
+      i[:title] = h title
+    end
+    if excerpt = i[:excerpt]
+      i[:excerpt_raw] = excerpt
+      i[:excerpt] = h excerpt
+    end
+  end
 end
 
 # }}}1

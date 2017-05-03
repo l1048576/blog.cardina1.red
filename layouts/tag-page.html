@@ -1,7 +1,7 @@
 <%- render '/page-base.*' do -%>
 <%- target_tag = @item[:target_tag] -%>
 <section>
-	<h1><%= h @item[:title] %></h1>
+	<h1><%= @item[:title] %></h1>
 	<%- if target_items = items_with_tag(target_tag) -%>
 		<div>
 			<%= render '/part/item-list.*', target_items: target_items.sort_by{|e| e[:created_at]}.reverse, header_level: 2 -%>
