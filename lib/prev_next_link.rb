@@ -20,13 +20,13 @@ module Larry
 
     def prev_link(items, prefix: nil, suffix: nil, target: @item, options: {})
       if prev_page = prev_item(items, target: target)
-        link_to "#{prefix}#{h prev_page[:title]}#{suffix}", prev_page, options
+        link_to "#{prefix}#{prev_page[:title]}#{suffix}", prev_page, options
       end
     end
 
     def next_link(items, prefix: nil, suffix: nil, target: @item, options: {})
       if next_page = next_item(items, target: target)
-          link_to "#{prefix}#{h next_page[:title]}#{suffix}", next_page, options
+          link_to "#{prefix}#{next_page[:title]}#{suffix}", next_page, options
       end
     end
 
