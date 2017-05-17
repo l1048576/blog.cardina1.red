@@ -25,11 +25,14 @@ excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 <eh:section id="tl-dr">
 	<eh:title>TL;DR</eh:title>
 	<p>
-		VirtualBox Guest AdditionsのDirect3D Support (Experimental)はWindows標準のDirectXライブラリを上書きするが、そのせいで一部ゲームでエラーが出て起動できなくなることがある。<br />
+		VirtualBox Guest Additions (4.1.8 未満、大昔のバージョン)のDirect3D Support (Experimental)はWindows標準のDirectXライブラリを上書きするが、そのせいで一部ゲームでエラーが出て起動できなくなることがある。<br />
 		これは、書き換えられてしまったDirectXの一部ファイルを本来のファイルで上書きしてやることで解決可能である。
 	</p>
 	<p>
 		問題遭遇編は<a href="../../15/erg-install-battle">エロゲインストールバトル</a>を参照。
+	</p>
+	<p>
+		バグの詳細は<eh:xref linkend="bug-fixed">追記</eh:xref>を参照。
 	</p>
 </eh:section>
 
@@ -331,6 +334,20 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 				<figcaption>まいてつ起動成功</figcaption>
 			</figure>
 		</div>
+	</eh:section>
+</eh:section>
+
+<eh:section id="note">
+	<eh:title>付記</eh:title>
+	<eh:section id="bug-fixed">
+		<eh:title>追記(2017-05-17): 大昔に修正されたバグだった模様</eh:title>
+		<p>
+			<a href="https://forums.virtualbox.org/viewtopic.php?f=2&amp;t=80622&amp;sid=d9cb0c1161c1ae76040f54dab3a106f9">virtualbox.org • View topic - error SfmDxGetSwapChainStats could not be located in dynamic link library C:\WINDOWS\SYSTEM32\d3d9.d</a> によると、 VirtualBox 4.1.8 にてバグとして修正され、それによって元の DLL ファイルを上書きしてしまう挙動はなくなったらしい。
+			ただし、既に上書きされてしまったファイルを修正することはできないとのことなので、その場合は上記の手順やフォーラムに書かれた手順で修正する必要がある。
+		</p>
+		<p>
+			私の Windows 10 環境は、 Windows 7 時代から丹精込めて育て上げたものだったので、その昔 VirtualBox 4.1.8 未満で Guest Additions の Direct3D Support を有効にしたとき以降ずっとファイルが壊れていて、それが Windows 10 へのアップデートで問題として現れたということなのだろう。
+		</p>
 	</eh:section>
 </eh:section>
 </eh:article>
