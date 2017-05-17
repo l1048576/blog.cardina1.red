@@ -195,15 +195,116 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 
 		<p>
 			これらの3ファイル(実質2ファイル)を置き換えればミッション達成となる。
-			しかし実はこういった重要なファイルはadmin権限でもっても通常の手段では削除等できなかったりするため、<a href="https://support.microsoft.com/ja-jp/kb/929833#mt3">上述のページの『破損したシステム ファイルを、正常なコピーであることが判明しているファイルに手動で置き換える方法』セクション</a>に従って所有権の変更等を行い、然る後にファイルをコピー(上書き)する。
+			しかし実はこういった重要なファイルはAdministrator権限でもっても通常の手段では削除等できなかったりするため、<a href="https://support.microsoft.com/ja-jp/kb/929833#mt3">上述のページの『破損したシステム ファイルを、正常なコピーであることが判明しているファイルに手動で置き換える方法』セクション</a>に従って所有権の変更等を行い、然る後にファイルをコピー(上書き)する。
 		</p>
 
+		<details>
+			<summary>具体的な方法 (クリックで展開)</summary>
+			<ol>
+				<li>管理者権限でコマンドプロンプトを開く</li>
+				<li>
+					以下のことを3つのファイルに大して繰り返す
+					<ol>
+						<li><code>takeown /f ファイル名</code> を実行</li>
+						<li><code>icacls ファイル名 /grant administrators:F</code> を実行</li>
+						<li>
+							正常なファイルで破損したファイルを上書きコピーする。
+							<code>copy 正常なファイルのファイル名 破損したファイルのファイル名</code> を実行することで可能だが、管理者として実行したエクスプローラを使うこともできるかもしれない(やってないので知らない)。
+						</li>
+					</ol>
+				</li>
+			</ol>
+			<figure id="fig-admin-command-prompt">
+				<img src="admin-command-prompt.png" alt="管理者権限のコマンドプロンプトでファイルの権限の変更を行った図" />
+				<figcaption>管理者権限のコマンドプロンプトで<code class="filepath">C:\Windows\SysWOW64\d3d9.dll</code>の権限の変更を行った図</figcaption>
+			</figure>
+		</details>
+
 		<p>
-			コピーが完了すれば、作業は一応完了<eh:footnote id="footnote-file-permission">
-				当然といえば当然ながら、<code class="filepath">d3d9.dll</code>とかは上書きしたユーザが所有者っぽい感じになるのだが、元通りTrustedInstallerユーザの所有に直すにはどうすればいいのかよくわからなかった。
-				まあセキュリティ的にはマズいかもしれないが、仮想マシンだしエロゲ動くようになったし、ひとまず放置することにする。
+			コピーできたら、<a href="http://www.askvg.com/guide-how-to-restore-trustedinstaller-as-default-owner-of-a-file-or-folder-in-windows/">[Guide] How to Restore “TrustedInstaller” as Default Owner of a File, Folder or Registry Key in Windows? - AskVG</a>で紹介されている手順(なお、手順3は自分のWindowsバージョンに合わせたものを見ること)に従って、ファイル権限を元に戻す。
+		</p>
+
+		<details>
+			<summary>具体的な方法 (クリックで展開)</summary>
+			<ol>
+				<li>
+					以下の手順を、3つのファイルそれぞれに繰り返す
+					<ol>
+						<li>エクスプローラでファイルを選択し、右クリック→「プロパティ」を選択</li>
+						<li>
+							<p>
+								「セキュリティ」タブの、「アクセス許可を変更するには[編集]をクリックします。」の右にある「編集(E)...」ボタンをクリック。
+								「続行しますか？」のダイアログでは「はい」を押す
+							</p>
+							<div class="independent-block grid-row">
+								<figure id="fig-security-tab-before" class="col-xs-12 col-sm-6">
+									<img src="security-tab-before.png" alt="権限変更前の「セキュリティ」タブの図" />
+									<figcaption>権限変更前の「セキュリティ」タブの様子</figcaption>
+								</figure>
+								<figure id="fig-permission-change-dialog" class="col-xs-12 col-sm-6">
+									<img src="permission-change-dialog.png" alt="「編集」ボタンを押して出るダイアログの図" />
+									<figcaption>「編集」ボタンを押して出るダイアログ</figcaption>
+								</figure>
+							</div>
+						</li>
+						<li>
+							<p>
+								「Administrators」の権限を「読み取りと実行」「読み取り」のみ有効にし、他のもの(「フル コントロール」「変更」「書き込み」「特殊なアクセス許可」)を無効化し、「OK」で反映する
+							</p>
+						</li>
+						<li>
+							<p>
+								「詳細設定」ボタンを押して所有者の「変更」ボタンを押す
+							</p>
+							<div class="independent-block grid-row">
+								<figure id="fig-advanced-config-before" class="col-xs-12 col-sm-6">
+									<img src="advanced-config-before.png" alt="「詳細設定」ボタンを押して出るウィンドウの図" />
+									<figcaption>「詳細設定」ボタンを押して出るウィンドウ</figcaption>
+								</figure>
+							</div>
+						</li>
+						<li>
+							<p>
+								「選択するオブジェクト名を入力してください」のテキストボックスに <code>NT SERVICE\TrustedInstaller</code> と入力し、「名前の確認」ボタンを押す
+							</p>
+							<div class="independent-block grid-row">
+								<figure id="fig-user-select-1" class="col-xs-12 col-sm-6">
+									<img src="user-select-1.png" alt="所有者の「変更」ボタンを押して出るダイアログの図" />
+									<figcaption>所有者の「変更」ボタンを押して出るダイアログに名前を入力したところ</figcaption>
+								</figure>
+								<figure id="fig-user-select-2" class="col-xs-12 col-sm-6">
+									<img src="user-select-2.png" alt="「名前の確認」ボタンを押した後の図" />
+									<figcaption>名前を入力し「名前の確認」を押した後の状態</figcaption>
+								</figure>
+							</div>
+						</li>
+						<li>
+							<p>
+								「OK」ボタンでダイアログを閉じ、「セキュリティの詳細設定」のウィンドウの「適用」ボタンを押す。
+								途中でダイアログが出るかもしれないが、「OK」を押しておけばおｋ。
+							</p>
+							<div class="independent-block grid-row">
+								<figure id="fig-owner-change-notice" class="col-xs-12 col-sm-6">
+									<img src="owner-change-notice.png" alt="所有者の変更後に出るダイアログの図" />
+									<figcaption>所有者の変更後に出るダイアログ</figcaption>
+								</figure>
+								<figure id="fig-advanced-config-after" class="col-xs-12 col-sm-6">
+									<img src="advanced-config-after.png" alt="作業完了後の「セキュリティの詳細設定」の状態の図" />
+									<figcaption>作業完了後の「セキュリティの詳細設定」の状態。所有者が「TrustedInstaller」になっているのがわかる</figcaption>
+								</figure>
+							</div>
+						</li>
+					</ol>
+				</li>
+			</ol>
+		</details>
+
+		<p>
+			権限を元に戻せば、作業は完了<eh:footnote id="footnote-file-permission">
+				実は権限は元に戻さなくともゲーム等は問題なく動くようになるのだが、その状態だとシステムのセキュリティが弱い状態になっている。
+				特別な理由がなければ、権限は元に戻しておくべきだ。
 			</eh:footnote>だ。
-			念のため再起動してからDirectXインストーラをもう一度くらい起動するのもアリだろう。
+			念のため再起動してからDirectXインストーラをもう一度くらい起動するのもアリかもしれない。
 			何か効果があるのかは知らないが。
 		</p>
 	</eh:section>
