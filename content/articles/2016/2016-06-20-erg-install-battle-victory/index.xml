@@ -342,7 +342,9 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 	<eh:section id="bug-fixed">
 		<eh:title>追記(2017-05-17): 大昔に修正されたバグだった模様</eh:title>
 		<p>
-			<a href="https://forums.virtualbox.org/viewtopic.php?f=2&amp;t=80622&amp;sid=d9cb0c1161c1ae76040f54dab3a106f9">virtualbox.org • View topic - error SfmDxGetSwapChainStats could not be located in dynamic link library C:\WINDOWS\SYSTEM32\d3d9.d</a> によると、 VirtualBox 4.1.8 にてバグとして修正され、それによって元の DLL ファイルを上書きしてしまう挙動はなくなったらしい。
+			<a href="https://forums.virtualbox.org/viewtopic.php?f=2&amp;t=80622&amp;sid=d9cb0c1161c1ae76040f54dab3a106f9">virtualbox.org • View topic - error SfmDxGetSwapChainStats could not be located in dynamic link library C:\WINDOWS\SYSTEM32\d3d9.d</a> によると、 VirtualBox 4.1.8 にてバグとして修正され<eh:footnote id="footnote-virtualbox-bug-10071">
+				<a href="https://www.virtualbox.org/ticket/10071">#10071 (The checkbox for "Enable 3D Acceleration" is deactivated in the VM settings &amp; "Your Direct X driver is corrupt or incorrect" message ==&gt; Fixed in SVN) – Oracle VM VirtualBox</a>
+			</eh:footnote>、それによって元の DLL ファイルを上書きしてしまう挙動はなくなったらしい。
 			ただし、既に上書きされてしまったファイルを修正することはできないとのことなので、その場合は上記の手順やフォーラムに書かれた手順で修正する必要がある。
 		</p>
 		<p>
