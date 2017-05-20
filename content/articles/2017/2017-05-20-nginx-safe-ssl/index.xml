@@ -1,0 +1,146 @@
+---
+created_at: 2017-05-20T20:50:34+0900
+title: "nginx での安全な SSL 設定 (Android 4.4.2 対応)"
+htags:
+  - "computer/server/nginx"
+kind: article
+opengraph:
+  image: "ssllabs-test-result.png"
+  image_base: "relpath"
+
+excerpt: "nginx で SSL 設定をする際、できるだけ安全に Android-4.4.2 に対応したかったため、設定を模索した。"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2017-05-20-nginx-safe-ssl"
+>
+<eh:title>nginx での安全な SSL 設定 (Android 4.4.2 対応)</eh:title>
+<p>
+	タイトルの通り、 nginx で SSL を設定する際、どのようにすればできるだけ安全に Android 4.4.2 に対応できるのかという話である。
+	記事の作成日時 (2017-05-20) に注意して参考にしてね。
+</p>
+
+<eh:section id="result">
+	<eh:title>結果</eh:title>
+	<figure id="result-conf-file">
+		<pre><code><![CDATA[
+## based on https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=nginx-1.11.8&openssl=1.0.2k&hsts=no&profile=modern (2017-05-20).
+    # certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
+    #ssl_certificate /path/to/signed_cert_plus_intermediates;
+    #ssl_certificate_key /path/to/private_key;
+    ssl_session_timeout 1d;
+    ssl_session_cache shared:SSL:50m;
+    ssl_session_tickets off;
+
+    # Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
+    ssl_dhparam /path/to/dhparam.pem;
+
+    # modern configuration. tweak to your needs.
+    #ssl_protocols TLSv1.2;
+    #ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+    # For Android 4.4.2: modern + protocol TLSv1 + ciphers `ECDHE-RSA-AES128-SHA:!DSS`
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:!DSS';
+    ssl_prefer_server_ciphers on;
+
+    # OCSP Stapling ---
+    # fetch OCSP records from URL in ssl_certificate and cache them
+    ssl_stapling on;
+    ssl_stapling_verify on;
+
+    ## verify chain of trust of OCSP response using Root CA and Intermediate certs
+    #ssl_trusted_certificate /path/to/root_CA_cert_plus_intermediates;
+]]></code></pre>
+		<figcaption>結果 (<code>server</code> ディレクティブ内等で使う)</figcaption>
+	</figure>
+	<p>
+		Android 4.4.2 への対応は、 <code>TLSv1</code> と <code>ECDHE-RSA-AES128-SHA</code> があれば必要十分のようである。
+	</p>
+	<figure id="ssllabs-test-result">
+		<img src="ssllabs-test-result.png" alt="Qualys SSL Labs でのテスト、結果は A ランク" />
+		<figcaption>A ランクになった</figcaption>
+	</figure>
+	<p>
+		<code>TLSv1.1</code> は正直必要ない気もする (TLS 1.2 も TLS 1.0 も使えず TLS 1.1 だけ使えるという環境も妙である)が、まああった方が自然だし TLS 1.0 よりは安全だろうということで追加した。
+		<code>!DSS</code> も正直意味や意義がよくわからなかったが、後述のページで "Intermediate" 設定にすると <code>ssl_ciphers</code> 末尾に出現するので、 "Modern" での推奨以外の設定を追加するならこれも念のためあった方が良いだろうと考えて追加した。
+		正直なくてもいいと思う。
+		少なくとも、なくても動く。
+	</p>
+</eh:section>
+
+<eh:section id="how-to">
+	<eh:title>つくりかた</eh:title>
+	<ul>
+		<li>
+			<a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/">Generate Mozilla Security Recommended Web Server Configuration Files</a> へ行き、項目を適切に選択する。
+			<ul>
+				<li>
+					サーバは(今回の私の場合は) Nginx
+				</li>
+				<li>
+					プロファイル(対象環境)は Modern
+				</li>
+				<li>
+					サーババージョンと OpenSSL バージョンはそのまま入力 (補完にないバージョンかもしれないが、とりあえずスルーして本当のバージョンを入れた)
+				</li>
+				<li>
+					HSTS は本当は有効化した方が良いのだろうが、私はサーバの設定にミスした場合など万が一のとき HTTP を使いたいかもしれないと考え、有効化していない
+				</li>
+			</ul>
+		</li>
+		<li>
+			入力欄の下の方の "link" をクリックすれば、入力を URL のクエリに含めてくれる(<a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=nginx-1.11.8&amp;openssl=1.0.2k&amp;hsts=no&amp;profile=modern">このような感じで</a>)。
+			サーバの設定ファイルに、コメントとしてこのリンクを入れておくのが良いだろう。
+		</li>
+		<li>
+			"Oldest compatible clients" の欄を見ると、 modern profile では Android 5.0 以上への対応になっているのが読み取れる。
+			一方、 intermediate profile では Android 2.3 以上と出る。
+			<code>TLSv1</code> の追加は少し調べれば必要とわかるから良いとして、 <code>ssl_ciphers</code> で追加が必要な最小限の設定は、 modern と Intermediate での差分の先頭から順に、どれが必要か二分探索でもして試していけば良い。
+			結果として <code>ECDHE-RSA-AES128-SHA</code> が必要、かつこれひとつの追加で十分であることがわかった。
+		</li>
+		<li>
+			<code>ssl_protocols</code> と <code>ssl_ciphers</code> にこれらを反映してやれば変更は完了だ。
+		</li>
+	</ul>
+</eh:section>
+
+<eh:section id="grumbles">
+	<eh:title>以下、ぼやき</eh:title>
+	<ul>
+		<li>
+			<p>
+				本来であれば SSL Labs のテストで A+ 評価だったのに、 Android 4.4.2 対応のせいで A に落ちた。
+				くやしい。
+			</p>
+		</li>
+		<li>
+			<p>
+				私が使っている端末が、もう4年目になる Android 4.4.2 であるが、本当はこんなものを使いたくない。
+				が、コミケとかおたくショッピングに金を注ぎ込んでいるため買い替える金がなく、ずっと使い続ける破目になっている。
+			</p>
+		</li>
+		<li>
+			<p>
+				Firefox や Chrome 等のまともなブラウザであれば、独自に実装されているようで、プラットフォームが古くとも強い暗号設定を使うことができる。
+				問題なのは、 Android デフォルトの通信機能を使うらしいアプリ群だ。
+			</p>
+			<p>
+				たとえば Redmine のアプリで、サーバの暗号化設定が安全すぎるとログインできない。
+				他にも GNU Social / Mastodon に対応している twitter クライアントなどは、古い暗号化形式でも受け入れてくれるサーバのユーザのプロフィールは見られるが、安全すぎる設定のサーバ上のユーザのプロフィールは見ることができない。
+			</p>
+			<p>
+				誰が悪いかと言われると、まあいつまでも古い端末を使い続ける私なのだが、それでもやはり OS アップデートを停滞させたり早期に停止しがちなキャリアのサポートにモヤモヤするのも事実である。
+				せめて Android 5 に上げてくれていればなぁ……
+			</p>
+		</li>
+		<li>
+			<p>
+				金が欲しい。
+			</p>
+		</li>
+	</ul>
+</eh:section>
+
+</eh:article>
