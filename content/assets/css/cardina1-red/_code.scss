@@ -11,7 +11,7 @@
 	padding: 0 0.2em;
 	background: #f4f4f4;
 	display: inline-block;
-	@extend %code-ligature;
+	@extend %code-noligature;
 }
 
 %code-block {
@@ -19,7 +19,7 @@
 	border: 1px solid #eeeef8;
 	padding: 0.3rem 0.3rem;
 	background: #f4f4f4;
-	@extend %code-ligature;
+	@extend %code-noligature;
 }
 
 pre.code {
