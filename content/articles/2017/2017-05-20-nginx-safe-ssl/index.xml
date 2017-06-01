@@ -1,5 +1,6 @@
 ---
 created_at: 2017-05-20T20:50:34+0900
+updated_at: 2017-06-01T12:42:33+0900
 title: "nginx での安全な SSL 設定 (Android 4.4.2 対応)"
 htags:
   - "computer/server/nginx"
@@ -28,8 +29,8 @@ excerpt: "nginx で SSL 設定をする際、できるだけ安全に Android-4.
 		<pre><code><![CDATA[
 ## based on https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=nginx-1.11.8&openssl=1.0.2k&hsts=no&profile=modern (2017-05-20).
     # certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
-    #ssl_certificate /path/to/signed_cert_plus_intermediates;
-    #ssl_certificate_key /path/to/private_key;
+    ssl_certificate /path/to/signed_cert_plus_intermediates;
+    ssl_certificate_key /path/to/private_key;
     ssl_session_timeout 1d;
     ssl_session_cache shared:SSL:50m;
     ssl_session_tickets off;
@@ -50,8 +51,8 @@ excerpt: "nginx で SSL 設定をする際、できるだけ安全に Android-4.
     ssl_stapling on;
     ssl_stapling_verify on;
 
-    ## verify chain of trust of OCSP response using Root CA and Intermediate certs
-    #ssl_trusted_certificate /path/to/root_CA_cert_plus_intermediates;
+    # verify chain of trust of OCSP response using Root CA and Intermediate certs
+    ssl_trusted_certificate /path/to/root_CA_cert_plus_intermediates;
 ]]></code></pre>
 		<figcaption>結果 (<code>server</code> ディレクティブ内等で使う)</figcaption>
 	</figure>
