@@ -19,6 +19,37 @@ excerpt: "2017年 第27週 まとめ"
 	……日記？週記？
 </p>
 
+<eh:section id="news">
+	<eh:title>ニュース・知ったこと</eh:title>
+
+	<eh:section id="fbxsdk2018">
+		<eh:title>いつの間にか FBX SDK 2018 が出てた (2017-07-08)</eh:title>
+		<p>
+			正確なリリース日時は不明。
+		</p>
+		<ul>
+			<li>
+				<a href="http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&amp;id=26416130">FBX Software Development Kit</a>
+			</li>
+			<li>
+				<a href="https://help.autodesk.com/view/FBX/2018/ENU/?guid=__files_GUID_AAE1162F_F5E4_45A1_B25D_01CB85A470E5_htm">FBX 2018 Developer Help: FBX SDK 2018</a>
+			</li>
+		</ul>
+		<p>
+			まだ2017年も半分といったところなのに、既に FBX SDK 2018.1.1 (つまり FBX SDK 2018 のリビジョン2)が出ている。
+			月刊漫画雑誌とかじゃねえんだから……
+		</p>
+		<p>
+			2018.1.1 まででの変更点はだいたいバグフィックスとかオーディオ関連で、私が直接弄ろうという範囲への影響はなさそう。
+			FBX ファイル形式自体のバージョンも 7500 のままで一安心だ<eh:footnote id="fbx-format-version">
+				FBX SDK 2016.0 がリリースされた当初、私は単なるライブラリのアップデートだと思っていたが、実はデフォルトの FBX フォーマットのバージョンが 7.4 (7400) から 7.5 (7500) に上がっていたことがあった。
+				それに伴い、バイナリファイル中でオフセットを指定するフィールドが4バイトだったのが8バイトに拡張され、 7.4 専用だったパーサが修正を余儀なくされた。
+				そういった経験もあり、 FBX SDK のアップデートにはちょっとした恐怖を覚えているのである。
+			</eh:footnote>。
+		</p>
+	</eh:section>
+</eh:section>
+
 <eh:section id="activities">
 	<eh:title>活動</eh:title>
 
@@ -145,5 +176,4 @@ excerpt: "2017年 第27週 まとめ"
 		</eh:section>
 	</eh:section>
 </eh:section>
-
 </eh:article>
