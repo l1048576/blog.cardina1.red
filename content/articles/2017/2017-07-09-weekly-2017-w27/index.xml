@@ -50,8 +50,8 @@ excerpt: "2017年 第27週 まとめ"
 	</eh:section>
 </eh:section>
 
-<eh:section id="activities">
-	<eh:title>活動</eh:title>
+<eh:section id="public-activities">
+	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
 
 	<eh:section id="qvitter-queetbox-fix">
 		<eh:title>Qvitter (と QvitterPlus) に merge request 投げた</eh:title>
@@ -174,6 +174,25 @@ excerpt: "2017年 第27週 まとめ"
 				この改造版のハンドラには Qvitter 由来のコードがそのままコピーされている(しかも修正が必要なコードは2箇所にコピーされていた)ため、こちらにも Qvitter と同等の修正を施した。
 			</p>
 		</eh:section>
+	</eh:section>
+</eh:section>
+
+<eh:section id="private-progress">
+	<eh:title>私的活動</eh:title>
+
+	<eh:section id="gnusocial-cardina1-red-ipv6-support">
+		<eh:title>gnusocial.cardina1.red の IPv6 サポート &#x1f389;</eh:title>
+		<p>
+			これまで ConoHa では IPv6 アドレスが(たぶん DHCP で)17個ホストに配布されていたが、 2017-06-26 以降作成のインスタンスより、 v6 アドレスが1つしか設定されなくなった。
+			もちろん残り16個の(連続した) v6 アドレスも使用可能なので、そちらを docker コンテナに割り振ることで、ホストを大して弄らずともコンテナが v6 で外に接続できるようになった。
+			やったね！ &#x1f389;&#x1f389;&#x1f389;
+		</p>
+		<p>
+			詳細をブログに載せたかったが、単に docker-compose のネットワークを内部用と外部用で作っただけなので、まあ docker に慣れた人なら普通にできるのだと思う。
+			docker-compose その他諸々、そのうち暇ができたらパスワードとか除去したリポジトリを公開できるようにしたい<eh:footnote id="server-configs-repo-with-credentials">
+				認証とかの情報は <code>*.env</code> とかへ分離しているが、うっかりリポジトリに add してしまっていたり、 <code>config.php</code> 系のやつらも情報を持っていたりと、うまいこと分離できていないので、リポジトリを他人に見せられる状態にない
+			</eh:footnote>。
+		</p>
 	</eh:section>
 </eh:section>
 </eh:article>
