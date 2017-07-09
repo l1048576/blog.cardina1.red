@@ -194,5 +194,50 @@ excerpt: "2017年 第27週 まとめ"
 			</eh:footnote>。
 		</p>
 	</eh:section>
+
+	<eh:section id="progress-fbxcel">
+		<eh:title>進捗: fbxcel</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/fbxcel">lo48576/fbxcel: Excellent FBX loader</a>
+			</li>
+			<li>
+				<a href="https://github.com/lo48576/fbxcel/compare/adf9fac0f313ad04cef9f626cd04157176e66d01...08a2139320168d3fec93464374a1f62755c31eed">Comparing adf9fac0f313ad04cef9f626cd04157176e66d01...08a2139320168d3fec93464374a1f62755c31eed · lo48576/fbxcel</a>
+			</li>
+		</ul>
+		<p>
+			fbxcel は FBX ファイルをロードするための Rust ライブラリ。
+		</p>
+		<p>
+			ゲームの方をいいかげん人に見せられるレベルまで実装したいと思ったので、ひとまず FBX データをロードして表示し、アニメーションするところまでいきたいと考えた。
+			今週実装したのは、読まれたノード群の解釈や利用を補助するユーティリティっぽいやつらである(実際はもう少し他にも実装しているが、まだ push していない)。
+		</p>
+		<p>
+			fbxcel のパーサ部分の実装はもうだいぶ昔に完成していて、あとは解釈の方をどう設計するかが問題なのだが、これがなかなか厄介だ。
+			<a href="https://github.com/lo48576/fbxcel/commits/feature/simple-loader-objects">かつて部分的に実装したこともあった</a>のだが、 FBX SDK を見ると継承と動的多態の嵐、しかも型の種類が無限に(←これは誇張)あったので心が折れた。
+			よって今のところは「利用する側のアプリケーションが、自分に必要なものだけ自分で解釈してくれ」という方針だが、さすがに整数や文字列を enum へ変換したりとか、メッシュの頂点等の基本的なデータの扱いは、さすがに fbxcel 側で実装してやっても良いと思えてきたので、今週からはその方向で実装を進めている。
+		</p>
+	</eh:section>
+
+	<eh:section id="progress-last-progress1">
+		<eh:title>進捗: ゲーム (last-progress1)</eh:title>
+		<p>
+			リポジトリはまだ公開していない。
+			というかリモートに置いていない。
+			というのも、設計が駄目だと思ったら爆破して最初から再実装したりする<eh:footnote id="discarding-bad-design">
+				昔からの癖だが、ゲームについてもかれこれ数年その調子だ。
+				良くない癖だとは思うのだが、コードが汚いことに気付くと気分が悪くなってくるので仕方がない(ということになっている。私の中では。)
+			</eh:footnote>ので、公開しても結局捨てることになるからである。
+		</p>
+		<p>
+			今週は、とりあえず FBX の頂点をロードし、四角形以下を三角形分割し(これも自前実装)、表示するというところまで。
+			次に目指すのは法線とテクスチャの読み込み。
+			その次はボーンを読んで間接からグルグル回したい(たぶんかなり難しいと思う)。
+		</p>
+		<figure>
+			<img src="screenshot-2017-07-07-010702+0900.png" alt="メッシュを頂点だけ読み込んだ" />
+			<figcaption>今週の進捗</figcaption>
+		</figure>
+	</eh:section>
 </eh:section>
 </eh:article>
