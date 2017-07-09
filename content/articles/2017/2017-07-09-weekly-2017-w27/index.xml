@@ -1,0 +1,254 @@
+---
+created_at: 2017-07-05T19:58:57+0900
+title: "Weekly report 2017-W27"
+htags:
+  - "日常/日記"
+kind: article
+
+excerpt: "2017年 第27週 まとめ"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2017-07-05-weekly-2017-w27"
+>
+<eh:title>Weekly report 2017-W27</eh:title>
+<p>
+	2017-W27 の日記。
+	……日記？週記？
+</p>
+
+<eh:section id="news">
+	<eh:title>ニュース・知ったこと</eh:title>
+
+	<eh:section id="fbxsdk2018">
+		<eh:title>いつの間にか FBX SDK 2018 が出てた (2017-07-08)</eh:title>
+		<p>
+			正確なリリース日時は不明。
+		</p>
+		<ul>
+			<li>
+				<a href="http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&amp;id=26416130">FBX Software Development Kit</a>
+			</li>
+			<li>
+				<a href="https://help.autodesk.com/view/FBX/2018/ENU/?guid=__files_GUID_AAE1162F_F5E4_45A1_B25D_01CB85A470E5_htm">FBX 2018 Developer Help: FBX SDK 2018</a>
+			</li>
+		</ul>
+		<p>
+			まだ2017年も半分といったところなのに、既に FBX SDK 2018.1.1 (つまり FBX SDK 2018 のリビジョン2)が出ている。
+			翌月のナンバリングで発行する月刊雑誌とかじゃねえんだから……
+		</p>
+		<p>
+			2018.1.1 まででの変更点はだいたいバグフィックスとかオーディオ関連で、私が直接弄ろうという範囲への影響はなさそう。
+			FBX ファイル形式自体のバージョンも 7500 のままで一安心だ<eh:footnote id="fbx-format-version">
+				FBX SDK 2016.0 がリリースされた当初、私は単なるライブラリのアップデートだと思っていたが、実はデフォルトの FBX フォーマットのバージョンが 7.4 (7400) から 7.5 (7500) に上がっていたことがあった。
+				それに伴い、バイナリファイル中でオフセットを指定するフィールドが4バイトだったのが8バイトに拡張され、 7.4 専用だったパーサが修正を余儀なくされた。
+				そういった経験もあり、 FBX SDK のアップデートにはちょっとした恐怖を覚えているのである。
+			</eh:footnote>。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="public-activities">
+	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
+
+	<eh:section id="qvitter-queetbox-fix">
+		<eh:title>Qvitter (と QvitterPlus) に merge request 投げた</eh:title>
+		<ul>
+			<li>
+				<a href="https://git.gnu.io/h2p/Qvitter/merge_requests/101">Fix queetbox behavior (especially in Firefox) (!101) · Merge Requests · hannes / Qvitter · GitLab</a>
+			</li>
+			<li>
+				<a href="https://gitgud.io/panjoozek413/qvitterplus/merge_requests/3">Fix queetbox behavior (especially in Firefox) (!3) · Merge Requests · Józef Tomaszewski / qvitterplus · GitLab</a>
+			</li>
+		</ul>
+		<p>
+			Qvitter とは GNU Social で twitter ライクな UI を実現するためのプラグインであり、 QvitterPlus は Qvitter を更に拡張するプラグインである。
+		</p>
+		<p>
+			firefox における Qvitter のテキストボックスの挙動が google chrome と異なるため、改行の入力が投稿内容に正しく反映されなかった問題を修正した。
+			(テキストボックスで直接 Enter を押すと反映されなかったが、改行文字を含むテキストを C-v でペーストすると正しく反映されていた。)
+		</p>
+		<eh:section id="qvitter-queetbox-fix-abstract">
+			<eh:title>問題の概要</eh:title>
+
+			<p>
+				Qvitter の queet 入力のテキストボックスには、 <code>content-editable="true"</code> な div 要素と javascript による入力の解釈が使われているが、テキスト入力による div 要素内の内容の変化が firefox と google chrome で異なる。
+				たとえば、
+			</p>
+			<pre><code>改行1
+改行2
+
+改行3
+
+改行4
+</code></pre>
+			<p>
+				のように入力すると、 div 内では以下のように HTML が形成される。
+			</p>
+
+			<figure>
+				<div class="grid-row">
+					<figure class="col-xs-12 col-lg-6">
+						<pre><code class="lang-html language-html" data-lang="html"><![CDATA[
+<div>改行1</div>
+<div>改行2</div>
+<div><br></div>
+<div>改行3</div>
+<div><br></div>
+<div>改行4<br></div>
+]]></code></pre>
+						<figcaption>firefox の場合 (<a href="screenshot-2017-07-05-202457+0900.png">キャプチャ画像</a>)</figcaption>
+					</figure>
+					<figure class="col-xs-12 col-lg-6">
+						<pre><code class="lang-html language-html" data-lang="html"><![CDATA[
+改行1<br>改行2<br><br>改行3<br><br>改行4<br>
+]]></code></pre>
+						<figcaption>google chrome の場合 (<a href="screenshot-2017-07-05-202549+0900.png">キャプチャ画像</a>)</figcaption>
+					</figure>
+				</div>
+				<figcaption><code>content-editable="true"</code> な div 要素内に作られる HTML 断片の違い</figcaption>
+			</figure>
+
+			<p>
+				Qvitter や QvitterPlus においては、 <code>&lt;br&gt;</code> を改行文字に変換する処理がかけられており、結果 firefox では正しく改行入力が処理されていなかった。
+			</p>
+		</eh:section>
+		<eh:section id="qvitter-queetbox-fix-1">
+			<eh:title>改行の反映を正しく行うよう修正</eh:title>
+
+			<p>
+				これを修正するには、 <code>&lt;div&gt;</code> を行として扱ってやる、すなわち <code>&lt;/div&gt;</code> の直前に <code>&lt;br&gt;</code> が暗黙に(或いは実際に)存在しているものとして扱い、それを実際に反映させてやればいいということになる。
+				今回は、修正する処理の周辺にあったコードで文字列に <code>replace()</code> を使っていたので、正規表現でどうにかした。
+				(<code>/(&lt;br&gt;)*&lt;\/div&gt;/</code> にマッチしたものを <code>'&lt;br&gt;&lt;/div&gt;'</code> に置換してやる簡単なお仕事である。)
+			</p>
+			<p>
+				これが<a href="https://git.gnu.io/lo48576/Qvitter/commit/332a4a365826dc167af33c1b416814d9d6adcbc9">最初のコミット</a>である。
+			</p>
+		</eh:section>
+		<eh:section id="qvitter-queetbox-fix-2">
+			<eh:title>エスケープ処理を追加</eh:title>
+
+			<p>
+				コード中のコメントによると、 jQuery で <code>.text()</code> を使っても <code>&lt;br&gt;</code> は改行文字にされないとのことで<eh:footnote id="footnote-jquery-text-ignores-br-element">
+					当然といえば当然で、というのも <code>.text()</code> は「テキストノードを結合したもの」を返すのであって、そして <code>&lt;br&gt;</code> はテキストノードではないからだ
+				</eh:footnote>、よって HTML 要素を無視してテキストだけを処理しようとする前に、 <code>&lt;br&gt;</code> をテキストに見えるものに置換する必要がある。
+				その置換先に選ばれたのが <code>{{{lb}}}</code> という文字列である。
+			</p>
+			<p>
+				しかし修正前のコード中ではエスケープ処理に <code>{{{lb}}}</code> から <code>&lt;br&gt;</code> への(元に戻す方向の)置換を実行しており、これにより本文がもともと <code>{{{lb}}}</code> という文字列を含んでいた場合、それも改行に置換されてしまう。
+				最初のコミットで修正したバグが健在であればこれも役立ったかもしれないが、修正された今となっては完全に余計なことである。
+			</p>
+			<p>
+				これを修正するため、エスケープ処理を追加し、以下のように実行されるようにした。
+			</p>
+			<ol>
+				<li>
+					<code>{</code> と <code>}</code> をエスケープして <code>!{</code> と <code>!}</code> に置換<eh:footnote id="footnote-escape-braces-by-exclamation-mark">
+						エスケープに <code>!</code> を使ったのは、 javascript での正規表現リテラル中でエスケープが不要な文字を使いたかったからであり、他の文字でも問題ないが、なんとなく選んだ
+					</eh:footnote> ← new!
+				</li>
+				<li>
+					<code>&lt;br&gt;</code> を <code>{{{lb}}}</code> に置換
+				</li>
+				<li>
+					<code>!{</code> と <code>!}</code> のエスケープを <code>{</code> と <code>}</code> に戻す ← new!
+				</li>
+				<li>
+					<code>{{{lb}}}</code> を実際の改行文字に置換
+				</li>
+			</ol>
+			<p>
+				これにより、本文中の <code>{{{lb}}}</code> という文字列を意図せぬ変換から保護できた。
+				これが<a href="https://git.gnu.io/lo48576/Qvitter/commit/074a1767eef71f5c184b31d11db627510cc73ff1">第2のコミット</a>である。
+			</p>
+		</eh:section>
+		<eh:section id="qvitter-queetbox-fix-qvitterplus">
+			<eh:title>QvitterPlus への同様の修正</eh:title>
+
+			<p>
+				QvitterPlus とは Qvitter を拡張するプラグインだが、どうにもこれがイベントハンドラを上書きしており、 QvitterPlus を有効化している場合は Qvitter への修正が反映されない。
+				(最初、 Qvitter への修正が反映されない理由が思い当たらず、キャッシュを消してみたりいろいろ試して苦労した。)
+				<a href="https://gitgud.io/panjoozek413/qvitterplus/blob/15e475285f522f9d9d10b0a366994ffea18a2d2c/js/ahwillblockyou.js#L565">QvitterPlus の該当部分のコード</a>を参照すると、 Qvitter で予め設定されたハンドラを解除し、改めて改造版のものを登録している。
+				この改造版のハンドラには Qvitter 由来のコードがそのままコピーされている(しかも修正が必要なコードは2箇所にコピーされていた)ため、こちらにも Qvitter と同等の修正を施した。
+			</p>
+		</eh:section>
+	</eh:section>
+</eh:section>
+
+<eh:section id="private-progress">
+	<eh:title>私的活動</eh:title>
+
+	<eh:section id="gnusocial-cardina1-red-ipv6-support">
+		<eh:title>gnusocial.cardina1.red の IPv6 サポート &#x1f389;</eh:title>
+		<p>
+			これまで ConoHa では IPv6 アドレスが(たぶん DHCP で)17個ホストに配布されていたが、 2017-06-26 以降作成のインスタンスより、 v6 アドレスが1つしか設定されなくなった。
+			もちろん残り16個の(連続した) v6 アドレスも使用可能なので、そちらを docker コンテナに割り振ることで、ホストを大して弄らずともコンテナが v6 で外に接続できるようになった。
+			やったね！ &#x1f389;&#x1f389;&#x1f389;
+		</p>
+		<p>
+			詳細をブログに載せたかったが、単に docker-compose のネットワークを内部用と外部用で作っただけなので、まあ docker に慣れた人なら普通にできるのだと思う。
+			docker-compose その他諸々、そのうち暇ができたらパスワードとか除去したリポジトリを公開できるようにしたい<eh:footnote id="server-configs-repo-with-credentials">
+				認証とかの情報は <code>*.env</code> とかへ分離しているが、うっかりリポジトリに add してしまっていたり、 <code>config.php</code> 系のやつらも情報を持っていたりと、うまいこと分離できていないので、リポジトリを他人に見せられる状態にない
+			</eh:footnote>。
+		</p>
+	</eh:section>
+
+	<eh:section id="progress-fbxcel">
+		<eh:title>進捗: fbxcel</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/fbxcel">lo48576/fbxcel: Excellent FBX loader</a>
+			</li>
+			<li>
+				<a href="https://github.com/lo48576/fbxcel/compare/adf9fac0f313ad04cef9f626cd04157176e66d01...08a2139320168d3fec93464374a1f62755c31eed">Comparing adf9fac0f313ad04cef9f626cd04157176e66d01...08a2139320168d3fec93464374a1f62755c31eed · lo48576/fbxcel</a>
+			</li>
+		</ul>
+		<p>
+			fbxcel は FBX ファイルをロードするための Rust ライブラリ。
+		</p>
+		<p>
+			ゲームの方をいいかげん人に見せられるレベルまで実装したいと思ったので、ひとまず FBX データをロードして表示し、アニメーションするところまでいきたいと考えた。
+			今週実装したのは、読まれたノード群の解釈や利用を補助するユーティリティっぽいやつらである(実際はもう少し他にも実装しているが、まだ push していない)。
+		</p>
+		<p>
+			fbxcel のパーサ部分の実装はもうだいぶ昔に完成していて、あとは解釈の方をどう設計するかが問題なのだが、これがなかなか厄介だ。
+			<a href="https://github.com/lo48576/fbxcel/commits/feature/simple-loader-objects">かつて部分的に実装したこともあった</a>のだが、 FBX SDK を見ると継承と動的多態の嵐、しかも型の種類が無限に(←これは誇張)あったので心が折れた。
+			よって今のところは「利用する側のアプリケーションが、自分に必要なものだけ自分で解釈してくれ」という方針だが、さすがに整数や文字列を enum へ変換したりとか、メッシュの頂点等の基本的なデータの扱いは、さすがに fbxcel 側で実装してやっても良いと思えてきたので、今週からはその方向で実装を進めている。
+		</p>
+	</eh:section>
+
+	<eh:section id="progress-last-progress1">
+		<eh:title>進捗: ゲーム (last-progress1)</eh:title>
+		<p>
+			リポジトリはまだ公開していない。
+			というかリモートに置いていない。
+			というのも、設計が駄目だと思ったら爆破して最初から再実装したりする<eh:footnote id="discarding-bad-design">
+				昔からの癖だが、ゲームについてもかれこれ数年その調子だ。
+				良くない癖だとは思うのだが、コードが汚いことに気付くと気分が悪くなってくるので仕方がない(ということになっている。私の中では。)
+			</eh:footnote>ので、公開しても結局捨てることになるからである。
+		</p>
+		<p>
+			今週は、とりあえず FBX の頂点をロードし、四角形以下を三角形分割し(これも自前実装)、表示するというところまで。
+			次に目指すのは法線とテクスチャの読み込み。
+			その次はボーンを読んで間接からグルグル回したい(たぶんかなり難しいと思う)。
+		</p>
+		<figure>
+			<img src="screenshot-2017-07-07-010702+0900.png" alt="メッシュを頂点だけ読み込んだ" />
+			<figcaption>今週の進捗</figcaption>
+		</figure>
+	</eh:section>
+</eh:section>
+
+<eh:section id="thoughts">
+	<eh:title>感想</eh:title>
+	<p>
+		ISO の週番号に合わせてまとめでも書こうと思ったんだけど、日曜の夜まで待つのどう考えても得策に思えないので、土曜〜金曜でやりたい。
+		でもそうなると番号付け (2017-W27 とか)どうしよう。
+	</p>
+	<p>
+		というか感想って何だ。
+	</p>
+</eh:section>
+</eh:article>
