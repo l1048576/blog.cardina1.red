@@ -73,6 +73,28 @@ excerpt: "2017年 第28週 まとめ"
 			</footer>
 		</blockquote>
 	</eh:section>
+
+	<eh:section id="some-mastodon-instances-started-dying">
+		<eh:title>Mastodon インスタンスのいくつかが死に始めた (2017-07-13 &#x2013;)</eh:title>
+		<p>
+			主な死因: <strong>Let's Encrypt の証明書を更新せず放置したため</strong>。
+		</p>
+		<p>
+			少し前から鯖が消滅したり謎のエラー出していたり、果ては通常の web ページになっていたり(勘弁してほしい)したのだが、そろそろ Let's Encrypt の証明書の期限90日を経過して死に始める鯖が出現した模様<eh:footnote id="use-cron-for-letsencrypt-certs">
+				本来 certbot で自動化できるものなのだから、 cron なり systemd の timer なりを使って更新は自動化すべきなのだが、まあ慣れない web アプリを立てた人はそういうことをしていなかったのだろう
+			</eh:footnote>。
+			まあ放置された鯖はﾌｮﾖｰしてようがしていまいがどうせ投稿は流れてこないので、エンドユーザとしてはあまり関係ないのだが、鯖缶としては若干厄介だ。
+		</p>
+		<p>
+			GNU Social では、 queue に DB を使っている場合、 queue が詰まって後続イベントが処理されなくなる(イベント自体を取り零すわけではないので、再起動すると次のイベントから正常に処理される)問題が発生している: <a href="https://git.gnu.io/gnu/gnu-social/issues/281">[DBQueueManager] Some broken server can broke dameon totally (#281) · Issues · gnu.io / gnu-social · GitLab</a> 。
+			私のインスタンスでも、朝起きたら外からのイベントが11時間更新されておらず、ビビって再起動したら11時間ぶんの投稿がどんどん TL に流れてきてびっくりした。
+		</p>
+		<p>
+			GNU Social の OStatus plugin のスクリプトにはそういうのに対応できるものは無さそうだったので、対処するには自分で SQL を叩く必要がある。
+			<code>hubsub</code> テーブルに PuSH 先の URL が格納されているので、 <code>SELECT topic,callback,created,modified FROM hubsub ORDER BY modified ASC;</code> とかで古そうなフィードから疎通を確認してやって、死んでそうなインスタンスは <code>DELETE FROM hubsub WHERE callback LIKE "https://ドメイン/%";</code>とかで消してやればよい。
+			<a href="https://git.gnu.io/gnu/gnu-social/commit/9919ccb8b5a33ceb712d0a107af8753dfcea3bee">HubSub now remembers recent failures and counts them (9919ccb8) · Commits · gnu.io / gnu-social · GitLab</a> を導入してやれば、 <code>hubsub</code> テーブルでエラーがカウントされるようになるので、手作業での処理がもっと楽になるであろう。
+		</p>
+	</eh:section>
 </eh:section>
 
 <eh:section id="public-activities">
