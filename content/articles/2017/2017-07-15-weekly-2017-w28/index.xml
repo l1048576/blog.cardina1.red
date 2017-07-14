@@ -1,0 +1,180 @@
+---
+created_at: 2017-07-15T00:45:25+0900
+updated_at: 2017-07-15T00:59:34+0900
+title: "Weekly report 2017-W28"
+htags:
+  - "日常/日記"
+kind: article
+
+excerpt: "2017年 第28週 まとめ"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2017-07-15-weekly-2017-w28"
+>
+<eh:title>Weekly report 2017-W28</eh:title>
+<p>
+	2017-W27-6 (Sat) から 2017-W28-5 (Fri) までの日記。
+	やはり月〜日だと土日のことがまとめづらいので、土〜金で区切ることにした。
+</p>
+
+<eh:section id="news">
+	<eh:title>ニュース・知ったこと</eh:title>
+
+	<eh:section id="rec-xslt-30-20170608">
+		<eh:title>XSLT 3.0 が勧告になってた (2017-06-08)</eh:title>
+		<ul>
+			<li>
+				<a href="https://www.w3.org/TR/2017/REC-xslt-30-20170608/">XSL Transformations (XSLT) Version 3.0</a>
+			</li>
+		</ul>
+		<p>
+			めでたい。
+		</p>
+		<p>
+			でもたぶん現状で XSLT 3 相当の実装を持っているのは Saxon とかの Java 実装だけな気がする。
+			xsltproc でもそれ以外でもいいから、 C/C++ か Rust あたりでの実装が出てきてほしい。
+			VM やらインタプリタの必要な言語での実装は嫌だ。
+		</p>
+	</eh:section>
+
+	<eh:section id="gnusocial-merge-festival">
+		<eh:title>GNU Social merge 祭 (2017-07-09 &#x2013; 2017-07-11)</eh:title>
+		<ul>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social/compare/3395f6081c7548a5064596215227562a1c9fab72...457d32e2739ef41f23c088e4715663940365df39">3395f6081c7548a5064596215227562a1c9fab72...457d32e2739ef41f23c088e4715663940365df39 · gnu.io / gnu-social · GitLab</a>
+			</li>
+		</ul>
+		<p>
+			べつに実際の祭があったわけではなく、たくさん merge されただけの話。
+			<eh:xref linkend="gnusocial-gitignore-patch-merged">いつぞや私が投げたパッチも merge された</eh:xref>。
+		</p>
+	</eh:section>
+
+	<eh:section id="kukuri-ltd-bankruptcy">
+		<eh:title>chuable soft の会社、「有限会社くくり」が破産手続を開始していた (2017-06-16)</eh:title>
+		<ul>
+			<li>
+				<a href="http://gazette365.com/2017/06/7041-11/">有限会社くくり | 破産法人公告資料</a>
+			</li>
+		</ul>
+		<p>
+			まじかよ。
+			<a href="http://chuable.net/coup_con/">あなたをオトコにしてあげる！</a>は割と好きだったのでショック。
+		</p>
+		<blockquote>
+			<p>
+				有限会社くくり | 破産法人公告資料 http://gazette365.com/2017/06/7041-11/<br />
+				chuable soft こと有限会社くくり、やばいし、ロケットゲー今のうちに買っておくべきか真剣に悩んでる
+			</p>
+			<footer>
+				&#x2014; <a href="https://gnusocial.cardina1.red/notice/130059">@lo48576@gnusocial.cardina1.red, 2017-07-13 16:12</a>
+			</footer>
+		</blockquote>
+	</eh:section>
+
+	<eh:section id="some-mastodon-instances-started-dying">
+		<eh:title>Mastodon インスタンスのいくつかが死に始めた (2017-07-13 &#x2013;)</eh:title>
+		<p>
+			主な死因: <strong>Let's Encrypt の証明書を更新せず放置したため</strong>。
+		</p>
+		<p>
+			少し前から鯖が消滅したり謎のエラー出していたり、果ては通常の web ページになっていたり(勘弁してほしい)したのだが、そろそろ Let's Encrypt の証明書の期限90日を経過して死に始める鯖が出現した模様<eh:footnote id="use-cron-for-letsencrypt-certs">
+				本来 certbot で自動化できるものなのだから、 cron なり systemd の timer なりを使って更新は自動化すべきなのだが、まあ慣れない web アプリを立てた人はそういうことをしていなかったのだろう
+			</eh:footnote>。
+			まあ放置された鯖はﾌｮﾖｰしてようがしていまいがどうせ投稿は流れてこないので、エンドユーザとしてはあまり関係ないのだが、鯖缶としては若干厄介だ。
+		</p>
+		<p>
+			GNU Social では、 queue に DB を使っている場合、 queue が詰まって後続イベントが処理されなくなる(イベント自体を取り零すわけではないので、再起動すると次のイベントから正常に処理される)問題が発生している: <a href="https://git.gnu.io/gnu/gnu-social/issues/281">[DBQueueManager] Some broken server can broke dameon totally (#281) · Issues · gnu.io / gnu-social · GitLab</a> 。
+			私のインスタンスでも、朝起きたら外からのイベントが11時間更新されておらず、ビビって再起動したら11時間ぶんの投稿がどんどん TL に流れてきてびっくりした。
+		</p>
+		<p>
+			GNU Social の OStatus plugin のスクリプトにはそういうのに対応できるものは無さそうだったので、対処するには自分で SQL を叩く必要がある。
+			<code>hubsub</code> テーブルに PuSH 先の URL が格納されているので、 <code>SELECT topic,callback,created,modified FROM hubsub ORDER BY modified ASC;</code> とかで古そうなフィードから疎通を確認してやって、死んでそうなインスタンスは <code>DELETE FROM hubsub WHERE callback LIKE "https://ドメイン/%";</code>とかで消してやればよい。
+			<a href="https://git.gnu.io/gnu/gnu-social/commit/9919ccb8b5a33ceb712d0a107af8753dfcea3bee">HubSub now remembers recent failures and counts them (9919ccb8) · Commits · gnu.io / gnu-social · GitLab</a> を導入してやれば、 <code>hubsub</code> テーブルでエラーがカウントされるようになるので、手作業での処理がもっと楽になるであろう。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="experience">
+	<eh:title>個人的な体験</eh:title>
+
+	<eh:section id="gnusocial-mojibake">
+		<eh:title>GNU Social で文字化け</eh:title>
+		<ul>
+			<li>
+				<a href="https://gnusocial.cardina1.red/notice/128755">2017-07-12 22:29</a>
+			</li>
+			<li>
+				<a href="https://gnusocial.cardina1.red/notice/131635">2017-07-14 17:15</a>
+			</li>
+			<li>
+				<a href="https://gnusocial.cardina1.red/notice/132686">2017-07-14 23:26</a>
+			</li>
+		</ul>
+		<p>
+			原因不明なので超怖い。
+		</p>
+		<p>
+			どうも <a href="https://gnusocial.cardina1.red/notice/132908">Windows-1252 なるエンコーディングが絡んでいるらしい</a>ということはわかった。
+			<a href="https://ja.wikipedia.org/wiki/Windows-1252">Windows-1252</a> はラテン文字の文字コードとのことなので、 HTTP client が文字コード誤認してるとかそういう系なのかもしれないが、それにしても後続のメッセージまでまとめて化ける原理が謎だ。
+			引き続き原因究明を試みる。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="public-activities">
+	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
+
+	<eh:section id="qvitter-queetbox-fix-merged">
+		<eh:title>Qvitter への merge request が merge された</eh:title>
+		<ul>
+			<li>
+				<a href="https://git.gnu.io/h2p/Qvitter/merge_requests/101">Fix queetbox behavior (especially in Firefox) (!101) · Merge Requests · hannes / Qvitter · GitLab</a>
+			</li>
+		</ul>
+		<p>
+			やったね！
+			(ただし <a href="https://gitgud.io/panjoozek413/qvitterplus/merge_requests/3">QvitterPlus の方</a>は merge されていない。)
+		</p>
+	</eh:section>
+
+	<eh:section id="gnusocial-gitignore-patch-merged">
+		<eh:title>GNU Social に出していた gitignore の小さな変更の merge request が merge された</eh:title>
+		<ul>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social/merge_requests/145">Ignore whole directory, not only inner contents (!145) · Merge Requests · gnu.io / gnu-social · GitLab</a>
+			</li>
+		</ul>
+		<p>
+			<eh:xref linkend="gnusocial-merge-festival">GNU Social merge 祭</eh:xref>で merge された。
+			これで <code>git clean -df</code> しても保存された画像ファイルが抹消されなくなった。
+			やったね！
+		</p>
+	</eh:section>
+
+	<eh:section id="rust-ordered-float-rename">
+		<eh:title>rust-ordered-float crate の pull request をちょっと更新</eh:title>
+		<p>
+			<a href="https://github.com/rust-lang/rfcs/blob/master/text/0430-finalizing-naming-conventions.md#fine-points">RFC で用意された命名規則</a>に従うよう型をリネームする簡単なパッチだが、<a href="https://github.com/reem/rust-ordered-float/pull/28#issuecomment-314855798">互換性の崩れる変更では <code>#[deprecated(〜)]</code> を使うべき</a>とのコメントがあったため、そうした。
+		</p>
+		<p>
+			なんとなく <code>deprecated</code> 属性は言語機能で使うものと思っていたので、いち crate で使えるのだというのは“気付き”だった。
+			勉強になった。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="thoughts">
+	<eh:title>感想</eh:title>
+	<p>
+		Mastodon がなにやら話題になっていたので <a href="https://blog.cardina1.red/2017/04/13/federated-social-web/">gnusocial や mastodon の哲学 - 何とは言わない天然水飲みたさ</a>を急いで書いたのが、もう四半期も前のことである。
+		ちょっと感慨深い。
+		そしてそれ以降、日記以外の記事をひとつしか書いていないので、やはりもう少しカジュアルにいろいろ書いていった方がいい気がしてきた。
+		(でも日記書くし更にトピック特化記事が少なくなりそうな予感もしており、若干不安でもある。)
+	</p>
+</eh:section>
+
+</eh:article>
