@@ -1,5 +1,6 @@
 ---
 created_at: 2017-07-15T00:45:25+0900
+updated_at: 2017-07-15T00:59:34+0900
 title: "Weekly report 2017-W28"
 htags:
   - "日常/日記"
@@ -164,6 +165,16 @@ excerpt: "2017年 第28週 まとめ"
 			勉強になった。
 		</p>
 	</eh:section>
+</eh:section>
+
+<eh:section id="thoughts">
+	<eh:title>感想</eh:title>
+	<p>
+		Mastodon がなにやら話題になっていたので <a href="https://blog.cardina1.red/2017/04/13/federated-social-web/">gnusocial や mastodon の哲学 - 何とは言わない天然水飲みたさ</a>を急いで書いたのが、もう四半期も前のことである。
+		ちょっと感慨深い。
+		そしてそれ以降、日記以外の記事をひとつしか書いていないので、やはりもう少しカジュアルにいろいろ書いていった方がいい気がしてきた。
+		(でも日記書くし更にトピック特化記事が少なくなりそうな予感もしており、若干不安でもある。)
+	</p>
 </eh:section>
 
 </eh:article>
