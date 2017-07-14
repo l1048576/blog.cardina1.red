@@ -97,6 +97,33 @@ excerpt: "2017年 第28週 まとめ"
 	</eh:section>
 </eh:section>
 
+<eh:section id="experience">
+	<eh:title>個人的な体験</eh:title>
+
+	<eh:section id="gnusocial-mojibake">
+		<eh:title>GNU Social で文字化け</eh:title>
+		<ul>
+			<li>
+				<a href="https://gnusocial.cardina1.red/notice/128755">2017-07-12 22:29</a>
+			</li>
+			<li>
+				<a href="https://gnusocial.cardina1.red/notice/131635">2017-07-14 17:15</a>
+			</li>
+			<li>
+				<a href="https://gnusocial.cardina1.red/notice/132686">2017-07-14 23:26</a>
+			</li>
+		</ul>
+		<p>
+			原因不明なので超怖い。
+		</p>
+		<p>
+			どうも <a href="https://gnusocial.cardina1.red/notice/132908">Windows-1252 なるエンコーディングが絡んでいるらしい</a>ということはわかった。
+			<a href="https://ja.wikipedia.org/wiki/Windows-1252">Windows-1252</a> はラテン文字の文字コードとのことなので、 HTTP client が文字コード誤認してるとかそういう系なのかもしれないが、それにしても後続のメッセージまでまとめて化ける原理が謎だ。
+			引き続き原因究明を試みる。
+		</p>
+	</eh:section>
+</eh:section>
+
 <eh:section id="public-activities">
 	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
 
