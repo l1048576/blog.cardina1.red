@@ -39,6 +39,19 @@ excerpt: "2017年 第28週 まとめ"
 		</p>
 	</eh:section>
 
+	<eh:section id="gnusocial-merge-festival">
+		<eh:title>GNU Social merge 祭 (2017-07-09 &#x2013; 2017-07-11)</eh:title>
+		<ul>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social/compare/3395f6081c7548a5064596215227562a1c9fab72...457d32e2739ef41f23c088e4715663940365df39">3395f6081c7548a5064596215227562a1c9fab72...457d32e2739ef41f23c088e4715663940365df39 · gnu.io / gnu-social · GitLab</a>
+			</li>
+		</ul>
+		<p>
+			べつに実際の祭があったわけではなく、たくさん merge されただけの話。
+			<eh:xref linkend="gnusocial-gitignore-patch-merged">いつぞや私が投げたパッチも merge された</eh:xref>。
+		</p>
+	</eh:section>
+
 	<eh:section id="kukuri-ltd-bankruptcy">
 		<eh:title>chuable soft の会社、「有限会社くくり」が破産手続を開始していた (2017-06-16)</eh:title>
 		<ul>
@@ -61,4 +74,47 @@ excerpt: "2017年 第28週 まとめ"
 		</blockquote>
 	</eh:section>
 </eh:section>
+
+<eh:section id="public-activities">
+	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
+
+	<eh:section id="qvitter-queetbox-fix-merged">
+		<eh:title>Qvitter への merge request が merge された</eh:title>
+		<ul>
+			<li>
+				<a href="https://git.gnu.io/h2p/Qvitter/merge_requests/101">Fix queetbox behavior (especially in Firefox) (!101) · Merge Requests · hannes / Qvitter · GitLab</a>
+			</li>
+		</ul>
+		<p>
+			やったね！
+			(ただし <a href="https://gitgud.io/panjoozek413/qvitterplus/merge_requests/3">QvitterPlus の方</a>は merge されていない。)
+		</p>
+	</eh:section>
+
+	<eh:section id="gnusocial-gitignore-patch-merged">
+		<eh:title>GNU Social に出していた gitignore の小さな変更の merge request が merge された</eh:title>
+		<ul>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social/merge_requests/145">Ignore whole directory, not only inner contents (!145) · Merge Requests · gnu.io / gnu-social · GitLab</a>
+			</li>
+		</ul>
+		<p>
+			<eh:xref linkend="gnusocial-merge-festival">GNU Social merge 祭</eh:xref>で merge された。
+			これで <code>git clean -df</code> しても保存された画像ファイルが抹消されなくなった。
+			やったね！
+		</p>
+	</eh:section>
+
+	<eh:section id="rust-ordered-float-rename">
+		<eh:title>rust-ordered-float crate の pull request をちょっと更新</eh:title>
+		<p>
+			<a href="https://github.com/rust-lang/rfcs/blob/master/text/0430-finalizing-naming-conventions.md#fine-points">RFC で用意された命名規則</a>に従うよう型をリネームする簡単なパッチだが、<a href="https://github.com/reem/rust-ordered-float/pull/28#issuecomment-314855798">互換性の崩れる変更では <code>#[deprecated(〜)]</code> を使うべき</a>とのコメントがあったため、そうした。
+		</p>
+		<p>
+			なんとなく <code>deprecated</code> 属性は言語機能で使うものと思っていたので、いち crate で使えるのだというのは“気付き”だった。
+			勉強になった。
+		</p>
+	</eh:section>
+</eh:section>
+
 </eh:article>
