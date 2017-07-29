@@ -1,0 +1,164 @@
+---
+created_at: 2017-07-29T12:39:35+0900
+title: "Weekly report 2017-W29 - 2017-W30"
+htags:
+  - "日常/日記"
+kind: article
+
+excerpt: "2017年 第29-30週 まとめ"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2017-07-29-weekly-2017-w30"
+>
+<eh:title>Weekly report 2017-W29 &#x2013; 2017-W30</eh:title>
+<p>
+	2017-W28-6 (Sat) から 2017-W30-5 (Fri) までの日記。
+	<s>面倒だったし</s>あまり書くことがなく先週書かなかったので、2週間まとめて。
+</p>
+
+<eh:section id="experience">
+	<eh:title>個人的な体験</eh:title>
+
+	<eh:section id="graduate-school-entrance-exam">
+		<eh:title>院試 (面接) (2017-07-26)</eh:title>
+		<p>
+			どこまで書いて良いものかわからないので、詳細は書くまい<eh:footnote id="entrance-exam-difficulty">
+				前年までの情工のA日程を知っている/聞いたことがある人向けに書いておくと、質問が2つほど増えた模様。
+				先輩に「今年は難しくなったんだね〜」のようなことを言われて愕然とした。
+				(まあこちらとしては有難いことだが。)
+			</eh:footnote>。
+			3年ぶり(前回は大学入試)に正装しようとしたらネクタイに黴が生えてたり白いワイシャツが存在しなかったりして笑った。
+			正装はクソ。
+		</p>
+		<p>
+			あと人徳がなかったので中央線が遅延したりしたが、起床チャレンジに間に合って本当によかった。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="private-activities">
+	<eh:title>私的活動</eh:title>
+
+	<eh:section id="use-nightly-for-gnusocial-cardina1-red">
+		<eh:title>gnusocial.cardina1.red で nightly ブランチに追従することにした</eh:title>
+		<blockquote cite="https://gnusocial.cardina1.red/notice/133082">
+			<p>
+				本日をもって私は nightly 追従芸人になりました
+			</p>
+			<footer>
+				&#x2014; <a href="https://gnusocial.cardina1.red/notice/133082">@lo48576@gnusocial.cardina1.red, 2017-07-15 02:17</a>
+			</footer>
+		</blockquote>
+		<p>
+			nightly があまりに進みすぎていて、あるコミットを master に持ってこようとすると依存ライブラリやら別の変更やらを大量に cherry-pick してこなければならなかった<eh:footnote id="gnu-social-repo-dont-use-feature-branch">
+				GNU Social のリポジトリでは、 feature branch 等は (merge request 等を除けば)作られないため、同じ意図の変更がばらけていたりする。
+				それとは別に、ライブラリの更新などは自分で関係するものを見付ける必要がある。
+			</eh:footnote>ため、あまりにつらくなって master をベースに使うのを諦めた。
+		</p>
+		<p>
+			今のところ nightly だからといって不安定になったということもない。
+			Qvitter も <a href="https://git.gnu.io/h2p/Qvitter#notes"><q>Qvitter is tested with the latest GNU social nightly</q></a> と言っているので、そちらも問題なさそうだ。
+		</p>
+	</eh:section>
+
+	<eh:section id="add-history-links-to-blog">
+		<eh:title>このブログに変更履歴へのリンクを追加</eh:title>
+		<p>
+			記事本文より前の部分に追加した。
+			せっかく git と GitHub で管理しているのだから、 diff や history を見られないと勿体ない。
+			GS / Mastodon の記事などは、 <a href="https://github.com/lo48576/blog.cardina1.red/commits/44919ff038bb51e2f2120fb2a03230bdeb33d7e0/content/articles/2017/2017-04-13-federated-social-web">history がとても長くなっていて</a>、感慨深い。
+		</p>
+	</eh:section>
+
+	<eh:section id="progress-fbx-tree-view">
+		<eh:title>進捗: fbx-tree-view</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/fbx-tree-view">lo48576/fbx-tree-view: GUI viewer of FBX internal tree structure</a>
+			</li>
+			<li>
+				<a href="https://github.com/lo48576/fbx-tree-view/compare/06673a76fb17601d65ba95fc4be8453e4034b198...580bb71ffdc51992a62f5e234363b149dbe4fc65">Comparing 06673a76fb17601d65ba95fc4be8453e4034b198...580bb71ffdc51992a62f5e234363b149dbe4fc65 · lo48576/fbx-tree-view</a>
+			</li>
+		</ul>
+		<p>
+			fbx-tree-view は、 FBX データのノードや属性を GTK で閲覧できるようにしたアプリケーション。
+			FBX 関係のコードの開発者が利用することを想定している。
+		</p>
+		<p>
+			GitHub で Star が付いて通知が来たことで、久々に依存関係の更新くらいはするか〜と思っていたが、最近また自分でもよく使うようになったので、いいかげん Ctr-O とか Ctrl-Q とかのショートカットキーくらいは実装したいということで実装した。
+		</p>
+		<blockquote cite="https://gnusocial.cardina1.red/notice/155909">
+			<p>
+				gtk-rs の Accelerator (ショートカットキー)の扱いがドキュメント雑すぎてわからんのだが
+			</p>
+			<footer>
+				&#x2014; <a href="https://gnusocial.cardina1.red/notice/155909">@lo48576@gnusocial.cardina1.red, 2017-07-27 11:25</a>
+			</footer>
+		</blockquote>
+		<blockquote cite="https://gnusocial.cardina1.red/notice/155912">
+			<p>
+				リファレンスに書かれてる定数が存在せず別の名前で用意されてたり、そもそも使用法が書いてなくて C のコードしかなかったり
+			</p>
+			<footer>
+				&#x2014; <a href="https://gnusocial.cardina1.red/notice/155912">@lo48576@gnusocial.cardina1.red, 2017-07-27 11:26</a>
+			</footer>
+		</blockquote>
+		<p>
+			gtk-rs は GTK を知らずに使うにはわかりづらすぎる。
+		</p>
+	</eh:section>
+
+	<eh:section id="progress-fbxcel">
+		<eh:title>進捗: fbxcel</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/fbxcel">lo48576/fbxcel: Excellent FBX loader</a>
+			</li>
+			<li>
+				<a href="https://github.com/lo48576/fbxcel/compare/e33d42e7c16ac859a33f7ba20cdb065e7649a29a...a5ffed6060aa0e4b299bc5348a6bf443c43ca1f1">Comparing e33d42e7c16ac859a33f7ba20cdb065e7649a29a...a5ffed6060aa0e4b299bc5348a6bf443c43ca1f1 · lo48576/fbxcel</a>
+			</li>
+		</ul>
+		<p>
+			fbxcel は FBX ファイルをロードするための Rust ライブラリ。
+		</p>
+		<p>
+			last-progress1 で使うための小さな関数の追加のみ。
+		</p>
+		<p>
+			last-progress1 ではテクスチャの属性を読む段階まで来たため、ノードに直接保持されていないデフォルト設定の値を読み出す必要があった。
+			これといって難しいこともないが (fbxcel 側でそう作った)、ただメソッドチェーンが長くなり面倒なので、それも fbxcel 側で吸収すべき作業だろうということで、「デフォルト設定の取得」と「ノード固有の設定か、なければデフォルト設定の取得」の関数を追加した。
+		</p>
+	</eh:section>
+
+	<eh:section id="progress-last-progress1">
+		<eh:title>進捗: last-progress1</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/last-progress1">lo48576/last-progress1: [WIP] ゲーム(になる予定のもの)</a>
+			</li>
+		</ul>
+		<p>
+			リポジトリを作りはしたが、個人開発だし feature ブランチは rebase しまくる思想を持っているので、 diff 等へのリンクは張らない。
+		</p>
+		<p>
+			あまりに画像とか多くて長くなったので、<a href="https://blog.cardina1.red/2017/07/29/progress-last-progress1-2017-w30/">別記事に分離した</a>。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="thoughts">
+	<eh:title>感想</eh:title>
+	<ul>
+		<li>
+			正装はクソ。
+		</li>
+		<li>
+			進捗メモはこまめにしないと画像がデカい。
+		</li>
+	</ul>
+</eh:section>
+
+</eh:article>

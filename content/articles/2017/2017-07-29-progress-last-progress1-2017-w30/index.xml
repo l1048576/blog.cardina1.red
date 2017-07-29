@@ -1,0 +1,301 @@
+---
+created_at: 2017-07-29T14:16:01+0900
+title: "Progress report 2017-W29 - 2017-W30: last-progress1"
+htags:
+  - "日常/日記"
+  - "進捗/last-progress1"
+kind: article
+
+excerpt: "2017年 第29-30週 last-progress1 の進捗"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2017-07-29-progress-last-progress1-2017-w30"
+>
+<!-- gnusocial.cardina1.red の画像を直接表示してるの、本当はリポジトリに置くべきな気がする。 -->
+<eh:title>Progress report 2017-W29 &#x2013; 2017-W30: last-progress1</eh:title>
+<p>
+	2017-W28-6 (Sat) から 2017-W30-5 (Fri) までの last-progress1 の進捗ログ。
+	ちょっと長くなった(というか画像がデカい)ので、<a href="https://blog.cardina1.red/2017/07/29/weekly-2017-w30/">日記</a>から記事を分離した。
+</p>
+
+<eh:section id="progress-last-progress1">
+	<eh:title>進捗: last-progress1</eh:title>
+	<ul>
+		<li>
+			<a href="https://github.com/lo48576/last-progress1">lo48576/last-progress1: [WIP] ゲーム(になる予定のもの)</a>
+		</li>
+	</ul>
+	<p>
+		リポジトリを作りはしたが、個人開発だし feature ブランチは rebase しまくる思想を持っているので、 diff 等へのリンクは張らない。
+	</p>
+
+	<eh:section id="progress-last-progress1-better-triangulation">
+		<eh:title>より優れた三角形分割</eh:title>
+		<p>
+			優角 (concave, 180度以上の角)が1つ以内の多角形は、その角を共有する triangle fan を作ってやることで簡単に三角形分割できる。
+			今までは面倒だったため三角形分割は四角形に対してしか行っていなかった(何故なら優角の存在判定が楽だったから)が、これを任意の多角形に対しても行うことにした。
+		</p>
+		<p>
+			何故そんなことをしようと決めたかというと、表示テストで使っている(そしてゲーム本編でも使おうと考えている
+			<a href="http://nakasis.com/">中野シスターズ</a>という FBX モデルが、5角形を含んでいるからである。
+			勘弁してくれ。
+		</p>
+		<p>
+			優角の個数判定については、いつか別記事で書くことにしよう。
+			さて、アルゴリズムは(理論的には)問題ないはずであったが、一部の辺が短すぎるせいか、はたまた5頂点が同一平面上にないせいか、何故か優角の個数を誤って数えることがあった。
+		</p>
+		<p>
+			これを、 xyz のうち多角形が広がる幅が最も狭い軸を潰して xy, yz, zx 平面のいずれかに投影したのち平面上で法線を出すことで、諸問題を無視して正しく優角の個数を判定することができるようになった。
+		</p>
+		<figure>
+			<div class="grid-row">
+				<figure class="col-xs-12 col-lg-4">
+					<img src="https://gnusocial.cardina1.red/file/b48b47d99e91150c00535c8b346d298d0dc4e44c4dd291625dde00911a11583f.png" alt="うまくいかなかった三角形分割のデバッグ出力" />
+					<figcaption>
+						<code>dots</code> として出力されているのが、ある頂点における面の法線(隣接辺の外積)と、別の頂点における法線との内積。
+						当該モデルの5角形は、優角はあっても1つなので、本来は全て正か全て負か、ひとつだけ負であるかしかありえない。
+					</figcaption>
+				</figure>
+				<figure class="col-xs-12 col-lg-4">
+					<img src="https://gnusocial.cardina1.red/file/1c6da26a149914ae6a0235cca2539fa1390ffe4eb00cfbe7172d2f4f50c476e0.png" alt="5角形だけ抜き出して表示した様子" />
+					<figcaption>5角形だけ抜き出して、(不正確な)三角形分割後の三角形ごとに表示した様子。優角が2つある5角形は見当たらない。</figcaption>
+				</figure>
+				<figure class="col-xs-12 col-lg-4">
+					<img src="https://gnusocial.cardina1.red/file/0dd5c79c61b4466eb3b259a228359a9b475576dd5ae3ea70b84fbae0b93b615b.png" alt="成功した三角形分割のデバッグ出力" />
+					<figcaption><code>true</code>, <code>false</code> は法線の向きである。いずれの5角形についても優角がたかだか1つと判定されているのがわかる。</figcaption>
+				</figure>
+			</div>
+		</figure>
+	</eh:section>
+
+	<eh:section id="submesh-creation">
+		<eh:title>マテリアル毎にメッシュをサブメッシュへと分割</eh:title>
+		<p>
+			FBX においては、単一のメッシュに対して、面ごとに別々のマテリアル(テクスチャも含む)を割り当てることができるようになっている。
+			よって、これを単純なシェーダで表示しようとすると、マテリアルは普通メッシュごとにひとつであるから、メッシュを分割してやらねばならない。
+		</p>
+		<p>
+			この作業は書くだけといえば書くだけだが、頂点配列、頂点インデックス配列、頂点インデックスインデックス配列、 UV 配列、 UV インデックス配列……といった多くのものを適切に分割する必要があるため、大変面倒だった。
+			(しかも UV 配列は、少なくとも {頂点, 頂点インデックス} が {UV, UV インデックス} に対応する場合の4通りのマッピングがあるため、大変ややこしく、よくエンバグした。)
+			ここ2週間で一番面倒な作業だった。
+		</p>
+	</eh:section>
+
+	<eh:section>
+		<eh:title>テクスチャの wrap mode の設定</eh:title>
+		<figure>
+			<div class="grid-row">
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147518">
+						<p>
+							<a href="https://twitter.com/aomesan147/status/617195467667968000">https://twitter.com/aomesan147/status/617195467667968000</a><br />
+							<a href="https://gnusocial.cardina1.red/notice/147063">https://gnusocial.cardina1.red/notice/147063</a><br />
+							なぜ一部(脇の前面)だけおかしくなるんだろう……
+						</p>
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147518">@loliconductor@gnusocial.cardina1.red, 2017-07-23 13:09</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147533">
+						<p>
+							<a href="https://twitter.com/pball4/status/817905302926307328">https://twitter.com/pball4/status/817905302926307328</a><br />
+							やはり色の違いはあれど、そこまで極端に白くなってはいない……
+						</p>
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147533">@loliconductor@gnusocial.cardina1.red, 2017-07-23 13:17</a>
+						</footer>
+					</blockquote>
+				</figure>
+			</div>
+		</figure>
+		<p>
+			結論だけ言うと、テクスチャの wrap mode が正しくないからだった。
+			gfx-rs で <a href="https://docs.rs/gfx/0.16.1/gfx/traits/trait.FactoryExt.html#method.create_sampler_linear"><code>FactoryExt::create_sampler_linear</code></a> を使うと、 wrap mode として Clamp が選ばれてしまうが、 FBX 側では(ノード属性として) Repeat か Clamp か選べるようになっていて、当該モデルでは Repeat になっていた。
+		</p>
+		<figure>
+			<div class="grid-row">
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147661">
+						<p>
+							フラグメントシェーダでテクスチャ真っ青にしたのに肌色になってる部分……何なんだ？？？
+						</p>
+						<img src="https://gnusocial.cardina1.red/file/2951769ce672a503eeb670b22e1e96f62bb6907b6ef229604f561100a6ff3df1.png" alt="" />
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147661">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:43</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147664">
+						<p>
+							uv.s &lt; -0.1 || uv.s &gt; 1.1 な部分を青にするとこうなる……
+						</p>
+						<img src="https://gnusocial.cardina1.red/file/a1c9b1f2b4295e8c9fd7a2a013268d3797b119772255031bc719f2475c28ab5c.png" alt="" />
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147664">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:48</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147666">
+						<p>
+							uv.s &lt; -0.5 || uv.s &gt; 1.5 にすると、こう
+						</p>
+						<img src="https://gnusocial.cardina1.red/file/859d8e036d01c5da4924a6930d15b45cf6a003eab35f6916b13695fa62bc657e.png" alt="" />
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147666">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:50</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147667">
+						<p>
+							uv.s &lt; -0.8 || uv.s &gt; 1.8 にすると、こう
+						</p>
+						<img src="https://gnusocial.cardina1.red/file/2a9237ac3c099d69c33d06caaa782edf75d728bdc629c938c27fb9369836ecf1.png" alt="" />
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147667">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:51</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147672">
+						<p>
+							まじで uv の x 座標 1.95 とかになっとるやんけ
+						</p>
+						<img src="https://gnusocial.cardina1.red/file/96eb688bd1cefb33fac34268841b120e08fd277a52d212085a4eae649c9758a7.png" alt="" />
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147672">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:54</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147687">
+						<p>
+							FBX 2018 Developer Help: FbxTexture Class Reference <a href="https://help.autodesk.com/cloudhelp/2018/ENU/FBX-Developer-Help/cpp_ref/class_fbx_texture.html#a889640e63e2e681259ea81061b85143a">https://help.autodesk.com/cloudhelp/2018/ENU/FBX-Developer-Help/cpp_ref/class_fbx_texture.html#a889640e63e2e681259ea81061b85143a</a>
+						</p>
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147687">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:09</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147686">
+						<p>
+							WrapMode か……
+						</p>
+						<img src="https://gnusocial.cardina1.red/file/e96b3502d7e6beca88361f90454b2f09a95c0e08ba3cdb59ab58d3f788216a6b.png" alt="" />
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147686">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:08</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147688">
+						<p>
+							0 は eRepeat だね
+						</p>
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147688">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:09</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147706">
+						<p>
+							はいプロ
+						</p>
+						<img src="https://gnusocial.cardina1.red/file/666ea1811a550f8a270dc5351f1419c5689fa4294736c95d2fe9826f25ca2f79.png" alt="" />
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147706">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:19</a>
+						</footer>
+					</blockquote>
+				</figure>
+			</div>
+		</figure>
+	</eh:section>
+
+	<eh:section id="progress-last-progress1-controllable-mesh-draw-order">
+		<eh:title>メッシュの描画順の制御</eh:title>
+		<figure>
+			<div class="grid-row">
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147112">
+						<p>
+							白目の部分が青くて怖いし、普通になんかバグあるなこれ
+						</p>
+						<img src="https://gnusocial.cardina1.red/file/3eda5ece7bbb885ebbc72c70c36fc4cc088fcb5311d71490597db44ca43f756d.png" alt="" />
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147112">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:12</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147116">
+						<p>
+							alpha が 0 の部分でクリアされてない色が見えちゃうとかそういう系かな
+						</p>
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147116">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:16</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/147986">
+						<p>
+							眼に透明テクスチャが使われてるの、予想以上に厄介だぞこれ……
+						</p>
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147986">@loliconductor@gnusocial.cardina1.red, 2017-07-23 19:55</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/148107">
+						<p>
+							やはりどうにかして虹彩の描画順を白目部分より後にしてやるしかないか
+						</p>
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/148107">@loliconductor@gnusocial.cardina1.red, 2017-07-23 22:07</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/149163">
+						<p>
+							結局、指定したメッシュを後で描画するようにしたらうまくいった
+						</p>
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/149163">@loliconductor@gnusocial.cardina1.red, 2017-07-24 17:49</a>
+						</footer>
+					</blockquote>
+				</figure>
+				<figure class="col-xs-12 col-lg-6">
+					<blockquote cite="https://gnusocial.cardina1.red/notice/149163">
+						<p>
+							プロ
+						</p>
+						<div>
+							<img src="https://gnusocial.cardina1.red/file/1b4df774dbcb084811139afddf5fe94a5be9ba5013c4fbee8463c0b3e786efbb.png" alt="" />
+						</div>
+						<div>
+							<img src="https://gnusocial.cardina1.red/file/91cceaf3971c68395eb07abd58a349cf9135b0be7ab56d60679cff8bc0aa645d.png" alt="" />
+						</div>
+						<footer>
+							&#x2014; <a href="https://gnusocial.cardina1.red/notice/149163">@loliconductor@gnusocial.cardina1.red, 2017-07-24 17:49</a>
+						</footer>
+					</blockquote>
+				</figure>
+			</div>
+		</figure>
+		<p>
+			ファイル名 (optional) とメッシュ名を指定して、特定のメッシュの描画を後回しにするロジックを実装することで解決した。
+		</p>
+	</eh:section>
+</eh:section>
+</eh:article>
