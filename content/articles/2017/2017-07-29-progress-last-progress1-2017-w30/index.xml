@@ -53,18 +53,24 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 		<figure>
 			<div class="grid-row">
 				<figure class="col-xs-12 col-lg-4">
-					<img src="https://gnusocial.cardina1.red/file/b48b47d99e91150c00535c8b346d298d0dc4e44c4dd291625dde00911a11583f.png" alt="うまくいかなかった三角形分割のデバッグ出力" />
+					<a href="https://gnusocial.cardina1.red/file/b48b47d99e91150c00535c8b346d298d0dc4e44c4dd291625dde00911a11583f.png">
+						<img src="https://gnusocial.cardina1.red/file/b48b47d99e91150c00535c8b346d298d0dc4e44c4dd291625dde00911a11583f.png" alt="うまくいかなかった三角形分割のデバッグ出力" />
+					</a>
 					<figcaption>
 						<code>dots</code> として出力されているのが、ある頂点における面の法線(隣接辺の外積)と、別の頂点における法線との内積。
 						当該モデルの5角形は、優角はあっても1つなので、本来は全て正か全て負か、ひとつだけ負であるかしかありえない。
 					</figcaption>
 				</figure>
 				<figure class="col-xs-12 col-lg-4">
-					<img src="https://gnusocial.cardina1.red/file/1c6da26a149914ae6a0235cca2539fa1390ffe4eb00cfbe7172d2f4f50c476e0.png" alt="5角形だけ抜き出して表示した様子" />
+					<a href="https://gnusocial.cardina1.red/file/1c6da26a149914ae6a0235cca2539fa1390ffe4eb00cfbe7172d2f4f50c476e0.png">
+						<img src="https://gnusocial.cardina1.red/file/1c6da26a149914ae6a0235cca2539fa1390ffe4eb00cfbe7172d2f4f50c476e0.png" alt="5角形だけ抜き出して表示した様子" />
+					</a>
 					<figcaption>5角形だけ抜き出して、(不正確な)三角形分割後の三角形ごとに表示した様子。優角が2つある5角形は見当たらない。</figcaption>
 				</figure>
 				<figure class="col-xs-12 col-lg-4">
-					<img src="https://gnusocial.cardina1.red/file/0dd5c79c61b4466eb3b259a228359a9b475576dd5ae3ea70b84fbae0b93b615b.png" alt="成功した三角形分割のデバッグ出力" />
+					<a href="https://gnusocial.cardina1.red/file/0dd5c79c61b4466eb3b259a228359a9b475576dd5ae3ea70b84fbae0b93b615b.png">
+						<img src="https://gnusocial.cardina1.red/file/0dd5c79c61b4466eb3b259a228359a9b475576dd5ae3ea70b84fbae0b93b615b.png" alt="成功した三角形分割のデバッグ出力" />
+					</a>
 					<figcaption><code>true</code>, <code>false</code> は法線の向きである。いずれの5角形についても優角がたかだか1つと判定されているのがわかる。</figcaption>
 				</figure>
 			</div>
@@ -124,7 +130,9 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 						<p>
 							フラグメントシェーダでテクスチャ真っ青にしたのに肌色になってる部分……何なんだ？？？
 						</p>
-						<img src="https://gnusocial.cardina1.red/file/2951769ce672a503eeb670b22e1e96f62bb6907b6ef229604f561100a6ff3df1.png" alt="" />
+						<a href="https://gnusocial.cardina1.red/file/2951769ce672a503eeb670b22e1e96f62bb6907b6ef229604f561100a6ff3df1.png">
+							<img src="https://gnusocial.cardina1.red/file/2951769ce672a503eeb670b22e1e96f62bb6907b6ef229604f561100a6ff3df1.png" alt="" />
+						</a>
 						<footer>
 							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147661">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:43</a>
 						</footer>
@@ -135,7 +143,9 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 						<p>
 							uv.s &lt; -0.1 || uv.s &gt; 1.1 な部分を青にするとこうなる……
 						</p>
-						<img src="https://gnusocial.cardina1.red/file/a1c9b1f2b4295e8c9fd7a2a013268d3797b119772255031bc719f2475c28ab5c.png" alt="" />
+						<a href="https://gnusocial.cardina1.red/file/a1c9b1f2b4295e8c9fd7a2a013268d3797b119772255031bc719f2475c28ab5c.png">
+							<img src="https://gnusocial.cardina1.red/file/a1c9b1f2b4295e8c9fd7a2a013268d3797b119772255031bc719f2475c28ab5c.png" alt="" />
+						</a>
 						<footer>
 							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147664">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:48</a>
 						</footer>
@@ -146,7 +156,9 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 						<p>
 							uv.s &lt; -0.5 || uv.s &gt; 1.5 にすると、こう
 						</p>
-						<img src="https://gnusocial.cardina1.red/file/859d8e036d01c5da4924a6930d15b45cf6a003eab35f6916b13695fa62bc657e.png" alt="" />
+						<a href="https://gnusocial.cardina1.red/file/859d8e036d01c5da4924a6930d15b45cf6a003eab35f6916b13695fa62bc657e.png">
+							<img src="https://gnusocial.cardina1.red/file/859d8e036d01c5da4924a6930d15b45cf6a003eab35f6916b13695fa62bc657e.png" alt="" />
+						</a>
 						<footer>
 							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147666">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:50</a>
 						</footer>
@@ -157,7 +169,9 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 						<p>
 							uv.s &lt; -0.8 || uv.s &gt; 1.8 にすると、こう
 						</p>
-						<img src="https://gnusocial.cardina1.red/file/2a9237ac3c099d69c33d06caaa782edf75d728bdc629c938c27fb9369836ecf1.png" alt="" />
+						<a href="https://gnusocial.cardina1.red/file/2a9237ac3c099d69c33d06caaa782edf75d728bdc629c938c27fb9369836ecf1.png">
+							<img src="https://gnusocial.cardina1.red/file/2a9237ac3c099d69c33d06caaa782edf75d728bdc629c938c27fb9369836ecf1.png" alt="" />
+						</a>
 						<footer>
 							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147667">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:51</a>
 						</footer>
@@ -168,7 +182,9 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 						<p>
 							まじで uv の x 座標 1.95 とかになっとるやんけ
 						</p>
-						<img src="https://gnusocial.cardina1.red/file/96eb688bd1cefb33fac34268841b120e08fd277a52d212085a4eae649c9758a7.png" alt="" />
+						<a href="https://gnusocial.cardina1.red/file/96eb688bd1cefb33fac34268841b120e08fd277a52d212085a4eae649c9758a7.png">
+							<img src="https://gnusocial.cardina1.red/file/96eb688bd1cefb33fac34268841b120e08fd277a52d212085a4eae649c9758a7.png" alt="" />
+						</a>
 						<footer>
 							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147672">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:54</a>
 						</footer>
@@ -189,7 +205,9 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 						<p>
 							WrapMode か……
 						</p>
-						<img src="https://gnusocial.cardina1.red/file/e96b3502d7e6beca88361f90454b2f09a95c0e08ba3cdb59ab58d3f788216a6b.png" alt="" />
+						<a href="https://gnusocial.cardina1.red/file/e96b3502d7e6beca88361f90454b2f09a95c0e08ba3cdb59ab58d3f788216a6b.png">
+							<img src="https://gnusocial.cardina1.red/file/e96b3502d7e6beca88361f90454b2f09a95c0e08ba3cdb59ab58d3f788216a6b.png" alt="" />
+						</a>
 						<footer>
 							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147686">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:08</a>
 						</footer>
@@ -210,7 +228,9 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 						<p>
 							はいプロ
 						</p>
-						<img src="https://gnusocial.cardina1.red/file/666ea1811a550f8a270dc5351f1419c5689fa4294736c95d2fe9826f25ca2f79.png" alt="" />
+						<a href="https://gnusocial.cardina1.red/file/666ea1811a550f8a270dc5351f1419c5689fa4294736c95d2fe9826f25ca2f79.png">
+							<img src="https://gnusocial.cardina1.red/file/666ea1811a550f8a270dc5351f1419c5689fa4294736c95d2fe9826f25ca2f79.png" alt="" />
+						</a>
 						<footer>
 							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147706">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:19</a>
 						</footer>
@@ -229,7 +249,9 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 						<p>
 							白目の部分が青くて怖いし、普通になんかバグあるなこれ
 						</p>
-						<img src="https://gnusocial.cardina1.red/file/3eda5ece7bbb885ebbc72c70c36fc4cc088fcb5311d71490597db44ca43f756d.png" alt="" />
+						<a href="https://gnusocial.cardina1.red/file/3eda5ece7bbb885ebbc72c70c36fc4cc088fcb5311d71490597db44ca43f756d.png">
+							<img src="https://gnusocial.cardina1.red/file/3eda5ece7bbb885ebbc72c70c36fc4cc088fcb5311d71490597db44ca43f756d.png" alt="" />
+						</a>
 						<footer>
 							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147112">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:12</a>
 						</footer>
@@ -281,10 +303,14 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 							プロ
 						</p>
 						<div>
-							<img src="https://gnusocial.cardina1.red/file/1b4df774dbcb084811139afddf5fe94a5be9ba5013c4fbee8463c0b3e786efbb.png" alt="" />
+							<a href="https://gnusocial.cardina1.red/file/1b4df774dbcb084811139afddf5fe94a5be9ba5013c4fbee8463c0b3e786efbb.png">
+								<img src="https://gnusocial.cardina1.red/file/1b4df774dbcb084811139afddf5fe94a5be9ba5013c4fbee8463c0b3e786efbb.png" alt="" />
+							</a>
 						</div>
 						<div>
-							<img src="https://gnusocial.cardina1.red/file/91cceaf3971c68395eb07abd58a349cf9135b0be7ab56d60679cff8bc0aa645d.png" alt="" />
+							<a href="https://gnusocial.cardina1.red/file/91cceaf3971c68395eb07abd58a349cf9135b0be7ab56d60679cff8bc0aa645d.png">
+								<img src="https://gnusocial.cardina1.red/file/91cceaf3971c68395eb07abd58a349cf9135b0be7ab56d60679cff8bc0aa645d.png" alt="" />
+							</a>
 						</div>
 						<footer>
 							&#x2014; <a href="https://gnusocial.cardina1.red/notice/149163">@loliconductor@gnusocial.cardina1.red, 2017-07-24 17:49</a>
