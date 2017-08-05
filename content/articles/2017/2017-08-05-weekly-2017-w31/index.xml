@@ -98,7 +98,44 @@ excerpt: "2017年 第31週 まとめ"
 		</p>
 		<p>
 			ちまちまと作業を続けてきたが、遂に静的メッシュの表示が完成した。
-			次に実装するのを、表情とかの方にするか身体の動きとかの方にするか悩んでいる(たぶん後者にする)。
+		</p>
+		<p>
+			次に実装するのはアニメーションを目指してボーンを読んでいく部分なのだが、ただでさえ木構造だというのと関連使用を†完全理解†しきれていないというのがあり、うまいことコードに落とせなかった。
+			もう少し 3D CG の基礎を勉強すべきかもしれない。
+		</p>
+		<figure>
+			<figure>
+				<blockquote cite="https://gnusocial.cardina1.red/notice/166253">
+					<p>
+						ここ数日、 Model (Limbnode) の下に Model (Null) が生えててその下に更に Model (LimbNode) が生えてるのをどう扱えばいいのかわからず進捗が止まっている
+					</p>
+					<a href="https://gnusocial.cardina1.red/file/c7086d09504c577e53b27ff889e71e1520f1c348e57867eb81da9538696a1c81.png">
+						<img src="https://gnusocial.cardina1.red/file/c7086d09504c577e53b27ff889e71e1520f1c348e57867eb81da9538696a1c81.png" alt="困ってる部分" />
+					</a>
+					<footer>
+						&#x2014;
+						<a href="https://gnusocial.cardina1.red/notice/166253">@loliconductor@gnusocial.cardina1.red, 2017-08-02 17:18</a>
+					</footer>
+				</blockquote>
+			</figure>
+			<figure>
+				<blockquote cite="https://gnusocial.cardina1.red/notice/166254">
+					<p>
+						IK とかするときボーン相当のノードの親子関係は網羅できないと困るし、普通に考えると Model (LimbNode) をボーンと考えれば十分なんだろうけど、 Model (Null) はデフォルトの行列も割り当てられていないし、はてさて2種類のノードをうまく扱うにはどうしようという
+					</p>
+					<footer>
+						&#x2014; <a href="https://gnusocial.cardina1.red/notice/166254">@loliconductor@gnusocial.cardina1.red, 2017-08-02 17:20</a>
+					</footer>
+				</blockquote>
+			</figure>
+			<figcaption>うーん</figcaption>
+		</figure>
+		<p>
+			あと、並行してリソース管理のモジュールを作ろうとしたが、 <a href="https://crates.io/crates/gfx_device_gl">gfx_device_gl</a> crate がマルチスレッドで同じ GL context を扱うのに対応していないため、テクスチャの転送とかを別スレッドで行うことができないっぽい。
+			険しい。
+			協調的マルチタスクを自前で実装する破目になったら嫌だなぁ<eh:footnote id="implementing-non-preemptive-multitasking">
+				<a href="https://crates.io/crates/futures">futures-rs</a> でできそうな気はするんだけど、まだ確認してない
+			</eh:footnote>。
 		</p>
 	</eh:section>
 </eh:section>
