@@ -18,6 +18,37 @@ excerpt: "2017年 第31週 まとめ"
 	2017-W30-6 (Sat) から 2017-W31-5 (Fri) までの日記。
 </p>
 
+
+<eh:section id="news">
+	<eh:title>ニュース・知ったこと</eh:title>
+
+	<eh:section id="stratis-strage">
+		<eh:title>Stratis Storage</eh:title>
+		<ul>
+			<li>
+				<a href="https://twitter.com/daikikohara/status/893025544396132352">Daiki Koharaさんのツイート: "RedHatがBtrfsのサポートを廃止してStratisっていうRust+Python製の新しいストレージシステムを採用するらしい。Fedora28で入る予定だから1年後くらいかな。楽しみだ。 / “Stratis Is R…” https://t.co/69GLrZj1NV"</a>
+			</li>
+			<li>
+				<a href="https://github.com/stratis-storage">Stratis Storage</a>
+			</li>
+			<li>
+				<a href="https://stratis-storage.github.io/">Stratis Storage Project Working Documentation</a>
+			</li>
+		</ul>
+		<p>
+			LVM みたいなものなのかな(←全然調べてない顔)。
+			btrfs だと暗号化サポートが統合されてなかったのがアレだった<eh:footnote id="btrfs-ununified-crypt-support">
+				btrfs には暗号化機能が統合されていないため、 btrfs raid などしようとすると、 LUKS で複数の生ディスクやパーティションを暗号化し、その上に btrfs を乗せる必要がある。
+				本来であれば btrfs を通じたデータだけを暗号化すれば良いところを、 btrfs ではディスク数だけ同時に暗号化をかける必要があるから、当然これは理想的とは言い難い効率である。
+			</eh:footnote>ので、その辺りが洗練された感じになっていると嬉しい。
+		</p>
+		<p>
+			そういえばなんで私は LVM 使ってないのだろう。
+			ZFS や btrfs で調教されたせいだろうか。
+		</p>
+	</eh:section>
+</eh:section>
+
 <eh:section id="private-activities">
 	<eh:title>私的活動</eh:title>
 
