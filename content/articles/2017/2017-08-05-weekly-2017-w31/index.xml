@@ -47,6 +47,25 @@ excerpt: "2017年 第31週 まとめ"
 			ZFS や btrfs で調教されたせいだろうか。
 		</p>
 	</eh:section>
+
+	<eh:section id="firefox-test-pilot-send">
+		<eh:title>Send</eh:title>
+		<ul>
+			<li>
+				<a href="https://send.firefox.com/">Firefox Send</a>
+			</li>
+			<li>
+				<a href="https://testpilot.firefox.com/experiments/send">Firefox Test Pilot - ⁨Send⁩</a>
+			</li>
+			<li>
+				<a href="https://www.youtube.com/watch?v=ZGWZGYtAS3U">Send: A Firefox Test Pilot Web Experiment</a>
+			</li>
+		</ul>
+		<p>
+			Firefox Test Pilot の実験ではあるが、べつに Firefox でなくとも使えるやつ。
+			ファイルの受け渡しに便利なはず。
+		</p>
+	</eh:section>
 </eh:section>
 
 <eh:section id="private-activities">
