@@ -1,0 +1,143 @@
+---
+created_at: 2017-08-05T19:50:59+0900
+title: "Weekly report 2017-W31"
+htags:
+  - "日常/日記"
+kind: article
+
+excerpt: "2017年 第31週 まとめ"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	id="2017-07-29-weekly-2017-w30"
+>
+<eh:title>Weekly report 2017-W31</eh:title>
+<p>
+	2017-W30-6 (Sat) から 2017-W31-5 (Fri) までの日記。
+</p>
+
+
+<eh:section id="news">
+	<eh:title>ニュース・知ったこと</eh:title>
+
+	<eh:section id="stratis-strage">
+		<eh:title>Stratis Storage</eh:title>
+		<ul>
+			<li>
+				<a href="https://twitter.com/daikikohara/status/893025544396132352">Daiki Koharaさんのツイート: "RedHatがBtrfsのサポートを廃止してStratisっていうRust+Python製の新しいストレージシステムを採用するらしい。Fedora28で入る予定だから1年後くらいかな。楽しみだ。 / “Stratis Is R…” https://t.co/69GLrZj1NV"</a>
+			</li>
+			<li>
+				<a href="https://github.com/stratis-storage">Stratis Storage</a>
+			</li>
+			<li>
+				<a href="https://stratis-storage.github.io/">Stratis Storage Project Working Documentation</a>
+			</li>
+		</ul>
+		<p>
+			LVM みたいなものなのかな(←全然調べてない顔)。
+			btrfs だと暗号化サポートが統合されてなかったのがアレだった<eh:footnote id="btrfs-ununified-crypt-support">
+				btrfs には暗号化機能が統合されていないため、 btrfs raid などしようとすると、 LUKS で複数の生ディスクやパーティションを暗号化し、その上に btrfs を乗せる必要がある。
+				本来であれば btrfs を通じたデータだけを暗号化すれば良いところを、 btrfs ではディスク数だけ同時に暗号化をかける必要があるから、当然これは理想的とは言い難い効率である。
+			</eh:footnote>ので、その辺りが洗練された感じになっていると嬉しい。
+		</p>
+		<p>
+			そういえばなんで私は LVM 使ってないのだろう。
+			ZFS や btrfs で調教されたせいだろうか。
+		</p>
+	</eh:section>
+
+	<eh:section id="firefox-test-pilot-send">
+		<eh:title>Send</eh:title>
+		<ul>
+			<li>
+				<a href="https://send.firefox.com/">Firefox Send</a>
+			</li>
+			<li>
+				<a href="https://testpilot.firefox.com/experiments/send">Firefox Test Pilot - ⁨Send⁩</a>
+			</li>
+			<li>
+				<a href="https://www.youtube.com/watch?v=ZGWZGYtAS3U">Send: A Firefox Test Pilot Web Experiment</a>
+			</li>
+		</ul>
+		<p>
+			Firefox Test Pilot の実験ではあるが、べつに Firefox でなくとも使えるやつ。
+			ファイルの受け渡しに便利なはず。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="experience">
+	<eh:title>個人的な体験</eh:title>
+
+	<eh:section id="graduate-school-entrance-exam-result">
+		<eh:title>院死回避</eh:title>
+		<p>
+			どうやら院死回避できたっぽいので、来年から院生できそう。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="private-activities">
+	<eh:title>私的活動</eh:title>
+
+	<eh:section id="progress-last-progress1">
+		<eh:title>進捗: last-progress1</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/last-progress1">lo48576/last-progress1: [WIP] ゲーム(になる予定のもの)</a>
+			</li>
+			<li>
+				<a href="https://github.com/lo48576/last-progress1/commit/83ba4a3748f6ad17d2d07021b0a53d8e729c5e83">Merge branch 'feature/static-fbx' into develop · lo48576/last-progress1@83ba4a3</a>
+			</li>
+		</ul>
+		<p>
+			last-progress1 は、ゲームにしたい予定の何か。
+			今のところは静的な FBX のビューアの域を出ない。
+		</p>
+		<p>
+			ちまちまと作業を続けてきたが、遂に静的メッシュの表示が完成した。
+		</p>
+		<p>
+			次に実装するのはアニメーションを目指してボーンを読んでいく部分なのだが、ただでさえ木構造だというのと関連使用を†完全理解†しきれていないというのがあり、うまいことコードに落とせなかった。
+			もう少し 3D CG の基礎を勉強すべきかもしれない。
+		</p>
+		<figure>
+			<figure>
+				<blockquote cite="https://gnusocial.cardina1.red/notice/166253">
+					<p>
+						ここ数日、 Model (Limbnode) の下に Model (Null) が生えててその下に更に Model (LimbNode) が生えてるのをどう扱えばいいのかわからず進捗が止まっている
+					</p>
+					<a href="https://gnusocial.cardina1.red/file/c7086d09504c577e53b27ff889e71e1520f1c348e57867eb81da9538696a1c81.png">
+						<img src="https://gnusocial.cardina1.red/file/c7086d09504c577e53b27ff889e71e1520f1c348e57867eb81da9538696a1c81.png" alt="困ってる部分" />
+					</a>
+					<footer>
+						&#x2014;
+						<a href="https://gnusocial.cardina1.red/notice/166253">@loliconductor@gnusocial.cardina1.red, 2017-08-02 17:18</a>
+					</footer>
+				</blockquote>
+			</figure>
+			<figure>
+				<blockquote cite="https://gnusocial.cardina1.red/notice/166254">
+					<p>
+						IK とかするときボーン相当のノードの親子関係は網羅できないと困るし、普通に考えると Model (LimbNode) をボーンと考えれば十分なんだろうけど、 Model (Null) はデフォルトの行列も割り当てられていないし、はてさて2種類のノードをうまく扱うにはどうしようという
+					</p>
+					<footer>
+						&#x2014; <a href="https://gnusocial.cardina1.red/notice/166254">@loliconductor@gnusocial.cardina1.red, 2017-08-02 17:20</a>
+					</footer>
+				</blockquote>
+			</figure>
+			<figcaption>うーん</figcaption>
+		</figure>
+		<p>
+			あと、並行してリソース管理のモジュールを作ろうとしたが、 <a href="https://crates.io/crates/gfx_device_gl">gfx_device_gl</a> crate がマルチスレッドで同じ GL context を扱うのに対応していないため、テクスチャの転送とかを別スレッドで行うことができないっぽい。
+			険しい。
+			協調的マルチタスクを自前で実装する破目になったら嫌だなぁ<eh:footnote id="implementing-non-preemptive-multitasking">
+				<a href="https://crates.io/crates/futures">futures-rs</a> でできそうな気はするんだけど、まだ確認してない
+			</eh:footnote>。
+		</p>
+	</eh:section>
+</eh:section>
+
+</eh:article>
