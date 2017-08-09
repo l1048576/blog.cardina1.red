@@ -30,7 +30,7 @@ excerpt: "2017年 第31週 まとめ"
 				<a href="https://twitter.com/daikikohara/status/893025544396132352">Daiki Koharaさんのツイート: "RedHatがBtrfsのサポートを廃止してStratisっていうRust+Python製の新しいストレージシステムを採用するらしい。Fedora28で入る予定だから1年後くらいかな。楽しみだ。 / “Stratis Is R…” https://t.co/69GLrZj1NV"</a>
 			</li>
 			<li>
-				<a href="https://github.com/stratis-storage">Stratis Storage</a>
+				<a href="https://github.com/stratis-storage"><eh:emoji fontawesome="github" /> Stratis Storage</a>
 			</li>
 			<li>
 				<a href="https://stratis-storage.github.io/">Stratis Storage Project Working Documentation</a>
@@ -87,7 +87,7 @@ excerpt: "2017年 第31週 まとめ"
 		<eh:title>進捗: last-progress1</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/lo48576/last-progress1">lo48576/last-progress1: [WIP] ゲーム(になる予定のもの)</a>
+				<a href="https://github.com/lo48576/last-progress1"><eh:emoji fontawesome="github" /> lo48576/last-progress1: [WIP] ゲーム(になる予定のもの)</a>
 			</li>
 			<li>
 				<a href="https://github.com/lo48576/last-progress1/commit/83ba4a3748f6ad17d2d07021b0a53d8e729c5e83">Merge branch 'feature/static-fbx' into develop · lo48576/last-progress1@83ba4a3</a>

@@ -328,12 +328,12 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 				最近話題になっている実装。
 				TweetDeck 風の UI が特徴？
 				新しい実装なので、内部も結構洗練されてるのではないかと思う。
-				リポジトリは <a href="https://github.com/tootsuite/mastodon">GitHub</a> 。
+				リポジトリは <a href="https://github.com/tootsuite/mastodon"><eh:emoji fontawesome="github" /> GitHub</a> 。
 			</dd>
 			<dt><a href="https://joindiaspora.com/">Diaspora</a></dt>
 			<dd>
 				名前しか知らない。
-				リポジトリは <a href="https://github.com/diaspora/diaspora">GitHub</a> 。
+				リポジトリは <a href="https://github.com/diaspora/diaspora"><eh:emoji fontawesome="github" /> GitHub</a> 。
 			</dd>
 		</dl>
 	</eh:section>
@@ -349,7 +349,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 				こちらはプロトコルが新規に設計されており、 OStatus より洗練されている。
 				(とはいえ、それをライトユーザが実感するかは別の話だが。)
 				json ベースの通信や、ビデオチャット等との統合、人間のユーザ以外の IoT デバイスからの利用等も見据えた拡張性の高くシンプルな仕様など、純粋なマイクロブログサービスとは多少目標が異なっている。
-				リポジトリは <a href="https://github.com/matrix-org/synapse">GitHub</a> 。
+				リポジトリは <a href="https://github.com/matrix-org/synapse"><eh:emoji fontawesome="github" /> GitHub</a> 。
 				(個人的には、リファレンス実装 (synapse) が Python2 なのがちょっと悲しい。)
 			</dd>
 		</dl>

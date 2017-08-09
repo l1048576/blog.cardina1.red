@@ -199,7 +199,7 @@ excerpt: "2017年 第27週 まとめ"
 		<eh:title>進捗: fbxcel</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/lo48576/fbxcel">lo48576/fbxcel: Excellent FBX loader</a>
+				<a href="https://github.com/lo48576/fbxcel"><eh:emoji fontawesome="github" /> lo48576/fbxcel: Excellent FBX loader</a>
 			</li>
 			<li>
 				<a href="https://github.com/lo48576/fbxcel/compare/adf9fac0f313ad04cef9f626cd04157176e66d01...08a2139320168d3fec93464374a1f62755c31eed">Comparing adf9fac0f313ad04cef9f626cd04157176e66d01...08a2139320168d3fec93464374a1f62755c31eed · lo48576/fbxcel</a>

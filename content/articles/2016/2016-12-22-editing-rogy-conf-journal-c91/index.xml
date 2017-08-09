@@ -208,7 +208,7 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 					HTML と CSS の自由度はそれなりに高いので、この技術で本を書こうというのは多くの人が考えるところで、現時点で幾つかの技術がある。
 				</p>
 				<p>
-					<a href="https://github.com/oreillymedia/HTMLBook">htmlbook</a> (<a href="http://jagat-xml-publishing-study-group.github.io/HTMLBook-JA/">日本語訳</a>)は、またもや天下の O'Reilly が策定しようとしている規格である。
+					<a href="https://github.com/oreillymedia/HTMLBook"><eh:emoji fontawesome="github" /> htmlbook</a> (<a href="http://jagat-xml-publishing-study-group.github.io/HTMLBook-JA/">日本語訳</a>)は、またもや天下の O'Reilly が策定しようとしている規格である。
 					HTML のサブセットで、 <code>data-type</code> 属性によるメタ情報を活用することで、文書構造を本の作成に使えるレベルで明確にしよう、というものだ。
 					CSS について規定はないので、印刷用やブラウザ用のスタイルは自分で書くことになる。
 					この規格は EPUB や DocBook を参考にしているところが大きく、それなら最初から DocBook 書けば良くね？ と思ったのは私だけだろうか……。
