@@ -75,6 +75,31 @@ excerpt: "2017年 第32週 まとめ"
 			これでサーバのバックアップを、ラップトップを経由せずｵｰﾝｸﾗｳﾄﾞ個人鯖に直接送れるようになった。
 		</p>
 	</eh:section>
+
+	<eh:section id="unmaintained-tech">
+		<eh:title>"No maintenance Intended" バッヂ</eh:title>
+		<ul>
+			<li>
+				<a href="http://unmaintained.tech/">No Maintenance Intended</a>
+			</li>
+			<li>
+				<a href="https://github.com/potch/unmaintained.tech">
+					<eh:emoji fontawesome="github" />
+					potch/unmaintained.tech: No Maintenance Intended
+				</a>
+			</li>
+			<li>
+				<!-- Don't use `http://unmaintained.tech/badge.svg` directly because the site doesn't support HTTPS! -->
+				<img src="./no-maintenance-intended-badge.svg" alt="No Maintenance Intended バッヂ" />
+			</li>
+		</ul>
+		<p>
+			"No maintenance intended" バッヂを GitHub の README とかに貼れるよ、みたいなサイト。
+		</p>
+		<p>
+			ブラウザでブックマークするとサイト自体がメンテされてないように見えてややこしいし、サイト末尾に <q lang="en">This project <i>is</i> maintained and is on GitHub!</q> とか書いてあって笑う。
+		</p>
+	</eh:section>
 </eh:section>
 
 <eh:section id="private-activities">
