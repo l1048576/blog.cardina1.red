@@ -55,6 +55,26 @@ excerpt: "2017年 第32週 まとめ"
 			どうも更新された INSTALL ファイルによると、 GNU Social の nightly は既に PHP 7 に対応していたらしい。
 		</p>
 	</eh:section>
+
+	<eh:section id="cloud-dl-script">
+		<eh:title>cloud-dl</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/cghdev/cloud-dl">
+					<eh:emoji fontawesome="github" />
+					cghdev/cloud-dl: Bash script to list/upload/download files from owncloud/nextcloud
+				</a>
+			</li>
+			<li>
+				<a href="http://blog.maud.io/entry/2017/08/05/nextcloud">Nextcloud鯖を立てた - ﾏﾂﾀﾞｲｱﾘｰ</a>
+			</li>
+		</ul>
+		<p>
+			<a href="http://blog.maud.io/entry/2017/08/05/nextcloud">Nextcloud鯖を立てた - ﾏﾂﾀﾞｲｱﾘｰ</a>で紹介されていた。
+			めっちゃ便利。
+			これでサーバのバックアップを、ラップトップを経由せずｵｰﾝｸﾗｳﾄﾞ個人鯖に直接送れるようになった。
+		</p>
+	</eh:section>
 </eh:section>
 
 <eh:section id="private-activities">
