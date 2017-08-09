@@ -40,6 +40,21 @@ excerpt: "2017年 第32週 まとめ"
 			<eh:emoji fontawesome="firefox" /> Firefox はいいぞ
 		</p>
 	</eh:section>
+
+	<eh:section id="gnusocial-nightly-update">
+		<eh:title>GNU Social nightly update</eh:title>
+		<ul>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social/compare/586aaa596e2277a2c4bea9cae476014a2837a41d...090f4a9474c641d4c78170eb952976f22f798c06">586aaa596e2277a2c4bea9cae476014a2837a41d...090f4a9474c641d4c78170eb952976f22f798c06 · gnu.io / gnu-social · GitLab</a>
+			</li>
+		</ul>
+		<p>
+			INSTALL ファイルの更新や細々した修正。
+		</p>
+		<p>
+			どうも更新された INSTALL ファイルによると、 GNU Social の nightly は既に PHP 7 に対応していたらしい。
+		</p>
+	</eh:section>
 </eh:section>
 
 </eh:article>
