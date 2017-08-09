@@ -14,7 +14,7 @@ excerpt: "nginx で SSL 設定をする際、できるだけ安全に Android-4.
 <?xml version="1.0"?>
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
 	id="2017-05-20-nginx-safe-ssl"
 >
 <eh:title>nginx での安全な SSL 設定 (Android 4.4.2 対応)</eh:title>

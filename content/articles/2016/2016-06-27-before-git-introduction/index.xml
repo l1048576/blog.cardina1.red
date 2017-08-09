@@ -12,7 +12,7 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 <?xml version="1.0"?>
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
 	id="2016-06-27-before-git-introduction"
 >
 <eh:title>git入門の前に知っておきたい概念</eh:title>

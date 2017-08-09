@@ -6,7 +6,7 @@
 	xmlns:mml="http://www.w3.org/1998/Math/MathML"
 	xmlns:svg="http://www.w3.org/2000/svg"
 	xmlns:xl="http://www.w3.org/1999/xlink"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
 	exclude-result-prefixes="xsl html mml svg xl eh"
 >
 <!-- set output format -->
@@ -188,20 +188,35 @@
 	</xsl:element>
 </xsl:template>
 
-<!-- Font Awesome icon. -->
-<xsl:template match="eh:fa-icon">
-	<xsl:if test="not(@icon)">
-		<xsl:message terminate="yes">error: `eh:fa-icon` does not have an `@icon` attribute.</xsl:message>
+<xsl:template name="emoji-font-awesome">
+	<xsl:param name="name" />
+	<xsl:param name="class"><xsl:value-of select="@class" /></xsl:param>
+	<xsl:if test="$name = ''">
+		<xsl:message terminate="yes">error: `name` param is not specified for `emoji-font-awesome`.</xsl:message>
 	</xsl:if>
 	<xsl:element name="i">
 		<xsl:attribute name="class">
 			<xsl:text>fa fa-</xsl:text>
-			<xsl:value-of select="@icon" />
-			<xsl:if test="@class">
-				<xsl:value-of select="concat(' ', @class)" /></xsl:if>
+			<xsl:value-of select="$name" />
+			<xsl:if test="$class != ''">
+				<xsl:value-of select="concat(' ', $class)" /></xsl:if>
 		</xsl:attribute>
 		<xsl:attribute name="aria-hidden">true</xsl:attribute>
 	</xsl:element>
+</xsl:template>
+
+<!-- Generic emoji. -->
+<xsl:template match="eh:emoji">
+	<xsl:choose>
+		<xsl:when test="@fontawesome">
+			<xsl:call-template name="emoji-font-awesome">
+				<xsl:with-param name="name" select="@fontawesome" />
+			</xsl:call-template>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:message terminate="yes">error: `eh:emoji` does not have any emoji-specifier attributes.</xsl:message>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>
