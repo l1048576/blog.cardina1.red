@@ -11,7 +11,7 @@ excerpt: "Rust-1.6でvalgrindを使うとSEGVすることがある場合の対�
 <?xml version="1.0"?>
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
 	id="2016-03-17-rust-valgrind-segv"
 >
 <eh:title>Rust-1.6でvalgrindを使うとSEGVすることがある場合の対処</eh:title>

@@ -13,7 +13,7 @@ excerpt: "Rustで T: From<U> のとき From<MyStruct<U>> for MyStruct<T> を実�
 <?xml version="1.0"?>
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
 	id="2016-08-23-rust-converting-inner-type"
 >
 <eh:title>Rustで <code>T: From&lt;U&gt;</code> のとき <code>From&lt;MyStruct&lt;U&gt;&gt; for MyStruct&lt;T&gt;</code> を実装したい</eh:title>

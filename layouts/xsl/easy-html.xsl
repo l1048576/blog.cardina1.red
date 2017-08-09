@@ -6,7 +6,7 @@
 	xmlns:mml="http://www.w3.org/1998/Math/MathML"
 	xmlns:svg="http://www.w3.org/2000/svg"
 	xmlns:xl="http://www.w3.org/1999/xlink"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
 	exclude-result-prefixes="xsl html mml svg xl eh"
 >
 <!-- set output format -->

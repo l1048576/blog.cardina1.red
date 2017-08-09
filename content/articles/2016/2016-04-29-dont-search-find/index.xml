@@ -12,7 +12,7 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 <?xml version="1.0"?>
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
 	id="2016-04-29-dont-search-find"
 >
 <eh:title>探すな、絞り込め / 或いは階層化されたタグの話</eh:title>

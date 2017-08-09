@@ -12,7 +12,7 @@ excerpt: "C言語での条件演算子についてちょっと悩んだことが
 <?xml version="1.0"?>
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
 	id="2016-07-08-c-conditional-operator"
 >
 <eh:title>C言語の条件演算子に関する雑記</eh:title>

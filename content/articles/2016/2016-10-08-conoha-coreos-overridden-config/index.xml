@@ -13,7 +13,7 @@ excerpt: "ConoHaのVPSにCoreOSを入れると、cloud-config.yamlの一部項�
 <?xml version="1.0"?>
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
 	id="2016-10-08-conoha-coreos-overridden-config"
 >
 <eh:title>ConoHaのVPSに入れたCoreOSの<code class="filepath">cloud-config.yaml</code>が(部分的に)無視される件</eh:title>

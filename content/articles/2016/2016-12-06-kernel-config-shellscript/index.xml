@@ -12,7 +12,7 @@ excerpt: "Linux の kernel config を秘伝のタレにしないための小さ�
 <?xml version="1.0"?>
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0309"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
 	id="2016-12-06-kernel-config-shellscript"
 >
 <eh:title>kernel config 生成(略記)のためのシェルスクリプト</eh:title>
