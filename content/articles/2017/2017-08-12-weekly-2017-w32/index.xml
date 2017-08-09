@@ -57,4 +57,64 @@ excerpt: "2017年 第32週 まとめ"
 	</eh:section>
 </eh:section>
 
+<eh:section id="private-activities">
+	<eh:title>私的活動</eh:title>
+
+	<eh:section id="use-debian-stretch-for-gnusocial">
+		<eh:title>GNU Social のコンテナを Debian jessie から Debian stretch へアップデートした</eh:title>
+		<p>
+			<a href="#gnusocial-nightly-update">INSTALL ファイルの更新</a>で気付いたが、 nightly が既に PHP 7 に対応しているようだったので、これを機に Debian も新しいものを使うことにした。
+		</p>
+		<p>
+			変更は以下のとおり。
+		</p>
+		<ul>
+			<li>
+				パッケージ名の変更
+				<ul>
+					<li>
+						jessie では <code>php5-foo</code> のようになっていたが、 stretch では <code>php7.0-foo</code> のようになっている。
+					</li>
+					<li>
+						私は現時点では以下のようにパッケージを指定している。
+						<figure>
+							<pre><code><![CDATA[
+RUN apt-get update -q && apt-get install -y \
+    php7.0-bcmath php7.0-curl php7.0-exif php7.0-gd php7.0-intl \
+    php7.0-mbstring php7.0-mysql php7.0-opcache php7.0-readline php7.0-xmlwriter \
+    php7.0-fpm nginx-full rsync php7.0-gmp php7.0-json \
+    git-core make gettext \
+    curl php7.0-cli \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+]]></code></pre>
+							<figcaption><code class="filepath">Dockerfile</code> 抜粋</figcaption>
+						</figure>
+					</li>
+					<li>
+						これに伴って、 php-fpm のサービス名も <code>php5-fpm</code> から <code>php7.0-fpm</code> になっている。
+					</li>
+				</ul>
+			</li>
+			<li>
+				php の関連ファイルパスの変更
+				<ul>
+					<li>
+						設定ファイルは、 <code class="dirpath">/etc/php5</code> 以下にあったディレクトリ群が <code class="dirpath">/etc/php/7.0</code> 以下に移動している。
+					</li>
+					<li>
+						php-fpm のソケットのパスは、デフォルトで <code class="filepath">/var/run/php5-fpm.sock</code> だったが、 <code class="filepath">/run/php/php7.0-fpm.sock</code> に変更されている。
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<p>
+			致命的な変更などはないので、頭を空っぽにして追従すればよい。
+		</p>
+		<p>
+			私の環境の場合、変更すべき記述が Dockerfile 、 GNU Social 用の nginx 設定ファイル、コンテナのスタートスクリプトなどに散っていたので、変更洩れでしばらく 502 エラーを出してしまった。
+		</p>
+	</eh:section>
+</eh:section>
+
 </eh:article>
