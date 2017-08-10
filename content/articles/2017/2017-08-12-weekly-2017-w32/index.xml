@@ -46,14 +46,75 @@ excerpt: "2017年 第32週 まとめ"
 		<ul>
 			<li>
 				<a href="https://git.gnu.io/gnu/gnu-social/compare/586aaa596e2277a2c4bea9cae476014a2837a41d...090f4a9474c641d4c78170eb952976f22f798c06">586aaa596e2277a2c4bea9cae476014a2837a41d...090f4a9474c641d4c78170eb952976f22f798c06 · gnu.io / gnu-social · GitLab</a>
+				<ul>
+					<li>
+						<p>
+							Mastodon が Salmon 関係で返すらしい 201 ステータスコードへの対応。
+						</p>
+						<figure>
+							<pre><code class="lang-diff language-diff"><![CDATA[
+diff --git a/plugins/OStatus/OStatusPlugin.php b/plugins/OStatus/OStatusPlugin.php
+index 18e8539eb4aa..7f7f04c50a60 100644
+--- a/plugins/OStatus/OStatusPlugin.php
++++ b/plugins/OStatus/OStatusPlugin.php
+@@ -1498,9 +1498,11 @@ class OStatusPlugin extends Plugin
+             return true;
+         }
+
+-        // 200 OK is the best response
+-        // 202 Accepted is what we get from Diaspora for example
+-        if (!in_array($response->getStatus(), array(200, 202))) {
++        // The different kinds of accepted responses...
++        // 200 OK means it's all ok
++        // 201 Created is what Mastodon returns when it's ok
++        // 202 Accepted is what we get from Diaspora, also good
++        if (!in_array($response->getStatus(), array(200, 201, 202))) {
+             common_log(LOG_ERR, sprintf('Salmon (from profile %d) endpoint %s returned status %s: %s',
+                                 $magic_env->getActor()->getID(), $endpoint_uri, $response->getStatus(), $response->getBody()));
+             return true;
+]]></code></pre>
+							<figcaption>
+								<a href="https://git.gnu.io/gnu/gnu-social/commit/090f4a9474c641d4c78170eb952976f22f798c06">090f4a9</a> での変更。
+								統一性なさすぎて正直笑う
+							</figcaption>
+						</figure>
+					</li>
+					<li>
+						<p>
+							INSTALL ファイルの更新や細々した修正。
+							どうも更新された INSTALL ファイルによると、 GNU Social の nightly は既に PHP 7 に対応していたらしい。
+						</p>
+					</li>
+					<li>
+						<p>
+							queue daemon のスレッド数を決定する <code>$config['queue']['threads']</code> を <code class="filepath">lib/default.php</code> に明示的にリストアップ。
+							デフォルトではプロセッサ数が使われるらしいので、鯖缶は何もする必要はなさそう。
+						</p>
+					</li>
+					<li>
+						<p>
+							あとは XML 宣言のあとに改行入れたりとかログ追加とかの小さな変更。
+						</p>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social/compare/090f4a9474c641d4c78170eb952976f22f798c06...d61375cb7fd9e3ac2dbba2b22d0d6461fb753892">090f4a9474c641d4c78170eb952976f22f798c06...d61375cb7fd9e3ac2dbba2b22d0d6461fb753892 · gnu.io / gnu-social · GitLab</a>
+				<ul>
+					<li>
+						<p>
+							WebFinger あたりの修正(詳しく知らず)。
+							group 機能でもユーザ名と同じようにサーバのドメインを付けて区別できるようにするための修正と、それに伴うパラメータ追加とかそんな感じのやつっぽい。
+						</p>
+					</li>
+					<li>
+						<p>
+							あとは "HubSub" でなく "WebSub" を使うという(ログメッセージの)用語変更。
+						</p>
+					</li>
+				</ul>
 			</li>
 		</ul>
-		<p>
-			INSTALL ファイルの更新や細々した修正。
-		</p>
-		<p>
-			どうも更新された INSTALL ファイルによると、 GNU Social の nightly は既に PHP 7 に対応していたらしい。
-		</p>
 	</eh:section>
 
 	<eh:section id="cloud-dl-script">
