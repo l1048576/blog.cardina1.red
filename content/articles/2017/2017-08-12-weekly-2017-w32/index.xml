@@ -31,6 +31,9 @@ excerpt: "2017年 第32週 まとめ"
 			<li>
 				<a href="https://www.mozilla.org/en-US/firefox/55.0/releasenotes/">Firefox — Notes (55.0) — Mozilla</a>
 			</li>
+			<li>
+				<a href="https://hacks.mozilla.org/2017/08/firefox-55-supports-webvr/">Firefox 55: first desktop browser to support WebVR ★ Mozilla Hacks – the Web developer blog</a>
+			</li>
 		</ul>
 		<p>
 			Content process の数を設定画面で変更できるようになったりとか、パフォーマンスの劇的な改善とか。
