@@ -224,6 +224,80 @@ RUN apt-get update -q && apt-get install -y \
 			私の環境の場合、変更すべき記述が Dockerfile 、 GNU Social 用の nginx 設定ファイル、コンテナのスタートスクリプトなどに散っていたので、変更洩れでしばらく 502 エラーを出してしまった。
 		</p>
 	</eh:section>
+
+	<eh:section id="progress-last-progress1">
+		<eh:title>進捗: last-progress1</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/last-progress1">lo48576/last-progress1: [WIP] ゲーム(になる予定のもの)</a>
+			</li>
+		</ul>
+		<p>
+			last-progress1 は、ゲームにしたい予定の何か。
+			今のところは静的な FBX のビューアの域を出ない。
+		</p>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/last-progress1/commit/fc7ad3d9c773f2f76fca92e38f93aa9073574e87">Merge branch 'feature/allow-meshes-with-no-diffuse-texture' into feat… · lo48576/last-progress1@fc7ad3d</a>
+				<ul>
+					<li>
+						<p>
+							対応する diffuse テクスチャの存在しないモデルについて、白 1x1 px のダミーテクスチャを用意し使用する。
+						</p>
+						<p>
+							色を白としたのは、 fragment shader において <code>color = VertexIn.diffuse_color * texture(diffuse_texture, VertexIn.diffuse_uv);</code> のようにすることで、条件分岐を回避できるからである。
+							diffuse テクスチャの有無での分岐は vertex shader のみで行われ、テクスチャが存在する場合は <code>Vertexin.diffuse_color</code> が <code>vec4(1.0)</code> になり、存在しない場合は <code>VertexIn.diffuse_color</code> が頂点色を持ち <code>texture(〜)</code> が <code>vec4(1.0)</code> を返すようにした。
+						</p>
+					</li>
+					<li>
+						<p>
+							diffuse テクスチャが存在する場合の UV 座標と、存在しない場合の頂点カラーを、同じ変数 (<code>diffuse_color</code>) で保持することでサイズを節約。
+						</p>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="https://github.com/lo48576/last-progress1/commit/63cdb3cd9c4051f41465ad7b38097c1467284cab">Merge branch 'feature/load-clusters-weights' into feature/limbnodes · lo48576/last-progress1@63cdb3c</a>
+				<ul>
+					<li>
+						<p>
+							cluster の情報を FBX から読み、 Geometry(Mesh) ノードとは別に保持する。
+						</p>
+						<p>
+							所有関係としては Geometry(Mesh) ノードが Deformer(Skin) ノードを子に持ち、その下に SubDeformer(Cluster) ノードがあるという木構造になるので、意味だけ考えれば cluster は geometry に所持されるべきである。
+							しかし、 FBX におけるメッシュは面ごとに異なるマテリアルを使用することが許されており、私のコードではそのようなメッシュについてマテリアル毎にサブメッシュへと分割する戦略をとった。
+							その結果、複数のサブメッシュが共通の skin や cluster を参照することが有り得るため、所有をさせないように実装しなおした。
+							(これが <a href="https://github.com/lo48576/last-progress1/commit/63cdb3cd9c4051f41465ad7b38097c1467284cab#diff-82799c3f5da4d645d66a585d7760b8e2"><code class="filepath">last-progress1/src/model/fbx/mod.rs</code> のコード削除部分</a> である。)
+						</p>
+					</li>
+					<li>
+						<p>
+							vertex shader において cluster のインデックスと重みを受け取り、反映させる。
+							(<a href="https://github.com/lo48576/last-progress1/commit/63cdb3cd9c4051f41465ad7b38097c1467284cab#diff-0fbbec057437011adfa99f7937fdb202"><code class="filepath">last-progress1/src/default.vert</code></a>)
+						</p>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<p>
+			今週は、ボーンを使ったアニメーションで用いられる行列と頂点の対応と重みづけ (FBX 用語では "cluster") のロードを実装した。
+			ただし、これだけではアニメーションはできない。
+			ボーン(あるいは関節、ジョイント)をロードし、 cluster とジョイントを関連づけて、そのうえでジョイントに対して適切な姿勢変更を適用してやることで、やっとメッシュも動かすことができるようになる。
+			よって、ここからの実装が完成しなければ cluster のロードにバグがあったとしても発見できないかもしれない。
+			本番はここからだ。
+		</p>
+		<figure>
+			<img src="screenshot-2017-08-10-123835+0900.png" alt="モデル座標の原点と各 cluster に、 XYZ 軸を表示した。" />
+			<figcaption>
+				モデルの原点(足元)と各 cluster に、 XYZ 軸を表示した。
+				これはあくまで cluster の姿勢行列のみを反映したもので、関節情報を解釈しているわけではない。
+			</figcaption>
+		</figure>
+		<p>
+			また、デバッグ用に、 XYZ 軸を RGB の色で表示できるようにした。
+			これに伴い、シェーダ周辺に変更を行った。
+		</p>
+	</eh:section>
 </eh:section>
 
 </eh:article>
