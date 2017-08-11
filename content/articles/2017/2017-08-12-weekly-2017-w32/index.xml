@@ -300,4 +300,28 @@ RUN apt-get update -q && apt-get install -y \
 	</eh:section>
 </eh:section>
 
+<eh:section id="thoughts">
+	<eh:title>感想</eh:title>
+	<ul>
+		<li>
+			<p>
+				コミケ行きたい人生だった。
+			</p>
+			<ul>
+				<li>
+					<p>
+						ラップトップがそのうち壊れるはずなので、買い替えのための資金を貯めなければならない。
+						よって金がない。
+					</p>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<p>
+				ぼちぼちサークルでの C++ 講習会の資料を書き始めないと……
+			</p>
+		</li>
+	</ul>
+</eh:section>
+
 </eh:article>
