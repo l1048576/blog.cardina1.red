@@ -1,0 +1,327 @@
+---
+created_at: 2017-08-11T22:51:39+0900
+title: "Weekly report 2017-W32"
+htags:
+  - "日常/日記"
+kind: article
+
+excerpt: "2017年 第32週 まとめ"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	id="2017-08-12-weekly-2017-w32"
+>
+<eh:title>Weekly report 2017-W32</eh:title>
+<p>
+	2017-W31-6 (Sat) から 2017-W32-5 (Fri) までの日記。
+</p>
+
+
+<eh:section id="news">
+	<eh:title>ニュース・知ったこと</eh:title>
+
+	<eh:section id="firefox-55">
+		<eh:title>Firefox 55 リリース</eh:title>
+		<ul>
+			<li>
+				<a href="https://www.mozilla.org/ja/firefox/">より優れた、高速でプライベートな最新ブラウザー | Firefox</a>
+			</li>
+			<li>
+				<a href="https://www.mozilla.org/en-US/firefox/55.0/releasenotes/">Firefox — Notes (55.0) — Mozilla</a>
+			</li>
+			<li>
+				<a href="https://hacks.mozilla.org/2017/08/firefox-55-supports-webvr/">Firefox 55: first desktop browser to support WebVR ★ Mozilla Hacks – the Web developer blog</a>
+			</li>
+		</ul>
+		<p>
+			Content process の数を設定画面で変更できるようになったりとか、パフォーマンスの劇的な改善とか。
+			WebVR サポートとかは個人的には当面使いそうにないのであまり興味ない。
+		</p>
+		<p>
+			<eh:emoji fontawesome="firefox" /> Firefox はいいぞ
+		</p>
+	</eh:section>
+
+	<eh:section id="gnusocial-nightly-update">
+		<eh:title>GNU Social nightly update</eh:title>
+		<ul>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social/compare/586aaa596e2277a2c4bea9cae476014a2837a41d...090f4a9474c641d4c78170eb952976f22f798c06">586aaa596e2277a2c4bea9cae476014a2837a41d...090f4a9474c641d4c78170eb952976f22f798c06 · gnu.io / gnu-social · GitLab</a>
+				<ul>
+					<li>
+						<p>
+							Mastodon が Salmon 関係で返すらしい 201 ステータスコードへの対応。
+						</p>
+						<figure>
+							<pre><code class="lang-diff language-diff"><![CDATA[
+diff --git a/plugins/OStatus/OStatusPlugin.php b/plugins/OStatus/OStatusPlugin.php
+index 18e8539eb4aa..7f7f04c50a60 100644
+--- a/plugins/OStatus/OStatusPlugin.php
++++ b/plugins/OStatus/OStatusPlugin.php
+@@ -1498,9 +1498,11 @@ class OStatusPlugin extends Plugin
+             return true;
+         }
+
+-        // 200 OK is the best response
+-        // 202 Accepted is what we get from Diaspora for example
+-        if (!in_array($response->getStatus(), array(200, 202))) {
++        // The different kinds of accepted responses...
++        // 200 OK means it's all ok
++        // 201 Created is what Mastodon returns when it's ok
++        // 202 Accepted is what we get from Diaspora, also good
++        if (!in_array($response->getStatus(), array(200, 201, 202))) {
+             common_log(LOG_ERR, sprintf('Salmon (from profile %d) endpoint %s returned status %s: %s',
+                                 $magic_env->getActor()->getID(), $endpoint_uri, $response->getStatus(), $response->getBody()));
+             return true;
+]]></code></pre>
+							<figcaption>
+								<a href="https://git.gnu.io/gnu/gnu-social/commit/090f4a9474c641d4c78170eb952976f22f798c06">090f4a9</a> での変更。
+								統一性なさすぎて正直笑う
+							</figcaption>
+						</figure>
+					</li>
+					<li>
+						<p>
+							INSTALL ファイルの更新や細々した修正。
+							どうも更新された INSTALL ファイルによると、 GNU Social の nightly は既に PHP 7 に対応していたらしい。
+						</p>
+					</li>
+					<li>
+						<p>
+							queue daemon のスレッド数を決定する <code>$config['queue']['threads']</code> を <code class="filepath">lib/default.php</code> に明示的にリストアップ。
+							デフォルトではプロセッサ数が使われるらしいので、鯖缶は何もする必要はなさそう。
+						</p>
+					</li>
+					<li>
+						<p>
+							あとは XML 宣言のあとに改行入れたりとかログ追加とかの小さな変更。
+						</p>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social/compare/090f4a9474c641d4c78170eb952976f22f798c06...d61375cb7fd9e3ac2dbba2b22d0d6461fb753892">090f4a9474c641d4c78170eb952976f22f798c06...d61375cb7fd9e3ac2dbba2b22d0d6461fb753892 · gnu.io / gnu-social · GitLab</a>
+				<ul>
+					<li>
+						<p>
+							WebFinger あたりの修正(詳しく知らず)。
+							group 機能でもユーザ名と同じようにサーバのドメインを付けて区別できるようにするための修正と、それに伴うパラメータ追加とかそんな感じのやつっぽい。
+						</p>
+					</li>
+					<li>
+						<p>
+							あとは "HubSub" でなく "WebSub" を使うという(ログメッセージの)用語変更。
+						</p>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</eh:section>
+
+	<eh:section id="cloud-dl-script">
+		<eh:title>cloud-dl</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/cghdev/cloud-dl">
+					<eh:emoji fontawesome="github" />
+					cghdev/cloud-dl: Bash script to list/upload/download files from owncloud/nextcloud
+				</a>
+			</li>
+			<li>
+				<a href="http://blog.maud.io/entry/2017/08/05/nextcloud">Nextcloud鯖を立てた - ﾏﾂﾀﾞｲｱﾘｰ</a>
+			</li>
+		</ul>
+		<p>
+			<a href="http://blog.maud.io/entry/2017/08/05/nextcloud">Nextcloud鯖を立てた - ﾏﾂﾀﾞｲｱﾘｰ</a>で紹介されていた。
+			めっちゃ便利。
+			これでサーバのバックアップを、ラップトップを経由せずｵｰﾝｸﾗｳﾄﾞ個人鯖に直接送れるようになった。
+		</p>
+	</eh:section>
+
+	<eh:section id="unmaintained-tech">
+		<eh:title>"No maintenance Intended" バッヂ</eh:title>
+		<ul>
+			<li>
+				<a href="http://unmaintained.tech/">No Maintenance Intended</a>
+			</li>
+			<li>
+				<a href="https://github.com/potch/unmaintained.tech">
+					<eh:emoji fontawesome="github" />
+					potch/unmaintained.tech: No Maintenance Intended
+				</a>
+			</li>
+			<li>
+				<!-- Don't use `http://unmaintained.tech/badge.svg` directly because the site doesn't support HTTPS! -->
+				<img src="./no-maintenance-intended-badge.svg" alt="No Maintenance Intended バッヂ" />
+			</li>
+		</ul>
+		<p>
+			"No maintenance intended" バッヂを GitHub の README とかに貼れるよ、みたいなサイト。
+		</p>
+		<p>
+			ブラウザでブックマークするとサイト自体がメンテされてないように見えてややこしいし、サイト末尾に <q lang="en">This project <i>is</i> maintained and is on GitHub!</q> とか書いてあって笑う。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="private-activities">
+	<eh:title>私的活動</eh:title>
+
+	<eh:section id="use-debian-stretch-for-gnusocial">
+		<eh:title>GNU Social のコンテナを Debian jessie から Debian stretch へアップデートした</eh:title>
+		<p>
+			<a href="#gnusocial-nightly-update">INSTALL ファイルの更新</a>で気付いたが、 nightly が既に PHP 7 に対応しているようだったので、これを機に Debian も新しいものを使うことにした。
+		</p>
+		<p>
+			変更は以下のとおり。
+		</p>
+		<ul>
+			<li>
+				パッケージ名の変更
+				<ul>
+					<li>
+						jessie では <code>php5-foo</code> のようになっていたが、 stretch では <code>php7.0-foo</code> のようになっている。
+					</li>
+					<li>
+						私は現時点では以下のようにパッケージを指定している。
+						<figure>
+							<pre><code><![CDATA[
+RUN apt-get update -q && apt-get install -y \
+    php7.0-bcmath php7.0-curl php7.0-exif php7.0-gd php7.0-intl \
+    php7.0-mbstring php7.0-mysql php7.0-opcache php7.0-readline php7.0-xmlwriter \
+    php7.0-fpm nginx-full rsync php7.0-gmp php7.0-json \
+    git-core make gettext \
+    curl php7.0-cli \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+]]></code></pre>
+							<figcaption><code class="filepath">Dockerfile</code> 抜粋</figcaption>
+						</figure>
+					</li>
+					<li>
+						これに伴って、 php-fpm のサービス名も <code>php5-fpm</code> から <code>php7.0-fpm</code> になっている。
+					</li>
+				</ul>
+			</li>
+			<li>
+				php の関連ファイルパスの変更
+				<ul>
+					<li>
+						設定ファイルは、 <code class="dirpath">/etc/php5</code> 以下にあったディレクトリ群が <code class="dirpath">/etc/php/7.0</code> 以下に移動している。
+					</li>
+					<li>
+						php-fpm のソケットのパスは、デフォルトで <code class="filepath">/var/run/php5-fpm.sock</code> だったが、 <code class="filepath">/run/php/php7.0-fpm.sock</code> に変更されている。
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<p>
+			致命的な変更などはないので、頭を空っぽにして追従すればよい。
+		</p>
+		<p>
+			私の環境の場合、変更すべき記述が Dockerfile 、 GNU Social 用の nginx 設定ファイル、コンテナのスタートスクリプトなどに散っていたので、変更洩れでしばらく 502 エラーを出してしまった。
+		</p>
+	</eh:section>
+
+	<eh:section id="progress-last-progress1">
+		<eh:title>進捗: last-progress1</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/last-progress1">lo48576/last-progress1: [WIP] ゲーム(になる予定のもの)</a>
+			</li>
+		</ul>
+		<p>
+			last-progress1 は、ゲームにしたい予定の何か。
+			今のところは静的な FBX のビューアの域を出ない。
+		</p>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/last-progress1/commit/fc7ad3d9c773f2f76fca92e38f93aa9073574e87">Merge branch 'feature/allow-meshes-with-no-diffuse-texture' into feat… · lo48576/last-progress1@fc7ad3d</a>
+				<ul>
+					<li>
+						<p>
+							対応する diffuse テクスチャの存在しないモデルについて、白 1x1 px のダミーテクスチャを用意し使用する。
+						</p>
+						<p>
+							色を白としたのは、 fragment shader において <code>color = VertexIn.diffuse_color * texture(diffuse_texture, VertexIn.diffuse_uv);</code> のようにすることで、条件分岐を回避できるからである。
+							diffuse テクスチャの有無での分岐は vertex shader のみで行われ、テクスチャが存在する場合は <code>Vertexin.diffuse_color</code> が <code>vec4(1.0)</code> になり、存在しない場合は <code>VertexIn.diffuse_color</code> が頂点色を持ち <code>texture(〜)</code> が <code>vec4(1.0)</code> を返すようにした。
+						</p>
+					</li>
+					<li>
+						<p>
+							diffuse テクスチャが存在する場合の UV 座標と、存在しない場合の頂点カラーを、同じ変数 (<code>diffuse_color</code>) で保持することでサイズを節約。
+						</p>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="https://github.com/lo48576/last-progress1/commit/63cdb3cd9c4051f41465ad7b38097c1467284cab">Merge branch 'feature/load-clusters-weights' into feature/limbnodes · lo48576/last-progress1@63cdb3c</a>
+				<ul>
+					<li>
+						<p>
+							cluster の情報を FBX から読み、 Geometry(Mesh) ノードとは別に保持する。
+						</p>
+						<p>
+							所有関係としては Geometry(Mesh) ノードが Deformer(Skin) ノードを子に持ち、その下に SubDeformer(Cluster) ノードがあるという木構造になるので、意味だけ考えれば cluster は geometry に所持されるべきである。
+							しかし、 FBX におけるメッシュは面ごとに異なるマテリアルを使用することが許されており、私のコードではそのようなメッシュについてマテリアル毎にサブメッシュへと分割する戦略をとった。
+							その結果、複数のサブメッシュが共通の skin や cluster を参照することが有り得るため、所有をさせないように実装しなおした。
+							(これが <a href="https://github.com/lo48576/last-progress1/commit/63cdb3cd9c4051f41465ad7b38097c1467284cab#diff-82799c3f5da4d645d66a585d7760b8e2"><code class="filepath">last-progress1/src/model/fbx/mod.rs</code> のコード削除部分</a> である。)
+						</p>
+					</li>
+					<li>
+						<p>
+							vertex shader において cluster のインデックスと重みを受け取り、反映させる。
+							(<a href="https://github.com/lo48576/last-progress1/commit/63cdb3cd9c4051f41465ad7b38097c1467284cab#diff-0fbbec057437011adfa99f7937fdb202"><code class="filepath">last-progress1/src/default.vert</code></a>)
+						</p>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<p>
+			今週は、ボーンを使ったアニメーションで用いられる行列と頂点の対応と重みづけ (FBX 用語では "cluster") のロードを実装した。
+			ただし、これだけではアニメーションはできない。
+			ボーン(あるいは関節、ジョイント)をロードし、 cluster とジョイントを関連づけて、そのうえでジョイントに対して適切な姿勢変更を適用してやることで、やっとメッシュも動かすことができるようになる。
+			よって、ここからの実装が完成しなければ cluster のロードにバグがあったとしても発見できないかもしれない。
+			本番はここからだ。
+		</p>
+		<figure>
+			<img src="screenshot-2017-08-10-123835+0900.png" alt="モデル座標の原点と各 cluster に、 XYZ 軸を表示した。" />
+			<figcaption>
+				モデルの原点(足元)と各 cluster に、 XYZ 軸を表示した。
+				これはあくまで cluster の姿勢行列のみを反映したもので、関節情報を解釈しているわけではない。
+			</figcaption>
+		</figure>
+		<p>
+			また、デバッグ用に、 XYZ 軸を RGB の色で表示できるようにした。
+			これに伴い、シェーダ周辺に変更を行った。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="thoughts">
+	<eh:title>感想</eh:title>
+	<ul>
+		<li>
+			<p>
+				コミケ行きたい人生だった。
+			</p>
+			<ul>
+				<li>
+					<p>
+						ラップトップがそのうち壊れるはずなので、買い替えのための資金を貯めなければならない。
+						よって金がない。
+					</p>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<p>
+				ぼちぼちサークルでの C++ 講習会の資料を書き始めないと……
+			</p>
+		</li>
+	</ul>
+</eh:section>
+
+</eh:article>
