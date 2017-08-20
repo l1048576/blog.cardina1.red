@@ -1,0 +1,50 @@
+---
+created_at: 2017-08-16T20:47:23+0900
+title: "Weekly report 2017-W33"
+htags:
+  - "日常/日記"
+kind: article
+
+excerpt: "2017年 第33週 まとめ"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	id="2017-08-19-weekly-2017-w33"
+>
+<eh:title>Weekly report 2017-W33</eh:title>
+<p>
+	2017-W32-6 (Sat) から 2017-W33-5 (Fri) までの日記。
+</p>
+
+
+<eh:section id="private-activities">
+	<eh:title>私的活動</eh:title>
+
+	<eh:section id="comiket-92">
+		<eh:title>C92 行った</eh:title>
+		<p>
+			結局3日目だけ行った。
+			最初の方に行ったサークルで長時間行列を食らった<eh:footnote id="comiket-long-queue">
+				サークル4つ行った頃には正午を過ぎていた
+			</eh:footnote>せいで午後にまわったサークルは完売がそれなりにあったが、逆にそのお蔭で軍資金不足に悩まなかったという面もある。
+		</p>
+		<p>
+			戦利品は部屋が片付いておらず写真撮るスペースがないので省略。
+		</p>
+		<p>
+			本棚にこれ以上本を置くスペースがなく床に積んでいるものが大量にあるのに加え、穴開きで持っている続き物の既刊などがあったりして、大変ややこしいことになっている。
+			いいかげん物理・情報ともに同人誌や書籍の管理をまともにやりたいものだが……
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="thoughts">
+	<eh:title>感想</eh:title>
+	<p>
+		書くこと何もねえな
+	</p>
+</eh:section>
+
+</eh:article>
