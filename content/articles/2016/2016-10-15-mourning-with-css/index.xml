@@ -30,26 +30,20 @@ excerpt: "CSSで喪に服す時代らしい。"
 	<figure>
 		<figure>
 			<picture>
-				<source srcset="https://pageshot.net/images/a533d0db-b9e3-4a37-9c1c-9ab10cebd6f7" />
+				<source srcset="https://screenshots.firefoxusercontent.com/images/a533d0db-b9e3-4a37-9c1c-9ab10cebd6f7" />
 				<img src="20161015-1405-google_co_th.png" alt="www.google.co.th のスクリーンショット" />
 			</picture>
-			<figcaption><a href="https://www.google.co.th">www.google.co.th</a>, <a href="https://pageshot.net/W4EAmR2pr1l74IUA/www.google.co.th"><time datetime="2016-10-15T14:06">2016/10/15 14:05</time>撮影</a></figcaption>
+			<figcaption><a href="https://www.google.co.th">www.google.co.th</a>, <time datetime="2016-10-15T14:06">2016/10/15 14:05</time> 撮影</figcaption>
 		</figure>
 
 		<figure>
-			<picture>
-				<source srcset="https://pageshot.net/images/99c9c5ba-0e4e-4ced-8d3d-fa7690db8875" />
-				<img src="20161015-1406-www_thaiairways_com.png" alt="www.thaiairways.com のスクリーンショット" />
-			</picture>
-			<figcaption><a href="http://www.thaiairways.com">www.thaiairways.com</a>, <a href="https://pageshot.net/VyuHnzO9USierpbf/www.thaiairways.com"><time datetime="2016-10-15T14:06">2016/10/15 14:06</time>撮影</a></figcaption>
+			<img src="20161015-1406-www_thaiairways_com.png" alt="www.thaiairways.com のスクリーンショット" />
+			<figcaption><a href="http://www.thaiairways.com">www.thaiairways.com</a>, <time datetime="2016-10-15T14:06">2016/10/15 14:06</time> 撮影</figcaption>
 		</figure>
 
 		<figure>
-			<picture>
-				<source srcset="https://pageshot.net/images/f7eec9de-71b0-4a10-91cc-6e7938d70c16" />
-				<img src="20161015-1411-www_mcot_net-home-index.png" alt="www.mcot.net のスクリーンショット" />
-			</picture>
-			<figcaption><a href="http://www.mcot.net/">www.mcot.net</a>, <a href="https://pageshot.net/QRsNlAxBkDFrF4NJ/www.mcot.net"><time datetime="2016-10-15T14:06">2016/10/15 14:11</time>撮影</a></figcaption>
+			<img src="20161015-1411-www_mcot_net-home-index.png" alt="www.mcot.net のスクリーンショット" />
+			<figcaption><a href="http://www.mcot.net/">www.mcot.net</a>, <time datetime="2016-10-15T14:06">2016/10/15 14:11</time> 撮影</figcaption>
 		</figure>
 
 		<figcaption>グレースケールになったタイ向けwebサイト</figcaption>
