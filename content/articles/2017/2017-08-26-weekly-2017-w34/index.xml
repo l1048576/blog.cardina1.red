@@ -210,4 +210,11 @@ excerpt: "2017年 第34週 まとめ"
 	</eh:section>
 </eh:section>
 
+<eh:section id="thoughts">
+	<eh:title>感想</eh:title>
+	<p>
+		tokio のこと調べてたら <eh:xref linkend="progress-rustivitypub">rustivitypub</eh:xref> の実装がほとんど進まなかった。
+	</p>
+</eh:section>
+
 </eh:article>
