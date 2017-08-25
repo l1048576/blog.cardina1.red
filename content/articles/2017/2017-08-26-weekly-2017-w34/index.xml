@@ -22,6 +22,30 @@ excerpt: "2017年 第34週 まとめ"
 <eh:section id="news">
 	<eh:title>ニュース・知ったこと</eh:title>
 
+	<eh:section id="internet-backbone-failure">
+		<eh:title>インターネットバックボーンで大規模障害 (<time datetime="2017-08-25">2017-08-25</time>)</eh:title>
+		<ul>
+			<li>
+				<a href="https://headlines.yahoo.co.jp/hl?a=20170825-00000125-impress-sci">今日の大規模ネット障害、原因は経路情報の誤り、世界10万のIPアドレスに影響 （Impress Watch） - Yahoo!ニュース</a>
+			</li>
+			<li>
+				<a href="http://itpro.nikkeibp.co.jp/atcl/news/17/082502134/">ニュース - NTTコムのOCNで通信障害、NTT東西やKDDI含め「設備に異常なし」：ITpro</a>
+			</li>
+			<li>
+				<a href="http://itpro.nikkeibp.co.jp/atcl/news/17/082502137/">ニュース - ［続報］OCNの通信障害、米グーグルによる誤った経路情報の大量送信が原因か：ITpro</a>
+			</li>
+			<li>
+				<a href="https://togetter.com/li/1143893">「OCNの通信障害、米グーグルによる誤った経路情報の大量送信が原因か」「NTTコムとピアリングし、大量の経路情報を流したのはAS番号15169の組織とみられる」 - Togetterまとめ</a>
+			</li>
+			<li>
+				<a href="http://itpro.nikkeibp.co.jp/article/COLUMN/20090225/325481/">ぜい弱性に揺らぐインターネット - ［BGP経路ハイジャック］誤った経路に導く，難しい根本対策の徹底：ITpro</a>
+			</li>
+		</ul>
+		<p>
+			バックボーンには詳しくないのでリンクだけ貼っとく。
+		</p>
+	</eh:section>
+
 	<eh:section id="gnu-social-nightly-update">
 		<eh:title>GNU Social nightly update</eh:title>
 		<ul>
