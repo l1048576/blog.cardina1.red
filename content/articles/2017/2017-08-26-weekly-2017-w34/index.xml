@@ -19,6 +19,26 @@ excerpt: "2017年 第34週 まとめ"
 </p>
 
 
+<eh:section id="news">
+	<eh:title>ニュース・知ったこと</eh:title>
+
+	<eh:section id="gnu-social-nightly-update">
+		<eh:title>GNU Social nightly update</eh:title>
+		<ul>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social">gnu.io / gnu-social · GitLab</a>
+			</li>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social/compare/d61375cb7fd9e3ac2dbba2b22d0d6461fb753892...d9fbc17f7745edb3e3eeddf6485f70b187df762f">d61375cb7fd9e3ac2dbba2b22d0d6461fb753892...d9fbc17f7745edb3e3eeddf6485f70b187df762f · gnu.io / gnu-social · GitLab</a>
+			</li>
+		</ul>
+		<p>
+			RabbitMQ とか stomp queue manager 関連の更新。
+			私は DB queue manager 使ってるから関係ないや。
+		</p>
+	</eh:section>
+</eh:section>
+
 <eh:section id="public-activities">
 	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
 
