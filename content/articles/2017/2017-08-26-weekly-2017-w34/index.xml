@@ -146,6 +146,25 @@ excerpt: "2017年 第34週 まとめ"
 			</li>
 		</ul>
 	</eh:section>
+
+	<eh:section id="firefox-quantum-css">
+		<eh:title>Quantum CSS (Stylo)</eh:title>
+		<ul>
+			<li>
+				<a href="https://hacks.mozilla.org/2017/08/inside-a-super-fast-css-engine-quantum-css-aka-stylo/">Inside a super fast CSS engine: Quantum CSS (aka Stylo) ★ Mozilla Hacks – the Web developer blog</a>
+			</li>
+			<li>
+				<a href="http://rockridge.hatenablog.com/entry/2016/11/05/020802">MozillaはQuantumプロジェクトで過去と訣別し、未来に賭ける - Mozilla Flux</a>
+			</li>
+			<li>
+				<a href="https://wiki.mozilla.org/Quantum">Quantum - MozillaWiki</a>
+			</li>
+		</ul>
+		<p>
+			次世代の CSS スタイルシステム、 Quantum CSS についての紹介というか軽い解説が Mozilla のブログに出てた。
+			<a href="https://www.rust-lang.org/ja-JP/">Rust</a> はいいぞ！
+		</p>
+	</eh:section>
 </eh:section>
 
 <eh:section id="public-activities">
