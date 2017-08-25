@@ -1,0 +1,240 @@
+---
+created_at: 2017-08-25T23:08:48+0900
+title: "Weekly report 2017-W34"
+htags:
+  - "日常/日記"
+kind: article
+
+excerpt: "2017年 第34週 まとめ"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	id="2017-08-26-weekly-2017-w34"
+>
+<eh:title>Weekly report 2017-W34</eh:title>
+<p>
+	2017-W33-6 (Sat) から 2017-W34-5 (Fri) までの日記。
+</p>
+
+
+<eh:section id="news">
+	<eh:title>ニュース・知ったこと</eh:title>
+
+	<eh:section id="internet-backbone-failure">
+		<eh:title>インターネットバックボーンで大規模障害 (<time datetime="2017-08-25">2017-08-25</time>)</eh:title>
+		<ul>
+			<li>
+				<a href="https://headlines.yahoo.co.jp/hl?a=20170825-00000125-impress-sci">今日の大規模ネット障害、原因は経路情報の誤り、世界10万のIPアドレスに影響 （Impress Watch） - Yahoo!ニュース</a>
+			</li>
+			<li>
+				<a href="http://itpro.nikkeibp.co.jp/atcl/news/17/082502134/">ニュース - NTTコムのOCNで通信障害、NTT東西やKDDI含め「設備に異常なし」：ITpro</a>
+			</li>
+			<li>
+				<a href="http://itpro.nikkeibp.co.jp/atcl/news/17/082502137/">ニュース - ［続報］OCNの通信障害、米グーグルによる誤った経路情報の大量送信が原因か：ITpro</a>
+			</li>
+			<li>
+				<a href="https://togetter.com/li/1143893">「OCNの通信障害、米グーグルによる誤った経路情報の大量送信が原因か」「NTTコムとピアリングし、大量の経路情報を流したのはAS番号15169の組織とみられる」 - Togetterまとめ</a>
+			</li>
+			<li>
+				<a href="http://itpro.nikkeibp.co.jp/article/COLUMN/20090225/325481/">ぜい弱性に揺らぐインターネット - ［BGP経路ハイジャック］誤った経路に導く，難しい根本対策の徹底：ITpro</a>
+			</li>
+		</ul>
+		<p>
+			バックボーンには詳しくないのでリンクだけ貼っとく。
+		</p>
+	</eh:section>
+
+	<eh:section id="kotonoha-amrilato-release">
+		<eh:title>ことのはアムリラート 発売🎉 (<time datetime="2017-08-25">2017-08-25</time>)</eh:title>
+		<ul>
+			<li>
+				<a href="http://sukerasparo.com/">ことのはアムリラート - sukerasparo</a>
+			</li>
+			<li>
+				<a href="https://twitter.com/SukeraSparo/status/900886246515277824"><eh:emoji fontawesome="twitter" /> 🐰ことのはアムリラート🦉本日発売🎉さんのツイート: "【ことのはアムリラート】SukeraSparoデビュー作『ことのはアムリラート』本日発売です。何卒よろしくお願いします。　＃ことのは　https://t.co/9pq5ogN2IV https://t.co/MROHAnuhu5"</a>
+			</li>
+		</ul>
+		<p>
+			エスペラント百合ゲー。
+			気になってるけど結局まだ体験版もやってない。
+			でも欲しい！
+		</p>
+		<p>
+			Esperanto じゃなくて Lojban だったら一切の迷いなく買ってたと思う。
+		</p>
+	</eh:section>
+
+	<eh:section id="gnu-social-nightly-update">
+		<eh:title>GNU Social nightly update</eh:title>
+		<ul>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social">gnu.io / gnu-social · GitLab</a>
+			</li>
+			<li>
+				<a href="https://git.gnu.io/gnu/gnu-social/compare/d61375cb7fd9e3ac2dbba2b22d0d6461fb753892...d9fbc17f7745edb3e3eeddf6485f70b187df762f">d61375cb7fd9e3ac2dbba2b22d0d6461fb753892...d9fbc17f7745edb3e3eeddf6485f70b187df762f · gnu.io / gnu-social · GitLab</a>
+			</li>
+		</ul>
+		<p>
+			RabbitMQ とか stomp queue manager 関連の更新。
+			私は DB queue manager 使ってるから関係ないや。
+		</p>
+	</eh:section>
+
+	<eh:section>
+		<eh:title>web サービスで予約すべきユーザ名とか</eh:title>
+		<ul>
+			<li>
+				<a href="http://moznion.hatenadiary.com/entry/2017/04/10/192953">サービスを提供するにあたって取得されたくないアカウント名が集まっているライブラリが欲しいんですけど〜みたいな時 - その手の平は尻もつかめるさ</a>
+				<ul>
+					<li>
+						<a href="https://github.com/marteinn/The-Big-Username-Blacklist"><eh:emoji fontawesome="github" /> marteinn/The-Big-Username-Blacklist: This is a opinionated blacklist of words that you might not like to see used as usernames in your service.</a>
+					</li>
+					<li>
+						<a href="https://github.com/shouldbee/reserved-usernames"><eh:emoji fontawesome="github" /> shouldbee/reserved-usernames: 590+ usernames in this dictionary! A list of reserved usernames to prevent url collision with resource paths. This repository hosts the list in multiple formats like JSON, CSV, SQL and plain text. You can use its just download its by wget.</a>
+					</li>
+					<li>
+						<a href="https://github.com/rono23/reserved_word"><eh:emoji fontawesome="github" /> rono23/reserved_word: Make your reserved words on Rails.</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="http://qiita.com/phimcall/items/4c559b70f70ea7f1953b">登録されるとつらいユーザー名リスト - Qiita</a>
+				<ul>
+					<li>
+						<a href="https://dev.twitter.com/rest/reference/get/help/configuration">GET help/configuration — Twitter Developers</a> (<code>non_username_paths</code>)
+					</li>
+					<li>
+						<a href="https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words"><eh:emoji fontawesome="github" /> LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words: List of Dirty, Naughty, Obscene, and Otherwise Bad Words</a>
+					</li>
+					<li>
+						<a href="https://www.slideshare.net/tadsan/ss-31387472">これからの名前の話をしよう</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<p>
+			個人的には<a href="https://www.slideshare.net/tadsan/ss-31387472">これからの名前の話をしよう</a>に同意で、以下のようなスタンス。
+		</p>
+		<ul>
+			<li>
+				<code>logout</code> とか <code>about</code> とか <code>api</code> みたいな名前がユーザ名と混同されうる URL 設計がそもそも間違い
+				<ul>
+					<li>
+						サービス側で意図をもって用意する文字列と、ユーザが指定する(サービスにとっては識別子以上の意味がない)文字列を、対等に扱うべきでない
+					</li>
+				</ul>
+			</li>
+			<li>
+				とはいえ <code>support</code> とか <code>admin</code> みたいに、人間から見たときの意味がアレなやつは登録を拒否したい場合もあるよね
+			</li>
+		</ul>
+		<p>
+			それゆえ、本当は <code>api</code> みたいな、駄目駄目な URL 設計で防ぎたいような識別子とかは(私には)どうでもよくて、 <code>support</code> とかの人間サイドの理由で登録阻止したい ID 群だけのリストが欲しい。
+			もちろん、駄目駄目な URL になっていないことをテストするためには <code>api</code> とかのリストもテストケースとして欲しいが、これは運用とは別の話だ。
+		</p>
+	</eh:section>
+
+	<eh:section id="ecmascript-2017">
+		<eh:title>ECMAScript 2017 (8) の新機能</eh:title>
+		<ul>
+			<li>
+				<a href="http://postd.cc/es8-was-released-and-here-are-its-main-new-features/">正式リリースされたES8の主な新機能 🔥 | プログラミング | POSTD</a>
+			</li>
+			<li>
+				<a href="https://www.ecma-international.org/ecma-262/8.0/index.html">ECMAScript® 2017 Language Specification (ECMA-262, 8th edition, June 2017) (HTML)</a>
+			</li>
+			<li>
+				<a href="https://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf">ECMAScript® 2017 Language Specification (ECMA-262, 8th edition, June 2017) (PDF)</a>
+			</li>
+		</ul>
+		<p>
+			2017年6月にリリースされていたらしい。
+		</p>
+		<p>
+			まあ書いてある通りなのだが、 <code>padStart</code> を見て <a href="https://cpplover.blogspot.jp/2016/03/npmkik.html">leftpad の騒動</a>を思い出した。
+			<code>padStart</code> が入っても polyfill として leftpad みたいなのが使われ続けるのだろうか……この界隈は地獄か。
+			ブラウザは最新版を使おうな！！！
+		</p>
+		<ul>
+			<li>
+				<a href="http://yosuke-furukawa.hatenablog.com/entry/2016/03/27/152500">JavaScriptの文化とleftpadの話とpadStartについて - from scratch</a>
+			</li>
+			<li>
+				<a href="https://cpplover.blogspot.jp/2016/03/npmkik.html">本の虫: npmからkikとその他諸々が消されたまとめ</a>
+			</li>
+		</ul>
+	</eh:section>
+
+	<eh:section id="firefox-quantum-css">
+		<eh:title>Quantum CSS (Stylo)</eh:title>
+		<ul>
+			<li>
+				<a href="https://hacks.mozilla.org/2017/08/inside-a-super-fast-css-engine-quantum-css-aka-stylo/">Inside a super fast CSS engine: Quantum CSS (aka Stylo) ★ Mozilla Hacks – the Web developer blog</a>
+			</li>
+			<li>
+				<a href="http://rockridge.hatenablog.com/entry/2016/11/05/020802">MozillaはQuantumプロジェクトで過去と訣別し、未来に賭ける - Mozilla Flux</a>
+			</li>
+			<li>
+				<a href="https://wiki.mozilla.org/Quantum">Quantum - MozillaWiki</a>
+			</li>
+		</ul>
+		<p>
+			次世代の CSS スタイルシステム、 Quantum CSS についての紹介というか軽い解説が Mozilla のブログに出てた。
+			<a href="https://www.rust-lang.org/ja-JP/">Rust</a> はいいぞ！
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="public-activities">
+	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
+
+	<eh:section id="strum-pullrequest">
+		<eh:title>strum にプルリク出した (merge された)</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/Peternator7/strum"><eh:emoji fontawesome="github" /> Peternator7/strum</a>
+			</li>
+			<li>
+				<a href="https://github.com/Peternator7/strum/pull/10">Add `derive(AsRefStr)` implementation by lo48576 · Pull Request #10 · Peternator7/strum</a>
+			</li>
+		</ul>
+
+		<p>
+			Rust の enum に、文字列からの変換や文字列への変換といった機能を付与できる custom derive を提供する crate 。
+		</p>
+		<p>
+			<code>derive(ToString)</code> で <code>std::string::ToString</code> が実装されるので、だったら <code>std::convert::AsRef&lt;str&gt;</code> を実装してくれる custom derive があってもよくね？……ということでパッチを送った。
+		</p>
+		<p>
+			merge された変更は <a href="https://crates.io/crates/strum/0.8.0">strum 0.8.0</a> で publish された。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="private-activities">
+	<eh:title>私的活動</eh:title>
+
+	<eh:section id="progress-rustivitypub">
+		<eh:title>進捗: rustivitypub</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/rustivitypub"><eh:emoji fontawesome="github" /> lo48576/rustivitypub: [WIP] ActivityPub implementation for Rust programming language</a>
+			</li>
+		</ul>
+
+		<p>
+			Rust で <a href="https://www.w3.org/TR/2017/CR-activitypub-20170509/">ActivityPub</a> の実装をしたかったので開始した。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="thoughts">
+	<eh:title>感想</eh:title>
+	<p>
+		tokio のこと調べてたら <eh:xref linkend="progress-rustivitypub">rustivitypub</eh:xref> の実装がほとんど進まなかった。
+	</p>
+</eh:section>
+
+</eh:article>
