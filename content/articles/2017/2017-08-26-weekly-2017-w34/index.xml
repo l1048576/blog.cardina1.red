@@ -23,13 +23,13 @@ excerpt: "2017年 第34週 まとめ"
 	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
 
 	<eh:section id="strum-pullrequest">
-		<eh:title>strum にプルリク出した</eh:title>
+		<eh:title>strum にプルリク出した (merge された)</eh:title>
 		<ul>
 			<li>
 				<a href="https://github.com/Peternator7/strum"><eh:emoji fontawesome="github" /> Peternator7/strum</a>
 			</li>
 			<li>
-				<a href="https://github.com/Peternator7/strum/pull/10">Added `derive(AsStr)` implementation by lo48576 · Pull Request #10 · Peternator7/strum</a>
+				<a href="https://github.com/Peternator7/strum/pull/10">Add `derive(AsRefStr)` implementation by lo48576 · Pull Request #10 · Peternator7/strum</a>
 			</li>
 		</ul>
 
@@ -38,7 +38,9 @@ excerpt: "2017年 第34週 まとめ"
 		</p>
 		<p>
 			<code>derive(ToString)</code> で <code>std::string::ToString</code> が実装されるので、だったら <code>std::convert::AsRef&lt;str&gt;</code> を実装してくれる custom derive があってもよくね？……ということでパッチを送った。
-			正直、設計 (属性名とか derive の名前とか生成される実装とか)に自信がない。
+		</p>
+		<p>
+			merge された変更は <a href="https://crates.io/crates/strum/0.8.0">strum 0.8.0</a> で publish された。
 		</p>
 	</eh:section>
 </eh:section>
