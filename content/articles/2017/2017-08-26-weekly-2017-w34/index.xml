@@ -115,6 +115,37 @@ excerpt: "2017年 第34週 まとめ"
 			もちろん、駄目駄目な URL になっていないことをテストするためには <code>api</code> とかのリストもテストケースとして欲しいが、これは運用とは別の話だ。
 		</p>
 	</eh:section>
+
+	<eh:section id="ecmascript-2017">
+		<eh:title>ECMAScript 2017 (8) の新機能</eh:title>
+		<ul>
+			<li>
+				<a href="http://postd.cc/es8-was-released-and-here-are-its-main-new-features/">正式リリースされたES8の主な新機能 🔥 | プログラミング | POSTD</a>
+			</li>
+			<li>
+				<a href="https://www.ecma-international.org/ecma-262/8.0/index.html">ECMAScript® 2017 Language Specification (ECMA-262, 8th edition, June 2017) (HTML)</a>
+			</li>
+			<li>
+				<a href="https://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf">ECMAScript® 2017 Language Specification (ECMA-262, 8th edition, June 2017) (PDF)</a>
+			</li>
+		</ul>
+		<p>
+			2017年6月にリリースされていたらしい。
+		</p>
+		<p>
+			まあ書いてある通りなのだが、 <code>padStart</code> を見て <a href="https://cpplover.blogspot.jp/2016/03/npmkik.html">leftpad の騒動</a>を思い出した。
+			<code>padStart</code> が入っても polyfill として leftpad みたいなのが使われ続けるのだろうか……この界隈は地獄か。
+			ブラウザは最新版を使おうな！！！
+		</p>
+		<ul>
+			<li>
+				<a href="http://yosuke-furukawa.hatenablog.com/entry/2016/03/27/152500">JavaScriptの文化とleftpadの話とpadStartについて - from scratch</a>
+			</li>
+			<li>
+				<a href="https://cpplover.blogspot.jp/2016/03/npmkik.html">本の虫: npmからkikとその他諸々が消されたまとめ</a>
+			</li>
+		</ul>
+	</eh:section>
 </eh:section>
 
 <eh:section id="public-activities">
