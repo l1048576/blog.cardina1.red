@@ -1,0 +1,322 @@
+---
+created_at: 2017-08-27T21:32:53+0900
+title: "Rust (1.19.0) でオレオレ unsized type を定義する"
+htags:
+  - "computer/programming/language/rust"
+kind: article
+
+excerpt: "Rust-1.19.0 で str や std::path::Path のような型を定義する方法。"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	id="2017-08-27-rust-defining-custom-unsized-type"
+>
+<eh:title>Rust (1.19.0) でオレオレ unsized type を定義する</eh:title>
+
+<p>
+	TL;DR: <eh:xref linkend="conclusion" />
+</p>
+
+<eh:section id="abstract">
+	<eh:title>概要</eh:title>
+	<p>
+		Rust 用の ActivityPub ライブラリとサーバを実装しようとしているのだが、 オブジェクトの ID を <a href="https://ja.wikipedia.org/wiki/Internationalized_Resource_Identifier">IRI</a> (<a href="https://www.ietf.org/rfc/rfc3987">RFC 3987</a>, まあ URI や URL みたいなもの) で表現することになっている。
+		これは Unicode の文字列のサブセットであるから、 IRI を表現する型は <code>&amp;str</code> や <code>String</code> 型をベースとして値の範囲を制限した strong typedef により実装できそうである。
+		しかし、 <code>str</code> は unsized な型であるから、安直に実装しようとしてもうまくいかない。
+		そこで、似たような型である <code>std::path::Path</code> 等を参考にしつつ方法を調べた。
+	</p>
+	<p>
+		C/C++ で言うところの VLAIS みたいなのは未対応っぽいので、 unsized type とはいってもそういう話ではない。
+		(詳細は以下リンク)
+	</p>
+	<ul>
+		<li>
+			<a href="https://github.com/rust-lang/rfcs/issues/813">RFC: truly unsized types · Issue #813 · rust-lang/rfcs · GitHub</a>
+		</li>
+		<li>
+			<a href="https://github.com/rust-lang/rfcs/pull/1524">Custom Dynamically Sized Types for Rust by ubsan · Pull Request #1524 · rust-lang/rfcs · GitHub</a>
+		</li>
+	</ul>
+</eh:section>
+
+<eh:section id="strong-typedef">
+	<eh:title>strong typedef とは</eh:title>
+	<p>
+		strong typedef とは、内部表現としてある型 (<code>A</code> とする)を用いつつ、暗黙の型変換を禁止したり、明示的な型変換であっても値が制約を満たすかチェックすることで、別の型として扱わせるというテクニックである。
+		これを活かすと、コンストラクタ等での構築時にチェックをかけることで、値のとれる範囲を <code>A</code> 型よりも小さくしたり、演算子を独自に定義することで <code>A</code> と挙動を変化させたりといったことが可能になる。
+	</p>
+	<p>
+		たとえば「偶数しか値を持たない(持てない)ような整数 (<code>i32</code>) 型」を定義すると、<a href="https://play.rust-lang.org/?gist=7d26bf8e84723b3c2397dba3d8a26ac8&amp;version=stable">このようになる</a>。
+		(この例では演算子の定義をサボったが、もし整数と同様に透過的に使えるようにするなら <code>std::ops::Add</code> をはじめとする数々の演算子を用意することになる。めっちゃめんどい。)
+	</p>
+	<p>
+		より実用的でちゃんとした例としては、 <a href="https://crates.io/crates/ordered-float">ordered-float</a> crate の <a href="https://docs.rs/ordered-float/0.5.0/ordered_float/struct.NotNaN.html"><code>NotNaN</code></a> 型などがある。
+		これは「 NaN をとらない float (<code>f32</code>, <code>f64</code>) 型」である。
+		<code>f32</code> や <code>f64</code> に使える演算子はだいたいそのまま用意されており(つまり使い勝手は既存の float に劣らない)、更に追加で <code>std::cmp::Ord</code> 等も実装されている嬉しい型だ。
+	</p>
+</eh:section>
+
+<eh:section id="custom-unsized-types">
+	<eh:title>unsized な型</eh:title>
+	<p>
+		サイズが固定となるような型であれば、前述のようにして strong typedef が可能である。
+		では、本題の <code>str</code> を strong typedef してオレオレ型を用意することは可能なのか。
+	</p>
+	<p>
+		結論から言うと可能なのだが、素直なやりかたにはならない。
+	</p>
+
+	<eh:section id="the-reason-i-want-unsized">
+		<eh:title>何故 unsized でないといけないのか</eh:title>
+		<p>
+			そもそも何故 unsized にしたいのかという話である。
+			素直にやるなら <code>pub struct Iri&lt;'a&gt;(&amp;'a str);</code> と <code>pub struct IriBuf(String);</code> のようにしてしまえば済む話で、実際これでも使い物にはなる。
+			しかし unsized な型を用意しておかないと、 <strong><code>Cow&lt;Iri&gt;</code> ができない</strong>のである。
+		</p>
+		<ul>
+			<li>
+				<code>std::borrow::Cow&lt;'a, B&gt;</code> 型は、 <code>where B: 'a + ToOwned + ?Sized</code> を要求している
+			</li>
+			<li>
+				<code>std::borrow::ToOwned</code> trait は、 <code>type Owned: Borrow&lt;Self&gt;;</code> という associated type を持っている
+			</li>
+			<li>
+				<code>std::borrow::Borrow&lt;Borrowed&gt;</code> trait は:
+				<ul>
+					<li>
+						<code>where Borrowed: ?Sized</code> を要求している
+					</li>
+					<li>
+						<code>fn borrow(&amp;self) -> &amp;Borrowed;</code> を持つ
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<p>
+			この状況で <code>pub struct IriBuf(String);</code> に対して <code>Borrowed&lt;Iri&gt;</code> trait を実装しようとすると、 <code>&amp;Iri</code> を返さねばならないが、返したかったのは <code>Iri(self.0.to_str())</code> であるから、これは望んでいたものではない。
+		</p>
+		<figure>
+			<pre><code class="lang-rust language-rust"><![CDATA[
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct Iri<'a>(&'a str);
+
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct IriBuf(String);
+
+impl<'a> ::std::borrow::Borrow<Iri<'a>> for IriBuf {
+    fn borrow(&self) -> &Iri<'a> {
+        Iri(self.0.to_str())  // <- mismatched types (expected `&Iri<'a>`, found `Iri<'_>`)
+    }
+}
+]]></code></pre>
+			<figcaption>まあ型が合わないよね</figcaption>
+		</figure>
+		<p>
+			これが <code>std::path::Path</code> と <code>std::path::PathBuf</code> のようにいい感じに使えるようになってほしい場合、必要なのは <code>pub sturct Iri(str);</code> のような定義だ。
+		</p>
+	</eh:section>
+
+	<eh:section id="initializing-unsized-type">
+		<eh:title>unsized な型を初期化する</eh:title>
+		<figure>
+			<pre><code class="lang-rust language-rust"><![CDATA[
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct Iri(str);
+
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct IriBuf(String);
+]]></code></pre>
+			<figcaption>ここまでは良し</figcaption>
+		</figure>
+		<p>
+			さて次の問題は、自身の内部に <code>str</code> のような型を持つとき、これをどう初期化すべきかである。
+		</p>
+		<figure>
+			<pre><code class="lang-rust language-rust"><![CDATA[
+impl Iri {
+    pub fn from_str(s: &str) -> Option<&Self> {
+        Some(&Iri(*s))
+    }
+}
+]]></code></pre>
+			<pre><code><![CDATA[
+error[E0161]: cannot move a value of type Iri: the size of Iri cannot be statically determined
+ --> src/main.rs:6:15
+  |
+6 |         Some(&Iri(*s))
+  |               ^^^^^^^
+
+error[E0161]: cannot move a value of type str: the size of str cannot be statically determined
+ --> src/main.rs:6:19
+  |
+6 |         Some(&Iri(*s))
+  |                   ^^
+
+error[E0597]: borrowed value does not live long enough
+ --> src/main.rs:6:15
+  |
+6 |         Some(&Iri(*s))
+  |               ^^^^^^^ does not live long enough
+7 |     }
+  |     - temporary value only lives until here
+  |
+note: borrowed value must be valid for the anonymous lifetime #1 defined on the method body at 5:5...
+ --> src/main.rs:5:5
+  |
+5 | /     pub fn from_str(s: &str) -> Option<&Self> {
+6 | |         Some(&Iri(*s))
+7 | |     }
+  | |_____^
+
+error[E0507]: cannot move out of borrowed content
+ --> src/main.rs:6:19
+  |
+6 |         Some(&Iri(*s))
+  |                   ^^ cannot move out of borrowed content
+
+error: aborting due to previous error(s)
+]]></code></pre>
+			<figcaption>これは駄目 (<a href="https://play.rust-lang.org/?gist=12dec05ec6fc492830fd7ed06e07936b&amp;version=stable">playground</a>)</figcaption>
+		</figure>
+		<p>
+			上のような素直な(?)実装は、当然ながらコンパイルエラーとなる。
+			<code>str</code> の値はサイズが未知であるから move できないこと、また必要なのは <code>&amp;self</code> と同じ lifetime を持つ <code>&amp;Iri</code> であるにも関わらず一時変数の参照を返そうとしていること、この2つがエラーの原因である。
+		</p>
+	</eh:section>
+	<eh:section id="existing-implementations">
+		<eh:title>既存の実装</eh:title>
+		<p>
+			では既存の実装(特に <code>std::path::Path</code>) ではどうなっているのか。
+			その謎を明らかにすべく、我々は libstd の奥地へ向かった。
+		</p>
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/path.rs#L1535-L1537"><code>std::path::Path</code></a>
+			</li>
+			<li>
+				<a href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/ffi/os_str.rs#L49-L51"><code>std::ffi::OsStr</code></a>
+			</li>
+			<li>
+				<a href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/sys/unix/os_str.rs#L25-L27"><code>std::sys::unix::os_str::Slice</code></a>
+			</li>
+		</ul>
+		<figure>
+			<div class="grid-row">
+				<figure class="col-xs-12 col-lg-5">
+					<pre><code class="lang-rust language-rust"><![CDATA[
+pub struct Slice {
+    pub inner: [u8]
+}
+]]></code></pre>
+					<figcaption><a href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/sys/unix/os_str.rs#L25-L27"><code>std::sys::unix::os_str::Slice</code> の定義</a></figcaption>
+				</figure>
+				<figure class="col-xs-12 col-lg-7">
+					<pre><code class="lang-rust language-rust"><![CDATA[
+impl Slice {
+    fn from_u8_slice(s: &[u8]) -> &Slice {
+        unsafe { mem::transmute(s) }
+    }
+
+    pub fn from_str(s: &str) -> &Slice {
+        Slice::from_u8_slice(s.as_bytes())
+    }
+]]></code></pre>
+					<figcaption><a href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/sys/unix/os_str.rs#L54-L64"><code>std::sys::unix::os_str::Slice</code> の実装</a></figcaption>
+				</figure>
+			</div>
+			<figcaption><code>std::sys::unix::os_str::Slice</code></figcaption>
+		</figure>
+		<p>
+			ついでに、<a href="https://gnusocial.cardina1.red/notice/220240">リプで教えていただいた</a> <a href="https://crates.io/crates/rocket">rocket</a> crate の <code>http::uncased::UncasedStr</code> も見てみる。
+		</p>
+		<figure>
+			<div class="grid-row">
+				<figure class="col-xs-12">
+					<pre><code class="lang-rust language-rust"><![CDATA[
+#[derive(Debug)]
+pub struct UncasedStr(str);
+]]></code></pre>
+					<figcaption><a href="https://github.com/SergioBenitez/Rocket/blob/v0.3.2/lib/src/http/uncased.rs#L22-L23"><code>rocket::http::uncased::UncasedStr</code> の定義</a></figcaption>
+				</figure>
+				<figure class="col-xs-12">
+					<pre><code class="lang-rust language-rust"><![CDATA[
+impl UncasedStr {
+    /// Returns a reference to an `UncasedStr` from an `&str`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use rocket::http::uncased::UncasedStr;
+    ///
+    /// let uncased_str = UncasedStr::new("Hello!");
+    /// assert_eq!(uncased_str, "hello!");
+    /// assert_eq!(uncased_str, "Hello!");
+    /// assert_eq!(uncased_str, "HeLLo!");
+    /// ```
+    #[inline(always)]
+    pub fn new(string: &str) -> &UncasedStr {
+        unsafe { &*(string as *const str as *const UncasedStr) }
+    }
+]]></code></pre>
+					<figcaption><a href="https://github.com/SergioBenitez/Rocket/blob/v0.3.2/lib/src/http/uncased.rs#L25-L41"><code>rocket::http::uncased::UncasedStr</code> の実装</a></figcaption>
+				</figure>
+			</div>
+			<figcaption><a href="https://docs.rs/rocket/0.3.2/rocket/http/uncased/struct.UncasedStr.html"><code>rocket::http::uncased::UncasedStr</code></a></figcaption>
+		</figure>
+		<p>
+			上に挙げた例から、本来記述すべきだった処理は、「 <code>Iri</code> に <code>str</code> の値を突っ込む」ことではなく、「 <code>Iri</code> と <code>str</code> を同一のものと見做し、 <code>&amp;str</code> を <code>&amp;Iri</code> として再解釈する」ことであったことが読み取れる。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="conclusion">
+	<eh:title>結論</eh:title>
+
+	<figure>
+		<pre><code class="lang-rust language-rust"><![CDATA[
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct Iri(str);
+
+impl Iri {
+    /// Converts a string slice to an IRI slice without checking that the string contains valid
+    /// IRI.
+    #[inline]
+    pub unsafe fn from_str_unchecked(s: &str) -> &Self {
+        ::std::mem::transmute(s)
+    }
+
+    /// Converts a string slice to an IRI slice.
+    pub fn from_str(s: &str) -> Result<&Self, ParseError> {
+        run_iri_validation(s)?;
+        Ok(unsafe { Self::from_str_unchecked(s) })
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct IriBuf(String);
+
+impl IriBuf {
+    /// Coerces to an `Iri` slice.
+    #[inline]
+    pub fn as_iri(&self) -> &Iri {
+        unsafe { Iri::from_str_unchecked(self.0.as_str()) }
+    }
+}
+
+impl ::std::borrow::Borrow<Iri> for IriBuf {
+    fn borrow(&self) -> &Iri {
+        self.as_iri()
+    }
+}
+]]></code></pre>
+		<figcaption>やったね！ (<a href="https://play.rust-lang.org/?gist=839718d90a8166a93d21dd5b5b1ad840&amp;version=stable">playground</a>)</figcaption>
+	</figure>
+	<p>
+		あとはお好みで <code>std::ops::Deref</code> やら <code>std::convert::AsRef</code> やら諸々を実装すればおｋ。
+		まあその諸々が結構多くて手間なんだけど。
+	</p>
+</eh:section>
+
+</eh:article>
