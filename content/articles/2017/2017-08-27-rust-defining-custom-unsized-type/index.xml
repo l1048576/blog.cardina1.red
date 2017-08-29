@@ -1,5 +1,6 @@
 ---
 created_at: 2017-08-27T21:32:53+0900
+updated_at: 2017-08-29T18:12:17+0900
 title: "Rust (1.19.0) でオレオレ unsized type を定義する"
 htags:
   - "computer/programming/language/rust"
@@ -316,6 +317,18 @@ impl ::std::borrow::Borrow<Iri> for IriBuf {
 	<p>
 		あとはお好みで <code>std::ops::Deref</code> やら <code>std::convert::AsRef</code> やら諸々を実装すればおｋ。
 		まあその諸々が結構多くて手間なんだけど。
+	</p>
+</eh:section>
+
+<eh:section id="postscript-20170829">
+	<eh:title>追記 (<time datetime="2017-08-29">2017-08-29</time>): 参考</eh:title>
+	<ul>
+		<li>
+			<a href="http://mmi.hatenablog.com/entry/2017/08/07/191033">[rust]ZST/DSTによるflexible array memberの実現 - 睡分不足</a>
+		</li>
+	</ul>
+	<p>
+		くわしい。
 	</p>
 </eh:section>
 
