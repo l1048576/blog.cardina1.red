@@ -1,6 +1,6 @@
 ---
 created_at: 2017-08-27T21:32:53+0900
-updated_at: 2017-08-29T18:12:17+0900
+updated_at: 2017-08-30T18:52:34+0900
 title: "Rust (1.19.0) でオレオレ unsized type を定義する"
 htags:
   - "computer/programming/language/rust"
@@ -38,6 +38,9 @@ excerpt: "Rust-1.19.0 で str や std::path::Path のような型を定義する
 		</li>
 		<li>
 			<a href="https://github.com/rust-lang/rfcs/pull/1524">Custom Dynamically Sized Types for Rust by ubsan · Pull Request #1524 · rust-lang/rfcs · GitHub</a>
+		</li>
+		<li>
+			<eh:xref linkend="postscript-20170829" />
 		</li>
 	</ul>
 </eh:section>
