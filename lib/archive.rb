@@ -165,6 +165,7 @@ module Larry
         else
           ARCHIVE_LIST_CAPACITY
         end
+        num_articles = ARCHIVE_LIST_CAPACITY if num_articles == 0
         index_first = page_index * ARCHIVE_LIST_CAPACITY
         index_last = index_first + num_articles - 1
         @items.create(
