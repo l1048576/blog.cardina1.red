@@ -14,7 +14,7 @@
 	<h1><%= @item[:title] %></h1>
 	<%= render '/part/archive-top-link.html' -%>
 	<p>
-		<%= @item[:index_first] + 1 %> - <%= @item[:index_last] + 1 %> 番目 (<%= @item[:num_articles] %> 件)
+		<%= @item[:index_first] + 1 %> - <%= @item[:index_last] + 1 %> 番目 (<%= @item[:num_articles_page] %> / <%= @item[:num_articles] %> 件)
 		<%= @item[:page_index] + 1 %> / <%= @item[:num_pages] %> ページ
 	</p>
 	<%= prev_next -%>

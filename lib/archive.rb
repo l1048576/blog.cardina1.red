@@ -158,16 +158,17 @@ module Larry
     end
 
     def create_article_list_pages
+      num_articles = articles.size
       num_pages = article_list_num_pages
       (0...num_pages).each do |page_index|
-        num_articles = if page_index == num_pages - 1
+        num_articles_page = if page_index == num_pages - 1
           sorted_articles.size % ARCHIVE_LIST_CAPACITY
         else
           ARCHIVE_LIST_CAPACITY
         end
-        num_articles = ARCHIVE_LIST_CAPACITY if num_articles == 0
+        num_articles_page = ARCHIVE_LIST_CAPACITY if num_articles_page == 0
         index_first = page_index * ARCHIVE_LIST_CAPACITY
-        index_last = index_first + num_articles - 1
+        index_last = index_first + num_articles_page - 1
         @items.create(
           # content
           '',
@@ -176,6 +177,7 @@ module Larry
             title: "Archive[#{page_index}]",
             index_first: index_first,
             index_last: index_last,
+            num_articles_page: num_articles_page,
             num_articles: num_articles,
             page_index: page_index,
             num_pages: num_pages,
