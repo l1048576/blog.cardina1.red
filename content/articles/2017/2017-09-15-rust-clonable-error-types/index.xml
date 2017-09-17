@@ -1,6 +1,6 @@
 ---
 created_at: 2017-09-17T01:58:08+0900
-updated_at: 2017-09-17T14:44:33+0900
+updated_at: 2017-09-17T14:48:00+0900
 title: "Rust でエラー型に Clone が実装されていてほしい"
 htags:
   - "computer/programming/language/rust"
@@ -179,7 +179,7 @@ excerpt: "Rust でエラー型に Clone trait が実装されていてほしい�
 		<eh:section id="error-type-for-warnings--fbxcel">
 			<eh:title>具体例: fbxcel crate (自作)</eh:title>
 			<p>
-				先述の fbx_direct crate とは別に(というか改良して)、 fbxcel という crate を開発していて、こちらでは、致命的ではないがおかしいデータについて <a href="https://github.com/lo48576/fbxcel/blob/adf9fac0f313ad04cef9f626cd04157176e66d01/src/parser/binary/error.rs#L179-L246">Warning 型</a>で警告を発するようになっている。
+				先述の fbx_direct crate とは別に(というか改良して)、 <a href="https://github.com/lo48576/fbxcel"><eh:emoji fontawesome="github" /> fbxcel</a> という crate を開発していて、こちらでは、致命的ではないがおかしいデータについて <a href="https://github.com/lo48576/fbxcel/blob/adf9fac0f313ad04cef9f626cd04157176e66d01/src/parser/binary/error.rs#L179-L246">Warning 型</a>で警告を発するようになっている。
 				単なるロギングではなく、こうして専用の型のついたオブジェクトを経由させることで、このライブラリを利用するアプリケーションからも警告履歴を利用可能となる。
 			</p>
 			<figure>
