@@ -1,6 +1,6 @@
 ---
 created_at: 2017-09-17T01:58:08+0900
-updated_at: 2017-09-18T17:44:05+0900
+updated_at: 2017-09-18T17:47:54+0900
 title: "Rust でエラー型に Clone が実装されていてほしい"
 htags:
   - "computer/programming/language/rust"
@@ -239,7 +239,19 @@ pub fn validate<P: AsRef<Path>>(path: P) -> io::Result<Vec<Error>> {
 ]]></code></pre>
 					<figcaption><a href="https://gitlab.cardina1.red/lo48576/titech-1610-os/blob/homework/4/fsck-xv6/src/fs/mod.rs#L39-43"><code class="filepath">src/fs/mod.rs</code>, トップレベルより抜粋</a></figcaption>
 				</figure>
-				<figcaption>エラーを <code>Ok</code> の結果として返したい場合の例</figcaption>
+				<figure>
+					<pre><code class="lang-rust language-rust"><![CDATA[
+/// Validation error.
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub enum Error {
+    BitmapMismatch { target: BlockIndex, expected: bool },
+    DataBlockReferenceConflict { block: BlockIndex },
+    DirectoryWithoutDot { inode: Inode },
+    DirectoryWithoutDotdot { inode: Inode },
+]]></code></pre>
+					<figcaption><a href="https://gitlab.cardina1.red/lo48576/titech-1610-os/blob/homework/4/fsck-xv6/src/fs/error.rs#L9-15"><code class="filepath">src/fs/error.rs</code>, トップレベルより抜粋</a></figcaption>
+				</figure>
+				<figcaption>エラー型の実装</figcaption>
 			</figure>
 			<p>
 				この設計は fbxcel のエラー処理の発想をそのまま使ったものであり、ゆえに結局警告をエラーとして使いたいのかそうでないのかよくわからない設計になっている。
