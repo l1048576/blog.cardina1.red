@@ -1,6 +1,6 @@
 ---
 created_at: 2017-09-17T01:58:08+0900
-updated_at: 2017-09-17T14:49:34+0900
+updated_at: 2017-09-18T17:44:05+0900
 title: "Rust でエラー型に Clone が実装されていてほしい"
 htags:
   - "computer/programming/language/rust"
@@ -205,9 +205,9 @@ excerpt: "Rust でエラー型に Clone trait が実装されていてほしい�
 		</eh:section>
 
 		<eh:section id="error-type-for-warnings--fsck-xv6">
-			<eh:title>具体例: fsck-xv6 (自作、非公開)</eh:title>
+			<eh:title>具体例: fsck-xv6 (自作)</eh:title>
 			<p>
-				いつぞやの OS の授業の課題で <a href="https://github.com/mit-pdos/xv6-public">xv6</a> のファイルシステムの validator を実装したことがあり、このときもファイルシステムエラーを表現するための型に <code>Error</code> trait を実装した。
+				いつぞやの OS の授業の課題で <a href="https://github.com/mit-pdos/xv6-public">xv6</a> のファイルシステムの validator (<a href="https://gitlab.cardina1.red/lo48576/titech-1610-os/tree/homework/4/fsck-xv6">fsck-xv6</a>) を実装したことがあり、このときもファイルシステムエラーを表現するための型に <code>Error</code> trait を実装した。
 			</p>
 			<p>
 				こちらは一般的な意味での「エラー」ではあるが、ファイルシステムの妥当性検証という性質上、ファイルシステムのエラーがそのままプログラムの継続不可能を意味するわけではない。
@@ -227,7 +227,7 @@ excerpt: "Rust でエラー型に Clone trait が実装されていてほしい�
         }
     }
 ]]></code></pre>
-					<figcaption><code class="filepath">src/main.rs</code>, <code>main</code> 関数内より抜粋</figcaption>
+					<figcaption><a href="https://gitlab.cardina1.red/lo48576/titech-1610-os/blob/homework/4/fsck-xv6/src/main.rs#L24-33"><code class="filepath">src/main.rs</code>, <code>main</code> 関数内より抜粋</a></figcaption>
 				</figure>
 				<figure>
 					<pre><code class="lang-rust language-rust"><![CDATA[
@@ -237,7 +237,7 @@ pub fn validate<P: AsRef<Path>>(path: P) -> io::Result<Vec<Error>> {
 
     let mut errors = vec![];
 ]]></code></pre>
-					<figcaption><code class="filepath">src/fs/validate.rs</code>, トップレベルより抜粋</figcaption>
+					<figcaption><a href="https://gitlab.cardina1.red/lo48576/titech-1610-os/blob/homework/4/fsck-xv6/src/fs/mod.rs#L39-43"><code class="filepath">src/fs/mod.rs</code>, トップレベルより抜粋</a></figcaption>
 				</figure>
 				<figcaption>エラーを <code>Ok</code> の結果として返したい場合の例</figcaption>
 			</figure>
