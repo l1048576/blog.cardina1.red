@@ -224,7 +224,7 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 		</details>
 
 		<p>
-			コピーできたら、<a href="http://www.askvg.com/guide-how-to-restore-trustedinstaller-as-default-owner-of-a-file-or-folder-in-windows/">[Guide] How to Restore “TrustedInstaller” as Default Owner of a File, Folder or Registry Key in Windows? - AskVG</a>で紹介されている手順(なお、手順3は自分のWindowsバージョンに合わせたものを見ること)に従って、ファイル権限を元に戻す。
+			コピーできたら、<a href="https://www.askvg.com/guide-how-to-restore-trustedinstaller-as-default-owner-of-a-file-or-folder-in-windows/">[Guide] How to Restore “TrustedInstaller” as Default Owner of a File, Folder or Registry Key in Windows? - AskVG</a>で紹介されている手順(なお、手順3は自分のWindowsバージョンに合わせたものを見ること)に従って、ファイル権限を元に戻す。
 		</p>
 
 		<details>
