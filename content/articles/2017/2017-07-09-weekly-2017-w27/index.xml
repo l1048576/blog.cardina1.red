@@ -99,13 +99,13 @@ excerpt: "2017年 第27週 まとめ"
 <div><br></div>
 <div>改行4<br></div>
 ]]></code></pre>
-						<figcaption>firefox の場合 (<a href="screenshot-2017-07-05-202457+0900.png">キャプチャ画像</a>)</figcaption>
+						<figcaption>firefox の場合 (<a href="screenshot-2017-07-05-202457%2B0900.png">キャプチャ画像</a>)</figcaption>
 					</figure>
 					<figure class="col-xs-12 col-lg-6">
 						<pre><code class="lang-html language-html" data-lang="html"><![CDATA[
 改行1<br>改行2<br><br>改行3<br><br>改行4<br>
 ]]></code></pre>
-						<figcaption>google chrome の場合 (<a href="screenshot-2017-07-05-202549+0900.png">キャプチャ画像</a>)</figcaption>
+						<figcaption>google chrome の場合 (<a href="screenshot-2017-07-05-202549%2B0900.png">キャプチャ画像</a>)</figcaption>
 					</figure>
 				</div>
 				<figcaption><code>content-editable="true"</code> な div 要素内に作られる HTML 断片の違い</figcaption>
@@ -235,7 +235,7 @@ excerpt: "2017年 第27週 まとめ"
 			その次はボーンを読んで間接からグルグル回したい(たぶんかなり難しいと思う)。
 		</p>
 		<figure>
-			<img src="screenshot-2017-07-07-010702+0900.png" alt="メッシュを頂点だけ読み込んだ" />
+			<img src="screenshot-2017-07-07-010702%2B0900.png" alt="メッシュを頂点だけ読み込んだ" />
 			<figcaption>今週の進捗</figcaption>
 		</figure>
 	</eh:section>

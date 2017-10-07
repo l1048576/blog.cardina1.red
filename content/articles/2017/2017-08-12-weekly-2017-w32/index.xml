@@ -291,7 +291,7 @@ RUN apt-get update -q && apt-get install -y \
 			本番はここからだ。
 		</p>
 		<figure>
-			<img src="screenshot-2017-08-10-123835+0900.png" alt="モデル座標の原点と各 cluster に、 XYZ 軸を表示した。" />
+			<img src="screenshot-2017-08-10-123835%2B0900.png" alt="モデル座標の原点と各 cluster に、 XYZ 軸を表示した。" />
 			<figcaption>
 				モデルの原点(足元)と各 cluster に、 XYZ 軸を表示した。
 				これはあくまで cluster の姿勢行列のみを反映したもので、関節情報を解釈しているわけではない。
