@@ -12,6 +12,7 @@ excerpt: "2017年 第28週 まとめ"
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2017-07-15-weekly-2017-w28"
 >
 <eh:title>Weekly report 2017-W28</eh:title>
@@ -64,15 +65,24 @@ excerpt: "2017年 第28週 まとめ"
 			まじかよ。
 			<a href="http://chuable.net/coup_con/">あなたをオトコにしてあげる！</a>は割と好きだったのでショック。
 		</p>
-		<blockquote cite="https://gnusocial.cardina1.red/notice/130059">
-			<p>
-				有限会社くくり | 破産法人公告資料 http://gazette365.com/2017/06/7041-11/<br />
-				chuable soft こと有限会社くくり、やばいし、ロケットゲー今のうちに買っておくべきか真剣に悩んでる
-			</p>
-			<footer>
-				&#x2014; <a href="https://gnusocial.cardina1.red/notice/130059">@lo48576@gnusocial.cardina1.red, 2017-07-13 16:12</a>
-			</footer>
-		</blockquote>
+		<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/130059">
+			<snsq:identity url="https://gnusocial.cardina1.red/user/2">
+				<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+				<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
+				<snsq:service>GNU Social</snsq:service>
+				<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
+			</snsq:identity>
+			<snsq:meta>
+				<snsq:timestamp datetime="2017-07-13T16:12:40+0900">2017-07-13 16:12:40</snsq:timestamp>
+				<snsq:reftime datetime="2017-07-15T00:59:34+0900">2016-07-15</snsq:reftime>
+			</snsq:meta>
+			<snsq:content>
+				<p>
+					有限会社くくり | 破産法人公告資料 <a href="http://gazette365.com/2017/06/7041-11/">http://gazette365.com/2017/06/7041-11/</a><br />
+					chuable soft こと有限会社くくり、やばいし、ロケットゲー今のうちに買っておくべきか真剣に悩んでる
+				</p>
+			</snsq:content>
+		</snsq:sns-quote>
 	</eh:section>
 
 	<eh:section id="some-mastodon-instances-started-dying">

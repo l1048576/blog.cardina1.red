@@ -19,6 +19,7 @@ excerpt: "エロゲのインストールに失敗した。つらい。エロゲ�
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2016-06-15-erg-install-battle"
 >
 <eh:title>エロゲインストールバトル</eh:title>
@@ -318,11 +319,50 @@ autorun.exe は動作を停止しました
 			以前から気になっていたというのもあり購入を決めた。
 		</p>
 
-		<noscript>
-			<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">←数年ぶりに中学の同級生と再開した流れでえっちなゲームを3本買ったのがこちら</p>&#x2014; Windowsを殺して俺も死ぬ (@L16777216) <a href="https://twitter.com/L16777216/status/728882674077573120">2016年5月7日</a></blockquote>
-		</noscript>
-
-		<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">致したいね <a href="https://t.co/If7XDNVDfR">pic.twitter.com/If7XDNVDfR</a></p>&#x2014; Windowsを殺して俺も死ぬ (@L16777216) <a href="https://twitter.com/L16777216/status/728969641331023872">2016年5月7日</a></blockquote>
+		<snsq:sns-quotes>
+			<snsq:sns-quote url="https://twitter.com/i/web/status/728882674077573120">
+				<snsq:identity url="https://twitter.com/intent/user?user_id=2375406199">
+					<snsq:icon src="../../../../assets/img/profiles/icon/l16777216.twitter.com.2016-05-07.jpg" />
+					<snsq:screen-name>Windowsを殺して俺も死ぬ</snsq:screen-name>
+					<snsq:service>twitter</snsq:service>
+					<snsq:nickname>@L16777216</snsq:nickname>
+				</snsq:identity>
+				<snsq:meta>
+					<snsq:timestamp datetime="2016-05-07T18:42:26.142+0900">2016-05-07 18:42:26</snsq:timestamp>
+					<snsq:reftime datetime="2016-06-15T18:23:14+0900">2016-06-15</snsq:reftime>
+				</snsq:meta>
+				<snsq:content>
+					<p>
+						←数年ぶりに中学の同級生と再開した流れでえっちなゲームを3本買ったのがこちら
+					</p>
+				</snsq:content>
+			</snsq:sns-quote>
+			<snsq:sns-quote url="https://twitter.com/i/web/status/728969641331023872">
+				<snsq:identity url="https://twitter.com/intent/user?user_id=2375406199">
+					<snsq:icon src="../../../../assets/img/profiles/icon/l16777216.twitter.com.2016-05-07.jpg" />
+					<snsq:screen-name>Windowsを殺して俺も死ぬ</snsq:screen-name>
+					<snsq:service>twitter</snsq:service>
+					<snsq:nickname>@L16777216</snsq:nickname>
+				</snsq:identity>
+				<snsq:meta>
+					<snsq:timestamp datetime="2016-05-08T00:28:00.751+0900">2016-05-08 00:28:00</snsq:timestamp>
+					<snsq:reftime datetime="2016-06-15T18:23:14+0900">2016-06-15</snsq:reftime>
+					<snsq:in-reply-to url="https://twitter.com/i/web/status/728882674077573120" />
+				</snsq:meta>
+				<snsq:content>
+					<p>
+						致したいね <a href="https://t.co/If7XDNVDfR">pic.twitter.com/If7XDNVDfR</a>
+					</p>
+				</snsq:content>
+				<snsq:attachments>
+					<snsq:image
+							src="tweet-728969641331023872.jpg"
+							orig-src="https://pbs.twimg.com/media/Ch3SBmsUUAAWCq-.jpg:orig"
+							orig-page="https://twitter.com/i/web/status/728969641331023872"
+							cw="true" />
+				</snsq:attachments>
+			</snsq:sns-quote>
+		</snsq:sns-quotes>
 	</eh:section>
 
 	<eh:section id="maitetsu-error">
@@ -347,6 +387,4 @@ autorun.exe は動作を停止しました
 		</p>
 	</eh:section>
 </eh:section>
-
-<script async="async" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </eh:article>

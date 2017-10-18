@@ -12,6 +12,7 @@ excerpt: "2017年 第31週 まとめ"
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2017-08-05-weekly-2017-w31"
 >
 <eh:title>Weekly report 2017-W31</eh:title>
@@ -105,30 +106,50 @@ excerpt: "2017年 第31週 まとめ"
 			もう少し 3D CG の基礎を勉強すべきかもしれない。
 		</p>
 		<figure>
-			<figure>
-				<blockquote cite="https://gnusocial.cardina1.red/notice/166253">
-					<p>
-						ここ数日、 Model (Limbnode) の下に Model (Null) が生えててその下に更に Model (LimbNode) が生えてるのをどう扱えばいいのかわからず進捗が止まっている
-					</p>
-					<a href="https://gnusocial.cardina1.red/file/c7086d09504c577e53b27ff889e71e1520f1c348e57867eb81da9538696a1c81.png">
-						<img src="https://gnusocial.cardina1.red/file/c7086d09504c577e53b27ff889e71e1520f1c348e57867eb81da9538696a1c81.png" alt="困ってる部分" />
-					</a>
-					<footer>
-						&#x2014;
-						<a href="https://gnusocial.cardina1.red/notice/166253">@loliconductor@gnusocial.cardina1.red, 2017-08-02 17:18</a>
-					</footer>
-				</blockquote>
-			</figure>
-			<figure>
-				<blockquote cite="https://gnusocial.cardina1.red/notice/166254">
-					<p>
-						IK とかするときボーン相当のノードの親子関係は網羅できないと困るし、普通に考えると Model (LimbNode) をボーンと考えれば十分なんだろうけど、 Model (Null) はデフォルトの行列も割り当てられていないし、はてさて2種類のノードをうまく扱うにはどうしようという
-					</p>
-					<footer>
-						&#x2014; <a href="https://gnusocial.cardina1.red/notice/166254">@loliconductor@gnusocial.cardina1.red, 2017-08-02 17:20</a>
-					</footer>
-				</blockquote>
-			</figure>
+			<snsq:sns-quotes>
+				<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/166253">
+					<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+						<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+						<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+						<snsq:service>GNU Social</snsq:service>
+						<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+					</snsq:identity>
+					<snsq:meta>
+						<snsq:timestamp datetime="2017-08-02T17:18:51+0900">2017-08-02 17:18:51</snsq:timestamp>
+						<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+					</snsq:meta>
+					<snsq:content>
+						<p>
+							ここ数日、 Model (Limbnode) の下に Model (Null) が生えててその下に更に Model (LimbNode) が生えてるのをどう扱えばいいのかわからず進捗が止まっている
+							<a href="https://gnusocial.cardina1.red/file/c7086d09504c577e53b27ff889e71e1520f1c348e57867eb81da9538696a1c81.png">https://gnusocial.cardina1.red/attachment/27593</a>
+						</p>
+					</snsq:content>
+					<snsq:attachments>
+						<snsq:image
+								src="gnusocial-cardina1-red-166253.png"
+								orig-src="https://gnusocial.cardina1.red/file/c7086d09504c577e53b27ff889e71e1520f1c348e57867eb81da9538696a1c81.png"
+								orig-page="https://gnusocial.cardina1.red/attachment/27593" />
+					</snsq:attachments>
+				</snsq:sns-quote>
+				<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/166254">
+					<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+						<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+						<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+						<snsq:service>GNU Social</snsq:service>
+						<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+					</snsq:identity>
+					<snsq:meta>
+						<snsq:timestamp datetime="2017-08-02T17:20:16+0900">2017-08-02 17:20:16</snsq:timestamp>
+						<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+						<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/166253" />
+					</snsq:meta>
+					<snsq:content>
+						<p>
+							IK とかするときボーン相当のノードの親子関係は網羅できないと困るし、普通に考えると Model (LimbNode) をボーンと考えれば十分なんだろうけど、 Model (Null) はデフォルトの行列も割り当てられていないし、はてさて2種類のノードをうまく扱うにはどうしようという
+						</p>
+					</snsq:content>
+				</snsq:sns-quote>
+			</snsq:sns-quotes>
 			<figcaption>うーん</figcaption>
 		</figure>
 		<p>

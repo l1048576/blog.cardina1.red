@@ -13,6 +13,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2017-04-13-federated-social-web"
 >
 <eh:title>gnusocial や mastodon の哲学</eh:title>
@@ -394,14 +395,23 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 	<p>
 		なんだかなぁ。
 	</p>
-	<blockquote cite="https://js4.in/alttw/notice/5192">
-		<p>
-			Qvitterの何が嫌かって、例えば投稿された物を元々"notice"だった奴を"quip"というような、インフラに乗っかっておいてその文化を分断しに行く姿勢が嫌い
-		</p>
-		<footer>
-			——<a href="https://js4.in/alttw/notice/5192">はいこん(js4.in)(obsoletestandard), 2017-03-04(Sat) 21:17:40</a>
-		</footer>
-	</blockquote>
+	<snsq:sns-quote url="https://js4.in/alttw/notice/5192">
+		<snsq:identity url="https://js4.in/alttw/obsoletestandard">
+			<snsq:icon src="https://js4.in/alttw/avatar/8-96-20170110112521.png" />
+			<snsq:screen-name>はいこん</snsq:screen-name>
+			<snsq:service>GNU Social</snsq:service>
+			<snsq:nickname>@obsoletestandard@js4.in</snsq:nickname>
+		</snsq:identity>
+		<snsq:meta>
+			<snsq:timestamp datetime="2017-03-04T21:17:40+0900">2017-03-04 21:17:40</snsq:timestamp>
+			<snsq:reftime datetime="2017-04-13T16:51:31+0900">2017-04-13</snsq:reftime>
+		</snsq:meta>
+		<snsq:content>
+			<p>
+				Qvitterの何が嫌かって、例えば投稿された物を元々"notice"だった奴を"quip"というような、インフラに乗っかっておいてその文化を分断しに行く姿勢が嫌い
+			</p>
+		</snsq:content>
+	</snsq:sns-quote>
 </eh:section>
 
 <eh:section id="setting-up-a-new-instance">
@@ -519,14 +529,23 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 					<a href="https://gnusocial.cardina1.red/notice/9337">自前のインスタンス立てるといいよねという話</a>
 				</li>
 				<li>
-					<blockquote cite="https://gnusocial.cardina1.red/notice/9329">
-						<p>
-							gnu socialの鯖、自分で立てないと結局twitter社に依存するかGS鯖缶の思想と運用に依存するかしかなくなるので、dockerとか使って自前でどうにかできるのが最適だし、是非自前鯖に乗せるべき
-						</p>
-						<footer>
-							——<a href="https://gnusocial.cardina1.red/notice/9329">@lo48576, 2017-04-12 23:29</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/9329">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/2">
+							<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+							<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-04-12T23:29:46+0900">2017-04-12 23:29:46</snsq:timestamp>
+							<snsq:reftime datetime="2017-04-13T16:51:31+0900">2017-04-13</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								gnu socialの鯖、自分で立てないと結局twitter社に依存するかGS鯖缶の思想と運用に依存するかしかなくなるので、dockerとか使って自前でどうにかできるのが最適だし、是非自前鯖に乗せるべき
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
 				</li>
 			</ul>
 		</dd>
@@ -628,13 +647,25 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 							</small>
 						</li>
 						<li>
-							<blockquote cite="https://gnusocial.cardina1.red/notice/10784">
-								<p>
-									「最近聞いたサーバに登録したけど、メールアドレスとパスワードが悪用されるかも！ 怖い！」って、<br />
-									「最近見た人に部屋の鍵渡したけど、鍵を悪用されるかも！ 怖い！」と何が違うんですか。
-								</p>
-								<footer>——<a href="https://gnusocial.cardina1.red/notice/10784">@lo48576, 2017-04-14 20:33</a></footer>
-							</blockquote>
+							<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/10784">
+								<snsq:identity url="https://gnusocial.cardina1.red/user/2">
+									<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+									<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
+									<snsq:service>GNU Social</snsq:service>
+									<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
+								</snsq:identity>
+								<snsq:meta>
+									<snsq:timestamp datetime="2017-04-14T20:33:03+0900">2017-04-14 20:33:03</snsq:timestamp>
+									<snsq:reftime datetime="2017-06-02T13:55:55+0900">2017-06-02</snsq:reftime>
+									<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/10781" />
+								</snsq:meta>
+								<snsq:content>
+									<p>
+										「最近聞いたサーバに登録したけど、メールアドレスとパスワードが悪用されるかも！ 怖い！」って、<br />
+										「最近見た人に部屋の鍵渡したけど、鍵を悪用されるかも！ 怖い！」と何が違うんですか。
+									</p>
+								</snsq:content>
+							</snsq:sns-quote>
 						</li>
 					</ul>
 				</li>

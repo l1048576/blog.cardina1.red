@@ -11,6 +11,7 @@ excerpt: "2017年 第29-30週 まとめ"
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2017-07-29-weekly-2017-w30"
 >
 <eh:title>Weekly report 2017-W29 &#x2013; 2017-W30</eh:title>
@@ -44,14 +45,23 @@ excerpt: "2017年 第29-30週 まとめ"
 
 	<eh:section id="use-nightly-for-gnusocial-cardina1-red">
 		<eh:title>gnusocial.cardina1.red で nightly ブランチに追従することにした</eh:title>
-		<blockquote cite="https://gnusocial.cardina1.red/notice/133082">
-			<p>
-				本日をもって私は nightly 追従芸人になりました
-			</p>
-			<footer>
-				&#x2014; <a href="https://gnusocial.cardina1.red/notice/133082">@lo48576@gnusocial.cardina1.red, 2017-07-15 02:17</a>
-			</footer>
-		</blockquote>
+		<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/133082">
+			<snsq:identity url="https://gnusocial.cardina1.red/user/2">
+				<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+				<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
+				<snsq:service>GNU Social</snsq:service>
+				<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
+			</snsq:identity>
+			<snsq:meta>
+				<snsq:timestamp datetime="2017-07-15T02:17:46+0900">2017-07-15 02:17:46</snsq:timestamp>
+				<snsq:reftime datetime="2017-07-29T12:39:35+0900">2017-07-29</snsq:reftime>
+			</snsq:meta>
+			<snsq:content>
+				<p>
+					本日をもって私は nightly 追従芸人になりました
+				</p>
+			</snsq:content>
+		</snsq:sns-quote>
 		<p>
 			nightly があまりに進みすぎていて、あるコミットを master に持ってこようとすると依存ライブラリやら別の変更やらを大量に cherry-pick してこなければならなかった<eh:footnote id="gnu-social-repo-dont-use-feature-branch">
 				GNU Social のリポジトリでは、 feature branch 等は (merge request 等を除けば)作られないため、同じ意図の変更がばらけていたりする。
@@ -90,22 +100,43 @@ excerpt: "2017年 第29-30週 まとめ"
 		<p>
 			GitHub で Star が付いて通知が来たことで、久々に依存関係の更新くらいはするか〜と思っていたが、最近また自分でもよく使うようになったので、いいかげん Ctr-O とか Ctrl-Q とかのショートカットキーくらいは実装したいということで実装した。
 		</p>
-		<blockquote cite="https://gnusocial.cardina1.red/notice/155909">
-			<p>
-				gtk-rs の Accelerator (ショートカットキー)の扱いがドキュメント雑すぎてわからんのだが
-			</p>
-			<footer>
-				&#x2014; <a href="https://gnusocial.cardina1.red/notice/155909">@lo48576@gnusocial.cardina1.red, 2017-07-27 11:25</a>
-			</footer>
-		</blockquote>
-		<blockquote cite="https://gnusocial.cardina1.red/notice/155912">
-			<p>
-				リファレンスに書かれてる定数が存在せず別の名前で用意されてたり、そもそも使用法が書いてなくて C のコードしかなかったり
-			</p>
-			<footer>
-				&#x2014; <a href="https://gnusocial.cardina1.red/notice/155912">@lo48576@gnusocial.cardina1.red, 2017-07-27 11:26</a>
-			</footer>
-		</blockquote>
+		<snsq:sns-quotes mode="normal">
+			<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/155909">
+				<snsq:identity url="https://gnusocial.cardina1.red/user/2">
+					<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+					<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
+					<snsq:service>GNU Social</snsq:service>
+					<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
+				</snsq:identity>
+				<snsq:meta>
+					<snsq:timestamp datetime="2017-07-27T23:25:41+0900">2017-07-27 23:25:41</snsq:timestamp>
+					<snsq:reftime datetime="2017-07-29T12:39:35+0900">2017-07-29</snsq:reftime>
+				</snsq:meta>
+				<snsq:content>
+					<p>
+						gtk-rs の Accelerator (ショートカットキー)の扱いがドキュメント雑すぎてわからんのだが
+					</p>
+				</snsq:content>
+			</snsq:sns-quote>
+			<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/155912">
+				<snsq:identity url="https://gnusocial.cardina1.red/user/2">
+					<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+					<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
+					<snsq:service>GNU Social</snsq:service>
+					<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
+				</snsq:identity>
+				<snsq:meta>
+					<snsq:timestamp datetime="2017-07-27T23:26:31+0900">2017-07-27 23:26:31</snsq:timestamp>
+					<snsq:reftime datetime="2017-07-29T12:39:35+0900">2017-07-29</snsq:reftime>
+					<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/155909" />
+				</snsq:meta>
+				<snsq:content>
+					<p>
+						リファレンスに書かれてる定数が存在せず別の名前で用意されてたり、そもそも使用法が書いてなくて C のコードしかなかったり
+					</p>
+				</snsq:content>
+			</snsq:sns-quote>
+		</snsq:sns-quotes>
 		<p>
 			gtk-rs は GTK を知らずに使うにはわかりづらすぎる。
 		</p>
