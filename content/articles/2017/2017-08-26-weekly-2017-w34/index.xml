@@ -12,6 +12,7 @@ excerpt: "2017年 第34週 まとめ"
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2017-08-26-weekly-2017-w34"
 >
 <eh:title>Weekly report 2017-W34</eh:title>
@@ -54,7 +55,28 @@ excerpt: "2017年 第34週 まとめ"
 				<a href="http://sukerasparo.com/">ことのはアムリラート - sukerasparo</a>
 			</li>
 			<li>
-				<a href="https://twitter.com/SukeraSparo/status/900886246515277824"><eh:emoji fontawesome="twitter" /> 🐰ことのはアムリラート🦉本日発売🎉さんのツイート: "【ことのはアムリラート】SukeraSparoデビュー作『ことのはアムリラート』本日発売です。何卒よろしくお願いします。　＃ことのは　https://t.co/9pq5ogN2IV https://t.co/MROHAnuhu5"</a>
+				<snsq:sns-quote url="https://twitter.com/i/web/status/900886246515277824">
+					<snsq:identity url="https://twitter.com/intent/user?user_id=847733038087667713">
+						<snsq:icon src="https://pbs.twimg.com/profile_images/847740053367291909/oF-CLX8s_400x400.jpg" />
+						<snsq:screen-name> 🐰ことのはアムリラート🦉本日発売🎉</snsq:screen-name>
+						<snsq:service>twitter</snsq:service>
+						<snsq:nickname>@SukeraSparo</snsq:nickname>
+					</snsq:identity>
+					<snsq:meta>
+						<snsq:timestamp datetime="2017-08-05T10:03:13.483+0900">2017-08-05 10:03:13</snsq:timestamp>
+						<snsq:reftime datetime="2017-08-25T23:08:48+0900">2016-08-25</snsq:reftime>
+					</snsq:meta>
+					<snsq:content>
+						<p>
+							【ことのはアムリラート】SukeraSparoデビュー作『ことのはアムリラート』本日発売です。何卒よろしくお願いします。　<a href="https://twitter.com/hashtag/%E3%81%93%E3%81%A8%E3%81%AE%E3%81%AF">#ことのは</a>　<a href="http://sukerasparo.com">http://sukerasparo.com</a>
+						</p>
+					</snsq:content>
+					<snsq:attachments>
+						<snsq:image
+								orig-src="https://pbs.twimg.com/media/DICXHhuVoAApTBC.jpg:orig"
+								orig-page="https://twitter.com/i/web/status/900886246515277824" />
+					</snsq:attachments>
+				</snsq:sns-quote>
 			</li>
 			<li>
 				<a href="http://nyalra.hatenablog.com/entry/2017/08/21/231151">異国の言葉を学習していく百合ゲー「ことのはアムリラート」 - 根室記念館</a>

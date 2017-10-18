@@ -1,0 +1,8 @@
+%reset {
+	all: unset;
+}
+
+%reset-block {
+	@extend %reset;
+	display: block;
+}

@@ -13,12 +13,29 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2017-01-01-crush-the-kilogram"
 >
 <eh:title>キログラムを粉砕せよ</eh:title>
 <eh:section id="new-years-resolution">
 	<eh:title>今年の目標</eh:title>
-	<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">あぁ＾〜同時多発テロでキログラム原器のレプリカと本家を全て破壊して人類の文明を破滅させたいんじゃぁ＾〜</p>&#x2014; ㉅㊛のルートノード㋞㋰㋷㋓(らりお) (@L16777216) <a href="https://twitter.com/L16777216/status/814818732962770945">2016年12月30日</a></blockquote>
+	<snsq:sns-quote url="https://twitter.com/i/web/status/814818732962770945">
+		<snsq:identity url="https://twitter.com/intent/user?user_id=2375406199">
+			<snsq:icon src="../../../../assets/img/profiles/icon/l16777216.twitter.com.2016-05-07.jpg" />
+			<snsq:screen-name>㉅㊛のルートノード㋞㋰㋷㋓(らりお)</snsq:screen-name>
+			<snsq:service>twitter</snsq:service>
+			<snsq:nickname>@L16777216</snsq:nickname>
+		</snsq:identity>
+		<snsq:meta>
+			<snsq:timestamp datetime="2016-12-30T22:01:39+0900">2016-12-30 22:01:39</snsq:timestamp>
+			<snsq:reftime datetime="2017-01-01T01:13:37+0900">2017-01-01</snsq:reftime>
+		</snsq:meta>
+		<snsq:content>
+			<p>
+				あぁ＾〜同時多発テロでキログラム原器のレプリカと本家を全て破壊して人類の文明を破滅させたいんじゃぁ＾〜
+			</p>
+		</snsq:content>
+	</snsq:sns-quote>
 </eh:section>
 
 <aside class="important">
@@ -164,26 +181,64 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 		大ダメージとはいうが、実際文明への影響はどうなのだろうか。
 	</p>
 
-	<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">ってかすでに数値的な候補は出ちゃってるわけで、もし今キログラム原器が破壊されたらもうどうしようもないからさっさと定義乗り換えて、大きな混乱もなく終わりそう</p>&#x2014; こーよー@がっこうぐらし (@kohyoh2) <a href="https://twitter.com/kohyoh2/status/814823022745878530">2016年12月30日</a></blockquote>
+	<snsq:sns-quote url="https://twitter.com/i/web/status/814823022745878530">
+		<snsq:identity id="https://twitter.com/intent/user?user_id=469477676">
+			<snsq:icon src="https://pbs.twimg.com/profile_images/532944652324728832/wJvyKyCP_400x400.png" />
+			<snsq:screen-name>こーよー@がっこうぐらし</snsq:screen-name>
+			<snsq:service>twitter</snsq:service>
+			<snsq:nickname>@kohyoh2</snsq:nickname>
+		</snsq:identity>
+		<snsq:meta>
+			<snsq:timestamp datetime="2016-12-30T22:18:41.959+0900">2016-12-30 22:18:41</snsq:timestamp>
+			<snsq:reftime datetime="2017-01-01T03:57:31+0900">2017-01-01</snsq:reftime>
+		</snsq:meta>
+		<snsq:content>
+			<p>
+				ってかすでに数値的な候補は出ちゃってるわけで、もし今キログラム原器が破壊されたらもうどうしようもないからさっさと定義乗り換えて、大きな混乱もなく終わりそう
+			</p>
+		</snsq:content>
+	</snsq:sns-quote>
 
 	<p>
 		これは私も思った。
 		が、以下のような指摘もあり、私の知識では影響が計れない。
 	</p>
 
-	<blockquote cite="https://togetter.com/li/1065087#c3347452">
-		<p>
-			残念ながら、この世の中のほとんどの工業製品はせいぜい小数点第二位程度の重さの管理範囲内でしか作られていない・・・困るのは・・・製薬業界ぐらい？
-		</p>
-		&#x2014; <a href="https://togetter.com/li/1065087#c3347452">PlatoonLeader (@442ndCombatTeam) のコメント</a>
-	</blockquote>
+	<snsq:sns-quote url="https://togetter.com/li/1065087#c3347452">
+		<snsq:identity url="https://twitter.com/intent/user?user_id=303024505">
+			<snsq:icon src="https://pbs.twimg.com/profile_images/1365821308/_______400x400.png" />
+			<snsq:screen-name>PlatoonLeader</snsq:screen-name>
+			<snsq:service>twitter</snsq:service>
+			<snsq:nickname>@442ndCombatTeam</snsq:nickname>
+		</snsq:identity>
+		<snsq:meta>
+			<snsq:timestamp datetime="2016-12-30T23:48:04+0900">2016-12-30 23:48:04</snsq:timestamp>
+			<snsq:reftime datetime="2017-01-01T03:57:31+0900">2017-01-01</snsq:reftime>
+		</snsq:meta>
+		<snsq:content>
+			<p>
+				残念ながら、この世の中のほとんどの工業製品はせいぜい小数点第二位程度の重さの管理範囲内でしか作られていない・・・困るのは・・・製薬業界ぐらい？
+			</p>
+		</snsq:content>
+	</snsq:sns-quote>
 
-	<blockquote cite="https://togetter.com/li/1065087#c3347634">
-		<p>
+	<snsq:sns-quote url="https://togetter.com/li/1065087#c3347634">
+		<snsq:identity url="https://twitter.com/intent/user?user_id=2802728275">
+			<snsq:icon src="https://pbs.twimg.com/profile_images/575460018968899584/uNsBST4N_400x400.jpeg" />
+			<snsq:screen-name>delphinus</snsq:screen-name>
+			<snsq:service>twitter</snsq:service>
+			<snsq:nickname>@Delphin_apterus</snsq:nickname>
+		</snsq:identity>
+		<snsq:meta>
+			<snsq:timestamp datetime="2016-12-31T01:09:31+0900">2016-12-31 01:09:31</snsq:timestamp>
+			<snsq:reftime datetime="2017-01-01T03:57:31+0900">2017-01-01</snsq:reftime>
+		</snsq:meta>
+		<snsq:content>
+			<p>
 			キログラム原器(原本と各国配布)を破壊すると、精密天秤を制作しているメーカーの2次原器が校正することが出来なくなる。一般的なメーカーは、精密天秤に対して校正してあるので、重量測定が必要な分野全てに影響が出る。差し迫って、合金(ステンレスやアルミ合金)にはじまり、プラスチックなどの材料系が壊滅、小麦粉などの粉製品も取引できない。まさしく、工商業史上最悪の事態なるのでは？
-		</p>
-		&#x2014; <a href="https://togetter.com/li/1065087#c3347634">delphinus	(@Delphin_apterus) のコメント</a>
-	</blockquote>
+			</p>
+		</snsq:content>
+	</snsq:sns-quote>
 
 	<p>
 		どうなるのか、気になるところだ。
@@ -238,6 +293,4 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 		<li><a href="https://togetter.com/li/1065087">キログラム原器の破壊と次期キログラムの定義についてメモ - Togetterまとめ</a></li>
 	</ul>
 </eh:section>
-
-<script async="async" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </eh:article>

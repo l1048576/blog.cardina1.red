@@ -14,6 +14,7 @@ excerpt: "プログラマは洗濯物を入れないことがある。"
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2016-09-13-programmers-logic"
 >
 <eh:title>プログラマの論理</eh:title>
@@ -68,7 +69,43 @@ excerpt: "プログラマは洗濯物を入れないことがある。"
 
 <eh:section id="postscript1">
 	<eh:title>追記 (2017-07-05)</eh:title>
-	<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">このときの「ならば」は実行条件ではなく「指示を出した理由」だ。 外へ出るという予定を聞いたから指示を出しておくという意味。 つまり、指示をした時点で意味を成しているので実行フェイズでは消去して考えるということで矛盾はない。 <a href="https://t.co/QZRpbPcaKP">https://t.co/QZRpbPcaKP</a></p>&#x2014; 齊藤敦志@仕事ください (@SaitoAtsushi) <a href="https://twitter.com/SaitoAtsushi/status/882588192846651392">2017年7月5日</a></blockquote>
+	<snsq:sns-quote url="https://twitter.com/i/web/status/882588192846651392">
+		<snsq:identity url="https://twitter.com/intent/user?user_id=6137682">
+			<snsq:icon src="https://pbs.twimg.com/profile_images/875372745759932416/yuleS_UZ_400x400.jpg" />
+			<snsq:screen-name>齊藤敦志@仕事ください</snsq:screen-name>
+			<snsq:service>twitter</snsq:service>
+			<snsq:nickname>@SaitoAtsushi</snsq:nickname>
+		</snsq:identity>
+		<snsq:meta>
+			<snsq:timestamp datetime="2017-07-05T22:13:17.527+0900">2017-07-05 22:13:17</snsq:timestamp>
+			<snsq:reftime datetime="2017-10-18T17:56:34+0900">2017-10-18</snsq:reftime>
+			<snsq:in-reply-to url="https://twitter.com/i/web/status/775517223502819328" />
+		</snsq:meta>
+		<snsq:content>
+			<p>
+				このときの「ならば」は実行条件ではなく「指示を出した理由」だ。
+				外へ出るという予定を聞いたから指示を出しておくという意味。
+				つまり、指示をした時点で意味を成しているので実行フェイズでは消去して考えるということで矛盾はない。
+			</p>
+
+			<snsq:sns-quote url="https://twitter.com/i/web/status/775517223502819328">
+				<snsq:identity url="https://twitter.com/intent/user?user_id=2375406199">
+					<snsq:icon src="../../../../assets/img/profiles/icon/l16777216.twitter.com.2016-05-07.jpg" />
+					<snsq:screen-name>㉅㊛のルートノード㋞㋰㋷㋓(らりお)</snsq:screen-name>
+					<snsq:service>twitter</snsq:service>
+					<snsq:nickname>@L16777216</snsq:nickname>
+				</snsq:identity>
+				<snsq:meta>
+					<snsq:timestamp datetime="2016-05-08T00:28:00.751+0900">2016-05-08 00:28:00</snsq:timestamp>
+					<snsq:reftime datetime="2016-12-30T22:13:17+0900">2016-12-30</snsq:reftime>
+				</snsq:meta>
+				<snsq:content>
+					プログラマの論理 - 何とは言わない天然水飲みたさ <a href="https://blog.cardina1.red/2016/09/13/programmers-logic/">https://blog.cardina1.red/2016/09/13/programmers-logic/</a><br />
+					書いた
+				</snsq:content>
+			</snsq:sns-quote>
+		</snsq:content>
+	</snsq:sns-quote>
 	<p>
 		なるほど。
 	</p>
@@ -90,6 +127,4 @@ excerpt: "プログラマは洗濯物を入れないことがある。"
 		</li>
 	</ul>
 </eh:section>
-
-<script async="async" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </eh:article>

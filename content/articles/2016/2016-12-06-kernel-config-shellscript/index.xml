@@ -13,6 +13,7 @@ excerpt: "Linux の kernel config を秘伝のタレにしないための小さ�
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2016-12-06-kernel-config-shellscript"
 >
 <eh:title>kernel config 生成(略記)のためのシェルスクリプト</eh:title>
@@ -535,7 +536,24 @@ let b:current_syntax = "portage-summary-log"
 
 	<eh:section id="omake-postscript1-kernel_config_check_py">
 		<eh:title>追記1 (2016/12/06 00:12): <code>kernel-config-check.py</code></eh:title>
-		<blockquote class="twitter-tweet" data-cards="hidden" data-lang="ja"><p lang="ja" dir="ltr">kernel config checkには kernel-config-check.py とか / “kernel config 生成(略記)のためのシェルスクリプト - 何とは言わない天然水飲みたさ” <a href="https://t.co/7X7AE3sXKx">https://t.co/7X7AE3sXKx</a></p>&#2014; このGentooの片隅に (@naota344) <a href="https://twitter.com/naota344/status/805790701610905600">2016年12月5日</a></blockquote>
+		<snsq:sns-quote url="https://twitter.com/i/web/status/805790701610905600">
+			<snsq:identity url="https://twitter.com/intent/user?user_id=82888635">
+				<snsq:icon src="https://pbs.twimg.com/profile_images/2939771372/f426a99aa4318d893371abe8eeb5915e_400x400.jpeg" />
+				<snsq:screen-name>このGentooの片隅に</snsq:screen-name>
+				<snsq:service>twitter</snsq:service>
+				<snsq:nickname>@naota344</snsq:nickname>
+			</snsq:identity>
+			<snsq:meta url="https://twitter.com/intent/user?user_id=82888635">
+				<snsq:timestamp datetime="2016-12-06T00:07:28.788+0900">2016-12-06 00:07:28</snsq:timestamp>
+				<snsq:reftime datetime="2016-12-06T00:12">2016-12-06</snsq:reftime>
+			</snsq:meta>
+			<snsq:content>
+				<p>
+					kernel config checkには kernel-config-check.py とか / “kernel config 生成(略記)のためのシェルスクリプト - 何とは言わない天然水飲みたさ”
+					<a href="https://blog.cardina1.red/2016/12/06/kernel-config-shellscript/">https://blog.cardina1.red/2016/12/06/kernel-config-shellscript/</a>
+				</p>
+			</snsq:content>
+		</snsq:sns-quote>
 		<p>
 			<a href="https://gist.github.com/mrueg/cd19a20d2e712f61d2ea"><code class="filepath">kernel-config-check.py</code></a> というものを公開している方がいらっしゃるようで、これを使うと、インストール済のパッケージが要求するカーネルオプションを網羅できるようです。
 			すごい！
@@ -544,12 +562,11 @@ let b:current_syntax = "portage-summary-log"
 		</p>
 		<figure>
 			<script src="https://gist.github.com/mrueg/cd19a20d2e712f61d2ea.js"></script>
+			<noscript>(Gist snippet)</noscript>
 			<figcaption>
 				<a href="https://gist.github.com/mrueg/cd19a20d2e712f61d2ea"><code class="filepath">kernel-config-check.py</code></a>
 			</figcaption>
 		</figure>
 	</eh:section>
 </eh:section>
-
-<script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 </eh:article>

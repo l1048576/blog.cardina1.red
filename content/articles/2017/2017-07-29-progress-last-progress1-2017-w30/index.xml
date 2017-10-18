@@ -12,9 +12,9 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 <eh:article
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2017-07-29-progress-last-progress1-2017-w30"
 >
-<!-- gnusocial.cardina1.red の画像を直接表示してるの、本当はリポジトリに置くべきな気がする。 -->
 <eh:title>Progress report 2017-W29 &#x2013; 2017-W30: last-progress1</eh:title>
 <p>
 	2017-W28-6 (Sat) から 2017-W30-5 (Fri) までの last-progress1 の進捗ログ。
@@ -53,8 +53,9 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 		<figure>
 			<div class="grid-row">
 				<figure class="col-xs-12 col-lg-4">
-					<a href="https://gnusocial.cardina1.red/file/b48b47d99e91150c00535c8b346d298d0dc4e44c4dd291625dde00911a11583f.png">
-						<img src="https://gnusocial.cardina1.red/file/b48b47d99e91150c00535c8b346d298d0dc4e44c4dd291625dde00911a11583f.png" alt="うまくいかなかった三角形分割のデバッグ出力" />
+					<!-- https://gnusocial.cardina1.red/file/b48b47d99e91150c00535c8b346d298d0dc4e44c4dd291625dde00911a11583f.png -->
+					<a href="b48b47d99e91150c00535c8b346d298d0dc4e44c4dd291625dde00911a11583f.png">
+						<img src="b48b47d99e91150c00535c8b346d298d0dc4e44c4dd291625dde00911a11583f.png" alt="うまくいかなかった三角形分割のデバッグ出力" />
 					</a>
 					<figcaption>
 						<code>dots</code> として出力されているのが、ある頂点における面の法線(隣接辺の外積)と、別の頂点における法線との内積。
@@ -62,14 +63,16 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 					</figcaption>
 				</figure>
 				<figure class="col-xs-12 col-lg-4">
-					<a href="https://gnusocial.cardina1.red/file/1c6da26a149914ae6a0235cca2539fa1390ffe4eb00cfbe7172d2f4f50c476e0.png">
-						<img src="https://gnusocial.cardina1.red/file/1c6da26a149914ae6a0235cca2539fa1390ffe4eb00cfbe7172d2f4f50c476e0.png" alt="5角形だけ抜き出して表示した様子" />
+					<!-- https://gnusocial.cardina1.red/file/1c6da26a149914ae6a0235cca2539fa1390ffe4eb00cfbe7172d2f4f50c476e0.png -->
+					<a href="1c6da26a149914ae6a0235cca2539fa1390ffe4eb00cfbe7172d2f4f50c476e0.png">
+						<img src="1c6da26a149914ae6a0235cca2539fa1390ffe4eb00cfbe7172d2f4f50c476e0.png" alt="5角形だけ抜き出して表示した様子" />
 					</a>
 					<figcaption>5角形だけ抜き出して、(不正確な)三角形分割後の三角形ごとに表示した様子。優角が2つある5角形は見当たらない。</figcaption>
 				</figure>
 				<figure class="col-xs-12 col-lg-4">
-					<a href="https://gnusocial.cardina1.red/file/0dd5c79c61b4466eb3b259a228359a9b475576dd5ae3ea70b84fbae0b93b615b.png">
-						<img src="https://gnusocial.cardina1.red/file/0dd5c79c61b4466eb3b259a228359a9b475576dd5ae3ea70b84fbae0b93b615b.png" alt="成功した三角形分割のデバッグ出力" />
+					<!-- https://gnusocial.cardina1.red/file/0dd5c79c61b4466eb3b259a228359a9b475576dd5ae3ea70b84fbae0b93b615b.png -->
+					<a href="0dd5c79c61b4466eb3b259a228359a9b475576dd5ae3ea70b84fbae0b93b615b.png">
+						<img src="0dd5c79c61b4466eb3b259a228359a9b475576dd5ae3ea70b84fbae0b93b615b.png" alt="成功した三角形分割のデバッグ出力" />
 					</a>
 					<figcaption><code>true</code>, <code>false</code> は法線の向きである。いずれの5角形についても優角がたかだか1つと判定されているのがわかる。</figcaption>
 				</figure>
@@ -95,27 +98,112 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 		<figure>
 			<div class="grid-row">
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147518">
-						<p>
-							<a href="https://twitter.com/aomesan147/status/617195467667968000">https://twitter.com/aomesan147/status/617195467667968000</a><br />
-							<a href="https://gnusocial.cardina1.red/notice/147063">https://gnusocial.cardina1.red/notice/147063</a><br />
-							なぜ一部(脇の前面)だけおかしくなるんだろう……
-						</p>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147518">@loliconductor@gnusocial.cardina1.red, 2017-07-23 13:09</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147518">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T13:09:21+0900">2017-07-23 13:09:21</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<snsq:sns-quotes>
+								<snsq:sns-quote url="https://twitter.com/i/web/status/617195467667968000">
+									<snsq:identity url="https://twitter.com/intent/user?user_id=1243932571">
+										<snsq:icon src="https://pbs.twimg.com/profile_images/3342197692/02e153bc02a4bc8b815210e0872c0691_400x400.jpeg" />
+										<snsq:screen-name>あおめさん(ポリッド@四国へ移動中)</snsq:screen-name>
+										<snsq:service>twitter</snsq:service>
+										<snsq:nickname>@aomesan147</snsq:nickname>
+									</snsq:identity>
+									<snsq:meta>
+										<snsq:timestamp datetime="2015-07-04T13:57:21.086+0900">2015-07-04T13:57:21</snsq:timestamp>
+										<snsq:reftime datetime="2017-10-18T21:38:10+0900">2017-10-18</snsq:reftime>
+									</snsq:meta>
+									<snsq:content>
+										<p>
+											なかなか良さそうなモデル　<a href="https://twitter.com/hashtag/%E4%B8%AD%E9%87%8E%E3%82%B7%E3%82%B9%E3%82%BF%E3%83%BC%E3%82%BA">#中野シスターズ</a>
+										</p>
+									</snsq:content>
+									<snsq:attachments>
+										<snsq:image
+												orig-src="https://pbs.twimg.com/media/CJC4AS3VAAA8gc4.jpg:orig"
+												orig-page="https://twitter.com/i/web/status/617195467667968000" />
+									</snsq:attachments>
+								</snsq:sns-quote>
+								<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147063">
+									<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+										<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+										<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+										<snsq:service>GNU Social</snsq:service>
+										<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+									</snsq:identity>
+									<snsq:meta>
+										<snsq:timestamp datetime="2017-07-23T02:20:28+0900">2017-07-23 02:20:28</snsq:timestamp>
+										<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+									</snsq:meta>
+									<snsq:content>
+										<p>
+											<a href="https://gnusocial.cardina1.red/attachment/24466">https://gnusocial.cardina1.red/attachment/24466</a> はいプロ
+										</p>
+									</snsq:content>
+									<snsq:attachments>
+										<snsq:image
+												src="gnusocial-cardina1-red-147063.png"
+												orig-src="https://gnusocial.cardina1.red/file/9928cf43d1392b9b32eb9f39d7808b07d8a88e4f523055a4ec73132180bf007f.png"
+												orig-page="https://gnusocial.cardina1.red/attachment/24466" />
+									</snsq:attachments>
+								</snsq:sns-quote>
+							</snsq:sns-quotes>
+							<p>
+								なぜ一部(脇の前面)だけおかしくなるんだろう……
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147533">
-						<p>
-							<a href="https://twitter.com/pball4/status/817905302926307328">https://twitter.com/pball4/status/817905302926307328</a><br />
-							やはり色の違いはあれど、そこまで極端に白くなってはいない……
-						</p>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147533">@loliconductor@gnusocial.cardina1.red, 2017-07-23 13:17</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147533">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T13:17:35+0900">2017-07-23 13:17:35</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+							<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/147518" />
+						</snsq:meta>
+						<snsq:content>
+							<snsq:sns-quote url="https://twitter.com/i/web/status/817905302926307328">
+								<snsq:identity url="https://twitter.com/intent/user?user_id=328901852">
+									<snsq:icon src="https://pbs.twimg.com/profile_images/787465845991616512/19K2Utjc_400x400.jpg" />
+									<snsq:screen-name>p-ball</snsq:screen-name>
+									<snsq:service>twitter</snsq:service>
+									<snsq:nickname>@pball4</snsq:nickname>
+								</snsq:identity>
+								<snsq:meta>
+									<snsq:timestamp datetime="2017-01-08T10:26:34.820+0900">2017-01-08T10:26:34</snsq:timestamp>
+									<snsq:reftime datetime="2017-10-18T21:53:40+0900">2017-10-18</snsq:reftime>
+								</snsq:meta>
+								<snsq:content>
+									<p>
+										諦めて、中野シスターズというモデルを試してみる。 <a href="http://nakasis.com/">http://nakasis.com/</a>
+									</p>
+								</snsq:content>
+								<snsq:attachments>
+									<snsq:image
+											orig-src="https://pbs.twimg.com/media/C1nIhugUQAEmHOC.png:orig"
+											orig-page="https://twitter.com/i/web/status/817905302926307328" />
+								</snsq:attachments>
+							</snsq:sns-quote>
+							<p>
+								やはり色の違いはあれど、そこまで極端に白くなってはいない……
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
 				</figure>
 			</div>
 		</figure>
@@ -126,115 +214,229 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 		<figure>
 			<div class="grid-row">
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147661">
-						<p>
-							フラグメントシェーダでテクスチャ真っ青にしたのに肌色になってる部分……何なんだ？？？
-						</p>
-						<a href="https://gnusocial.cardina1.red/file/2951769ce672a503eeb670b22e1e96f62bb6907b6ef229604f561100a6ff3df1.png">
-							<img src="https://gnusocial.cardina1.red/file/2951769ce672a503eeb670b22e1e96f62bb6907b6ef229604f561100a6ff3df1.png" alt="" />
-						</a>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147661">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:43</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147661">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T14:43:39+0900">2017-07-23 14:43:39</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								フラグメントシェーダでテクスチャ真っ青にしたのに肌色になってる部分……何なんだ？？？
+								<a href="https://gnusocial.cardina1.red/file/2951769ce672a503eeb670b22e1e96f62bb6907b6ef229604f561100a6ff3df1.png">https://gnusocial.cardina1.red/attachment/24547</a>
+							</p>
+						</snsq:content>
+						<snsq:attachments>
+							<snsq:image
+									src="gnusocial-cardina1-red-147661.png"
+									orig-src="https://gnusocial.cardina1.red/file/2951769ce672a503eeb670b22e1e96f62bb6907b6ef229604f561100a6ff3df1.png"
+									orig-page="https://gnusocial.cardina1.red/attachment/24547" />
+						</snsq:attachments>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147664">
-						<p>
-							uv.s &lt; -0.1 || uv.s &gt; 1.1 な部分を青にするとこうなる……
-						</p>
-						<a href="https://gnusocial.cardina1.red/file/a1c9b1f2b4295e8c9fd7a2a013268d3797b119772255031bc719f2475c28ab5c.png">
-							<img src="https://gnusocial.cardina1.red/file/a1c9b1f2b4295e8c9fd7a2a013268d3797b119772255031bc719f2475c28ab5c.png" alt="" />
-						</a>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147664">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:48</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147664">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T14:48:23+0900">2017-07-23 14:48:23</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								uv.s &lt; -0.1 || uv.s &gt; 1.1 な部分を青にするとこうなる……
+								<a href="https://gnusocial.cardina1.red/file/a1c9b1f2b4295e8c9fd7a2a013268d3797b119772255031bc719f2475c28ab5c.png">https://gnusocial.cardina1.red/attachment/24548</a>
+							</p>
+						</snsq:content>
+						<snsq:attachments>
+							<snsq:image
+									src="gnusocial-cardina1-red-147664.png"
+									orig-src="https://gnusocial.cardina1.red/file/a1c9b1f2b4295e8c9fd7a2a013268d3797b119772255031bc719f2475c28ab5c.png"
+									orig-page="https://gnusocial.cardina1.red/attachment/24548" />
+						</snsq:attachments>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147666">
-						<p>
-							uv.s &lt; -0.5 || uv.s &gt; 1.5 にすると、こう
-						</p>
-						<a href="https://gnusocial.cardina1.red/file/859d8e036d01c5da4924a6930d15b45cf6a003eab35f6916b13695fa62bc657e.png">
-							<img src="https://gnusocial.cardina1.red/file/859d8e036d01c5da4924a6930d15b45cf6a003eab35f6916b13695fa62bc657e.png" alt="" />
-						</a>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147666">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:50</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147666">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T14:50:24+0900">2017-07-23 14:50:24</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+							<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/147664" />
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								uv.s &lt; -0.5 || uv.s &gt; 1.5 にすると、こう
+								<a href="https://gnusocial.cardina1.red/file/859d8e036d01c5da4924a6930d15b45cf6a003eab35f6916b13695fa62bc657e.png">https://gnusocial.cardina1.red/attachment/24549</a>
+							</p>
+						</snsq:content>
+						<snsq:attachments>
+							<snsq:image
+									src="gnusocial-cardina1-red-147666.png"
+									orig-src="https://gnusocial.cardina1.red/file/859d8e036d01c5da4924a6930d15b45cf6a003eab35f6916b13695fa62bc657e.png"
+									orig-page="https://gnusocial.cardina1.red/attachment/24549" />
+						</snsq:attachments>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147667">
-						<p>
-							uv.s &lt; -0.8 || uv.s &gt; 1.8 にすると、こう
-						</p>
-						<a href="https://gnusocial.cardina1.red/file/2a9237ac3c099d69c33d06caaa782edf75d728bdc629c938c27fb9369836ecf1.png">
-							<img src="https://gnusocial.cardina1.red/file/2a9237ac3c099d69c33d06caaa782edf75d728bdc629c938c27fb9369836ecf1.png" alt="" />
-						</a>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147667">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:51</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147667">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T14:51:41+0900">2017-07-23 14:51:41</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+							<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/147666" />
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								uv.s &lt; -0.8 || uv.s &gt; 1.8 にすると、こう
+								<a href="https://gnusocial.cardina1.red/file/2a9237ac3c099d69c33d06caaa782edf75d728bdc629c938c27fb9369836ecf1.png">https://gnusocial.cardina1.red/attachment/24550</a>
+							</p>
+						</snsq:content>
+						<snsq:attachments>
+							<snsq:image
+									src="gnusocial-cardina1-red-147667.png"
+									orig-src="https://gnusocial.cardina1.red/file/2a9237ac3c099d69c33d06caaa782edf75d728bdc629c938c27fb9369836ecf1.png"
+									orig-page="https://gnusocial.cardina1.red/attachment/24550" />
+						</snsq:attachments>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147672">
-						<p>
-							まじで uv の x 座標 1.95 とかになっとるやんけ
-						</p>
-						<a href="https://gnusocial.cardina1.red/file/96eb688bd1cefb33fac34268841b120e08fd277a52d212085a4eae649c9758a7.png">
-							<img src="https://gnusocial.cardina1.red/file/96eb688bd1cefb33fac34268841b120e08fd277a52d212085a4eae649c9758a7.png" alt="" />
-						</a>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147672">@loliconductor@gnusocial.cardina1.red, 2017-07-23 14:54</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147672">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T14:54:53+0900">2017-07-23 14:54:53</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								まじで uv の x 座標 1.95 とかになっとるやんけ
+								<a href="https://gnusocial.cardina1.red/file/96eb688bd1cefb33fac34268841b120e08fd277a52d212085a4eae649c9758a7.png">https://gnusocial.cardina1.red/attachment/24551</a>
+							</p>
+						</snsq:content>
+						<snsq:attachments>
+							<snsq:image
+									src="gnusocial-cardina1-red-147672.png"
+									orig-src="https://gnusocial.cardina1.red/file/96eb688bd1cefb33fac34268841b120e08fd277a52d212085a4eae649c9758a7.png"
+									orig-page="https://gnusocial.cardina1.red/attachment/24551" />
+						</snsq:attachments>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147687">
-						<p>
-							FBX 2018 Developer Help: FbxTexture Class Reference <a href="https://help.autodesk.com/cloudhelp/2018/ENU/FBX-Developer-Help/cpp_ref/class_fbx_texture.html#a889640e63e2e681259ea81061b85143a">https://help.autodesk.com/cloudhelp/2018/ENU/FBX-Developer-Help/cpp_ref/class_fbx_texture.html#a889640e63e2e681259ea81061b85143a</a>
-						</p>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147687">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:09</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147686">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T15:08:22+0900">2017-07-23 15:08:22</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								WrapMode か……
+								<a href="https://gnusocial.cardina1.red/file/e96b3502d7e6beca88361f90454b2f09a95c0e08ba3cdb59ab58d3f788216a6b.png">https://gnusocial.cardina1.red/attachment/24553</a>
+							</p>
+						</snsq:content>
+						<snsq:attachments>
+							<snsq:image
+									src="gnusocial-cardina1-red-147686.png"
+									orig-src="https://gnusocial.cardina1.red/file/e96b3502d7e6beca88361f90454b2f09a95c0e08ba3cdb59ab58d3f788216a6b.png"
+									orig-page="https://gnusocial.cardina1.red/attachment/24553" />
+						</snsq:attachments>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147686">
-						<p>
-							WrapMode か……
-						</p>
-						<a href="https://gnusocial.cardina1.red/file/e96b3502d7e6beca88361f90454b2f09a95c0e08ba3cdb59ab58d3f788216a6b.png">
-							<img src="https://gnusocial.cardina1.red/file/e96b3502d7e6beca88361f90454b2f09a95c0e08ba3cdb59ab58d3f788216a6b.png" alt="" />
-						</a>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147686">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:08</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147687">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T15:09:29+0900">2017-07-23 15:09:29</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+							<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/147686" />
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								FBX 2018 Developer Help: FbxTexture Class Reference
+								<a href="https://help.autodesk.com/cloudhelp/2018/ENU/FBX-Developer-Help/cpp_ref/class_fbx_texture.html#a889640e63e2e681259ea81061b85143a">https://help.autodesk.com/cloudhelp/2018/ENU/FBX-Developer-Help/cpp_ref/class_fbx_texture.html#a889640e63e2e681259ea81061b85143a</a>
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147688">
-						<p>
-							0 は eRepeat だね
-						</p>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147688">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:09</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147688">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T15:09:44+0900">2017-07-23 15:09:44</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+							<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/147687" />
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								0 は eRepeat だね
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147706">
-						<p>
-							はいプロ
-						</p>
-						<a href="https://gnusocial.cardina1.red/file/666ea1811a550f8a270dc5351f1419c5689fa4294736c95d2fe9826f25ca2f79.png">
-							<img src="https://gnusocial.cardina1.red/file/666ea1811a550f8a270dc5351f1419c5689fa4294736c95d2fe9826f25ca2f79.png" alt="" />
-						</a>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147706">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:19</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147706">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T15:19:40+0900">2017-07-23 15:19:40</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								はいプロ
+								<a href="https://gnusocial.cardina1.red/file/666ea1811a550f8a270dc5351f1419c5689fa4294736c95d2fe9826f25ca2f79.png">https://gnusocial.cardina1.red/attachment/24560</a>
+							</p>
+						</snsq:content>
+						<snsq:attachments>
+							<snsq:image
+									src="gnusocial-cardina1-red-147706.png"
+									orig-src="https://gnusocial.cardina1.red/file/666ea1811a550f8a270dc5351f1419c5689fa4294736c95d2fe9826f25ca2f79.png"
+									orig-page="https://gnusocial.cardina1.red/attachment/24560" />
+						</snsq:attachments>
+					</snsq:sns-quote>
 				</figure>
 			</div>
 		</figure>
@@ -245,77 +447,139 @@ excerpt: "2017年 第29-30週 last-progress1 の進捗"
 		<figure>
 			<div class="grid-row">
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147112">
-						<p>
-							白目の部分が青くて怖いし、普通になんかバグあるなこれ
-						</p>
-						<a href="https://gnusocial.cardina1.red/file/3eda5ece7bbb885ebbc72c70c36fc4cc088fcb5311d71490597db44ca43f756d.png">
-							<img src="https://gnusocial.cardina1.red/file/3eda5ece7bbb885ebbc72c70c36fc4cc088fcb5311d71490597db44ca43f756d.png" alt="" />
-						</a>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147112">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:12</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147112">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T03:12:43+0900">2017-07-23 03:12:43</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								<a href="https://gnusocial.cardina1.red/file/3eda5ece7bbb885ebbc72c70c36fc4cc088fcb5311d71490597db44ca43f756d.png">https://gnusocial.cardina1.red/attachment/24474</a>
+								白目の部分が青くて怖いし、普通になんかバグあるなこれ
+							</p>
+						</snsq:content>
+						<snsq:attachments>
+							<snsq:image
+									src="gnusocial-cardina1-red-147112.png"
+									orig-src="https://gnusocial.cardina1.red/file/3eda5ece7bbb885ebbc72c70c36fc4cc088fcb5311d71490597db44ca43f756d.png"
+									orig-page="https://gnusocial.cardina1.red/attachment/24474" />
+						</snsq:attachments>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147116">
-						<p>
-							alpha が 0 の部分でクリアされてない色が見えちゃうとかそういう系かな
-						</p>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147116">@loliconductor@gnusocial.cardina1.red, 2017-07-23 15:16</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147116">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T03:16:45+0900">2017-07-23 03:16:45</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+							<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/147112" />
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								alpha が 0 の部分でクリアされてない色が見えちゃうとかそういう系かな
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/147986">
-						<p>
-							眼に透明テクスチャが使われてるの、予想以上に厄介だぞこれ……
-						</p>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/147986">@loliconductor@gnusocial.cardina1.red, 2017-07-23 19:55</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/147986">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T19:55:50+0900">2017-07-23 19:55:50</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								眼に透明テクスチャが使われてるの、予想以上に厄介だぞこれ……
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/148107">
-						<p>
-							やはりどうにかして虹彩の描画順を白目部分より後にしてやるしかないか
-						</p>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/148107">@loliconductor@gnusocial.cardina1.red, 2017-07-23 22:07</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/148107">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-23T22:07:02+0900">2017-07-23 22:07:02</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								やはりどうにかして虹彩の描画順を白目部分より後にしてやるしかないか
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/149163">
-						<p>
-							結局、指定したメッシュを後で描画するようにしたらうまくいった
-						</p>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/149163">@loliconductor@gnusocial.cardina1.red, 2017-07-24 17:49</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/149141">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-24T17:30:46+0900">2017-07-24 17:30:46</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								プロ
+								<a href="https://gnusocial.cardina1.red/file/1b4df774dbcb084811139afddf5fe94a5be9ba5013c4fbee8463c0b3e786efbb.png">https://gnusocial.cardina1.red/attachment/24836</a>
+								<a href="https://gnusocial.cardina1.red/file/91cceaf3971c68395eb07abd58a349cf9135b0be7ab56d60679cff8bc0aa645d.png">https://gnusocial.cardina1.red/attachment/24837</a>
+							</p>
+						</snsq:content>
+						<snsq:attachments>
+							<snsq:image
+									src="gnusocial-cardina1-red-149141-1.png"
+									orig-src="https://gnusocial.cardina1.red/file/1b4df774dbcb084811139afddf5fe94a5be9ba5013c4fbee8463c0b3e786efbb.png"
+									orig-page="https://gnusocial.cardina1.red/attachment/24836" />
+							<snsq:image
+									src="gnusocial-cardina1-red-149141-2.png"
+									orig-src="https://gnusocial.cardina1.red/file/91cceaf3971c68395eb07abd58a349cf9135b0be7ab56d60679cff8bc0aa645d.png"
+									orig-page="https://gnusocial.cardina1.red/attachment/24837" />
+						</snsq:attachments>
+					</snsq:sns-quote>
 				</figure>
 				<figure class="col-xs-12 col-lg-6">
-					<blockquote cite="https://gnusocial.cardina1.red/notice/149163">
-						<p>
-							プロ
-						</p>
-						<div>
-							<a href="https://gnusocial.cardina1.red/file/1b4df774dbcb084811139afddf5fe94a5be9ba5013c4fbee8463c0b3e786efbb.png">
-								<img src="https://gnusocial.cardina1.red/file/1b4df774dbcb084811139afddf5fe94a5be9ba5013c4fbee8463c0b3e786efbb.png" alt="" />
-							</a>
-						</div>
-						<div>
-							<a href="https://gnusocial.cardina1.red/file/91cceaf3971c68395eb07abd58a349cf9135b0be7ab56d60679cff8bc0aa645d.png">
-								<img src="https://gnusocial.cardina1.red/file/91cceaf3971c68395eb07abd58a349cf9135b0be7ab56d60679cff8bc0aa645d.png" alt="" />
-							</a>
-						</div>
-						<footer>
-							&#x2014; <a href="https://gnusocial.cardina1.red/notice/149163">@loliconductor@gnusocial.cardina1.red, 2017-07-24 17:49</a>
-						</footer>
-					</blockquote>
+					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/149163">
+						<snsq:identity url="https://gnusocial.cardina1.red/user/3">
+							<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+							<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
+							<snsq:service>GNU Social</snsq:service>
+							<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-07-24T17:49:14+0900">2017-07-24 17:49:14</snsq:timestamp>
+							<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
+							<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/148107" />
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								結局、指定したメッシュを後で描画するようにしたらうまくいった
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
 				</figure>
 			</div>
 		</figure>
