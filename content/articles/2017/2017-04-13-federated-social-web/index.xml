@@ -400,7 +400,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			<snsq:icon src="https://js4.in/alttw/avatar/8-96-20170110112521.png" />
 			<snsq:screen-name>はいこん</snsq:screen-name>
 			<snsq:service>GNU Social</snsq:service>
-			<snsq:nickname>@obsoletestandard@js4.in</snsq:nickname>
+			<snsq:nickname>@obsoletestandard@js4.in/alttw</snsq:nickname>
 		</snsq:identity>
 		<snsq:meta>
 			<snsq:timestamp datetime="2017-03-04T21:17:40+0900">2017-03-04 21:17:40</snsq:timestamp>
