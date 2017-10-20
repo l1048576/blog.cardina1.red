@@ -5,9 +5,10 @@ title: "nginx での安全な SSL 設定 (Android 4.4.2 対応)"
 htags:
   - "computer/server/nginx"
 kind: article
-opengraph:
-  image: "ssllabs-test-result.png"
+article_metadata:
+  image_url: "ssllabs-test-result.png"
   image_base: "relpath"
+  image_alt: "SSL Labs で、なんとか評価 A を獲得できた"
 
 excerpt: "nginx で SSL 設定をする際、できるだけ安全に Android-4.4.2 に対応したかったため、設定を模索した。"
 ---

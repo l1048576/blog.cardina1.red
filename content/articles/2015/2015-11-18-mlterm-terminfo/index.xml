@@ -6,9 +6,10 @@ htags:
   - "computer/terminal/terminfo"
   - "troubleshooting/solved"
 kind: article
-opengraph:
-  image: "mlterm-tmux-ok.png"
+article_metadata:
+  image_url: "mlterm-tmux-ok.png"
   image_base: "relpath"
+  image_alt: "tmux on mlterm で256色出すことに成功した"
 
 excerpt: "mltermでHomeやEndキーがうまく動かなかったため、原因を究明し解決した。"
 ---

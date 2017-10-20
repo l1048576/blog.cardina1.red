@@ -9,9 +9,10 @@ htags:
   - "つらぽよ"
   - "troubleshooting"
 kind: article
-opengraph:
-  image: "maitetsu-run-error1.png"
+article_metadata:
+  image_url: "maitetsu-run-error1.png"
   image_base: "relpath"
+  image_alt: "ゲーム『まいてつ』で謎のエラーが出て起動できない"
 
 excerpt: "エロゲのインストールに失敗した。つらい。エロゲしたかっただけなのにどうしてこんな目に。"
 ---
