@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8" />
-	<title><%= @item[:title] %> - 何とは言わない天然水飲みたさ</title>
+	<title><%= @item[:title] %> - <%= h @config[:site_title] %></title>
 	<!-- font awesome -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<!-- sanitize.css -->
@@ -15,7 +15,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 	<link rel="canonical" href="<%= @config[:base_url] + @item.path %>" />
 	<!-- atom feed -->
-	<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="何とは言わない天然水飲みたさ" />
+	<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="<%= h @config[:site_title] %>" />
 	<%- if @prev_uri %><link rel="prev" href="<%= @prev_uri %>" /><% end -%>
 	<%- if @next_uri %><link rel="next" href="<%= @next_uri %>" /><% end -%>
 	<%- if excerpt = @item[:excerpt] %><meta name="description" content="<%= excerpt %>" /><% end -%>
@@ -27,7 +27,7 @@
 	<header>
 		<%= render '/part/browser-warnings.*' -%>
 		<div class="size-container">
-			<span class="site-title"><a href="/">何とは言わない天然水飲みたさ</a></span>
+			<span class="site-title"><a href="/"><%= h @config[:site_title] %></a></span>
 		</div>
 	</header>
 	<main>

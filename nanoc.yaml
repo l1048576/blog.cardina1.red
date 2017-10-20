@@ -92,6 +92,9 @@ checks:
 # for atom_feed (Nanoc::Blogging)
 base_url: 'https://blog.cardina1.red'
 
+# For my code.
+site_title: '何とは言わない天然水飲みたさ'
+
 # Deploy
 deploy:
     default:
