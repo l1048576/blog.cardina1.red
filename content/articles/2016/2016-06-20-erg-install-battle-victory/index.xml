@@ -9,9 +9,10 @@ htags:
   - "つらぽよ"
   - "troubleshooting/solved"
 kind: article
-opengraph:
-  image: "maitetsu-run-success.png"
+article_metadata:
+  image_url: "maitetsu-run-success.png"
   image_base: "relpath"
+  image_alt: "ゲーム『まいてつ』を無事起動できた"
 
 excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 ---
