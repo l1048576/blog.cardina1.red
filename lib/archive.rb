@@ -123,7 +123,7 @@ module Larry
             '',
             # attributes
             {
-              title: "Archive: #{year4}",
+              title: "Archive: #{year4}-#{month2}",
               year4: year4,
               month2: month2,
               next_year4_month2: next_year4_month2,
