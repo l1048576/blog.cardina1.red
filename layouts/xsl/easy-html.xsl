@@ -8,7 +8,7 @@
 	xmlns:xl="http://www.w3.org/1999/xlink"
 	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
-	exclude-result-prefixes="xsl html mml svg xl eh"
+	exclude-result-prefixes="xsl html mml svg xl eh snsq"
 >
 <!-- set output format -->
 <!--<xsl:output method="html" encoding="utf-8" indent="yes" omit-xml-declaration="yes" />-->
