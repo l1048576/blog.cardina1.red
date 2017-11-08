@@ -31,11 +31,11 @@ module Larry
     end
 
     def older_article
-      next_link sorted_articles, prefix: '<small>older &raquo;</small> '
+      next_link sorted_articles, prefix: '<small>older &#xBB;</small> '
     end
 
     def newer_article
-      prev_link sorted_articles, suffix: ' <small>&laquo; newer</small>'
+      prev_link sorted_articles, suffix: ' <small>&#xAB; newer</small>'
     end
   end
 end

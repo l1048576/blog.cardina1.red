@@ -1,10 +1,10 @@
 <%- if src_path = source_path_for_article_list(@item[:page_index] - 1)
 		older_list_item = @items[src_path]
-		older_list_link = link_to '&laquo; older articles', older_list_item
+		older_list_link = link_to '&#xAB; older articles', older_list_item
 	end -%>
 <%- if src_path = source_path_for_article_list(@item[:page_index] + 1)
 		newer_list_item = @items[src_path]
-		newer_list_link = link_to 'newer articles &raquo;', newer_list_item
+		newer_list_link = link_to 'newer articles &#xBB;', newer_list_item
 	end -%>
 <%- render '/page-base.*',
 		prev_uri: older_list_item&.path,
