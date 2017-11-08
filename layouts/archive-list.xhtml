@@ -12,7 +12,7 @@
 <%- prev_next = render '/part/prev-next-page.*', prev_link: older_list_link, next_link: newer_list_link -%>
 <section>
 	<h1><%= @item[:title] %></h1>
-	<%= render '/part/archive-top-link.html' -%>
+	<%= render '/part/archive-top-link.xhtml' -%>
 	<p>
 		<%= @item[:index_first] + 1 %> - <%= @item[:index_last] + 1 %> 番目 (<%= @item[:num_articles_page] %> / <%= @item[:num_articles] %> 件)
 		<%= @item[:page_index] + 1 %> / <%= @item[:num_pages] %> ページ
