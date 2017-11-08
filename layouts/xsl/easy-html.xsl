@@ -147,6 +147,32 @@
 	<xsl:element name="{local-name(.)}">
 		<xsl:call-template name="copy-attributes" />
 		<xsl:apply-templates />
+		<!-- About void elements, see <https://developer.mozilla.org/en-US/docs/Glossary/Empty_element>. -->
+		<xsl:choose>
+			<!-- Void elements should be self-closing tag. -->
+			<xsl:when test="
+				html:area |
+				html:base |
+				html:br |
+				html:col |
+				html:emded |
+				html:hr |
+				html:img |
+				html:input |
+				html:link |
+				html:meta |
+				html:param |
+				html:source |
+				html:track |
+				html:wbr
+				"></xsl:when>
+			<!-- Non-void elements with child content cannot not be self-closing and no more things to do. -->
+			<xsl:when test="html:*[node()]"></xsl:when>
+			<!-- Non-void elements without child content should not be self-closing. -->
+			<xsl:otherwise>
+				<xsl:comment />
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:element>
 </xsl:template>
 
@@ -223,6 +249,8 @@
 				<xsl:value-of select="concat(' ', $class)" /></xsl:if>
 		</xsl:attribute>
 		<xsl:attribute name="aria-hidden">true</xsl:attribute>
+		<!-- `<i>` should not be self-closing. -->
+		<xsl:comment />
 	</xsl:element>
 </xsl:template>
 
