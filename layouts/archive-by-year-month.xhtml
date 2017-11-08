@@ -1,10 +1,10 @@
 <%- if (next_year4, next_month2 = @item[:next_year4_month2])
 		next_month_item = @items[source_path_for_archive(next_year4, next_month2)]
-		next_month_link = link_to "&laquo; #{next_year4}年 #{next_month2}月", next_month_item
+		next_month_link = link_to "&#xAB; #{next_year4}年 #{next_month2}月", next_month_item
 	end -%>
 <%- if (prev_year4, prev_month2 = @item[:prev_year4_month2])
 		prev_month_item = @items[source_path_for_archive(prev_year4, prev_month2)]
-		prev_month_link = link_to "#{prev_year4}年 #{prev_month2}月 &raquo;", prev_month_item
+		prev_month_link = link_to "#{prev_year4}年 #{prev_month2}月 &#xBB;", prev_month_item
 	end -%>
 <%- render '/page-base.*',
 		prev_uri: next_month_item&.path,
@@ -14,7 +14,7 @@
 
 <section>
 	<h1>Archive: <%= link_to "#{year4}年", @items[source_path_for_archive(year4)] %> <%= @item[:month2] %>月</h1>
-	<%= render '/part/archive-top-link.html' -%>
+	<%= render '/part/archive-top-link.xhtml' -%>
 	<%= prev_next -%>
 	<%= render '/part/item-list.*', target_items: sorted_articles[@item[:first_index]..@item[:last_index]], header_level: 2 -%>
 	<%= prev_next -%>

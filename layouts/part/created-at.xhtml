@@ -2,7 +2,7 @@
 <div class="created-at">
 	<%- if created_at = target[:created_at] -%>
 		<p>
-			<i class="fa fa-calendar-plus-o"></i> created:
+			<i class="fa fa-calendar-plus-o"><!-- --></i> created:
 			<%- year4 = created_at.strftime('%Y') -%>
 			<%- month2 = created_at.strftime('%m') -%>
 			<time datetime="<%= created_at.strftime('%FT%T%:z') %>"><%= link_to_unless_current "#{year4}", @items[source_path_for_archive(year4)] %>/<%= link_to_unless_current "#{month2}", @items[source_path_for_archive(year4, month2)] %>/<%= created_at.strftime('%d (%a) %H:%M %Z') %></time>
@@ -10,7 +10,7 @@
 	<%- end -%>
 	<%- if updated_at = target[:updated_at] -%>
 		<p>
-			<i class="fa fa-calendar-check-o"></i> updated:
+			<i class="fa fa-calendar-check-o"><!-- --></i> updated:
 			<time datetime="<%= updated_at.strftime('%FT%T%:z') %>"><%= updated_at.strftime('%Y/%m/%d (%a) %H:%M %Z') %></time>
 		</p>
 	<%- end -%>

@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+# Copied from <https://github.com/nanoc/nanoc/blob/70b5726576c79f2eaf0c258c225fe8948dbe324a/lib/nanoc/filters/relativize_paths.rb>.
+XHTML_RELPATH_SELECTORS = ['*/@href', '*/@src', 'object/@data', 'param[@name="movie"]/@content', 'form/@action', 'comment()'].freeze
+
 # Preprocess {{{1
 
 preprocess do
@@ -25,27 +28,22 @@ end
 ignore '/**/_*'
 
 
-compile '/archive.html' do
-  layout '/archive-date.*'
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+compile '/archive.xhtml' do
+  layout '/archive-date.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
 compile '/articles/**/*.xml' do
   filter :larry_xsl, xsl: '/xsl/easy-html.xsl'
   filter :colorize_syntax, default_colorizer: :pygmentsrb, syntax: :xml
-  layout '/article.*'
-  # Output of layout '/article.*' is non-XML HTML (which may contain
-  # external references specific to HTML and not available in XML).
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+  layout '/article.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
-compile '/articles/**/*.html' do
+compile '/articles/**/*.xhtml' do
   filter :colorize_syntax, default_colorizer: :pygmentsrb
-  layout '/article.*'
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+  layout '/article.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
 compile '/assets/**/*.scss' do
@@ -53,24 +51,21 @@ compile '/assets/**/*.scss' do
   filter :relativize_paths, type: :css
 end
 
-compile '/tags/index.html.erb' do
+compile '/tags/index.xhtml.erb' do
   filter :erb
-  layout '/page-base.*'
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+  layout '/page-base.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
-compile '/tags/search.html' do
+compile '/tags/search.xhtml' do
   filter :colorize_syntax, default_colorizer: :pygmentsrb
-  layout '/page-base.*'
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+  layout '/page-base.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
-compile '/tags/**/*.html' do
-  layout '/htag-page.*'
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+compile '/tags/**/*.xhtml' do
+  layout '/htag-page.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
 compile '/tags/**/*.json' do
@@ -81,41 +76,35 @@ compile '/feed.xml' do
   filter :erb
 end
 
-compile '/list/index.html' do
-  layout '/archive-list-index.*'
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+compile '/list/index.xhtml' do
+  layout '/archive-list-index.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
-compile '/list/*.html' do
-  layout '/archive-list.*'
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+compile '/list/*.xhtml' do
+  layout '/archive-list.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
-compile %r[^/\d{4}/index\.html] do
-  layout '/archive-by-year.html'
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+compile %r[^/\d{4}/index\.xhtml] do
+  layout '/archive-by-year.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
-compile %r[^/\d{4}/\d{2}/index\.html] do
-  layout '/archive-by-year-month.html'
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+compile %r[^/\d{4}/\d{2}/index\.xhtml] do
+  layout '/archive-by-year-month.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
-compile '/**/*.html' do
-  layout '/page-base.html'
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+compile '/**/*.xhtml' do
+  layout '/page-base.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
-compile '/**/*.html.erb' do
+compile '/**/*.xhtml.erb' do
   filter :erb
-  layout '/page-base.html'
-  filter :relativize_paths, type: :html
-  filter :xhtml5ize, type: :html
+  layout '/page-base.xhtml'
+  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
 compile '/**/*.json.erb' do
@@ -125,10 +114,10 @@ end
 compile '/**/*' do
 end
 
-# /articles/**/yyyy-mm-dd-slug/**/index.{html,adoc,xml} => /yyyy/mm/dd/slug/**/index.html
-# /articles/**/yyyy-mm-dd-slug/**/*.{html,adoc,xml} => /yyyy/mm/dd/slug/**/*/index.html
-route %r[^/articles/(?:[^/]+/)*(\d{4})-(\d{2})-(\d{2})-(.+?)(?:/index)?\.(?:html|adoc|xml)$] do |yyyy, mm, dd, slug_relpath|
-  "/#{yyyy}/#{mm}/#{dd}/#{slug_relpath}/index.html"
+# /articles/**/yyyy-mm-dd-slug/**/index.{xhtml,xml} => /yyyy/mm/dd/slug/**/index.xhtml
+# /articles/**/yyyy-mm-dd-slug/**/*.{xhtml,xml} => /yyyy/mm/dd/slug/**/*/index.xhtml
+route %r[^/articles/(?:[^/]+/)*(\d{4})-(\d{2})-(\d{2})-(.+?)(?:/index)?\.(?:xhtml|xml)$] do |yyyy, mm, dd, slug_relpath|
+  "/#{yyyy}/#{mm}/#{dd}/#{slug_relpath}/index.xhtml"
 end
 
 # /articles/**/yyyy-mm-dd-slug/* => /yyyy/mm/dd/slug/*
@@ -144,7 +133,7 @@ route '/assets/**/*' do
   @item.identifier.to_s
 end
 
-route '/**/*.{html,json}.erb' do
+route '/**/*.{xhtml,json}.erb' do
   @item.identifier.without_ext
 end
 
