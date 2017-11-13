@@ -32,7 +32,7 @@ module Larry
 
     def create_tag_pages
       tag_set(articles).each do |tag|
-        page_path = "/tags/#{h tag}/index.html"
+        page_path = "/tags/#{h tag}/index.xhtml"
         content = ''
         @items.create(
           # content

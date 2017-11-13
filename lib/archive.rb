@@ -201,14 +201,14 @@ module Larry
 
     def source_path_for_archive(year=nil, month=nil)
       if year.nil?
-        '/archive.html'
+        '/archive.xhtml'
       else
         year = sprintf('%04d', year) if year.is_a?(Integer)
         if month.nil?
-          "/#{year}/index.html"
+          "/#{year}/index.xhtml"
         else
           month = sprintf('%04d', month) if month.is_a?(Integer)
-          "/#{year}/#{month}/index.html"
+          "/#{year}/#{month}/index.xhtml"
         end
       end
     end
@@ -216,9 +216,9 @@ module Larry
     # page: Integer
     def source_path_for_article_list(page=nil)
       if page.nil?
-        '/list/index.html'
+        '/list/index.xhtml'
       elsif page >= 0 && page < article_list_num_pages
-        "/list/#{page}.html"
+        "/list/#{page}.xhtml"
       end
     end
   end

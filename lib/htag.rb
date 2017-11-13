@@ -16,8 +16,10 @@ module Larry
         # (たとえば'a/b/../c'であれば'a/b'までが使われる)。
         # 空文字列でない
         !frag.empty? &&
-        # "index.html" でない(タグページに使うため、この名前のディレクトリができては困る)
+        # "index.html" でない(過去のタグページに使うため、この名前のディレクトリができてほしくない)
         (frag != 'index.html') &&
+        # "index.xhtml" でない(タグページに使うため、この名前のディレクトリができては困る)
+        (frag != 'index.xhtml') &&
         # '..'でない
         (frag != '..') &&
         # backslash ('\\')を含まない
@@ -32,14 +34,14 @@ module Larry
     # htag :: String(unescaped)
     # return :: String(html)
     # "a/b/c" ->
-    #   "<li><a href="#{tags_root}#{h u(a)}/index.html">#{h a}</a></li>
-    #    <li><a href="#{tags_root}#{h u(a)}/#{h u(b)}/index.html">#{h b}</a></li>
-    #    <li><a href="#{tags_root}#{h u(a)}/#{h u(b)}/#{h u(c)}/index.html">#{h c}</a></li>"
+    #   "<li><a href="#{tags_root}#{h u(a)}/index.xhtml">#{h a}</a></li>
+    #    <li><a href="#{tags_root}#{h u(a)}/#{h u(b)}/index.xhtml">#{h b}</a></li>
+    #    <li><a href="#{tags_root}#{h u(a)}/#{h u(b)}/#{h u(c)}/index.xhtml">#{h c}</a></li>"
     def htag_breadcrumb_li(htag, tags_base_dir, attributes={})
       buffer = ''.dup
       decompose_htagpath(htag).each_with_object(tags_base_dir.dup){|tag, current_path|
         current_path << u(tag) + '/'
-        buffer << "<li>#{link_to_unless_current h(tag), current_path+'index.html', attributes}</li>"
+        buffer << "<li>#{link_to_unless_current h(tag), current_path+'index.xhtml', attributes}</li>"
       }
       buffer
     end
@@ -170,7 +172,7 @@ module Larry
     def link_to_htag(tag_node, tagpage_base_dir, text=nil, options: {})
       text ||= h(tag_node.name)
       tagpage_base_dir += '/' unless tagpage_base_dir.end_with?('/')
-      link_to text, tagpage_base_dir + tag_node.rel_uri + '/index.html', options
+      link_to text, tagpage_base_dir + tag_node.rel_uri + '/index.xhtml', options
     end
 
     def print_tagtree(tag_node, tagpage_base_dir, node_text=nil, buffer: nil, options: {})

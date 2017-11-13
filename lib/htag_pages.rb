@@ -17,7 +17,7 @@ module Larry
             target: current_tag,
           },
           # path
-          htag_base_dir + current_tag + '/index.html')
+          htag_base_dir + current_tag + '/index.xhtml')
         @items.create(
           # content
           '',
