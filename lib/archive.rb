@@ -201,7 +201,7 @@ module Larry
 
     def source_path_for_archive(year=nil, month=nil)
       if year.nil?
-        '/archive.xhtml'
+        '/archive/index.xhtml'
       else
         year = sprintf('%04d', year) if year.is_a?(Integer)
         if month.nil?
@@ -218,7 +218,7 @@ module Larry
       if page.nil?
         '/list/index.xhtml'
       elsif page >= 0 && page < article_list_num_pages
-        "/list/#{page}.xhtml"
+        "/list/#{page}/index.xhtml"
       end
     end
   end
