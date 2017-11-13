@@ -142,7 +142,7 @@ title: タグ検索
 <script src="./htag_search.js"></script>
 <script src="./html-template.js"></script>
 
-<script>
+<script>//<![CDATA[
 	'use strict';
 	const base_url = `${window.location.protocol}//${window.location.host}`;
 	const current_url = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
@@ -239,4 +239,4 @@ title: タグ検索
 		}, new Map());
 		document.getElementById('htag-search-query').value = arg_map.get('query');
 	});
-</script>
+//]]></script>

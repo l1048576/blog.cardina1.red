@@ -28,7 +28,7 @@ end
 ignore '/**/_*'
 
 
-compile '/archive.xhtml' do
+compile '/archive/index.xhtml' do
   layout '/archive-date.xhtml'
   filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
