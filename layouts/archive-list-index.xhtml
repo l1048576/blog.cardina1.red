@@ -6,7 +6,7 @@
 	<ol start="0">
 		<%- @item[:periods].each_with_index do |created_at, i| -%>
 			<li>
-				<%= link_to "#{created_at[0].strftime(datetime_format)} - #{created_at[1].strftime(datetime_format)}", "/list/#{i}.xhtml" -%>
+				<%= link_to "#{created_at[0].strftime(datetime_format)} - #{created_at[1].strftime(datetime_format)}", "/list/#{i}" -%>
 			</li>
 		<%- end -%>
 	</ol>

@@ -81,7 +81,7 @@ compile '/list/index.xhtml' do
   filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
 
-compile '/list/*.xhtml' do
+compile '/list/*/index.xhtml' do
   layout '/archive-list.xhtml'
   filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
