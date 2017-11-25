@@ -1,6 +1,6 @@
 ---
 created_at: 2017-05-20T20:50:34+0900
-updated_at: 2017-06-01T12:42:33+0900
+updated_at: 2017-11-25T14:38:15+0900
 title: "nginx での安全な SSL 設定 (Android 4.4.2 対応)"
 htags:
   - "computer/server/nginx"
@@ -113,8 +113,13 @@ excerpt: "nginx で SSL 設定をする際、できるだけ安全に Android-4.
 	<ul>
 		<li>
 			<p>
-				本来であれば SSL Labs のテストで A+ 評価だったのに、 Android 4.4.2 対応のせいで A に落ちた。
-				くやしい。
+				<del datetime="2017-11-25T14:38:15+0900">本来であれば SSL Labs のテストで A+ 評価だったのに、 Android 4.4.2 対応のせいで A に落ちた。くやしい。</del>
+				<br /><ins datetime="2017-11-25T14:38:15+0900">2017-11-25 追記: 関係なかったっぽい。</ins>
+			</p>
+		</li>
+		<li>
+			<p>
+				HSTS を有効化すると、 SSL Labs で A+ 評価をとれる。
 			</p>
 		</li>
 		<li>
