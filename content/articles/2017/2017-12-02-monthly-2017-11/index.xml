@@ -1,0 +1,649 @@
+---
+created_at: 2017-12-02T01:31:56+0900
+title: "Monthly report 2017-11"
+htags:
+  - "日常/日記"
+kind: article
+
+excerpt: "2017年 11月 まとめ"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
+	id="2017-11-30-monthly-2017-11"
+>
+<eh:title>Monthly report 2017-11</eh:title>
+<p>
+	2017-11 の日記。
+</p>
+
+<eh:section id="news">
+	<eh:title>ニュース・知ったこと</eh:title>
+
+	<eh:section id="mastodon-meta-forum-ja">
+		<eh:title>Mastodon日本語メタフォーラム 開設 (2017-11-13)</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://discourse.mstdn.jp/">Mastodon日本語メタフォーラム</a>
+			</li>
+			<li>
+				<a href="https://edge.mstdn.jp/@metaforum_ja">Mastodon日本語メタフォーラム - mstdn.jp on The Edge</a>
+				(新規トピック通知 bot)
+			</li>
+			<li>
+				<snsq:sns-quote url="https://mstdn.jp/@nullkal/98996047020704862">
+					<snsq:identity url="https://mstdn.jp/@nullkal">
+						<snsq:icon src="nullkal.mstdn.jp.2017-12-02.jpg" />
+						<snsq:screen-name>nullkal🦊</snsq:screen-name>
+						<snsq:service>mastodon</snsq:service>
+						<snsq:nickname>@nullkal@mstdn.jp</snsq:nickname>
+					</snsq:identity>
+					<snsq:meta>
+						<snsq:timestamp datetime="2017-11-13T16:56:39+0900">2017-11-13 16:56:39</snsq:timestamp>
+						<snsq:reftime datetime="2017-12-02T00:14:32+0900">2017-12-02</snsq:reftime>
+					</snsq:meta>
+					<snsq:content>
+						<p>
+							Mastodonの開発・運用に関する話題を日本語でするためのフォーラムを作りました<br />
+							<a href="https://discourse.mstdn.jp/">https://discourse.mstdn.jp/</a>
+						</p>
+					</snsq:content>
+				</snsq:sns-quote>
+			</li>
+		</ul>
+		<p>
+			日本の超大手インスタンスである <a href="https://mstdn.jp/">mstdn.jp</a> の管理人、ぬるかる氏が開設した日本語フォーラム。
+			疑問とか要望っぽいのはあるけど issue 立てるほどでも……とか、宣伝・自慢したいとか、そんな感じの話ができる。
+		</p>
+	</eh:section>
+
+	<eh:section id="firefox-quantum-release">
+		<eh:title>Firefox Quantum リリース (2017-11-14)</eh:title>
+		<ul>
+			<li>
+				<a href="https://www.mozilla.org/ja/firefox/">Mac、PC、Linux 向け新高速ブラウザー | Firefox</a>
+			</li>
+			<li>
+				<snsq:sns-quote url="https://twitter.com/i/web/status/930540926786666497">
+					<snsq:identity url="https://twitter.com/intent/user?user_id=124439359">
+						<snsq:icon src="mozillajp.twitter.2017-12-02.jpg" />
+						<snsq:screen-name>Mozilla Japan コミュニティ</snsq:screen-name>
+						<snsq:service>twitter</snsq:service>
+						<snsq:nickname>@mozillajp</snsq:nickname>
+					</snsq:identity>
+					<snsq:meta>
+						<snsq:timestamp datetime="2017-11-15T06:00:20.217+0900">2017-11-15 06:00:20</snsq:timestamp>
+						<snsq:reftime datetime="2017-12-02T00:14:32+0900">2017-12-02</snsq:reftime>
+					</snsq:meta>
+					<snsq:content>
+						<p>
+							🔥 新エンジン搭載で爆速化<br />
+							📉 Chrome より 30% 省メモリー<br />
+							🎨 洗練されたデザイン<br />
+							🕶 強力プライベートブラウジング<br />
+							⚙️ 豊富な拡張機能とテーマ<br />
+							📱 スマホやタブレットと同期<br />
+							🚪 ブラウザー乗り換えも簡単<br />
+							💕 開発元は非営利法人
+						</p>
+						<p>
+							Firefox Quantum、誕生。<br />
+							<a href="https://www.mozilla.org/ja/firefox ">https://www.mozilla.org/ja/firefox</a>
+						</p>
+					</snsq:content>
+					<snsq:attachments>
+						<snsq:image
+								orig-src="https://pbs.twimg.com/media/DOnxz0EWAAAiR2M.jpg:orig"
+								orig-page="https://twitter.com/i/web/status/930540926786666497"
+								/>
+					</snsq:attachments>
+				</snsq:sns-quote>
+			</li>
+		</ul>
+		<p>
+			Rust のコード等も組み込まれている、 <a href="https://hacks.mozilla.org/2017/08/inside-a-super-fast-css-engine-quantum-css-aka-stylo/">Quantum CSS (Stylo)</a> が有効化された安定リリース。
+			内部だけでなく、 UI 等も刷新された。
+		</p>
+		<p>
+			私は Firefox beta を使っているので数週間前から恩恵に与っていた。
+			内部エンジンが変わったから何なんだという感想を持つ人もあるかもしれないが、ユーザにとって(わかりやすく)直接的に嬉しいのは、マルチプロセス対応とかだろうか。
+		</p>
+	</eh:section>
+
+	<eh:section id="miagete-english">
+		<eh:title>『見上げてごらん、夜空の星を』 英語版 発表 (2017-11-17)</eh:title>
+		<ul>
+			<li>
+				<a href="http://moenovel.com/a-sky-full-of-stars">A Sky Full of Stars | MoeNovel</a>
+			</li>
+			<li>
+				<snsq:sns-quotes>
+					<snsq:sns-quote url="https://twitter.com/i/web/status/931458642418774016">
+						<snsq:identity url="https://twitter.com/intent/user?user_id=1424843924">
+							<snsq:icon src="moenovel.twitter.2017-12-02.jpg" />
+							<snsq:screen-name>MoeNovel</snsq:screen-name>
+							<snsq:service>twitter</snsq:service>
+							<snsq:nickname>@Moenovel</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-11-17T18:47:00.674+0900">2017-11-17 18:47:00</snsq:timestamp>
+							<snsq:reftime datetime="2017-12-02T01:01:38+0900">2017-12-02</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								We are excited to announce A Sky Full Of Stars is coming in December!
+								The starry sky spreads far and wide overhead...
+								A story full of love, comedy, &amp; excitement follows our protagonist &amp; his stargazing friends as they grow together.<br />
+								<a href="http://moenovel.com/a-sky-full-of-stars">http://moenovel.com/a-sky-full-of-stars</a><br />
+								<a href="http://store.steampowered.com/app/745960/A_Sky_Full_of_Stars">http://store.steampowered.com/app/745960/A_Sky_Full_of_Stars</a>
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
+					<snsq:sns-quote url="https://twitter.com/i/web/status/931549597947846657">
+						<snsq:identity url="https://twitter.com/intent/user?user_id=asta_konno">
+							<snsq:icon src="asta_konno.twitter.2017-12-02.jpg" />
+							<snsq:screen-name>紺野アスタ＠なろうで連載中</snsq:screen-name>
+							<snsq:service>twitter</snsq:service>
+							<snsq:nickname>@asta_konno</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-11-18T00:48:26.162+0900">2017-11-18 00:48:26</snsq:timestamp>
+							<snsq:reftime datetime="2017-12-02T01:01:38+0900">2017-12-02</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								【みあげて】ころげてに続き『見上げてごらん、夜空の星を』が世界へ羽ばたきます！！ 平たく言うとスチーム移植されます。自分の書いたものを海外の人に遊んでいただけるなんて数年前は想像もしてなかったので、驚くやら嬉しいやら。　<a href="https://twitter.com/hashtag/%E5%A4%9C%E7%A9%BA%E3%81%AE%E6%98%9F%E3%82%92">#夜空の星を</a><br />
+								<a href="http://moenovel.com/a-sky-full-of-stars">http://moenovel.com/a-sky-full-of-stars</a>
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
+				</snsq:sns-quotes>
+			</li>
+		</ul>
+		<p>
+			<a href="https://www.youtube.com/watch?v=zqGpHOLGIlo">OP曲</a>とか<a href="https://www.youtube.com/watch?v=dzQNWtJD8aw">テーマ曲</a>とか非常に好きなので気になっていたゲーム。
+			翻訳されるくらいなんだから面白いのだろう。
+			<a href="https://redmine.cardina1.red/issues/39">そのうちやってみたい</a>。
+		</p>
+	</eh:section>
+
+	<eh:section id="monobeno-chinese">
+		<eh:title>『ものべの -happy end-』 中国語版 発表 (2017-11-17)</eh:title>
+		<ul>
+			<li>
+				<a href="http://hikarifield.co.jp/mnbn/">茂伸奇谈-happy end- 中文官方网站</a>
+			</li>
+			<li>
+				<snsq:sns-quote url="https://twitter.com/i/web/status/931502374773964800">
+					<snsq:identity url="https://twitter.com/intent/user?user_id=826149872701104128">
+						<snsq:icon src="news_lose.twitter.2017-12-02.jpg" />
+						<snsq:screen-name>Lose@まいてつ第３刷発売中！</snsq:screen-name>
+						<snsq:service>twitter</snsq:service>
+						<snsq:nickname>@news_lose</snsq:nickname>
+					</snsq:identity>
+					<snsq:meta>
+						<snsq:timestamp datetime="2017-11-17T21:40:47.280+0900">2017-11-17 21:40:47</snsq:timestamp>
+						<snsq:reftime datetime="2017-12-02T00:53:25+0900">2017-12-02</snsq:reftime>
+					</snsq:meta>
+					<snsq:content>
+						<p>
+							突然ですが「 ものべの-happy end-」の中国語版が発表されました！　HIKARI FIELD様より、簡体字・繁体字で販売されます！　中国語だと「茂伸奇谈」となるようです。公式サイトには翻訳ムービーもありますので、是非ご確認下さい！！　<a href="http://hikarifield.co.jp/mnbn/">http://hikarifield.co.jp/mnbn/</a>
+						</p>
+					</snsq:content>
+					<snsq:attachments>
+						<snsq:image
+								orig-src="https://pbs.twimg.com/media/DO1ccwGUQAASIth.jpg:orig"
+								orig-page="https://twitter.com/i/web/status/931502374773964800"
+								/>
+					</snsq:attachments>
+				</snsq:sns-quote>
+			</li>
+		</ul>
+		<p>
+			すごい。めでたい。
+			しかし英語じゃなくて中国語か……
+			もっとも、英語で出たところであのシナリオを英語でやられて私が理解できるとも思えないが。
+		</p>
+		<p>
+			はやくクリアして『まいてつ』やりたい……(最近ｴﾖｹﾞ自体起動してない顔)
+		</p>
+	</eh:section>
+
+	<eh:section id="rust-1-22-release">
+		<eh:title>Rust 1.22 (と 1.22.1) リリース (2017-11-22)</eh:title>
+		<ul>
+			<li>
+				<a href="https://blog.rust-lang.org/2017/11/22/Rust-1.22.html">Announcing Rust 1.22 (and 1.22.1) - The Rust Programming Language Blog</a>
+			</li>
+			<li>
+				<a href="https://www.rust-lang.org/ja-JP/">プログラミング言語 Rust</a>
+			</li>
+			<li>
+				<a href="https://github.com/rust-lang/rust/"><eh:emoji fontawesome="github" /> rust-lang/rust: A safe, concurrent, practical language.</a>
+			</li>
+		</ul>
+		<p>
+			<code>Option</code> に対して <code>?</code> 演算子を使えるようになったのが目玉機能かな。
+		</p>
+		<p>
+			このリリースとは直接関係ないが、 <a href="https://github.com/rust-lang-nursery/rls">rls-preview</a> が rustup からインストールできるようになったりとか、 <a href="https://www.hellorust.com/news/native-wasm-target.html">WebAssembly へのコンパイルができるようになった</a>りとか、最近いろいろ面白い。
+			これからの進歩も楽しみだ。
+		</p>
+	</eh:section>
+
+	<eh:section id="diesel-0-99-release">
+		<eh:title>diesel crate の v0.99.0 がリリース (2017-11-29)</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/diesel-rs/diesel"><eh:emoji fontawesome="github" /> diesel-rs/diesel: A safe, extensible ORM and Query Builder for Rust</a>
+			</li>
+			<li>
+				<snsq:sns-quotes mode="tiny">
+					<snsq:sns-quote url="https://twitter.com/i/web/status/935663851936219138">
+						<snsq:identity url="https://twitter.com/intent/user?user_id=4888493863">
+							<snsq:icon src="dieselframework.twitter.2017-12-01.jpg" />
+							<snsq:screen-name>Diesel</snsq:screen-name>
+							<snsq:service>twitter</snsq:service>
+							<snsq:nickname>@dieselframework</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-11-29T09:17:00.752+0900">2017-11-29 09:17:00</snsq:timestamp>
+							<snsq:reftime datetime="2017-12-01T23:52:56+0900">2017-12-01</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								Diesel 0.99.0 has been released! (It's like 1.0 except that it's not)<br />
+								<a href="https://github.com/diesel-rs/diesel/releases/tag/v0.99.0">https://github.com/diesel-rs/diesel/releases/tag/v0.99.0</a>
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
+					<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/99088588052348458">
+						<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+							<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+							<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+							<snsq:service>mastodon</snsq:service>
+							<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-11-30T01:11:40+0900">2017-11-30 01:11:40</snsq:timestamp>
+							<snsq:reftime datetime="2017-11-30T18:48:47+0900">2017-11-30</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								Release v0.99.0 (It's basically 1.0 except it's not) · diesel-rs/diesel<br />
+								<a href="https://github.com/diesel-rs/diesel/releases/tag/v0.99.0">https://github.com/diesel-rs/diesel/releases/tag/v0.99.0</a>
+							</p>
+							<p>
+								いつぞやの Linux みたいなバージョニングだなwww
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
+					<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/99088599770296782">
+						<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+							<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+							<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+							<snsq:service>mastodon</snsq:service>
+							<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-11-30T01:14:02+0900">2017-11-30 01:14:02</snsq:timestamp>
+							<snsq:reftime datetime="2017-11-30T18:48:47+0900">2017-11-30</snsq:reftime>
+							<snsq:in-reply-to url="https://mastodon.cardina1.red/@lo48576/99088588052348458" />
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								Linux - Wikipedia<br />
+								<a href="https://ja.wikipedia.org/wiki/Linux#.E3.82.AB.E3.83.BC.E3.83.8D.E3.83.AB.E9.96.8B.E7.99.BA.E3.81.AE.E9.81.8D.E6.AD.B4">https://ja.wikipedia.org/wiki/Linux#.E3.82.AB.E3.83.BC.E3.83.8D.E3.83.AB.E9.96.8B.E7.99.BA.E3.81.AE.E9.81.8D.E6.AD.B4</a><br />
+								Index of /Linux.old/kernel/<br />
+								<a href="http://www.oldlinux.org/Linux.old/kernel/">http://www.oldlinux.org/Linux.old/kernel/</a>
+							</p>
+							<p>
+								Linus が「もう95%完成したやろwww」っていきなり 0.95 に上げたら、その後大変苦労したとかいう話を思い出した
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
+				</snsq:sns-quotes>
+			</li>
+		</ul>
+	</eh:section>
+</eh:section>
+
+<eh:section id="public-activities">
+	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
+
+	<eh:section id="pull-req-lazy-init">
+		<eh:title>lazy-init crate へプルリク出した(マージされた)</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/khuey/lazy-init"><eh:emoji fontawesome="github" /> khuey/lazy-init</a>
+			</li>
+			<li>
+				<a href="https://crates.io/crates/lazy-init">lazy-init - Cargo: packages for Rust</a>
+			</li>
+			<li>
+				<a href="https://github.com/khuey/lazy-init/pull/1">Some refactoring by lo48576 · Pull Request #1 · khuey/lazy-init</a>
+			</li>
+			<li>
+				<a href="https://github.com/khuey/lazy-init/pull/2">Add `Default` impls by lo48576 · Pull Request #2 · khuey/lazy-init</a>
+			</li>
+			<li>
+				<snsq:sns-quotes mode="tiny">
+					<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/98973726417849141">
+						<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+							<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+							<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+							<snsq:service>mastodon</snsq:service>
+							<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-11-09T18:20:14+0900">2017-11-09 18:20:14</snsq:timestamp>
+							<snsq:reftime datetime="2017-11-30T18:48:47+0900">2017-11-30</snsq:reftime>
+							<snsq:in-reply-to url="https://mastodon.cardina1.red/@lo48576/98973634126526288" />
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								Some refactoring by lo48576 · Pull Request #1 · khuey/lazy-init<br />
+								<a href="https://github.com/khuey/lazy-init/pull/1">https://github.com/khuey/lazy-init/pull/1</a><br />
+								Add `Default` impls by lo48576 · Pull Request #2 · khuey/lazy-init<br />
+								<a href="https://github.com/khuey/lazy-init/pull/2">https://github.com/khuey/lazy-init/pull/2</a>
+							</p>
+							<p>
+								クッソショボいプルリクを発動した
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
+					<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/98973728116255828">
+						<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+							<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+							<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+							<snsq:service>mastodon</snsq:service>
+							<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-11-09T18:20:40+0900">2017-11-09 18:20:40</snsq:timestamp>
+							<snsq:reftime datetime="2017-11-30T18:48:47+0900">2017-11-30</snsq:reftime>
+							<snsq:in-reply-to url="https://mastodon.cardina1.red/@lo48576/98973726417849141" />
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								`Default` の実装が本命で、リファクタリングはオマケ
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
+					<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/98984987563930163">
+						<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+							<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+							<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+							<snsq:service>mastodon</snsq:service>
+							<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-11-11T18:04:05+0900">2017-11-11 18:04:05</snsq:timestamp>
+							<snsq:reftime datetime="2017-11-30T18:48:47+0900">2017-11-30</snsq:reftime>
+							<snsq:in-reply-to url="https://mastodon.cardina1.red/@lo48576/98973728116255828" />
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								両方とも merge された 🎉
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
+				</snsq:sns-quotes>
+			</li>
+		</ul>
+
+		<p>
+			やったね。
+		</p>
+		<p>
+			lazy-init は、スレッドセーフな遅延初期化を実現するライブラリ。
+			静的サイトジェネレータで「スレッド間で共有されうるファイルコンテント(ただし実際使うかはわからないので読み込みは遅延させたい)」みたいなオブジェクトが欲しかったところ、これを見付けた。
+		</p>
+		<p>
+			似たようなものとして <a href="https://doc.rust-lang.org/std/sync/struct.Once.html"><code>std::sync::Once</code></a> が標準ライブラリにもあるが、これは初期化済フラグがグローバルなものなので、動的にポコポコ生み出すオブジェクトには使えない。
+			シングルトンを作りたいとかハードウェアを初期化したりといった用途で使うものだ。
+		</p>
+	</eh:section>
+
+	<eh:section id="pull-req-coco">
+		<eh:title>coco crate へドキュメントの誤字修正のプルリク出した(マージされた)</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/stjepang/coco"><eh:emoji fontawesome="github" /> stjepang/coco: Concurrent collections (deprecated in favor of Crossbeam)</a>
+			</li>
+			<li>
+				<a href="https://github.com/stjepang/coco/pull/19">Fix typo: `s/Attemps/Attempts/` by lo48576 · Pull Request #19 · stjepang/coco</a>
+			</li>
+			<li>
+				<a href="https://mastodon.cardina1.red/@lo48576/99003430797812718">https://mastodon.cardina1.red/@lo48576/99003430797812718</a>
+			</li>
+		</ul>
+		<p>
+			内容について特に語ることはない。
+		</p>
+		<p>
+			deprecated って言ってるしどうしようか悩んだが、まあちょくちょく更新されてるっぽいので投げとくかということになった。
+		</p>
+	</eh:section>
+
+	<eh:section id="gentoo-wiki-translation">
+		<eh:title>Gentoo wiki の「ローカライゼーション/ガイド」記事を翻訳した</eh:title>
+		<ul>
+			<li>
+				<a href="https://wiki.gentoo.org/wiki/Localization/Guide/ja">ローカライゼーション/ガイド - Gentoo Wiki</a>
+			</li>
+			<li>
+				<snsq:sns-quotes mode="tiny">
+					<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/99052287342886803">
+						<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+							<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+							<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+							<snsq:service>mastodon</snsq:service>
+							<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-11-23T15:19:18+0900">2017-11-23 15:19:18</snsq:timestamp>
+							<snsq:reftime datetime="2017-11-30T18:48:47+0900">2017-11-30</snsq:reftime>
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								typo 修正のついでに gentoo wiki の翻訳をしている
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
+					<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/99052504633053193">
+						<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+							<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+							<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+							<snsq:service>mastodon</snsq:service>
+							<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+						</snsq:identity>
+						<snsq:meta>
+							<snsq:timestamp datetime="2017-11-23T16:14:34+0900">2017-11-23 16:14:34</snsq:timestamp>
+							<snsq:reftime datetime="2017-11-30T18:48:47+0900">2017-11-30</snsq:reftime>
+							<snsq:in-reply-to url="https://mastodon.cardina1.red/@lo48576/99052504633053193" />
+						</snsq:meta>
+						<snsq:content>
+							<p>
+								ローカライゼーション/ガイド - Gentoo Wiki<br />
+								<a href="https://wiki.gentoo.org/wiki/Localization/Guide/ja">https://wiki.gentoo.org/wiki/Localization/Guide/ja</a><br />
+								ついでということで、未翻訳だった部分を全部翻訳しといた
+							</p>
+						</snsq:content>
+					</snsq:sns-quote>
+				</snsq:sns-quotes>
+			</li>
+		</ul>
+		<p>
+			<a href="https://twitter.com/i/web/status/933574118749827075">twitter で typo を発見したというツイートを見た</a>ので、
+			そういえば、いつぞや <code>LINGUAS</code> から <code>L10N</code> に引っ越せよ〜みたいなアナウンスがあったなぁと思いながら翻訳。
+		</p>
+		<p>
+			こういった技術文書は、特にプログラミング分野ではそうだが、往々にして英語に苦労する初心者/初学者は翻訳できるほど記事の内容に精通しておらず、内容を理解している人々はもはや英語で十分なので翻訳されている必要がないという、ニーズのミスマッチが大きい。
+			布教したければ、わかりきった内容の記事でも積極的に翻訳していくことが必要だ。
+		</p>
+		<p>
+			気持ちとしては未翻訳部分を発見次第気軽に訳したいのだが、英語に堪能でないので片手間でやれるほど簡単ではないというのが厄介。
+		</p>
+	</eh:section>
+
+	<eh:section id="handlebars-rust-issue">
+		<eh:title>handlebars-rust crate に issue 立てたら修正してもらえた</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/sunng87/handlebars-rust"><eh:emoji fontawesome="github" /> sunng87/handlebars-rust: Rust templating with Handlebars</a>
+			</li>
+			<li>
+				<a href="https://crates.io/crates/handlebars">handlebars - Cargo: packages for Rust</a>
+			</li>
+			<li>
+				<a href="https://github.com/sunng87/handlebars-rust/issues/194">Require `Sync` for `cause` of `RenderError` · Issue #194 · sunng87/handlebars-rust</a>
+			</li>
+		</ul>
+		<p>
+			エラー型がマルチスレッドを視野に入れてそうな設計だったのに微妙に使えない感じになっていたので issue を立てて聞いてみたところ、意図した状況ではなかったらしく、問題ない形に修正された。
+		</p>
+		<p>
+			これは static site generator で使おうとしていたライブラリなのだが、<eh:xref linkend="progress-opaque-typedef-crate">後述の進捗</eh:xref>を優先的にやることになったため、はてさて、いつになれば handlebars を使う段階までくるやら。
+		</p>
+	</eh:section>
+
+	<eh:section id="strum-issue">
+		<eh:title>strum crate に issue 立てた</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/Peternator7/strum"><eh:emoji fontawesome="github" /> Peternator7/strum: A small rust library for adding custom derives to enums</a>
+			</li>
+			<li>
+				<a href="https://crates.io/crates/strum">strum - Cargo: packages for Rust</a>
+			</li>
+			<li>
+				<a href="https://github.com/Peternator7/strum/issues/12">ToString: implement `Display`, std doc says "`ToString` shouldn't be implemented directly" · Issue #12 · Peternator7/strum</a>
+			</li>
+		</ul>
+		<p>
+			<a href="https://blog.cardina1.red/2017/08/26/weekly-2017-w34/#strum-pullrequest">昔プルリクを出したこともある</a> crate で、これは enum を文字列と相互変換するコードを自動生成する proc macro 。
+		</p>
+		<p>
+			<code>ToString</code> trait を実装していたが <code>format!("{}", some_enum)</code> のようにしても使えなかったので、おかしいと思って調べてみたところ、 <code>ToString</code> を直接実装するのは望ましくない、 <code>Display</code> を先に実装しろというお告げがちゃんと<a href="https://doc.rust-lang.org/std/string/trait.ToString.html">標準ライブラリの <code>ToString</code> のドキュメント</a>に書いてあった。
+			これが意図したものか意図せぬものか不明だが、変更するにしても derive する名前とか属性名の変更をした方が良さそうだし、 breaking change になると思ったのでプルリクにせず issue を立ててみた次第。
+		</p>
+		<p>
+			進展はなく、返答待ち。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="private-activities">
+	<eh:title>私的活動</eh:title>
+
+	<eh:section id="progress-opaque-typedef-crate">
+		<eh:title>opaque_typedef crate を作りはじめた (2017-11-29)</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/lo48576/opaque_typedef"><eh:emoji fontawesome="github" /> lo48576/opaque_typedef</a>
+			</li>
+		</ul>
+		<p>
+			static site generator を書くためのライブラリを作りたかったのだが、 strong typedef (opaque typedef) 相当のことを Rust でしたいとき<eh:footnote id="wants-strong-typedef-for-static-site-generator-lib">
+				たとえば「 XML エンコード済の文字列のみを持てる <code>String</code> と <code>str</code> 」みたいなのが持ちたい、など
+			</eh:footnote>あまりにボイラープレートが多いため、こりゃもうコード生成するしかねえな！という気持ちになり実装を開始した。
+			手応えはあるので、遠からず公開できそう。
+		</p>
+		<p>
+			これが一段落したら、今度は <code>str</code> と <code>String</code> のような、 slice と owned buffer の間の変換とかいい感じの trait の自動実装とかをする proc macro も実装したい。
+			そもそもそれが本来の目的なので、 opaque_typedef はその単純版というか、シンプルな部分を逃がしただけの実装に過ぎない。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="thoughts">
+	<eh:title>考え事</eh:title>
+	<eh:section id="level-of-doc-typo-fix-pullreq">
+		<eh:title>プルリクを出すレベル</eh:title>
+		<snsq:sns-quotes mode="tiny">
+			<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/99003435738677072">
+				<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+					<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+					<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+					<snsq:service>mastodon</snsq:service>
+					<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+				</snsq:identity>
+				<snsq:meta>
+					<snsq:timestamp datetime="2017-11-15T00:15:42+0900">2017-11-15 00:15:42</snsq:timestamp>
+					<snsq:reftime datetime="2017-11-30T18:48:47+0900">2017-11-30</snsq:reftime>
+				</snsq:meta>
+				<snsq:content>
+					<p>
+						ドキュメントの typo 修正のプルリク、そんなことで contributor 増やしてしまうかと思うとちょっと申し訳ない気分になるので、 issue で済ますかプルリク出すか悩む
+					</p>
+				</snsq:content>
+			</snsq:sns-quote>
+			<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/99003439576098927">
+				<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+					<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+					<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+					<snsq:service>mastodon</snsq:service>
+					<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+				</snsq:identity>
+				<snsq:meta>
+					<snsq:timestamp datetime="2017-11-15T00:16:41+0900">2017-11-15 00:16:41</snsq:timestamp>
+					<snsq:reftime datetime="2017-11-30T18:48:47+0900">2017-11-30</snsq:reftime>
+					<snsq:in-reply-to url="https://mastodon.cardina1.red/@lo48576/99003435738677072" />
+				</snsq:meta>
+				<snsq:content>
+					<p>
+						contributor が増えると何が問題かというと、プロジェクトのライセンス変更とかで contributor の合意が必要になったりするのでアレ(まあ doc typo fix くらいは無視できるのかもしれないけど、そのあたりはライセンスのプロではないので詳しく知らない)
+					</p>
+				</snsq:content>
+			</snsq:sns-quote>
+			<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/98973726417849141">
+				<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+					<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+					<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+					<snsq:service>mastodon</snsq:service>
+					<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+				</snsq:identity>
+				<snsq:meta>
+					<snsq:timestamp datetime="2017-11-15T00:17:20+0900">2017-11-15 00:17:20</snsq:timestamp>
+					<snsq:reftime datetime="2017-11-30T18:48:47+0900">2017-11-30</snsq:reftime>
+					<snsq:in-reply-to url="https://mastodon.cardina1.red/@lo48576/99003439576098927" />
+				</snsq:meta>
+				<snsq:content>
+					<p>
+						doc comment はコードじゃないし、 typo fix なら著作権みたいなのも発生しなそうだし、無視できる気はする
+					</p>
+				</snsq:content>
+			</snsq:sns-quote>
+		</snsq:sns-quotes>
+		<p>
+			<a href="https://togetter.com/li/997538">GitHub の Ricty リポジトリ閉鎖騒動 - Togetter</a> を思い出していた。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="conclusion">
+	<eh:title>雑感</eh:title>
+	<ul>
+		<li>
+			<p>
+				進捗していくぞ〜
+			</p>
+		</li>
+		<li>
+			<p>
+				研究……ｱｯｱｯ
+			</p>
+		</li>
+		<li>
+			<p>
+				(Advent Calendar の準備が全然できてない顔)
+			</p>
+		</li>
+	</ul>
+</eh:section>
+
+</eh:article>
