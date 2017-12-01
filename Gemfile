@@ -5,6 +5,7 @@ gem 'nanoc', '~> 4'
 gem 'nanoc-toolbox'
 # required for `nanoc view`
 gem 'adsf'
+gem 'adsf-live'
 # required for `Nanoc::Helpers::XMLSitemap`
 gem 'builder'
 
