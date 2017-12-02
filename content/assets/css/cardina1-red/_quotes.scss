@@ -56,6 +56,7 @@ blockquote.sns-quote {
 	// Content.
 	.sns-quote__content {
 		margin: $vertical-unit / 2 0 0;
+		overflow-wrap: break-word;
 
 		> p:first-child {
 			margin-top: 0;
@@ -130,6 +131,7 @@ blockquote.sns-quote {
 
 		> .sns-quote__main-block {
 			flex-grow: 1;
+			min-width: 0;
 		}
 
 		// Icon.
