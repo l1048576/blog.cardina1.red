@@ -1,12 +1,12 @@
 ---
 created_at: 2017-12-07T22:41:11+0900
-title: "Rust での never type とセミコロン"
+title: "Rust での never type とセミコロン、型推論のルール変遷"
 htags:
   - "computer/programming/language/rust"
   - "AdventCalendar/2017"
 kind: article
 
-excerpt: "Rust 1.21.0での never type とセミコロン周辺の型推論の例外的なルールとその経緯を調べたまとめ。"
+excerpt: "Rust 1.21.0での never type とセミコロン周辺の型推論の例外的なルールとその変遷や経緯を調べたまとめ。"
 ---
 <?xml version="1.0"?>
 <eh:article
@@ -15,7 +15,7 @@ excerpt: "Rust 1.21.0での never type とセミコロン周辺の型推論の�
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2017-12-07-never-type-and-semicolon"
 >
-<eh:title>Rust での never type とセミコロン</eh:title>
+<eh:title>Rust での never type とセミコロン、型推論のルール変遷</eh:title>
 <p>
 	この記事は、 <a href="https://qiita.com/advent-calendar/2017/rust-internal">Rust Internal Advent Calendar 2017</a> の7日目の記事である。<br />
 </p>
