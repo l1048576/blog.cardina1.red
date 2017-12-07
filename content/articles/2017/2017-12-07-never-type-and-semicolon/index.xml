@@ -19,13 +19,24 @@ excerpt: "Rust 1.21.0での never type とセミコロン周辺の型推論の�
 <p>
 	この記事は、 <a href="https://qiita.com/advent-calendar/2017/rust-internal">Rust Internal Advent Calendar 2017</a> の7日目の記事である。<br />
 </p>
-<p>
-	この記事の内容は、特記なき限り 2017-10-14 およびそれ以前の情報に基く。
-	2017-10-14 時点での最新の安定リリースは Rust-1.21.0 (2017-10-12) である。
-</p>
+<aside class="important">
+	<eh:title>潜在的に古い情報</eh:title>
+	<p>
+		この記事の内容は、特記なき限り 2017-10-14 およびそれ以前の情報に基く。
+		2017-10-14 時点での最新の安定リリースは Rust-1.21.0 (2017-10-12) である。
+	</p>
+</aside>
 
 <eh:section id="question">
 	<eh:title>疑問</eh:title>
+
+	<aside class="important">
+		<eh:title>潜在的に古い情報</eh:title>
+		<p>
+			このセクションの内容は、特記なき限り 2017-10-14 およびそれ以前の情報に基く。
+			2017-10-14 時点での最新の安定リリースは Rust-1.21.0 (2017-10-12) である。
+		</p>
+	</aside>
 
 	<eh:section id="daily-use-assumption">
 		<eh:title>日常における前提</eh:title>
@@ -71,6 +82,45 @@ fn main() {
 
 	<eh:section id="question--code">
 		<eh:title>問題のコード</eh:title>
+
+	<aside class="important">
+		<eh:title>古い情報</eh:title>
+		<p>
+			問題のコードは Rust-1.22.1 時点ではコメントの通りコンパイルが通るが、 <time datetime="2017-12-07">2017-12-07</time> 時点での nightly (rustc-1.24.0-nightly (5a2465e2b 2017-12-06)) ではコンパイルが通らない。
+		</p>
+		<figure>
+			<pre><code class="lang-rust language-rust"><![CDATA[
+#![allow(unreachable_code)]
+
+// コンパイル可能だったが、2017-12-07 の nightly では不可。
+fn dont_return() -> ! {
+    panic!();
+    // (ここから到達不可能)
+
+    1
+}
+
+fn main() {
+}
+]]></code></pre>
+			<pre><code><![CDATA[
+error: cannot coerce `{integer}` to !
+ --> src/main.rs:8:5
+  |
+8 |     1
+  |     ^
+  |
+  = note: #[deny(coerce_never)] on by default
+  = warning: this was previously accepted by the compiler but is being phased out; it will become a hard error in a future release!
+  = note: for more information, see issue #46325 <https://github.com/rust-lang/rust/issues/46325>
+]]></code></pre>
+			<figcaption>
+				<eh:xref linkend="time-series2--issue-46325">issue #46325</eh:xref>, <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> でエラー扱いになった
+				(<a href="https://play.rust-lang.org/?gist=d554dfe63da1c64ed89dfa643419743d&amp;version=nightly">playground</a>,
+				<a href="https://gist.github.com/d554dfe63da1c64ed89dfa643419743d">gist</a>)
+			</figcaption>
+		</figure>
+	</aside>
 
 		<figure id="code--questions">
 			<pre><code class="lang-rust language-rust"><![CDATA[
@@ -210,8 +260,23 @@ fn main() {
 <eh:section id="short-answer">
 	<eh:title>簡単な解答</eh:title>
 
+	<aside class="important">
+		<eh:title>潜在的に古い情報</eh:title>
+		<p>
+			このセクションの内容は、特記なき限り 2017-10-14 およびそれ以前の情報に基く。
+			2017-10-14 時点での最新の安定リリースは Rust-1.21.0 (2017-10-12) である。
+		</p>
+	</aside>
+
 	<eh:section id="short-answer--question-1">
 		<eh:title>疑問1: `!` が期待されている場所で `1` を返す(はずの)ブロックを書けたのは何故か</eh:title>
+
+		<aside class="important">
+			<eh:title>古い情報</eh:title>
+			<p>
+				<eh:xref linkend="time-series2--issue-46325">issue #46325</eh:xref>, <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> でエラー扱いになったため、今はもうコンパイルは通らない。
+			</p>
+		</aside>
 
 		<p>
 			答え: <eh:xref linkend="time-series--pr-40224">PR #40224</eh:xref> により、 <strong><code>!</code> が要求されている場所で diverge する式があった場合、その式の結果を <code>!</code> へ型強制することが許されるようになった</strong>ため。
@@ -252,7 +317,7 @@ fn main() {
 			<figcaption>明示的に <code>!</code> にキャストすると……</figcaption>
 		</figure>
 		<p>
-			これも <a href="https://github.com/rust-lang/rust/pull/40224">PR #40224</a> で導入されたルールで説明できる。<br />
+			これも <eh:xref linkend="time-series--pr-40224">PR #40224</eh:xref> で導入されたルールで説明できる。<br />
 			<code>{ panic!(); () }</code> は:
 		</p>
 		<ul>
@@ -320,6 +385,14 @@ fn main() {
 
 <eh:section id="time-series">
 	<eh:title>時系列 (<time datetime="2017-10-14">2017-10-14</time> まで)</eh:title>
+
+	<aside class="important">
+		<eh:title>潜在的に古い情報</eh:title>
+		<p>
+			このセクションの内容は、特記なき限り 2017-10-14 およびそれ以前の情報に基く。
+			2017-10-14 時点での最新の安定リリースは Rust-1.21.0 (2017-10-12) である。
+		</p>
+	</aside>
 
 	<ul>
 		<li>
@@ -687,6 +760,14 @@ pub fn encode() -> Result<(), ()> {
 				diverge するからといって、それ以降の dead code の型が無視されることはない
 			</li>
 		</ul>
+
+		<aside class="important">
+			<eh:title>古い情報</eh:title>
+			<p>
+				<eh:xref linkend="time-series2--issue-46325">issue #46325</eh:xref>, <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> により、 <strong><code>!</code> への型強制を許すルールは削除された</strong>。
+			</p>
+		</aside>
+
 		<p>
 			(<strong>以下、 pull request よく読んでないし、修正後の提案に対する話かどうかさえわからないので、断片的な情報</strong>)
 		</p>
