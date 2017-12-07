@@ -1,5 +1,6 @@
 ---
 created_at: 2017-12-07T22:41:11+0900
+updated_at: 2017-12-07T23:17:26+0900
 title: "Rust での never type とセミコロン、型推論のルール変遷"
 htags:
   - "computer/programming/language/rust"
@@ -274,7 +275,7 @@ fn main() {
 		<aside class="important">
 			<eh:title>古い情報</eh:title>
 			<p>
-				<eh:xref linkend="time-series2--issue-46325">issue #46325</eh:xref>, <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> でエラー扱いになったため、今はもうコンパイルは通らない。
+				<eh:xref linkend="time-series2--issue-46325">issue #46325</eh:xref>, <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> でエラー扱いになったため、今 (<time datetime="2017-12-07">2017-12-07</time>) はもうコンパイルは通らない。
 			</p>
 		</aside>
 
@@ -297,6 +298,13 @@ fn main() {
 
 	<eh:section id="short-answer--omake">
 		<eh:title>おまけ</eh:title>
+
+		<aside class="important">
+			<eh:title>古い情報</eh:title>
+			<p>
+				<eh:xref linkend="time-series2--issue-46325">issue #46325</eh:xref>, <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> でエラー扱いになったため、疑問1の場合と同じく、これももう今 (<time datetime="2017-12-07">2017-12-07</time>) ではコンパイルは通らない。
+			</p>
+		</aside>
 
 		<figure>
 			<pre><code class="lang-rust language-rust"><![CDATA[
