@@ -1,0 +1,1002 @@
+---
+created_at: 2017-12-07T22:41:11+0900
+title: "Rust での never type とセミコロン"
+htags:
+  - "computer/programming/language/rust"
+  - "AdventCalendar/2017"
+kind: article
+
+excerpt: "Rust 1.21.0での never type とセミコロン周辺の型推論の例外的なルールとその経緯を調べたまとめ。"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
+	id="2017-12-07-never-type-and-semicolon"
+>
+<eh:title>Rust での never type とセミコロン</eh:title>
+<p>
+	この記事は、 <a href="https://qiita.com/advent-calendar/2017/rust-internal">Rust Internal Advent Calendar 2017</a> の7日目の記事である。<br />
+</p>
+<aside class="important">
+	<eh:title>潜在的に古い情報</eh:title>
+	<p>
+		この記事の内容は、特記なき限り 2017-10-14 およびそれ以前の情報に基く。
+		2017-10-14 時点での最新の安定リリースは Rust-1.21.0 (2017-10-12) である。
+	</p>
+</aside>
+
+<eh:section id="question">
+	<eh:title>疑問</eh:title>
+
+	<aside class="important">
+		<eh:title>潜在的に古い情報</eh:title>
+		<p>
+			このセクションの内容は、特記なき限り 2017-10-14 およびそれ以前の情報に基く。
+			2017-10-14 時点での最新の安定リリースは Rust-1.21.0 (2017-10-12) である。
+		</p>
+	</aside>
+
+	<eh:section id="daily-use-assumption">
+		<eh:title>日常における前提</eh:title>
+
+		<p>
+			最後の式がセミコロンで終わっているようなブロックは、全体としては unit 型 (<code>()</code>) となる。
+		</p>
+		<figure id="code--usual-type-with-semicolon">
+			<pre><code class="lang-rust language-rust"><![CDATA[
+fn main() {
+    let _: () = { 42; };
+}
+]]></code></pre>
+			<figcaption>
+				42; はセミコロンで終わる式なので、ブロックの型は unit (<code>()</code>) となる
+				(<a href="https://play.rust-lang.org/?gist=80bedf6a5c0c3dbec76164d97122d4e7&amp;version=stable">playground</a>)
+			</figcaption>
+		</figure>
+
+		<p>
+			絶対に実行が返ってこない、また値が作られないことを示す <code>!</code> 型 (never type) <eh:footnote id="footnote-diverging-type">
+				型理論とかでは diverging type (発散型) であったり bottom type (ボトム型)と呼んだりするようだが、 Rust では never type だとか bang type だとかの呼び方もある。
+				feature gate としては、今 (<time datetime="2017-10-14">2017-10-14</time>) は <a href="https://github.com/rust-lang/rfcs/pull/1216#issuecomment-240644538"><code>never_type</code></a> の名前が使われている。
+			</eh:footnote>は、いかなる型へも暗黙に型強制<eh:footnote id="footnote-type-coercion">
+				ある型を、その場所で求められる別の型へと(暗黙に)変換すること。
+				たとえば、 <code>&amp;str</code> が求められている場所に <code>&amp;String</code> の値を渡すと、 <a href="https://doc.rust-lang.org/std/ops/trait.Deref.html"><code>Deref</code> trait</a> を利用してこれが自動的に <code>&amp;str</code> の値に変換されるのだが、これも型強制のはたらきによるものである。
+			</eh:footnote>できる。
+		</p>
+		<figure id="code--usual-type-with-semicolon">
+			<pre><code class="lang-rust language-rust"><![CDATA[
+#[allow(unreachable_code)]
+fn main() {
+    let _: i32 = panic!("Hello");
+    let _: Option<()> = ::std::process::exit(0);
+}
+]]></code></pre>
+			<figcaption>
+				<a href="https://doc.rust-lang.org/1.21.0/std/macro.panic.html"><code>panic!</code></a> や <a href="https://doc.rust-lang.org/1.21.0/std/process/fn.exit.html"><code>std::process::exit</code></a> は呼び出し元に絶対に戻らないため、任意の型に(暗黙に)型強制される
+				(<a href="https://play.rust-lang.org/?gist=aff4bae775b7c4c0310cf29f1864a542&amp;version=stable">playground</a>)
+			</figcaption>
+		</figure>
+	</eh:section>
+
+	<eh:section id="question--code">
+		<eh:title>問題のコード</eh:title>
+
+	<aside class="important">
+		<eh:title>古い情報</eh:title>
+		<p>
+			問題のコードは Rust-1.22.1 時点ではコメントの通りコンパイルが通るが、 <time datetime="2017-12-07">2017-12-07</time> 時点での nightly (rustc-1.24.0-nightly (5a2465e2b 2017-12-06)) ではコンパイルが通らない。
+		</p>
+		<figure>
+			<pre><code class="lang-rust language-rust"><![CDATA[
+#![allow(unreachable_code)]
+
+// コンパイル可能だったが、2017-12-07 の nightly では不可。
+fn dont_return() -> ! {
+    panic!();
+    // (ここから到達不可能)
+
+    1
+}
+
+fn main() {
+}
+]]></code></pre>
+			<pre><code><![CDATA[
+error: cannot coerce `{integer}` to !
+ --> src/main.rs:8:5
+  |
+8 |     1
+  |     ^
+  |
+  = note: #[deny(coerce_never)] on by default
+  = warning: this was previously accepted by the compiler but is being phased out; it will become a hard error in a future release!
+  = note: for more information, see issue #46325 <https://github.com/rust-lang/rust/issues/46325>
+]]></code></pre>
+			<figcaption>
+				<eh:xref linkend="time-series2--issue-46325">issue #46325</eh:xref>, <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> でエラー扱いになった
+				(<a href="https://play.rust-lang.org/?gist=d554dfe63da1c64ed89dfa643419743d&amp;version=nightly">playground</a>,
+				<a href="https://gist.github.com/d554dfe63da1c64ed89dfa643419743d">gist</a>)
+			</figcaption>
+		</figure>
+	</aside>
+
+		<figure id="code--questions">
+			<pre><code class="lang-rust language-rust"><![CDATA[
+#![allow(unreachable_code)]
+
+// コンパイルエラー。
+fn actually_return() -> ! {
+    // 型エラー (expected `!`, found `{integer}`)。
+    // `1` (整数型)は `!` に型強制できない。
+    1
+
+    // [予想1] `!` でない型の値を `!` に型強制することはできない。
+}
+
+// コンパイル可能。
+fn dont_return() -> ! {
+    panic!();
+    // (ここから到達不可能)
+
+    // 何事もなかったかのようにコンパイルが通る。
+    1
+
+    // 何故コンパイルが通るの？
+    // `1` が `!` として扱われているのだろうか？
+    // これは `actually_return()` における予想1と異なる挙動である。
+    // [予想2] 到達不可能な箇所のコードでは型チェックが省略される。
+}
+
+// コンパイルエラー。
+fn dont_return_wrong_type() -> i32 {
+    panic!();
+    // (ここから到達不可能)
+
+    // 型エラー (expected `i32`, found `&str`)。
+    "should be type error"
+
+    // これは `dont_return()` における予想2とは異なる挙動である。
+    // [疑問1] `!` を返す(というか返らない)はずの `dont_return()` で
+    //         `1` になる式を最後に置けたのは何故？
+}
+
+// コンパイル可能。
+fn semicolon_bang() {
+    // 何事もなかったかのようにコンパイルが通る。
+    let _: &str = { panic!(); };
+
+    // 前提として、 `expr;` は `()` 型となる。
+    // そのため、 `{ expr; }` もまた `()` 型となるはずだが、
+    // `{ panic!(); }` は `()` でなく `&str` として扱われている。
+    // ということは、 `{ panic!(); }` の値は `!` 型として扱われているのだろうか？
+    // [疑問2] `{ panic!(); }` が `()` だけでなく任意の型として扱える(おそらく `!`
+    //         として推論されている？)のは、どのような規則によるものかなのか。
+}
+
+fn main() {
+}
+]]></code></pre>
+			<figcaption>
+				疑問を詰め込んだコード
+				(<a href="https://play.rust-lang.org/?gist=3c609495433446181bd888f6cca053d9&amp;version=stable">playground</a>,
+				<a href="https://gist.github.com/3c609495433446181bd888f6cca053d9">gist</a>)
+			</figcaption>
+		</figure>
+	</eh:section>
+
+	<eh:section id="question--abstract">
+		<eh:title>問題の概要</eh:title>
+		<p>
+			<eh:xref linkend="daily-use-assumption">前述</eh:xref>のとおり:
+		</p>
+		<ul>
+			<li>
+				(1) 最後の式がセミコロンで終わるブロックは、 <code>()</code> 型
+			</li>
+			<li>
+				(2) <code>!</code> は任意の型に型強制できる
+			</li>
+		</ul>
+		<p>
+			一方、<eh:xref linkend="code--questions">先のコード</eh:xref>から読みとれる(推測できる)のは:
+		</p>
+		<ul>
+			<li>
+				(3) 普通の型は自由に <code>!</code> に型強制できるわけではない (→ <code>actually_return</code>)
+			</li>
+			<li>
+				(4) 到達不可能な場所では、どんな型の値でも <code>!</code> に型強制できるようだ (→ <code>dont_return</code>)
+				<ul>
+					<li>
+						(4.a) 最後の式が <code>!</code> になっている？
+					</li>
+					<li>
+						(4.b) それとも特別に変換が許されるだけ？
+					</li>
+					<li>
+						(4.c) そもそも型チェックが省略されている？
+					</li>
+				</ul>
+			</li>
+			<li>
+				(5) 到達不可能な場所でも無条件に任意の型への型強制が許されるわけではなさそうだ (→ <code>dont_return_wrong_type</code>)
+				<ul>
+					<li>
+						→ (4.a) と (4.c) は違うっぽい
+					</li>
+				</ul>
+			</li>
+			<li>
+				(6) 末尾に到達不可能であるようなブロックを、セミコロンで終わる式で終わらせると、ブロックは任意の型へ型強制できるらしい (→ <code>semicolon_bang</code>)
+				<ul>
+					<li>
+						最後の式が <code>()</code> でなく <code>!</code> を返しているように見える
+					</li>
+					<li>
+						→(4.a) は違うはず……あれ？
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<p>
+			といったわけで、挙動を観察していてもどうにもはっきりしたルールがわからないので、 RFC か Issue を漁って調べようということになった。
+		</p>
+		<p>
+			最終的な疑問は、コードのコメントにあるとおり、以下の2点である。
+		</p>
+		<ul>
+			<li>
+				疑問1: <code>!</code> が期待されている場所で <code>1</code> を返す(はずの)ブロックを書けたのは何故か？
+			</li>
+			<li>
+				疑問2: <code>{ panic!(); }</code> は、何故 <code>()</code> 型の値でなく <code>!</code> 型であるかのように振る舞うのか？
+			</li>
+		</ul>
+	</eh:section>
+</eh:section>
+
+<eh:section id="short-answer">
+	<eh:title>簡単な解答</eh:title>
+
+	<aside class="important">
+		<eh:title>潜在的に古い情報</eh:title>
+		<p>
+			このセクションの内容は、特記なき限り 2017-10-14 およびそれ以前の情報に基く。
+			2017-10-14 時点での最新の安定リリースは Rust-1.21.0 (2017-10-12) である。
+		</p>
+	</aside>
+
+	<eh:section id="short-answer--question-1">
+		<eh:title>疑問1: `!` が期待されている場所で `1` を返す(はずの)ブロックを書けたのは何故か</eh:title>
+
+		<aside class="important">
+			<eh:title>古い情報</eh:title>
+			<p>
+				<eh:xref linkend="time-series2--issue-46325">issue #46325</eh:xref>, <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> でエラー扱いになったため、今はもうコンパイルは通らない。
+			</p>
+		</aside>
+
+		<p>
+			答え: <eh:xref linkend="time-series--pr-40224">PR #40224</eh:xref> により、 <strong><code>!</code> が要求されている場所で diverge する式があった場合、その式の結果を <code>!</code> へ型強制することが許されるようになった</strong>ため。
+		</p>
+		<p>
+			すなわち、 <code>{ panic!(); 1 }</code> は diverge する式であるから、この式(ブロック)は <code>!</code> への型強制が許される。
+			よって、型チェックが通る。
+		</p>
+	</eh:section>
+
+	<eh:section id="short-answer--question-2">
+		<eh:title>疑問2: `{ panic!(); }` は、何故 `()` 型の値でなく `!` 型であるかのように振る舞うのか</eh:title>
+
+		<p>
+			答え: <eh:xref linkend="time-series--pr-40224">PR #40224</eh:xref> により、 <strong>diverge する文を含むブロックがあり、末尾の式(セミコロンで終わらない、戻り値となる式)が存在しない場合、ブロックの型は <code>!</code> となるということになった</strong>ため。
+		</p>
+	</eh:section>
+
+	<eh:section id="short-answer--omake">
+		<eh:title>おまけ</eh:title>
+
+		<figure>
+			<pre><code class="lang-rust language-rust"><![CDATA[
+fn main() {
+    // コンパイルエラー。
+    let _: i32 = {
+        panic!();
+        ()
+    };
+
+    // コンパイル可能。
+    let _: i32 = {
+        panic!();
+        ()
+    } as !;
+}
+]]></code></pre>
+			<figcaption>明示的に <code>!</code> にキャストすると……</figcaption>
+		</figure>
+		<p>
+			これも <eh:xref linkend="time-series--pr-40224">PR #40224</eh:xref> で導入されたルールで説明できる。<br />
+			<code>{ panic!(); () }</code> は:
+		</p>
+		<ul>
+			<li>
+				diverge する式であるから、 <code>!</code> への型強制が許される。
+			</li>
+			<li>
+				しかし diverge する文を含むブロックであっても、末尾の式を持っているから、 <code>!</code> の値としては扱われない。
+			</li>
+		</ul>
+		<p>
+			ゆえに:
+		</p>
+		<ul>
+			<li>
+				<code>as !</code> がないまま <code>i32</code> へ型強制しようとすると、ブロックの型は <code>()</code> となるから、 <code>i32</code> への型強制は失敗し、型エラーとなる。
+			</li>
+			<li>
+				<code>as !</code> で <code>!</code> へ型強制すると、これは成功し、 <code>{ panic!(); () } as !</code> の型は <code>!</code>とされる。
+				そこから更に <code>i32</code> へと型強制が起き、そして成功する。
+			</li>
+		</ul>
+
+		<eh:section id="short-answer--omake--supplement">
+			<eh:title>捕捉</eh:title>
+
+			<p>
+				この挙動は綺麗に設計されたルールによるものではなく、とりあえず regression を避けながら一貫性を高めるための、一時的な設計であるように見える。
+				<code>!</code> の利用 (<code>never_type</code> feature) は未だ安定化されていない機能で、仕様も明確に定まっているわけではなさそうなので、この挙動はいずれ変化するかもしれない。
+			</p>
+		</eh:section>
+	</eh:section>
+</eh:section>
+
+<eh:section id="terms">
+	<eh:title>用語</eh:title>
+	<dl>
+		<dt>diverge</dt>
+		<dd>
+			<p>
+				値を期待している場所に、実行が戻ってこないこと。
+				典型的には、実行が停止したり、途中でブロックや式などを脱出するような場合など。
+				例として、以下のようなものがある。
+			</p>
+			<ul>
+				<li>
+					<p>
+						<code>let x = return;</code> などは、途中で return してしまい <code>x</code> に実際に何らかの値が代入されることは絶対にないため、 diverge するという。
+					</p>
+				</li>
+				<li>
+					<p>
+						<code>3 + panic!()</code> などは、途中で panic してしまい、加算は絶対に実行されないため、 diverge するという。
+					</p>
+				</li>
+				<li>
+					<p>
+						<code>{ ::std::process::exit(0); true }</code> は途中でプログラムが終了してしまい、ブロックの値が <code>true</code> として評価されることは絶対にないため、 diverge するという。
+					</p>
+				</li>
+			</ul>
+		</dd>
+	</dl>
+</eh:section>
+
+<eh:section id="time-series">
+	<eh:title>時系列 (<time datetime="2017-10-14">2017-10-14</time> まで)</eh:title>
+
+	<aside class="important">
+		<eh:title>潜在的に古い情報</eh:title>
+		<p>
+			このセクションの内容は、特記なき限り 2017-10-14 およびそれ以前の情報に基く。
+			2017-10-14 時点での最新の安定リリースは Rust-1.21.0 (2017-10-12) である。
+		</p>
+	</aside>
+
+	<ul>
+		<li>
+			<eh:xref linkend="time-series--rfc-1216" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series--issue-39297" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series--pr-39485" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series--issue-39808" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series--issue-39984" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series--issue-40073" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series--pr-40224" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series--pr-40636" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series--future" />
+		</li>
+	</ul>
+
+	<eh:section id="time-series--rfc-1216">
+		<eh:title>RFC 1216: 到達不可能であることを示す `!` 、(ユーザにも使えるような)型として扱いたいよね</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rfcs/blob/master/text/1216-bang-type.md">RFC 1216</a>
+			</li>
+			<li>
+				<a href="https://github.com/rust-lang/rfcs/pull/1216">Promote `!` to a type. #1216</a>
+			</li>
+		</ul>
+
+		<p>
+			もともと variant を持たない enum は実行時の値を持てない型として使えていたのだから、 <code>!</code> もそれと同等に(単なる型のひとつとして)扱えた方が嬉しくない？という提案が <a href="https://github.com/rust-lang/rfcs/blob/master/text/1216-bang-type.md">RFC 1216</a> である。
+			<code>!</code> を単なる型として扱えるようになると、ユーザが直接に利用することができるというメリットもある
+			(たとえば、必ず <code>Ok(_)</code> を返すような関数が <code>Result&lt;_, !&gt;</code> を返す、とユーザが記述できるようになる<eh:footnote id="footnote-std-convert-infallible">
+				たとえば Rust-1.22.0 時点では、 <a href="https://doc.rust-lang.org/1.22.0/std/convert/trait.TryFrom.html"><code>std::convert::TryFrom</code></a> 等が絶対に失敗しない(すなわち <a href="https://doc.rust-lang.org/1.22.0/std/convert/trait.From.html"><code>std::convert::From</code></a> と同様にはたらく)場合のエラー型として、 <code>!</code> ではなく <a href="https://doc.rust-lang.org/1.22.0/std/convert/enum.Infallible.html"><code>std::convert::Infallible</code></a> が用いられている
+			</eh:footnote>など)。
+		</p>
+		<p>
+			この RFC の議論は <a href="https://github.com/rust-lang/rfcs/pull/1216">Promote `!` to a type. #1216</a> で行われており、実装状況は tracking issue である <a href="https://github.com/rust-lang/rust/issues/35121">issue #35121</a> で追跡されている。
+		</p>
+		<p>
+			この RFC では <code>bang_type</code> feature となっているが、その後改名され、 <time datetime="2017-10-14">2017-10-14</time> 時点では <code>never_type</code> feature として管理されている。
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series--issue-39297">
+		<eh:title>Issue #39297: diverge する式の型がデフォで `()` に推論されたのが、 `?` 演算子で使われる式の型推論にまで影響するんだけど</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/39297">fallback for diverging expressions leaks into the `?` operator #39297</a>
+			</li>
+		</ul>
+
+		<p>
+			issue 当時の <code>?</code> は <code>try!</code> の糖衣構文であり、 <code>try!</code> の実装が(実際はもう少し複雑だが) <code>match expr { Ok(v) => v, Err(e) => return Err(e.into()) }</code> のような実装となっていた。
+			そして、 diverge する式の型はデフォルトの <code>()</code> として見做されていた。
+		</p>
+		<p>
+			この issue では、 <code>try!</code> の内部で <code>return</code> していることで発生した、 <code>()</code> と見做された式の型(つまり <code>()</code>) が、 <code>?</code> の外に漏れ出して <code>&lt;_ as Deserialize&gt;</code> の部分の <code>_</code> が <code>()</code> だと推論されてしまった、と主張している。
+		</p>
+
+		<eh:section id="time-series--issue-39297--overview">
+			<eh:title>問題の概要</eh:title>
+
+			<pre><code class="lang-rust language-rust"><![CDATA[
+match <_ as Deserialize>::deserialize() {
+    Ok(v) => v,
+    Err(e) => return Err(e.into()),
+}
+]]></code></pre>
+			<p>
+				まず <code>&lt;_ as Deserialize&gt;::deserialize()</code> の戻り値は <code>Result&lt;Self, String&gt;</code> として宣言されている。
+				しかし、(何かの理由で) <code>impl</code> の実装を選択する際に <code>Self</code> に対する推論は行われないことになっている。
+				よって、 <code>&lt;_T0 as Deserialize&gt;::deserialize()</code> (ただし <code>_T0, _T1, ...</code> は推論されていない型) は、 <code>_T0</code> が確定されないまま <code>Result&lt;_T0, String&gt;</code> を返すものとして推論される。
+			</p>
+			<pre><code class="lang-rust language-rust"><![CDATA[
+match <_T0 as Deserialize>::deserialize() /* Result<_T0, String> */ {
+    Ok(v) => v, /* _T1 */
+    Err(e) => return Err(e.into()), /* _T2 */
+} /* _T3 */
+]]></code></pre>
+			<p>
+				さて、 <code>Ok(v)</code> の <code>v</code> の型が <code>_T1</code> であるから、同じ <code>match</code> のもう一方の arm である <code>Err(e) => return Err(e.into())</code> の型を調べ、それを match 式全体の型として使うことになる。
+				しかし、この match arm の式は <code>return</code> の結果を返しているから常に diverge する(すなわち、決して値を返さない)。
+				すると、この当時の実装では そのような式の型のデフォルトは <code>()</code> であり、結果 <code>Err(e)</code> の場合に返される式の型は <code>()</code> であるとされる。
+			</p>
+			<pre><code class="lang-rust language-rust"><![CDATA[
+match <_T0 as Deserialize>::deserialize() /* Result<_T0, String> */ {
+    Ok(v) => v, /* _T1 */
+    Err(e) => return Err(e.into()), /* () */
+} /* _T3 */
+]]></code></pre>
+			<p>
+				当然 <code>_T1</code> と <code>()</code> (<code>_T2</code> だった部分)は同じ型であると判断されるから、 <code>v</code> は <code>_T1</code> すなわち <code>()</code> である。
+			</p>
+			<pre><code class="lang-rust language-rust"><![CDATA[
+match <_T0 as Deserialize>::deserialize() /* Result<_T0, String> */ {
+    Ok(v) => v, /* () */
+    Err(e) => return Err(e.into()), /* () */
+} /* _T3 */
+]]></code></pre>
+			<p>
+				<code>Result&lt;_T0, String&gt;</code> と <code>Ok(v): Result&lt;</code> が同じ型であるから、<code>_T0</code> は <code>()</code> であると推論される。
+				こうして、 <code>deserialize()</code> は <code>Result&lt;(), String&gt;</code> を返すとされ、 <code>&lt;_ as Deserialize&gt;</code> は <code>&lt;() as Deserialize&gt;</code> と見做される。
+			</p>
+			<pre><code class="lang-rust language-rust"><![CDATA[
+match <() as Deserialize>::deserialize() /* Result<(), String> */ {
+    Ok(v) => v, /* () */
+    Err(e) => return Err(e.into()), /* () */
+} /* () */
+]]></code></pre>
+			<p>
+				かくして以下のようなエラーが出る。
+			</p>
+			<pre><code><![CDATA[error[E0277]: the trait bound `(): Deserialize` is not satisfied
+  --> src/main.rs:12:13
+   |
+12 |     let _ = <_ as Deserialize>::deserialize()?;
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Deserialize` is not implemented for `()`
+   |
+   = note: required by `Deserialize::deserialize`
+
+error: aborting due to previous error
+]]></code></pre>
+		</eh:section>
+
+		<eh:section id="time-series--issue-39297--problem-core">
+			<eh:title>問題の核</eh:title>
+
+			<p>
+				問題は、以下の2つの点である。
+			</p>
+			<ol>
+				<li>diverge する式の型が <code>()</code> として推論されること</li>
+				<li><code>Self</code> への推論が弱いこと</li>
+			</ol>
+			<p>
+				2つめの問題は、 @nikomatsakis 氏が行っている trait system の改善によって解決するであろうとされている。
+			</p>
+			<p>
+				1つめの問題については、 <code>never_type</code> feature (<eh:xref linkend="time-series--rfc-1216">RFC 1216</eh:xref> で提案されたもの) によって、 diverge する式の型が <code>!</code> として推論されるようになるが、それには別の問題がある。
+				もし上記コードにおいて <code>()</code> が <code>Deserialize</code> を実装していた場合、コンパイルは通っているから、 diverge する式の型のデフォルトを <code>()</code> から <code>!</code> に変更してしまうと、 regression が発生するかもしれない。
+			</p>
+			<p>
+				この issue を立てた @nikomatsakis 氏は、 <code>?</code> 演算子を早い段階で脱糖するのをやめて、 diverge する式の型情報が <code>?</code> の外にまで洩れないようにすべきではないか、と述べている。
+				また、 trait system の改善では互換性破壊は起きないだろうとも述べている。
+			</p>
+		</eh:section>
+
+		<eh:section id="time-series--issue-39297--second-choice">
+			<eh:title>第2の選択</eh:title>
+
+			<p>
+				次のコメントで、 @canndrew 氏が実際に<a href="https://github.com/rust-lang/rust/issues/39297#issuecomment-275922421">挙動が変化する regression になる例を提示した</a>。
+			</p>
+			<p>
+				そして、このような <code>never_type</code> feature の導入により起きうる regression の回避のために <a href="https://github.com/rust-lang/rust/pull/39009">Add warning for () to ! switch #39009</a> で警告を追加したと述べた。
+				さらに、 <code>!</code> は <code>()</code> へと推論することができるから、今まで (<code>()</code> であったがゆえに)通っていたコンパイルが (<code>!</code> になることで)通らなくなる問題は発生しないだろう、とも述べている。
+			</p>
+		</eh:section>
+
+		<eh:section id="time-series--issue-39297--diverging-and-type-inference">
+			<eh:title>そもそも diverge する式の型推論からおかしい</eh:title>
+
+			<p>
+				@nikomatsakis 氏は、デフォルトの型云々以前に、 diverge する式の型推論周辺がそもそも妙なことになっていると @eddyb 氏と話していたと言い、コード片を提示した。
+			</p>
+			<blockquote cite="https://github.com/rust-lang/rust/issues/39297#issuecomment-276809637">
+				<p>
+					<code>let x = if true { 22 } else { return; 'a' };</code> の型チェックが(この issue の時点では)通るし、 diverging arm の型が何であるか考えるべきでないよね。<br />
+					<small>(原文: "then we ought not to be considering the type of diverging arm at all.")</small>
+				</p>
+				<p>
+					でも <code>let x: i32</code> と型注釈をつけるとコンパイル通らなくなるし、これはバグと考えるべきだよね。
+				</p>
+				<footer>
+					&#x2014; <a href="https://github.com/rust-lang/rust/issues/39297#issuecomment-276809637">@nikomatsakis, https://github.com/rust-lang/rust/issues/39297#issuecomment-276809637</a>
+				</footer>
+			</blockquote>
+			<p>
+				それまでの実装では、例の else 節のように必ず途中で脱出するブロックでは、ブロックそれ自体は値を返さないから、通常はブロックが返す型について型チェックは行われない。
+				しかし、ブロックに特定の型が期待されていた場合、本当にブロックがその型を返すか、ブロック末尾の式 (tail expression) について型チェックを行う実装になっていた<eh:footnote id="footnote-never-on-tail-expression">
+					<a href="https://github.com/rust-lang/rust/issues/35849">Issue #35849</a> とか <a href="https://github.com/rust-lang/rust/pull/35883">PR #35883</a> あたりが関わっているのだろうか？
+					古いことなので詳しく調べてないが、違うかもしれない。
+				</eh:footnote>。
+				(おそらく、それこそ <code>let x: i32 = { return; 'a' };</code> のようなおかしなコードを弾くためのものだったのだろう。)
+			</p>
+			<p>
+				しかし @nikomatsakis 氏は上の例で、右辺の式が同じなのに型を明示しない場合はコンパイルが通り、 <code>let x: i32</code> のように型を明示すると今度はコンパイルが通らなくなるのはおかしいと主張した。
+				よって、一貫性のある型チェックの方法に修正したい、という話になる。
+			</p>
+			<blockquote cite="https://github.com/rust-lang/rust/issues/39297#issuecomment-276810343">
+				<p>
+					@eddyb 氏が、<a href="https://github.com/rust-lang/rust/blob/24055d0f2aa8dce5caed7544e6006aa48dceaea5/src/librustc_typeck/check/mod.rs#L4150-L4160">これらの行</a>を削除すればどっちもコンパイル通るようになることに気付いたよ
+				</p>
+				<footer>
+					&#x2014; <a href="https://github.com/rust-lang/rust/issues/39297#issuecomment-276810343">@nikomatsakis, https://github.com/rust-lang/rust/issues/39297#issuecomment-276810343</a>
+				</footer>
+			</blockquote>
+			<blockquote cite="https://github.com/rust-lang/rust/issues/39297#issuecomment-277237337">
+				<p>
+					(diverging arm の型を考えず完全にスルーしなくとも、)この場合の else ブロックは <code>!</code> 型であるとするべきじゃない？そうすれば <code>!</code> が <code>22</code> の型に型強制されることができるので型チェックも通るし
+				</p>
+				<footer>
+					&#x2014; <a href="https://github.com/rust-lang/rust/issues/39297#issuecomment-277237337">@canndrew, https://github.com/rust-lang/rust/issues/39297#issuecomment-277237337</a>
+				</footer>
+			</blockquote>
+		</eh:section>
+	</eh:section>
+
+	<eh:section id="time-series--pr-39485">
+		<eh:title>Pull request #39485: unrearchable なコード、絶対実行されないなら型チェックも要らなくない？</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/pull/39485">Ignore expected type in diverging blocks #39485</a>
+			</li>
+		</ul>
+
+		<p>
+			ここで、 @canndrew 氏が(削除すると問題がなくなるという行を削除する) pull request <a href="https://github.com/rust-lang/rust/pull/39485">Ignore expected type in diverging blocks #39485</a> を出した。
+			これにより、「到達しえない位置での<strong>一部の型チェックを行わないことでコンパイルを通す</strong>」という戦略が使われるようになった。
+		</p>
+		<p>
+			具体的には、この pull request 以前は、常に diverge するブロックでは「(そのブロックに対して)何らかの <code>!</code> 以外の型が期待されていれば、末尾の式 (tail expression) の型を、ブロックに期待される型へと型強制する。型強制が成功したら、ブロック全体は <code>!</code> として扱う」というアルゴリズムだった。
+			これが pull request によって、常に diverge するブロックでは「(そのブロックに対して)どのような型が期待されていようと、<strong>末尾の式の型の確認は行わず</strong>、ブロック全体を <code>!</code> として扱う」というように変更された。
+		</p>
+
+		<eh:section id="time-series--pr-39485--regression">
+			<eh:title>regression</eh:title>
+
+			<p>
+				この変更では、期待される型の情報が一部で(具体的には、 diverging な部分式を含むようなブロックの最終的な型の推論で)使われなくなったため、今までは推論できていた部分の型が推論できなくなるという regression が発生する。
+				(具体的には <a href="https://github.com/rust-lang/rust/pull/39485/files">https://github.com/rust-lang/rust/pull/39485/files</a> で修正されているテスト群のようなコードで、型注釈が追加されている部分や、後述する regression などで提示されるコードなどである。)
+			</p>
+			<p>
+				これについて、 return される返り値型のみについて型推論を行うこともできるが、そうすると結局 dead code の型を考えることになり、この pull request で直そうとしていた問題を再導入することになってしまうため、 @nikomatsakis 氏は「必要ないやろ」<a href="https://github.com/rust-lang/rust/pull/39485#issuecomment-277550625">と言った</a>。
+			</p>
+			<p>
+				また、解決として @canndrew 氏は「推論できなかった部分をデフォで <code>!</code> とすることで、これらの regression を起こさないようにすることはできるよね(できるけどやりたいとは言ってないよ)」<a href="https://github.com/rust-lang/rust/pull/39485#issuecomment-280229460">と言った</a>が、 @nikomatsakis 氏が「 dead code 部分から型の情報が(手前へ)上がってくると、 (<eh:xref linkend="time-series--issue-39297">issue #39297</eh:xref> で提示され、)この pull request で解決しようとしていた問題を再度引き起こすことになるから良くない」<a href="https://github.com/rust-lang/rust/pull/39485#issuecomment-280345835">と言った</a>。
+			</p>
+			<p>
+				結局、 regression で直接壊れる crate がとても少なく、型注釈を足すだけで regression は簡単に解消できるため、この pull request はそのまま merge された。
+			</p>
+		</eh:section>
+	</eh:section>
+
+	<eh:section id="time-series--issue-39808">
+		<eh:title>issue #39808: mac-0.1.0 crate で Rust の regression を発見したんだけど</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/39808">mac-0.1.0 fails test suite due to type inference regression in Rust 1.15 #39808</a>
+			</li>
+		</ul>
+
+		<p>
+			この regression は、前述の pull request #39485 により発生したもの<strong>ではない</strong>。<br />
+			たぶん commit <a href="https://github.com/rust-lang/rust/commit/6b3cc0b8c8094407a3b5ea75f946c682d6d0142a">rustc_typeck: correctly track "always-diverges" and "has-type-errors". ・ rust-lang/rust@6b3cc0b</a> での <code class="filepath">src/librustc_typeck/check/mod.rs</code> の <code>check_then_else()</code> への変更あたりが引き起こしたのだと思う(詳細は確認していない(正確には、確認したけどわからなかった))。
+		</p>
+		<p>
+			とはいえ、 diverging type の扱いに関するバグであるには違いない。
+		</p>
+		<p>
+			この regression に対応するため、 mac crate では<a href="https://github.com/reem/rust-mac/pull/13/files">こんな妙な型注釈が必要になった</a>。
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series--issue-39984">
+		<eh:title>issue #39984: 最近 nightly で型推論の regression があったんだけど</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/39984">Type inference regression in recent nightly #39984</a>
+			</li>
+		</ul>
+
+		<p>
+			comment <a href="https://github.com/rust-lang/rust/issues/39984#issuecomment-285863991">https://github.com/rust-lang/rust/issues/39984#issuecomment-285863991</a> で丁寧な解説がされている:
+		</p>
+		<pre><code class="lang-rust language-rust"><![CDATA[
+pub fn encode() -> Result<(), ()> {
+    try!(unimplemented!());
+    Ok(())
+}
+]]></code></pre>
+		<p>
+			このコードは過去にはコンパイルが通っていたが、 <eh:xref linkend="time-series--pr-39485">pull request #39485</eh:xref> で到達できない部分の型合わせを行わないようになってしまった結果、 <code>Ok(())</code> の型が <code>Result&lt;(), ()&gt;</code> から推論されなくなった、ということだろうか。
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series--issue-40073">
+		<eh:title>issue #40073: unreachable code での型推論が失敗するようになったんだけど</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/40073">Type inference failure in unreachable code #40073</a>
+			</li>
+		</ul>
+
+		<p>
+			これも、 <code>return</code> で diverge した後の <code>X::B</code> が <code>X&lt;()&gt;</code> へと推論できない例で、 <eh:xref linkend="time-series--pr-39485">pull request #39485</eh:xref> による予期されていた regression である。
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series--pr-40224">
+		<eh:title>pull request #40224: diverging types 周辺の型推論の戦略を変えるよ</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/pull/40224">change the strategy for diverging types #40224</a>
+			</li>
+			<li>
+				<a href="https://github.com/rust-lang/rust/pull/40224#issuecomment-288075549">最終的な仕様変更のまとめコメント</a>
+			</li>
+		</ul>
+
+		<p>
+			この pull request での変更は以下のとおり:
+		</p>
+		<ul>
+			<li>
+				直接 <code>!</code> 型になる場合:
+				<ul>
+					<li>
+						ブロックに diverge する文 (statement) があり、かつ<strong>末尾の式</strong> (tail expression) がない場合 (<code>{ return; }</code> など)、そのブロックの型も <code>!</code> となる。
+					</li>
+					<li>
+						<code>!</code> 型になるどのような式も、 diverge するものと見做される。
+					</li>
+				</ul>
+			</li>
+			<li>
+				<code>!</code> への型強制:
+				<ul>
+					<li>
+						diverge する式が生成したどのような型の値についても、それが <code>!</code> へと型強制されることを許す。
+						(たとえば <code>fn foo() -> ! { panic!(); 32 }</code> のような例では、関数の本体は diverge するから、それが生成する値 <code>32</code> が <code>!</code> へ型強制され、結果型チェックが通る。)
+					</li>
+				</ul>
+			</li>
+			<li>
+				<code>!</code> からの型強制:
+				<ul>
+					<li>
+						<code>!</code> からどのような型への型強制も、常に許される。
+					</li>
+				</ul>
+			</li>
+			<li>
+				diverge するからといって、それ以降の dead code の型が無視されることはない
+			</li>
+		</ul>
+
+		<aside class="important">
+			<eh:title>古い情報</eh:title>
+			<p>
+				<eh:xref linkend="time-series2--issue-46325">issue #46325</eh:xref>, <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> により、 <strong><code>!</code> への型強制を許すルールは削除された</strong>。
+			</p>
+		</aside>
+
+		<p>
+			(<strong>以下、 pull request よく読んでないし、修正後の提案に対する話かどうかさえわからないので、断片的な情報</strong>)
+		</p>
+		<p>
+			通常 <code>{ expr; }</code> は <code>{ expr; () }</code> と同等に扱われるが、この変更の後は、 diverge する式やブロックに対してこれは適用されない。
+			これは <a href="https://github.com/rust-lang/rust/pull/40224#issuecomment-283878903">@canndrew 氏が質問し</a> <a href="https://github.com/rust-lang/rust/pull/40224#issuecomment-284034309">@nikomatsakis 氏が回答している</a>。
+		</p>
+		<p>
+			@nikomatsakis 氏は <a href="https://github.com/rust-lang/rust/pull/40224#issuecomment-285806743">https://github.com/rust-lang/rust/pull/40224#issuecomment-285806743</a> で、解決できなかった型に対して <code>!</code> のフォールバックが使われる場合の原理と問題点を説明している。
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series--pr-40636">
+		<eh:title>pull request #40636: pull request #39485 で発生した regression を避けるため revert するよ</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/pull/40636">Revert #39485, fixing type-inference regressions #40636</a>
+			</li>
+		</ul>
+
+		<p>
+			問題の解決は <eh:xref linkend="time-series--pr-40224">pull request #40224</eh:xref> で行うため、過去の変更 <eh:xref linkend="time-series--pr-39485">pull request #39485</eh:xref> を revert しようという pull request 。
+		</p>
+		<p>
+			(pull request #40224 より前に) merge された。
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series--future">
+		<eh:title>これからのこと</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/35121">issue #35121</a>: tracking issue (RFC 1216): <code>!</code> を普通の型にしたい
+			<ul>
+				<li>
+					<a href="https://github.com/rust-lang/rust/issues/40800">issue #40800</a>: divergence の意味論をちゃんと決めて型強制がうまいこといくようにしたい
+				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/issues/40801">issue #40801</a>: 決定できなかった型をなんでもデフォで <code>!</code> にフォールバックさせるのはよくない
+				</li>
+			</ul>
+		 	</li>
+		</ul>
+	</eh:section>
+</eh:section>
+
+<eh:section id="time-series2">
+	<eh:title>時系列2 (<time datetime="2017-10-14">2017-10-14</time> から <time datetime="2017-12-07">2017-12-07</time>まで)</eh:title>
+
+	<ul>
+		<li>
+			<eh:xref linkend="time-series2--issue-40800" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series2--issue-40801" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series2--pr-45880" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series2--issue-46325" />
+		</li>
+	</ul>
+
+	<eh:section id="time-series2--issue-40800">
+		<eh:title>issue #40800: divergence の意味論をちゃんと決めて型強制がうまいこといくようにしたい</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/40800">Settle desired semantics of divergence for purposes of coercion #40800</a>
+			</li>
+		</ul>
+
+		<p>
+			<xref linkend="time-series--pr-40224">PR #40224</xref> にて、 diverge する式で <code>!</code> への型強制を許すルールを追加したが、どうも実装当時と微妙にフラグの意味が違ってたりとか、ルールがイケてるかどうか微妙なところがあったりするので、はっきりさせたいよねという話。
+		</p>
+		<p>
+			結局、 <code>!</code> への型強制を許すルールってどう有用なのかはっきりしないし、完全になくしてよくない？と @nikomatsakis 氏と @arielb1 氏は考えていたようで、 <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> で到達不可能なコードで <code>!</code> への型強制を許すルールは削除されることになった(というか、削除された)。
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series2--issue-40801">
+		<eh:title>issue #40801: 解決できなかった型をデフォで `!` に推論するの、やめた方がよくない？</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/40801">Change which type variables fall back to `!` #40801</a>
+			</li>
+		</ul>
+
+		<p>
+			フォールバックのルールを変えると非互換な変更になってしまうというのと、提案されたルールが十分良さげというわけでもなさそうという、2つの理由からクローズされた。
+		</p>
+		<p>
+			(よく読んでない。)
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series2--pr-45880">
+		<eh:title>pull request #45880: 到達不可能な場所での `!` への型強制は許さないことにするわ</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/pull/45880">make coercions to `!` in unreachable code a hard error #45880</a>
+			</li>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/46325">Tracking issue for `coerce_never` compatibility lint #46325</a>
+			</li>
+		</ul>
+
+		<p>
+			タイトルそのまま。
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series2--issue-46325">
+		<eh:title>issue 46325: `coerce_never` compatibility lint の tracking issue</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/46325">Tracking issue for `coerce_never` compatibility lint #46325</a>
+			</li>
+		</ul>
+
+		<p>
+			結局、 <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> で、 diverge する式(ブロック)で <code>!</code> への型強制を常に許すという仕様が削除された。
+			<code>!</code> だけに特例で妙な型強制を許すのは一貫性がないから、とのこと。
+		</p>
+		<p>
+			もしこの変更に由来するエラーに遭遇したら、ブロック末尾に生の式 (trailing expression) を置かず、必ずセミコロンで終わらせれば良いとのこと。
+		</p>
+		<pre><code class="lang-rust language-rust"><![CDATA[
+fn example_fixes() -> ! {
+    Some(panic!()); // now with more semicolons
+    // no trailing expression, this can return any type!
+}
+]]></code></pre>
+		<p>
+			そういったわけで、今では <eh:xref linkend="time-series--pr-40224">PR #40224</eh:xref> で実装されたルールは少々変更されている。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="references">
+	<eh:title>参考</eh:title>
+
+	<ul>
+		<li>
+			issues
+			<ul>
+				<li>
+					<a href="https://github.com/rust-lang/rfcs/pull/1216">Promote `!` to a type. #1216</a>
+					<ul>
+						<li>
+							<a href="https://github.com/rust-lang/rfcs/blob/master/text/1216-bang-type.md">RFC 1216</a>
+						</li>
+						<li>
+							<a href="https://github.com/rust-lang/rust/issues/35121">Tracking issue for promoting `!` to a type (RFC 1216) #35121</a>
+						</li>
+						<li>
+							<a href="https://github.com/rust-lang/rust/issues/40801">Change which type variables fall back to `!` #40801</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/issues/40800">Settle desired semantics of divergence for purposes of coercion #40800</a>
+				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/pull/40224">change the strategy for diverging types #40224</a>
+					<ul>
+						<li>
+							<a href="https://github.com/rust-lang/rust/issues/39808">mac-0.1.0 fails test suite due to type inference regression in Rust 1.15 #39808</a>
+						</li>
+						<li>
+							<a href="https://github.com/rust-lang/rust/issues/39984">Type inference regression in recent nightly #39984</a>
+						</li>
+						<li>
+							<a href="https://github.com/rust-lang/rust/issues/40073">Type inference failure in unreachable code #40073</a>
+						</li>
+						<li>
+							<a href="https://github.com/rust-lang/rust/pull/40636">Revert #39485, fixing type-inference regressions #40636</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/pull/39485">Ignore expected type in diverging blocks #39485</a>
+				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/issues/39297">fallback for diverging expressions leaks into the `?` operator #39297</a>
+				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/pull/39009">Add warning for () to ! switch #39009</a>
+				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/issues/46325">Tracking issue for `coerce_never` compatibility lint #46325</a>
+				</li>
+				<li>
+					<ul>
+						<li>
+							<a href="https://github.com/rust-lang/rust/pull/45880">make coercions to `!` in unreachable code a hard error #45880</a>
+						</li>
+						<li>
+							<a href="https://github.com/rust-lang/rust/issues/35849">diverging function with wrapped diverging tail expression regression #35849</a>
+						</li>
+						<li>
+							<a href="https://github.com/rust-lang/rust/pull/35883">typeck: use NoExpectation to check return type of diverging fn #35883</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/issues/40801">Change which type variables fall back to `!` #40801</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			ソースコード等
+			<ul>
+				<li>
+					<a href="https://github.com/rust-lang/rust/blob/e11f6d535532d1a8cc721117e2644da0b47271e5/src/librustc_typeck/check/mod.rs#L511"><code class="filepath">src/librustc_typeck/check/mod.rs</code> で定義される <code>FnCtxt</code> での diverge 情報を持つフィールドのコメント</a>
+				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/blob/7ae95e548929f4924905b2e8f87f2dd57d8bc887/src/test/compile-fail/coerce-to-bang.rs"><code class="filepath">src/test/compile-fail/coerce-to-bang.rs</code> での、 <code>!</code> への型強制についてのテスト</a>
+				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/blob/7ae95e548929f4924905b2e8f87f2dd57d8bc887/src/test/ui/reachable/README.md"><code class="filepath">src/test/ui/reachable/README.md</code>, reachability test の極めて簡単な説明</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</eh:section>
+
+</eh:article>
