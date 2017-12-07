@@ -515,7 +515,10 @@ error: aborting due to previous error
 			</blockquote>
 			<p>
 				それまでの実装では、例の else 節のように必ず途中で脱出するブロックでは、ブロックそれ自体は値を返さないから、通常はブロックが返す型について型チェックは行われない。
-				しかし、ブロックに特定の型が期待されていた場合、本当にブロックがその型を返すか、ブロック末尾の式 (tail expression) について型チェックを行う実装になっていた。
+				しかし、ブロックに特定の型が期待されていた場合、本当にブロックがその型を返すか、ブロック末尾の式 (tail expression) について型チェックを行う実装になっていた<eh:footnote id="footnote-never-on-tail-expression">
+					<a href="https://github.com/rust-lang/rust/issues/35849">Issue #35849</a> とか <a href="https://github.com/rust-lang/rust/pull/35883">PR #35883</a> あたりが関わっているのだろうか？
+					古いことなので詳しく調べてないが、違うかもしれない。
+				</eh:footnote>。
 				(おそらく、それこそ <code>let x: i32 = { return; 'a' };</code> のようなおかしなコードを弾くためのものだったのだろう。)
 			</p>
 			<p>
@@ -731,6 +734,102 @@ pub fn encode() -> Result<(), ()> {
 	</eh:section>
 </eh:section>
 
+<eh:section id="time-series2">
+	<eh:title>時系列2 (<time datetime="2017-10-14">2017-10-14</time> から <time datetime="2017-12-07">2017-12-07</time>まで)</eh:title>
+
+	<ul>
+		<li>
+			<eh:xref linkend="time-series2--issue-40800" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series2--issue-40801" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series2--pr-45880" />
+		</li>
+		<li>
+			<eh:xref linkend="time-series2--issue-46325" />
+		</li>
+	</ul>
+
+	<eh:section id="time-series2--issue-40800">
+		<eh:title>issue #40800: divergence の意味論をちゃんと決めて型強制がうまいこといくようにしたい</eh:title>
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/40800">Settle desired semantics of divergence for purposes of coercion #40800</a>
+			</li>
+		</ul>
+
+		<p>
+			<xref linkend="time-series--pr-40224">PR #40224</xref> にて、 diverge する式で <code>!</code> への型強制を許すルールを追加したが、どうも実装当時と微妙にフラグの意味が違ってたりとか、ルールがイケてるかどうか微妙なところがあったりするので、はっきりさせたいよねという話。
+		</p>
+		<p>
+			結局、 <code>!</code> への型強制を許すルールってどう有用なのかはっきりしないし、完全になくしてよくない？と @nikomatsakis と @arielb1 は考えていたようで、 <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> で到達不可能なコードで <code>!</code> への型強制を許すルールは削除されることになった(というか、削除された)。
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series2--issue-40801">
+		<eh:title>issue #40801: 解決できなかった型をデフォで `!` に推論するの、やめた方がよくない？</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/40801">Change which type variables fall back to `!` #40801</a>
+			</li>
+		</ul>
+
+		<p>
+			フォールバックのルールを変えると非互換な変更になってしまうというのと、提案されたルールが十分良さげというわけでもなさそうという、2つの理由からクローズされた。
+		</p>
+		<p>
+			(よく読んでない。)
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series2--pr-45880">
+		<eh:title>pull request #45880: 到達不可能な場所での `!` への型強制は許さないことにするわ</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/pull/45880">make coercions to `!` in unreachable code a hard error #45880</a>
+			</li>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/46325">Tracking issue for `coerce_never` compatibility lint #46325</a>
+			</li>
+		</ul>
+
+		<p>
+			タイトルそのまま。
+		</p>
+	</eh:section>
+
+	<eh:section id="time-series2--issue-46325">
+		<eh:title>issue 46325: `coerce_never` compatibility lint の tracking issue</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/issues/46325">Tracking issue for `coerce_never` compatibility lint #46325</a>
+			</li>
+		</ul>
+
+		<p>
+			結局、 <eh:xref linkend="time-series2--pr-45880">PR #45880</eh:xref> で、 diverge する式(ブロック)で <code>!</code> への型強制を常に許すという仕様が削除された。
+			<code>!</code> だけに特例で妙な型強制を許すのは一貫性がないから、とのこと。
+		</p>
+		<p>
+			もしこの変更に由来するエラーに遭遇したら、ブロック末尾に生の式 (trailing expression) を置かず、必ずセミコロンで終わらせれば良いとのこと。
+		</p>
+		<pre><code class="lang-rust language-rust"><![CDATA[
+fn example_fixes() -> ! {
+    Some(panic!()); // now with more semicolons
+    // no trailing expression, this can return any type!
+}
+]]></code></pre>
+		<p>
+			そういったわけで、今では <eh:xref linkend="time-series--pr-40224">PR #40224</eh:xref> で実装されたルールは少々変更されている。
+		</p>
+	</eh:section>
+</eh:section>
+
 <eh:section id="references">
 	<eh:title>参考</eh:title>
 
@@ -782,10 +881,23 @@ pub fn encode() -> Result<(), ()> {
 					<a href="https://github.com/rust-lang/rust/pull/39009">Add warning for () to ! switch #39009</a>
 				</li>
 				<li>
-					<a href="https://github.com/rust-lang/rust/pull/45880">make coercions to `!` in unreachable code a hard error #45880</a>
+					<a href="https://github.com/rust-lang/rust/issues/46325">Tracking issue for `coerce_never` compatibility lint #46325</a>
 				</li>
 				<li>
-					<a href="https://github.com/rust-lang/rust/issues/46325">Tracking issue for `coerce_never` compatibility lint #46325</a>
+					<ul>
+						<li>
+							<a href="https://github.com/rust-lang/rust/pull/45880">make coercions to `!` in unreachable code a hard error #45880</a>
+						</li>
+						<li>
+							<a href="https://github.com/rust-lang/rust/issues/35849">diverging function with wrapped diverging tail expression regression #35849</a>
+						</li>
+						<li>
+							<a href="https://github.com/rust-lang/rust/pull/35883">typeck: use NoExpectation to check return type of diverging fn #35883</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/issues/40801">Change which type variables fall back to `!` #40801</a>
 				</li>
 			</ul>
 		</li>
