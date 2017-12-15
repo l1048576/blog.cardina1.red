@@ -1,5 +1,6 @@
 ---
 created_at: 2017-12-15T23:52:55+0900
+updated_at: 2017-12-16T00:08:28+0900
 title: "Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして"
 htags:
   - "computer/gnu-social"
@@ -50,6 +51,9 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 				</li>
 				<li>
 					<eh:xref linkend="comparison--terms" />
+				</li>
+				<li>
+					<eh:xref linkend="comparison--others" />
 				</li>
 			</ul>
 		</li>
@@ -397,6 +401,20 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 		<p>
 			Mastodon では更に別の言葉となり、 toot: トゥート(ツイート相当)、 boost: ブースト(リツイート相当) などになっており、 Mastodon が隆盛の今、(少なくとも私の観測範囲では)この言葉が浸透しつつある。
 			これについては思うところがあるので後述する。
+		</p>
+	</eh:section>
+
+	<eh:section id="comparison--others">
+		<eh:title>その他</eh:title>
+
+		<p>
+			Mastodon では現代的なエコシステムが活用されているが、 GNU Social ではより古典的に、サードパーティのライブラリを全て同梱して配布しており、その理由が少し興味深い。
+		</p>
+		<p>
+			PHP には composer という (Ruby で言うところの gem のような)パッケージマネージャがあるが、それを使わないのかとの merge request が、<a href="https://git.gnu.io/gnu/gnu-social/merge_requests/80#note_5679">このコメント</a>にあるように「 GitHub への依存を増やすと環境によっては問題が出たりするのと、動くものをまとめて一度に配布した方が簡単だし確実に動く(あとプロプライエタリなプラットフォームに依存するのは良くない)」とのことでクローズされている<eh:footnote id="footnote-distributed-at-once">
+				パッケージマネージャに頼らずライブラリを同梱した方が確実に動くというのは、同じく Ruby on Rails で開発されている Redmine の公式コンテナがパッケージの依存解決とインストールに失敗して動かせなくなったことのある個人的な経験からすると、非常に説得力がある
+			</eh:footnote>。
+			GNU の名を冠しているだけあり、 GNU Social の方が少々原理主義的というか、 Free/Libre software として「自由」をより重視しているように見える。
 		</p>
 	</eh:section>
 </eh:section>
