@@ -134,7 +134,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 		私の分散 SNS 遍歴もそんなに長くないが、 Mastodon 以前より<a href="https://gnusocial.cardina1.red/lo48576">自分用の GNU Social インスタンス</a>を持っており<eh:footnote id="footnote-qvitter-gnusocial-infinite-scroll-bug">
 			投稿が少数しかないように見えたら、それは GNU Social のプラグインのバグなので、ウィンドウサイズを思いきり小さくしたあと元に戻してほしい。たぶんそれでちゃんとロードされる。
 		</eh:footnote>、それからしばらくして Mastodon が ActivityPub プロトコルを実装したことを切っ掛けに Mastodon に引っ越した。
-		(その辺りのことは後述。)
+		(その辺りのことは<eh:xref linkend="comparison--protocols">後述</eh:xref>。)
 	</p>
 	<p>
 		そういった経緯もあり、 Mastodon 以外の場所から fediverse を見ていたユーザ(ﾌﾟﾖｸﾞﾔﾏ)としての話を書きたい。
