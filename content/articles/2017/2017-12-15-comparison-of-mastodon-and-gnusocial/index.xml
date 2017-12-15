@@ -1,6 +1,6 @@
 ---
 created_at: 2017-12-15T23:52:55+0900
-updated_at: 2017-12-16T01:39:21+0900
+updated_at: 2017-12-16T01:44:49+0900
 title: "Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして"
 htags:
   - "computer/gnu-social"
@@ -387,6 +387,9 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 				</eh:footnote>、ひとつのインスタンスだけ(外部に影響する)特殊な機能を持っているとかは好かれない気がする<eh:footnote id="footnote-custom-emoji-on-activitypub">
 					じゃあカスタム絵文字は Mastodon 外との相互運用性に悪影響を与えそうだけどどうなんだ、みたいな感想はある
 				</eh:footnote>。
+			</p>
+			<p>
+				Mastodon AdC 2日目の記事: 『<a href="http://fusagiko.blog.jp/archives/1874896.html">このIP網の片隅で : アイマストドンの7ヶ月半をgithubのPRベースで振り返る</a>』などでは Mastodon を拡張した記録がまとめられているが、保守していくの大変そうだし、こうしてまとめられると、やはりプラグインのシステムも早期に必要なのかもなぁという気にさせられるので難しい。
 			</p>
 		</eh:section>
 	</eh:section>
