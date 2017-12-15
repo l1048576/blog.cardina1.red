@@ -1,6 +1,6 @@
 ---
 created_at: 2017-12-15T23:52:55+0900
-updated_at: 2017-12-16T01:30:03+0900
+updated_at: 2017-12-16T01:39:21+0900
 title: "Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして"
 htags:
   - "computer/gnu-social"
@@ -640,6 +640,46 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 			結局、再三述べたように「自分の居場所を自分で統べる」「<strong>自分を縛るのは自分だけ</strong>」という話に戻ってくるのだが、<strong>それを実現するための手段が分散と連合</strong>なのであり、それゆえ私はこの思想を強調し啓蒙していきたいのである。
 			<strong>分散は手段に過ぎず、本当に重要なのは<strong>ユーザ一人一人の権利と自由</strong>である</strong>。
 		</p>
+
+		<snsq:sns-quotes mode="tiny">
+			<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/99077203745054695">
+				<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+					<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+					<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+					<snsq:service>mastodon</snsq:service>
+					<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+				</snsq:identity>
+				<snsq:meta>
+					<snsq:timestamp datetime="2017-11-28T00:55:52+0900">2017-11-28 00:55:52</snsq:timestamp>
+					<snsq:reftime datetime="2017-12-16T01:36:10+0900">2017-12-16</snsq:reftime>
+					<snsq:in-reply-to url="https://mastodon.cardina1.red/@lo48576/99077193080890037" />
+				</snsq:meta>
+				<snsq:content>
+					<p>
+						ただ、私が分散と連合を個人レベルまで推進することを推すのは、「分散 SNS だから」という名前の分類の問題ではなくて、「ユーザの自由を最大限担保するためのサービスの在り方だから」という理由であることは再三述べていきたい。<br />
+自由が要らないなら twitter なり何なり好きに使えば良いが、自由を守る努力をせず権利を失ったときには、往々にして既に手遅れになっているものなのでは。
+					</p>
+				</snsq:content>
+			</snsq:sns-quote>
+			<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/99077211375451457">
+				<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
+					<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+					<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
+					<snsq:service>mastodon</snsq:service>
+					<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
+				</snsq:identity>
+				<snsq:meta>
+					<snsq:timestamp datetime="2017-11-28T00:57:49+0900">2017-11-28 00:57:49</snsq:timestamp>
+					<snsq:reftime datetime="2017-12-16T01:36:10+0900">2017-12-16</snsq:reftime>
+					<snsq:in-reply-to url="https://mastodon.cardina1.red/@lo48576/99077203745054695" />
+				</snsq:meta>
+				<snsq:content>
+					<p>
+						だから「分散 SNS であること」が目的なのではなく、ユーザの自由を保証するという目的こそが最重要と考えており、分散 SNS 原理主義はそれを達成するための思想、手段に過ぎないというのを主張していきたい
+					</p>
+				</snsq:content>
+			</snsq:sns-quote>
+		</snsq:sns-quotes>
 	</eh:section>
 
 	<eh:section id="federated-social-web--conclusion">
