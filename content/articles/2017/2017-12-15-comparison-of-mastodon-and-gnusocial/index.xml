@@ -1,0 +1,715 @@
+---
+created_at: 2017-12-15T23:52:55+0900
+updated_at: 2017-12-16T01:30:03+0900
+title: "Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして"
+htags:
+  - "computer/gnu-social"
+  - "computer/mastodon"
+  - "AdventCalendar/2017"
+kind: article
+
+excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的な話とか、 GNU Social ってどうなの的な話を。あと分散/連合の思想の話。"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
+	id="2017-12-15-comparison-of-mastodon-and-gnusocial"
+>
+<eh:title>Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして</eh:title>
+<p>
+	この記事は、 <a href="https://adventar.org/calendars/2178">Mastodon Advent Calendar 2017</a> の7日目の記事である。<br />
+</p>
+
+<eh:section id="toc">
+	<eh:title>見出し</eh:title>
+	<ul>
+		<li>
+			<eh:xref linkend="comparison" />
+			<ul>
+				<li>
+					<eh:xref linkend="comparison--history" />
+				</li>
+				<li>
+					<eh:xref linkend="comparison--releases" />
+				</li>
+				<li>
+					<eh:xref linkend="comparison--number-of-active-comitters" />
+				</li>
+				<li>
+					<eh:xref linkend="comparison--protocols" />
+				</li>
+				<li>
+					<eh:xref linkend="comparison--language-and-runtime" />
+				</li>
+				<li>
+					<eh:xref linkend="comparison--extensions" />
+				</li>
+				<li>
+					<eh:xref linkend="comparison--official-docker-support" />
+				</li>
+				<li>
+					<eh:xref linkend="comparison--terms" />
+				</li>
+				<li>
+					<eh:xref linkend="comparison--others" />
+				</li>
+			</ul>
+		</li>
+		<li>
+			<eh:xref linkend="think-of-non-mastodon-friends" />
+			<ul>
+				<li>
+					<eh:xref linkend="think-of-non-mastodon-friends--3rd-party-services" />
+				</li>
+				<li>
+					<eh:xref linkend="think-of-non-mastodon-friends--words" />
+				</li>
+			</ul>
+		</li>
+		<li>
+			<eh:xref linkend="federated-social-web" />
+			<ul>
+				<li>
+					<eh:xref linkend="federated-social-web--second-twitter" />
+					<ul>
+						<li>
+							<eh:xref linkend="federated-social-web--second-twitter--current-situation" />
+						</li>
+						<li>
+							<eh:xref linkend="federated-social-web--second-twitter--admin-yourself" />
+						</li>
+					</ul>
+				</li>
+				<li>
+					<eh:xref linkend="federated-social-web--service-for-me" />
+					<ul>
+						<li>
+							<eh:xref linkend="federated-social-web--service-for-me--local-timeline-is-local" />
+						</li>
+						<li>
+							<eh:xref linkend="federated-social-web--service-for-me--making-timeline" />
+						</li>
+					</ul>
+				</li>
+				<li>
+					<eh:xref linkend="federated-social-web--save-yourself" />
+				</li>
+				<li>
+					<eh:xref linkend="federated-social-web--conclusion" />
+				</li>
+			</ul>
+		</li>
+	</ul>
+</eh:section>
+
+<eh:section id="about-me">
+	<eh:title>あんただれ</eh:title>
+	<ul>
+		<li>
+			GNU Social
+			<ul>
+				<li>
+					GNU Social 個人用インスタンス勢 (<a href="https://gnusocial.cardina1.red/lo48576">gnusocial.cardina1.red</a>)
+				</li>
+				<li>
+					<a href="https://git.gnu.io/gnu/gnu-social/tree/nightly">nightly</a> 追従勢
+				</li>
+				<li>
+					<a href="https://git.gnu.io/gnu/gnu-social/merge_requests/145">クソザコ PR</a> を送ったことはあるが、コードそのものに手を入れたことはない
+				</li>
+				<li>
+					周辺プラグイン (<a href="https://git.gnu.io/h2p/Qvitter">Qvitter</a> 等)に <a href="https://git.gnu.io/h2p/Qvitter/merge_requests/101">PR</a> 送ったことはある
+				</li>
+			</ul>
+		</li>
+		<li>
+			Mastodon
+			<ul>
+				<li>
+					Mastodon 個人インスタンス勢 (<a href="https://mastodon.cardina1.red/@lo48576">mastodon.cardina1.red</a>)
+				</li>
+				<li>
+					<a href="https://github.com/tootsuite/mastodon">master</a> 追従勢
+				</li>
+				<li>
+					PR とか issue は書いたことなし(純粋なユーザ)
+				</li>
+			</ul>
+		</li>
+		<li>
+			その他
+			<ul>
+				<li>
+					昔『<a href="../../04/13/federated-social-web/">gnusocial や mastodon の哲学</a>』なる記事を書いた
+				</li>
+				<li>
+					個人インスタンス推進派
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<p>
+		私の分散 SNS 遍歴もそんなに長くないが、 Mastodon 以前より<a href="https://gnusocial.cardina1.red/lo48576">自分用の GNU Social インスタンス</a>を持っており<eh:footnote id="footnote-qvitter-gnusocial-infinite-scroll-bug">
+			投稿が少数しかないように見えたら、それは GNU Social のプラグインのバグなので、ウィンドウサイズを思いきり小さくしたあと元に戻してほしい。たぶんそれでちゃんとロードされる。
+		</eh:footnote>、それからしばらくして Mastodon が ActivityPub プロトコルを実装したことを切っ掛けに Mastodon に引っ越した。
+		(その辺りのことは<eh:xref linkend="comparison--protocols">後述</eh:xref>。)
+	</p>
+	<p>
+		そういった経緯もあり、 Mastodon 以外の場所から fediverse を見ていたユーザ(ﾌﾟﾖｸﾞﾔﾏ)としての話を書きたい。
+	</p>
+</eh:section>
+
+<eh:section id="comparison">
+	<eh:title>GNU Social と Mastodon を比較してみる (おまけ)</eh:title>
+
+	<p>
+		Mastodon しか使っていないユーザにとっては、どうでもいい話かもしれない。
+		というか、書いてる人をあまり見なかったので書いてみただけで、私の本題は<eh:xref linkend="think-of-non-mastodon-friends">次のセクション</eh:xref>以降なのでそっちを読んでほしいです。
+	</p>
+
+	<table class="visual">
+		<thead>
+			<tr>
+				<th>観点</th>
+				<th>GNU Social</th>
+				<th>Mastodon</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>歴史</th>
+				<td>古い</td>
+				<td>新しい</td>
+			</tr>
+			<tr>
+				<th>開発ペース、リリース周期</th>
+				<td>極めておそい</td>
+				<td>はやい</td>
+			</tr>
+			<tr>
+				<th>(アクティブな)コミッタ数</th>
+				<td>実質1人？</td>
+				<td>たくさん</td>
+			</tr>
+			<tr>
+				<th>プロトコル</th>
+				<td>OStatus, XMPP? (あとはプラグイン次第？)</td>
+				<td>OStatus, ActivityPub</td>
+			</tr>
+			<tr>
+				<th>開発言語</th>
+				<td>PHP</td>
+				<td>Ruby</td>
+			</tr>
+			<tr>
+				<th>実行環境</th>
+				<td>PHP, MySQL, www サーバ</td>
+				<td>Ruby (Rails), Node.js, Postgresql, Redis</td>
+			</tr>
+			<tr>
+				<th>拡張機能</th>
+				<td>プラグイン</td>
+				<td>コードの直接変更</td>
+			</tr>
+			<tr>
+				<th>公式 docker サポート</th>
+				<td>なし(されない予定)</td>
+				<td>あり</td>
+			</tr>
+			<tr>
+				<th>言葉(用語)</th>
+				<td>notice / repeat / subscribe</td>
+				<td>toot / boost / follow</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<eh:section id="comparison--history">
+		<eh:title>歴史</eh:title>
+		<p>
+			私もそんなに詳しくないが、 GNU Social は元は StatusNet という名前(もっと昔はもっと別の名前だったらしい)で開発されており、その歴史は古い。
+			実装も PHP で行われている。
+			最近は開発も停滞している(ように見える)。
+		</p>
+		<p>
+			一方 Mastodon は新しいので Ruby on Rails で開発されている(らしい)。
+			<a href="https://github.com/tootsuite/mastodon/commit/9c4856bdb11fc9311ab30a97224cee3dfaec492f">最初のコミット</a>は 2016-02-21 なので、まだ2年経っていないということになる。
+			開発も活発である。
+		</p>
+	</eh:section>
+
+	<eh:section id="comparison--releases">
+		<eh:title>開発ペース、リリース周期</eh:title>
+
+		<eh:section id="comparison--releases--gnusocial">
+			<eh:title>GNU Social</eh:title>
+
+			<blockquote>
+				<ul>
+					<li>1.2.x     "stable", few updates, well tested code</li>
+					<li>master    "testing", more updates, usually working well</li>
+					<li>nightly   "unstable", most updates, not always working</li>
+				</ul>
+				<footer>
+					&#x2014; <a href="https://git.gnu.io/gnu/gnu-social/blob/50f9f23ff19a4f577c429d80411378d6a1747725/README.md#unstable-version"><time datetime="2017-12-15">2017-12-15</time> 時点での master の <code class="filepath">README.md</code> より</a>
+				</footer>
+			</blockquote>
+			<p>
+				GNU Social では master ブランチで「テスト版」の開発が、 nightly ブランチで「不安定版」の開発が行われているが、その実態は素敵とは言い難い。
+				git-flow のような feature ブランチやプルリクを merge することを基本とする開発ではないようで、同じ機能を目的とする複数のコミットが分散したり、同じコミットが (merge 等ではなく) master と nightly に別々にコミットされているように見えたり<eh:footnote id="footnote-gnusocial-common-commits">
+					cherry-pick でもしているのだろうか
+				</eh:footnote>。
+				一応、 master から nightly への merge はときどき行われているようだが、 nightly only な機能が多いので、これ master にちゃんと merge できるのか……？という不安が物凄い。
+				(或いはバージョンが進んだら nightly が master に成り代わる予定なのかもしれない。)
+				(ちなみにコミットのグラフは<a href="https://git.gnu.io/gnu/gnu-social/network/nightly">ここ</a>から見られる。)
+			</p>
+			<p>
+				そもそも nightly の開発さえ停滞しているようで、なかなか厳しい。
+				たとえば nightly ブランチは <time datetime="2017-09-10">2017-09-10</time> を最後に、 <time datetime="2017-12-15">2017-12-15</time> に至るまでコミット(の push) が行われていない。
+				この様子では、 ActivityPub への対応などは状況が変わらない限り望めないだろう。
+			</p>
+			<p>
+				バージョンを上げるとなると、もっとペースが遅くなる。
+				最後のバージョンアップ (1.1.3 → 1.2.0) が行われたのが、 <a href="https://git.gnu.io/gnu/gnu-social/commit/1cc96cd33425780ebd4a8f40ddfc051013a8ee4e"><time datetime="2015-02-27">2015-02-27</time> のこと</a>である。
+				尤も、これも「安定している」と言うことはできるから欠点だけというわけでもないかもしれない。
+			</p>
+		</eh:section>
+
+		<eh:section id="comparison--releases--mastodon">
+			<eh:title>Mastodon</eh:title>
+
+			<p>
+				一方の Mastodon の開発とリリースは活発である。
+				開発は master ブランチで進んでおり、それが開発版(不安定版)のようなものになっている。
+				そのため、「安定版」ブランチのようなものは存在せず、新機能や修正が欲しくば新しいリリースを追い掛けなさいという方式になっている。
+			</p>
+			<p>
+				連合を組むという性質からいえば、安定版の古いバージョンにしがみ付かれると迷惑だったり面倒だったりするので、古いバージョンを保守するよりも新しいリリースをどんどん乗り換えましょうという方針は正しいように思われる。
+			</p>
+			<p>
+				機能の開発等は issue と pull request を活用して行われており、特定の機能のためのコミット群を追い掛けるのは(少なくとも GNU Social よりは)簡単である。
+			</p>
+		</eh:section>
+	</eh:section>
+
+	<eh:section id="comparison--number-of-active-comitters">
+		<eh:title>アクティブなコミッタ数</eh:title>
+
+		<p>
+			GNU Social では、コミット権を持っているのは実質 @mmn 氏の一人だけしかいないように見え、 <a href="https://git.gnu.io/gnu/gnu-social/commits/nightly">nightly のコミット一覧</a>を見ても @mmn 氏ばかりである。
+			(もちろん、 merge request は様々なユーザが出せる。)
+			この状況は、明らかに開発ペースの低下に貢献していそうである。
+		</p>
+		<p>
+			特になんとも言えない †趣†を感じてしまうのは、 master を nightly に merge するときのコミットメッセージが <code>Merge branch 'master' of git.gnu.io:gnu/gnu-social into mmn_fixes</code> などとなっている様を見たときなどである。
+		</p>
+		<p>
+			一方 Mastodon ではコミッタが多数活動しており、日本人も多くいる。
+			issue や pull request もよく消化されており、勢いがあると言えるだろう。
+		</p>
+	</eh:section>
+
+	<eh:section id="comparison--protocols">
+		<eh:title>プロトコル</eh:title>
+
+		<p>
+			GNU Social は古くから OStatus へ対応しているが、 ActivityPub への対応の兆しはない<eh:footnote id="footnote-gnusocial-and-activitystreams">
+				ActivityPub への対応をしていないとはいっても、その前身である ActivityStreams プロトコル用の json データを吐く機能 (API) は実装されており、全く非対応だったというわけでもなさそうである
+			</eh:footnote>。
+			これもアクティブなコミッタが1人であることを考えると、妥当というか仕方ないことに思われる。
+		</p>
+		<p>
+			Mastodon では、もともと GNU Social (や OStatus のサービス)と連合を組むため OStatus を実装していたが、その後 ActivityPub にも既に対応している。
+			規格書が散逸しつつある OStatus と W3C が策定している ActivityPub のどちらに力を入れるべきかといえば、当然後者であるし、これでも(機能に制限が付くとはいえ) OStatus のネットワークには相変わらず参加できるのだから、この点をもって機能性では Mastodon が GNU Social より大いに優位に立ったと言えよう。
+		</p>
+	</eh:section>
+
+	<eh:section id="comparison--language-and-runtime">
+		<eh:title>開発言語と実行環境</eh:title>
+
+		<eh:section id="comparison--language-and-runtime--gnusocial">
+			<eh:title>GNU Social</eh:title>
+
+			<p>
+				このブログを燃やすつもりはないので本音を書くのは控えたいが、 GNU Social が PHP で開発されているのは流石に歴史を感じさせる。
+				しかも master ブランチは PHP 5.5+ 対応であり、 PHP 7 への対応を明言していないのである<eh:footnote id="footnote-gnusocial-php7-support">
+					つまり、当然ながら 1.2.x のリリースでは PHP 7 への正式な対応はされていない。
+					nightly ブランチでは PHP 7 に対応している。
+				</eh:footnote>。
+			</p>
+			<p>
+				動作環境としては MySQL と Apache / nginx 等を要求しており、古きよき LAMP (Linux, Apache, MySQL, PHP) 環境で動くため、サーバの準備については安心感がある。
+				ただし、公式の docker サポートは予定されていない(後述)。
+			</p>
+		</eh:section>
+
+		<eh:section id="comparison--language-and-runtime--mastodon">
+			<eh:title>Mastodon</eh:title>
+
+			<p>
+				Mastodon は Ruby on Rails で開発されており、最近のプロジェクトだけあって現代的である。
+				アセットもビルドが必要な形式で管理されていたりする。
+				私は最近の web 開発界隈の技術には詳しくないが、どうせ何も考えずとも docker をドキュメント通り動かせばうまくいくようになっているので、開発者からすれば便利なことであっても、ユーザ(鯖缶)の負荷がそこまで大きくなるということにはならないだろう。
+			</p>
+			<p>
+				Mastodon では docker や docker-compose などが公式で用意されており、ドキュメントも十分にあるため、 Rails や Node.js が必要とはいえ、(高性能を求めない限りは)導入自体は難しくない。
+				むしろ個人規模のサービスであれば docker を使う機会も多いだろうから、小規模インスタンスでは助かるかもしれない。
+			</p>
+		</eh:section>
+	</eh:section>
+
+	<eh:section id="comparison--extensions">
+		<eh:title>拡張機能</eh:title>
+
+		<eh:section id="comparison--extensions--gnusocial">
+			<eh:title>GNU Social</eh:title>
+
+			<p>
+				GNU Social はプラグインの仕組みを持っている。
+				内容は UI を変更するもの、プロトコルを実装するもの、 API を拡張するもの、投稿にフックをかけたり内容を変更するもの等々、様々である。
+				UI を twitter 風にする <a href="https://git.gnu.io/h2p/Qvitter">Qvitter</a> というプラグインは 3rd party では一番有名だろう。
+			</p>
+		</eh:section>
+
+		<eh:section id="comparison--extensions--mastodon">
+			<eh:title>Mastodon</eh:title>
+
+			<p>
+				Mastodon は(私の知る限り)プラグインの仕組みを持っておらず、改造にはリポジトリを fork してコードを直接弄る必要がある。
+				とはいえ Mastodon もまだまだ枯れて安定するのは先になるだろうし、今の段階でプラグイン用の仕組みを用意するのはあまり重要ではないかもしれない。
+			</p>
+			<p>
+				また、 Mastodon は相互運用性とか Mastodon 自体のデザイン方針を大事にしている節があり
+				<eh:footnote id="footnote-mastodon-interoperability">
+					たとえば<a href="https://github.com/tootsuite/mastodon/issues/2252#issuecomment-296502151">添付画像の最大サイズは可変にしないよ</a>とか<a href="https://github.com/tootsuite/mastodon/issues/1446#issuecomment-293142234">マイクロブログなんだからメッセージ長を無制限にするつもりはないぞ</a>とか、その辺りの決定でそういった印象を受ける
+				</eh:footnote>、ひとつのインスタンスだけ(外部に影響する)特殊な機能を持っているとかは好かれない気がする<eh:footnote id="footnote-custom-emoji-on-activitypub">
+					じゃあカスタム絵文字は Mastodon 外との相互運用性に悪影響を与えそうだけどどうなんだ、みたいな感想はある
+				</eh:footnote>。
+			</p>
+		</eh:section>
+	</eh:section>
+
+	<eh:section id="comparison--official-docker-support">
+		<eh:title>公式 docker サポート</eh:title>
+
+		<p>
+			GNU Social では行われない予定。
+			<a href="https://git.gnu.io/gnu/gnu-social/issues/259">勝手にやってねという感じ</a>である。
+		</p>
+		<p>
+			その点 Mastodon では既に docker / docker-compose 対応があるので、導入が楽である。
+		</p>
+	</eh:section>
+
+	<eh:section id="comparison--terms">
+		<eh:title>言葉(用語)</eh:title>
+		<p>
+			これについては、昔<a href="../../04/13/federated-social-web/#terms-differences">表を作った</a>のでそちらを参照してもらうとわかりやすいかもしれない。
+		</p>
+		<p>
+			GNU Social は元々のプロトコル (OStatus やその基盤となっているプロトコル)がブログ関係発祥のものであるため、用語もそういった背景を感じさせるものになっている。
+			notice: 通知(ツイート相当)、 repeat: 拡散(リツイート相当) などはまだしも、 subscribe (フォロー相当) などは特にメーリングリスト的な雰囲気がある。
+		</p>
+		<p>
+			しかし同じ GNU Social でも、 Qvitter プラグインで UI を変更すると、表示される用語も変わる。
+			quip: クイップ(ツイート相当)、 requip: リクイップ(リツイート相当) などは語源がよくわからないが、何なのだろう<eh:footnote id="footnote-quip-etymology">
+				かつて twitter から避難してきた人々が住み着いた quitter (twitter を quit したからこういう名前なのだろうか)という GNU Social インスタンスと関係があるのではと疑っているが、裏付けは全くとっていない
+			</eh:footnote>。
+		</p>
+		<p>
+			Mastodon では更に別の言葉となり、 toot: トゥート(ツイート相当)、 boost: ブースト(リツイート相当) などになっており、 Mastodon が隆盛の今、(少なくとも私の観測範囲では)この言葉が浸透しつつある。
+			これについては思うところがあるので後述する。
+		</p>
+	</eh:section>
+
+	<eh:section id="comparison--others">
+		<eh:title>その他</eh:title>
+
+		<p>
+			Mastodon では現代的なエコシステムが活用されているが、 GNU Social ではより古典的に、サードパーティのライブラリを全て同梱して配布しており、その理由が少し興味深い。
+		</p>
+		<p>
+			PHP には composer という (Ruby で言うところの gem のような)パッケージマネージャがあるが、それを使わないのかとの merge request が、<a href="https://git.gnu.io/gnu/gnu-social/merge_requests/80#note_5679">このコメント</a>にあるように「 GitHub への依存を増やすと環境によっては問題が出たりするのと、動くものをまとめて一度に配布した方が簡単だし確実に動く(あとプロプライエタリなプラットフォームに依存するのは良くない)」とのことでクローズされている<eh:footnote id="footnote-distributed-at-once">
+				パッケージマネージャに頼らずライブラリを同梱した方が確実に動くというのは、同じく Ruby on Rails で開発されている Redmine の公式コンテナがパッケージの依存解決とインストールに失敗して動かせなくなったことのある個人的な経験からすると、非常に説得力がある
+			</eh:footnote>。
+			GNU の名を冠しているだけあり、 GNU Social の方が少々原理主義的というか、 Free/Libre software として「自由」をより重視しているように見える。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="think-of-non-mastodon-friends">
+	<eh:title>Mastodon 以外の“仲間”を無視しないでください</eh:title>
+
+	<eh:section id="think-of-non-mastodon-friends--3rd-party-services">
+		<eh:title>3rd party サービス</eh:title>
+
+		<p>
+			最近「 Mastodon のインスタンス一覧/ネットワークで云々」みたいなサービスを見掛けるようになった。
+			それ自体は大変良いことだが、 Mastodon と繋がっているサーバは Mastodon だけでなく、 GNU Social や Pleroma 、そしてこれから生まれるであろう ActivityPub 対応サービスなどもあるのである。
+			GNU Social 等をガン無視して Mastodon だけ対応されると、分散というアーキテクチャは何も理解されていなかったのだなという無力感を感じさせられる。
+		</p>
+		<p>
+			Mastodon が実装する ActivityPub はオープンなプロトコル(仕様)であり、それゆえ<strong>第三者が自由に参加可能であり、 Mastodon に縛られずに済む</strong>という重要な特徴がある。
+			サードパーティサービスでこれを活かさず Mastodon のみに対応するのは、結局「 Twitter 専用サービスが twitter でしか使えない」というのと本質が変わらないのではないだろうか。
+			折角 ActivityPub や OStatus という実装非依存の共通規格が用意されているのだから、できればそういった“Mastodon の仲間”を無視しないで fediverse と関わってほしいものである<eh:footnote id="footnote-do-it-yourself">
+				文句があるなら自分でやれ、貢献は受け付ける、というのが OSS だが、残念ながら私のような口先だけの野郎にそんな力はないので、こうしてブログでちまちまと啓蒙を進めるのが精々である
+			</eh:footnote>。
+		</p>
+		<p>
+			サービス開発者の皆様は、「 Mastodon のほげほげサービス」を作ろうとするとき、それを本当は「 ActivityPub のほげほげサービス」だとか「 ActivityPub / OStatus のほげほげサービス」にできるのではないか、ということを是非考えていただきたいと思っている。
+		</p>
+		<p>
+			たとえば togetter の「Mastodon 版」のようなものが公開されたとして、 GNU Social や Pleroma の投稿が利用できなかったら泣きます。
+			ほんとお願いします。
+		</p>
+	</eh:section>
+
+	<eh:section id="think-of-non-mastodon-friends--words">
+		<eh:title>言葉の多様性</eh:title>
+
+		<p>
+			GNU Social で Mastodon のインスタンスと繋がっていた時代、「 RT ではなく BT やで」といった投稿などを見るにつけ、「うち (GNU Social) では repeat であって boost ではないから RT の方が妥当なんだよなぁ」などと思っていた。
+		</p>
+		<p>
+			Mastodon ユーザの皆様は、「おっこいつ Mastodon 初心者か？」と思って指摘を投げる前に、もしかすると<strong>あなたが見ている投稿の発信者が「トゥート」「ブースト」する環境にいないかもしれない</strong>ということを念頭に置いておいてほしい。
+			(念頭に置くだけでいいです)
+		</p>
+		<p>
+			ちなみに私は、サービス中立性の高い用語を意識して使っていこうと思っているので、「 post / 投稿」「 repeat / 拡散」などの言葉を使っている。
+			気に入ったら皆様もどうぞ。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="federated-social-web">
+	<eh:title>分散/連合 SNS という思想の重要性</eh:title>
+
+	<p>
+		<a href="https://blog.cardina1.red/2017/04/13/federated-social-web/">過去の記事で散々強調してきた</a>が、現状を見るにやはりこの思想が十分に浸透しているとは言い難く、非常にもどかしい思いをしている。
+	</p>
+	<p>
+		「思想から入るサービスは流行しない」などと適当なことを言う面々もいるようだが、定着したユーザが増えたこの辺りでもう一度、この思想の大事さを説きたい。
+	</p>
+
+	<eh:section id="federated-social-web--second-twitter">
+		<eh:title>Mastodon を第2の twitter にしてはいけない</eh:title>
+
+		<eh:section id="federated-social-web--second-twitter--current-situation">
+			<eh:title>Pawoo に引っ越して安心するのは、あまりに呑気</eh:title>
+
+			<p>
+				日本において Twitter からユーザが Mastodon へ移行した理由で一番大きなものは、 Twitter の運営者の暴挙にやられたとか、フォローしているユーザがその影響を受けたとかであろう。
+				この場合、問題の本質は<strong>中央集権</strong>のシステム、すなわち twitter 社が圧倒的に強力で<strong>ユーザは権利を著しく制限されている/されうる環境であった</strong>というところにある。
+			</p>
+			<p>
+				それを踏まえて、今の mstdn.jp や Pawoo やニコフレ等の「大規模インスタンス」の現状はどうか。
+				<strong>サービス運営者を変えただけ</strong>で、本質は段々と twitter と同様の中央集権に近付いており、 <strong>twitter と同じようなリスクを抱えつつある</strong>のではないか。
+			</p>
+			<p>
+				今のところは、 twitter のような暴挙が行われていないように見えるが、それは<strong>今のところそうだというだけ</strong>である。
+				twitter だって、きっと最初から暴君だったというわけではない。
+				自分以外の他人や組織が運営し管理しているということ自体がリスクなのである。
+			</p>
+			<p>
+				たとえば、「○○文化に理解がある」からといって、それらが全面的に保護されるわけではない。
+				運営者が取りたくないリスクは回避され、投稿の削除やアカウント BAN が行われることはあるのである(<strong>たとえそれが合法であっても</strong>、である)。
+				少なからぬユーザが twitter に見切りを付けて Pawoo や mstdn.jp 、ニコフレ等の Mastodon インスタンスに流れてきたが、いつか将来事情が変わって<strong>それらにもまた見切りを付けるときが来るかもしれない</strong><eh:footnote id="footnote-haiku1">
+					ここで一句: いつまでも あると思うな いい運営 #575
+				</eh:footnote>。
+				私もそのような未来は信じたくないが、それを想定し事前に備えておくことが重要なのである。実際 twitter でも、凍結されたときには既に手遅れで、引越しをお知らせすることさえ難しくなっている。
+			</p>
+		</eh:section>
+
+		<eh:section id="federated-social-web--second-twitter--admin-yourself">
+			<eh:title>自分の手で自分を救い、自分を守る</eh:title>
+
+			<p>
+				ではユーザは何をすべきかといえば、大規模インスタンスに集中するのではなく、より分散を積極的にする(理想的には、個人単位でインスタンスを立てる)ことである。
+			</p>
+			<p>
+				twitter に懲りた人々は、「<strong>誰かに権利を縛られ</strong>、コミュニケーションや宣伝の生命線を握られながら生きる」という在り方そのものに疑いを持つべきである。
+				「権利を縛られる相手が悪かった」などと考えることを放棄して問題を回避せずにいれば、やがて訪れるのは“第2の twitter ”からの凍結に怯える日々かもしれない。
+			</p>
+			<p>
+			そもそも Mastodon (そして ActivityPub や互換ソフトウェア) が twitter より優れているのは、<strong>自分のサーバを自分用に立ててネットワーク (fediverse) に参加できる</strong>こと、<strong>Mastodon を使えない場合でも、他のサービスを利用したり開発することで fediverse に参加できる</strong>こと、などである。
+			これらの本質は「自分の面倒を自分で見ることができる」ということであり、「自分以外の他人に管理されない、権利を制限されない」ということであり、そしてまた「文句があるなら別のインスタンス、別のソフトウェアへ逃げることができる」ということである。
+			</p>
+			<p>
+				「自分の面倒を自分で見る」ことを必要とする Mastodon や GNU Social 、 Pleroma 等が可能にするのは、「<strong>自分を縛るのは自分だけである</strong>」という在り方である。
+				これはまた、<strong>他人に侵されない情報発信の場を確保できる</strong>ということでもある。
+				特に虐げられがちな文化やコンテンツの発信者は、この性質をこそ大切にするべきではないだろうか。
+				この性質が、他人による(理不尽かもしれない)規制などから自分を守ってくれるのである。
+			</p>
+			<p>
+				私が一貫して主張している「個人が自分のためのインスタンスを持つ」というのは、多少の技術的な知識と月1000円程度の費用が要求される
+				<eh:footnote id="footnote-1k-yen-per-month">
+					安く頑張れば、ドメインと VPS の費用を含めて月1000円くらいでいける。
+					更に通常の web ページをそのサーバに共存させることもできる。
+					しかも一部の VPS 業者は、 Mastodon を簡単にインストールする手段を提供している。
+					「 twitter に課金してもいい」と思っていたなら、今がチャンスだ。
+					<strong>twitter ではなく自分のサーバに課金しよう</strong>。
+				</eh:footnote>
+				から、誰もがそう在るということは現実的には無理だろうということは理解している。
+				しかし、憲法や法律で保証される権利と同じく、権利というのはそれを守ろうとする努力によって初めて守られるものであって、一人一人が「自分の(情報を発信し他者と交流する)自由を守る」ための努力をしなければ、その権利は理不尽に奪われてしまうリスクに晒される(その典型的な例が twitter での事例だ)。
+				Mastodon は関心のあるユーザもサーバ管理者も増えているから、気力があるなら是非とも自分の手で自由を守ろうという行動を起こしてみてほしい。
+				きっといろいろな人が協力してくれるだろう。
+			</p>
+		</eh:section>
+	</eh:section>
+
+	<eh:section id="federated-social-web--service-for-me">
+		<eh:title>自分の面倒を自分で見る</eh:title>
+
+		<eh:section id="federated-social-web--service-for-me--local-timeline-is-local">
+			<eh:title>LTL (Local Timeline) はローカルである</eh:title>
+
+			<p>
+				自明っぽいが、そうなのである。
+			</p>
+			<p>
+				ここで私が問題としたいのは、「ローカルタイムラインを重要視する使い方、またそれを積極的に推進することの危うさ」である。
+				分散 SNS (Federated social web) で我々が手に入れようとしている「自分の情報発信の場を他人に侵されない」という性質は、十分な(可能なら個人や近い単位での)分散とそれらの連合に依拠するものである。
+				しかし「テーマ別インスタンス」のような棲み分けは、利点もある一方で、分散を妨げる大きな要因でもある
+				(それが典型的に現れているのが、絵を描く人々が Pawoo 等に集まる現象である)。
+			</p>
+			<p>
+				Mastodon が十分に普及し人口に膾炙しなければ SNS としての意味が薄くなり、そもそも利用の動機が小さくなってしまうということはわかっているし、今は普及のためにユーザ数を増やす段階にあるということも、まあ納得している。
+				ローカルタイムラインや同インスタンスの同志の存在は、そのための強力な動機であることは現状が証明している。
+			</p>
+			<p>
+				しかし、ユーザが増えた結果、また twitter やその他中央集権的なサービスと同じ事件を繰り返すようでは仕方がない。
+				ユーザは、最初に参入したときの動機はさておき、後付けでもいいから自分で自分を守る方法を、自由を守ろうという意思を身に付けるべきである。
+			</p>
+		</eh:section>
+
+		<eh:section id="federated-social-web--service-for-me--making-timeline">
+			<eh:title>タイムラインは自分で作るもの</eh:title>
+
+			<p>
+				これも当然といえば当然なのだが、ローカルタイムラインはそれを当然でなくしている。
+			</p>
+			<p>
+				与えられた餌を食べているだけでは、中央集権サービスの運営者に飼われているのと大差ない。
+				「誰かが用意してそこにある<ruby>もの<rp>(</rp><rt>タイムライン</rt><rp>)</rp></ruby>に自分も飛び込む」という考え方を、「<strong>自分で自分の<ruby>環境や居場所<rp>(</rp><rt>フォローとタイムライン</rt><rp>)</rp></ruby>を確保する</strong>」という考え方に転換することが必要なのではないだろうか。
+			</p>
+			<p>
+				Mastodon には、フォローしているユーザをファイルにして保存したり、アップロードして再現する機能がある。
+				つまり「自分で作ったタイムライン」を再現するための機能だ。
+				この機能が存在することで、たとえインスタンスが潰れたり自分が別インスタンスに引っ越すことになったときにも、自分のための場所をすぐに確保できるのである。
+				これもまた分散 SNS におけるユーザの分散と連合を推進するものだ。
+			</p>
+			<p>
+				<strong>ローカルタイムラインで面白いと思ったユーザは、そこで眺めて満足するのではなく、フォローして「自分のための<ruby>環境<rp>(</rp><rt>タイムライン</rt><rp>)</rp></ruby>」に取り込むべき</strong>である。
+				そうしていずれ来るかもしれない運営者との決別の時、あるいは自立の時に備えておくこと、これも Mastodon を“第2の twitter ”にしないための極めて簡単な努力の形である<eh:footnote id="footnote-less-dependency-on-local-timeline">
+					そういう意図で、私は一貫して「 LTL はユーザを発見する目的で使われるべきで、常用して参加するための場と見做してほしくない」「趣味などでユーザを特定インスタンスに集めるのは良くない」と言っているのだが、まあ世の中いろいろな考えの人がいるもので、同意してもらえた割合はあまり多くない気がする
+				</eh:footnote>。
+			</p>
+		</eh:section>
+	</eh:section>
+
+	<eh:section id="federated-social-web--save-yourself">
+		<eh:title>思想が大切なのではない、思想が提示し実現しようとする世界が大切なのである</eh:title>
+
+		<p>
+			私の原理主義的な言動が良くないのかもしれないが、分散 SNS で個人単位への分散を推進するのは、分散そのものが重要だからではない。
+			ユーザ一人一人が自分の自由を守るために現状で最適な(実現可能な)手段が分散と連合だからである。
+		</p>
+		<p>
+			コミュニティやサービスが荒れるとき、その原因はコミュニティ等の構成員同士(更に、存在するなら管理者や運営者)で何らかの事柄に合意がとれないからである<eh:footnote id="footnote-manner">
+				典型的には「マナー」とか。何がマナーかの合意もとれないし、そもそもマナーが本当に尊重されるべきなのかも合意がとれていないケースが多い。
+			</eh:footnote>。
+			しかし、自分でサーバを用意できるインターネットにおいて、「意見も活動方針も合わないのに同じ場にどうしても存在しないといけない」というケースは、現実でのそういった場合よりも極めて少なくなるはず(そしてそうあるべき)である。
+		</p>
+		<p>
+			Mastodon において具体的には、運営者や他のうるさいユーザに文句があるなら、そのインスタンスにいることをやめて別のインスタンスでそういった人々と関わらず(或いは積極的にブロックして)生きていけば良いのである。
+			物理的な位置や所属に縛られる現実とは異なり、インターネットにおいて「関わらない」「逃げる」ことのコストは遥かに小さい。
+			もっと気軽に面倒を避ければ良い。
+		</p>
+		<p>
+			では、そういった面倒やトラブルのリスクを軽減する根本的な手段が何かと言えば、それは当然「他人と同じリソースを共有したり奪い合わない」こと<eh:footnote id="footnote-dont-share-resources">
+				たとえばローカルタイムラインで肌色画像が氾濫することが嫌だと言って揉めるのは、<strong>ローカルタイムラインを他者と共有</strong>しているからである。
+				これが他者と共有していないホームタイムラインであれば、そんな問題が起きないことは誰にでもわかるだろう。
+				肌色画像が溢れようがユーザの勝手だし、嫌ならフォローを切るなりブロックすればいいのだ。
+			</eh:footnote>である。
+			すなわち、これが個人規模への分散だ。
+			Mastodon 等の分散 SNS においては、たとえ「分散」したとしても、自分が関わりたい人をフォローして好きに繋がることができる。
+		</p>
+		<p>
+			結局、再三述べたように「自分の居場所を自分で統べる」「<strong>自分を縛るのは自分だけ</strong>」という話に戻ってくるのだが、<strong>それを実現するための手段が分散と連合</strong>なのであり、それゆえ私はこの思想を強調し啓蒙していきたいのである。
+			<strong>分散は手段に過ぎず、本当に重要なのは<strong>ユーザ一人一人の権利と自由</strong>である</strong>。
+		</p>
+	</eh:section>
+
+	<eh:section id="federated-social-web--conclusion">
+		<eh:title>よーするに</eh:title>
+		<ul>
+			<li>
+				<p>
+					<strong>自分のことは自分で守ってください</strong>
+				</p>
+				<ul>
+					<li>
+						<p>
+							日常生活における「権利」と同じです
+						</p>
+					</li>
+					<li>
+						<p>
+							そのための手段を Mastodon その他が提供してくれます。
+							あとはうまく使うだけです。
+						</p>
+					</li>
+					<li>
+						<p>
+							権利には義務が伴うものですが、 Mastodon 個人インスタンスの場合、たとえば具体的には「月額1000円と多少の知識」とかです。たとえばね。
+							(お金を使う以外の方法も、探せばあるかもしれませんが。)
+						</p>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<p>
+					<strong>少しは自分の身を守ることに関心を持ってください</strong>
+				</p>
+				<ul>
+					<li>
+						<p>
+							最初のうちは、理由は楽しいからでもみんながいるからでも何でもいいけど、 twitter に懲りたなら同じ失敗を回避するのが賢明です
+						</p>
+					</li>
+					<li>
+						<p>
+							あなたを一番よく守れるのは、あなた自身です。
+							<strong>自分のために行動を起こしてください</strong>。
+						</p>
+					</li>
+					<li>
+						<p>
+							現実を見てください。あなたが必要としている権利、特に情報を発信する権利は、本当に確保されていますか？
+							実は誰かに(法律以上に、あなたが許容できる基準以上に厳しく)制限されているのに意識していなかっただけではありませんか？
+						</p>
+						<ul>
+							<li>
+								<p>
+									制限されていることに気付いたなら、その制限を小さくする努力をすることができます。
+									今すぐやる必要はないかもしれませんが、状況が変わってしまう前に、早めになんとかした方がいいと思います。
+								</p>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<p>
+							分散/連合 SNS 、Federated Social Web の考え方は単なる概念というか思想なので、技術的に難しいとかは特にないです。
+							知ってください。
+							それで十分です。
+						</p>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</eh:section>
+</eh:section>
+
+</eh:article>
