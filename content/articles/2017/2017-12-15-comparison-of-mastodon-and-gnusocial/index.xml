@@ -1,6 +1,6 @@
 ---
 created_at: 2017-12-15T23:52:55+0900
-updated_at: 2017-12-16T04:45:13+0900
+updated_at: 2017-12-17T00:15:40+0900
 title: "Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして"
 htags:
   - "computer/gnu-social"
@@ -20,6 +20,8 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 <eh:title>Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして</eh:title>
 <p>
 	この記事は、 <a href="https://adventar.org/calendars/2178">Mastodon Advent Calendar 2017</a> の15日目の記事である。<br />
+	前日の記事は『<a href="https://medium.com/@tootleinside/%E3%81%A9%E3%81%86%E3%81%99%E3%82%8C%E3%81%B0%E5%A4%89%E5%8C%96%E3%81%99%E3%82%8Bapi%E3%81%A8%E4%B8%8A%E6%89%8B%E3%81%8F%E4%BB%98%E3%81%8D%E5%90%88%E3%81%A3%E3%81%A6%E3%81%84%E3%81%91%E3%82%8B%E3%81%AE%E3%81%8B-d7650cfcb517">どうすれば変化するAPIと上手く付き合っていけるのか – Tootle Inside – Medium</a>』、<br />
+	翌日の記事は『<a href="https://theboss.github.io/blog/2017/12/17/introduction-to-mastodon-frontend-customization/">Mastodon フロントエンド改造入門 | THE BOSS's blog</a>』である。
 </p>
 
 <eh:section id="toc">
