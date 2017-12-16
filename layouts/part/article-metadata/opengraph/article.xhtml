@@ -70,7 +70,7 @@
 		required = meta[:required] || false
 	-%>
 	<%- if !value.nil? -%>
-		<meta name="og:<%= key %>" content="<%= value %>" />
+		<meta property="og:<%= key %>" content="<%= value %>" />
 	<% else %>
 		<%-
 			raise "Metadata #{key.inspect} for opengraph is required but got `nil` value" if required
