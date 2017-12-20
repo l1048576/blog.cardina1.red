@@ -1,6 +1,6 @@
 ---
 created_at: 2017-12-15T23:52:55+0900
-updated_at: 2017-12-17T00:15:40+0900
+updated_at: 2017-12-20T23:39:39+0900
 title: "Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして"
 htags:
   - "computer/gnu-social"
@@ -272,6 +272,28 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 				たとえば nightly ブランチは <time datetime="2017-09-10">2017-09-10</time> を最後に、 <time datetime="2017-12-15">2017-12-15</time> に至るまでコミット(の push) が行われていない。
 				この様子では、 ActivityPub への対応などは状況が変わらない限り望めないだろう。
 			</p>
+			<aside class="note">
+				<eh:title><time datetime="2017-12-20">2017-12-20</time> 追記: master, nightly が更新された (<time datetime="2017-12-17">2017-12-17</time>)</eh:title>
+				<p>
+					この記事を公開した<time datetime="2017-12-17">2日後</time>、実に3ヶ月ぶりに GNU Social のリポジトリに更新があった
+					(<a href="https://git.gnu.io/gnu/gnu-social/commits/master">master</a>,
+					<a href="https://git.gnu.io/gnu/gnu-social/commits/nightly">nightly</a>,
+					<a href="https://git.gnu.io/gnu/gnu-social/commit/0b9a2fdf3ad19942e85a66b94d08501ce9c927dd">0b9a2fd</a>,
+					<a href="https://git.gnu.io/gnu/gnu-social/commit/69bb81556f21b5708ac76fef87ba9c0ec859097c">69bb815</a>,
+					<a href="https://git.gnu.io/gnu/gnu-social/commit/a1ea335140a984365b6b5c908689d14afa464a81">a1ea335</a>,
+					<a href="https://git.gnu.io/gnu/gnu-social/commit/67a9c0415c395d92adeb784413bb9a88fba7347f">67a9c04</a>,
+					<a href="https://git.gnu.io/gnu/gnu-social/commit/ec98fd0c438f5b8f8e5eeee893ad84f121b7249f">ec98fd0</a>,
+					<a href="https://git.gnu.io/gnu/gnu-social/commit/9c0c8a19dd5dfcb662f8ed4df23b52f731163973">9c0c8a1</a>,
+					<a href="https://git.gnu.io/gnu/gnu-social/commit/1e1543dd72be4d45236e2e3a53452a969f50cdb3">1e1543d</a>,
+					<a href="https://git.gnu.io/gnu/gnu-social/commit/c285f80b1830cffd20a28c693d74c59f8c3c39f6">c285f80</a>,
+					<a href="https://git.gnu.io/gnu/gnu-social/commit/ffe14fe5f326f013a34fdd303c0e5e8aae772559">ffe14fe</a>)
+					。
+				</p>
+				<p>
+					Merge Request がいくらか merge されているが、やはり活動しているコミッタ (push できる人)は @mmn 氏だけのようである。
+					この体制がいつまでもつだろうか……
+				</p>
+			</aside>
 			<p>
 				バージョンを上げるとなると、もっとペースが遅くなる。
 				最後のバージョンアップ (1.1.3 → 1.2.0) が行われたのが、 <a href="https://git.gnu.io/gnu/gnu-social/commit/1cc96cd33425780ebd4a8f40ddfc051013a8ee4e"><time datetime="2015-02-27">2015-02-27</time> のこと</a>である。
