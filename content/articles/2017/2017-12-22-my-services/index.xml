@@ -1,0 +1,310 @@
+---
+created_at: 2017-12-22T17:39:14+0900
+title: "気軽に立てようウェブサービス"
+htags:
+  - "computer"
+  - "AdventCalendar/2017"
+kind: article
+
+excerpt: "わぁ、サーバがいっぱいだぁ〜！"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
+	id="2017-12-22-my-services"
+>
+<eh:title>気軽に立てようウェブサービス</eh:title>
+<p>
+	この記事は、 <a href="https://adventar.org/calendars/2377">rogy Advent Calendar 2017</a> の21日目<eh:footnote id="footnote-21st-day">
+		AKST (アラスカ標準時, -0900)ではまだ21日なので許して……
+	</eh:footnote>の記事である。<br />
+	前日の記事は『<a href="https://blog.rogiken.org/2017/12/20/well-defined%E3%81%AE%E3%81%AF%E3%81%AA%E3%81%97/">well-definedのはなし – 東京工業大学 ロボット技術研究会公式ブログ</a>』、<br />
+	翌日の記事は『<a href="https://blog.rogiken.org/2017/12/22/taiwan/">ヒーローに……なり台湾！ – 東京工業大学 ロボット技術研究会公式ブログ</a>』である。
+</p>
+<p>
+	ネタがなくなったので私が立てている自分用サービス/サーバとかの紹介でもします。
+</p>
+<p>
+	web 開発とかの話はしないし、それどころか技術的な話でもないです。
+	タイトルから勘違いしたならドンマイということで。
+</p>
+
+<eh:section id="abstract">
+	<eh:title>概要</eh:title>
+
+	<p>
+		ロ技研ではもともと web サイトや GitLab サーバを持っていたが、最近さらに discourse や WordPress や wiki なども導入された。
+		めでたいことだ。
+		ちょうど AdC のネタもなかったので、この機に私の自前運用サービスの紹介と、それを私がどう使っているのか的な話を書きたい。
+	</p>
+</eh:section>
+
+<eh:section id="process">
+	<eh:title>サービス立てる方法</eh:title>
+
+	<ol>
+		<li>
+			ドメインを取得する
+		</li>
+		<li>
+			サーバを調達する
+			<ul>
+				<li>
+					VPS でも自宅機でも良いが、個人的には VPS の方がおすすめ
+				</li>
+			</ul>
+		</li>
+		<li>
+			DNS とか ssh 鍵の共有とか鯖の設定をする
+		</li>
+		<li>
+			サービスを立てる
+			<ul>
+				<li>
+					docker を使うなら、 <code class="filepath">docker-compose.yaml</code> を書いたり <code class="filepath">Dockerfile</code> を書いたりスタートアップスクリプトを書いたり
+				</li>
+				<li>
+					docker を使わないなら、素直にシステムにインストール
+				</li>
+				<li>
+					あと自動起動とか証明書自動更新とかバックアップとかも systemd service や timer を用意する
+				</li>
+			</ul>
+		</li>
+		<li>
+			完
+		</li>
+	</ol>
+
+	<p>
+		簡単でしょ？
+	</p>
+</eh:section>
+
+<eh:section id="my-services">
+	<eh:title>私が立てている(主に自分用)サービス</eh:title>
+
+	<eh:section id="my-services--gitlab">
+		<eh:title>GitLab</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://gitlab.cardina1.red/lo48576/titech-1610-os/">らりお / titech-1610-os · GitLab</a>
+				(<a href="https://blog.cardina1.red/2017/09/15/rust-clonable-error-types/#error-type-for-warnings--fsck-xv6">ブログで引用した</a>ことがあったので、そのとき公開リポジトリに変更した)
+			</li>
+		</ul>
+
+		<p>
+			Git リポジトリホスティングサービス。
+			web インターフェースもある、まあ GitHub みたいなやつの OSS 版。
+		</p>
+		<p>
+			「プライベートリポジトリを置いとけるリモートの鯖が欲しいけど、 GitHub に金払うのもなぁ……よし、立てるか！」ということで立てた。
+			卒論とか minecraft のセーブデータとか機密情報とかいろいろ突っ込んでおけるので便利。
+		</p>
+		<p>
+			そのうち CI を用意して連携させてブログの自動デプロイとかできると楽しそうだと思っているのだが、 GitLab CI を使うか Jenkins を使うかその他にするか、まだ考えていない。
+		</p>
+	</eh:section>
+
+	<eh:section id="my-services--redmine">
+		<eh:title>Redmine</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://redmine.cardina1.red/projects/lo48576-bucket-list/issues">チケット - らりおやりたいことリスト - らりお Redmine</a>
+			</li>
+		</ul>
+
+		<p>
+			チケット管理サービス (Issue Tracking System, ITS) 。
+			タスク管理とかに使える。
+			GitHub の issue を高機能にしてそれだけ取り出してきたみたいなやつと思っておけばだいたい合ってる。
+		</p>
+		<p>
+			「やりたいｴﾖｹﾞ多くなってきたな……よし管理するか！」ということで立てた。
+			ｴﾖｹﾞの体験版とかｴﾖｹﾞとか minecraft の目標や進捗状況、欲しいものリストの管理等で使っている。
+		</p>
+	</eh:section>
+
+	<eh:section id="my-services--mediawiki">
+		<eh:title>MediaWiki</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://mediawiki.cardina1.red/wiki/%E7%89%B9%E5%88%A5:%E3%83%9A%E3%83%BC%E3%82%B8%E4%B8%80%E8%A6%A7">全ページ - MediaWiki</a>
+			</li>
+		</ul>
+
+		<p>
+			言わずと知れた wiki 。
+			Wikipedia とかは MediaWiki で構築されている。
+		</p>
+		<p>
+			「ｴﾖｹﾞで出てきた雑学をまとめておきたいな……よし wiki 立てるか！」ということで立てた。
+			<a href="https://mediawiki.cardina1.red/wiki/%E3%81%82%E3%81%AA%E3%81%9F%E3%82%92%E3%82%AA%E3%83%88%E3%82%B3%E3%81%AB%E3%81%97%E3%81%A6%E3%81%82%E3%81%92%E3%82%8B%EF%BC%81">ｴﾖｹﾞの雑学とか解説をメモ</a>したり、<a href="https://mediawiki.cardina1.red/wiki/%E5%A4%89%E6%8F%9B%E3%83%9F%E3%82%B9%E3%81%A7%E5%87%BA%E3%81%A6%E3%81%8D%E3%81%9F%E3%82%A2%E3%83%AC">何かの機会に見た謎のアレをメモ</a>したり、<a href="https://mediawiki.cardina1.red/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%81%8A%E3%81%B3">おもしろかったドメインをメモ</a>したり、<a href="https://mediawiki.cardina1.red/wiki/%E5%A4%89%E6%8B%8D%E5%AD%90%E3%81%AE%E6%9B%B2">聞いたことのある変拍子の曲をメモ</a>したりなどしている。
+			情報を綺麗にまとめるというより、他人に見せるかもしれないメモを自分だけで書く用途で使っている。
+		</p>
+		<p>
+			wiki のシステムは一度自分で作ってみたいと思っているので、そのうち引っ越すかもしれず、そのため mediawiki の方は精力的に使ったりはしていない。
+			でもあると便利。
+		</p>
+	</eh:section>
+
+	<eh:section id="my-services--www">
+		<eh:title>web サーバ</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://blog.cardina1.red/">このブログ</a>
+			</li>
+		</ul>
+
+		<p>
+			静的な web サイトを公開するためのもの。
+		</p>
+		<p>
+			「ブログ書くか……でも markdown とか嫌いだし、 asciidoc とか独自 XML 使いたいなぁ……変換は手元でやってファイルだけリモートに置いとくか！」ということで立てた。
+			そういった理由がある<eh:footnote id="footnote-original-blog-source">
+				このブログの CSS もスクリプトも HTML ソース(の元になる XML ソース)も、 CDN や外部サービスを利用するコード等を除けば、すべてゼロから自分で書いたものである。
+				ゆえに柔軟性は最高に高い。
+			</eh:footnote>ので、 WordPress とかその他サービスは使っていない。
+		</p>
+	</eh:section>
+
+	<eh:section id="my-services--gnu-social">
+		<eh:title>GNU Social</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://gnusocial.cardina1.red/lo48576/all">@lo48576@gnusocial.cardina1.red のホームタイムライン</a>
+			</li>
+		</ul>
+
+		<p>
+			Mastodon と同じようなやつだが、 Mastodon より大昔から存在する SNS 。
+			Mastodon と互換性があり、互いにフォローしあうこともできる。
+		</p>
+		<p>
+			「プロプライエタリなサービスにネットでの人間関係を握られるの嫌だなぁ…… OSS でどうにかするか！」ということで立てた。
+			Mastodon に引っ越しするまでメインで使っていた。
+			実は twitter への同時投稿プラグインもあるので、それも使っていた。
+		</p>
+		<p>
+			今は <eh:xref linkend="my-services--mastodon">Mastodon</eh:xref> をメインで使っている。
+		</p>
+		<p>
+			Mastodon や GNU Social についての詳細は昔ブログを書いたのでそっち読んで:
+			『<a href="https://blog.cardina1.red/2017/04/13/federated-social-web/">gnusocial や mastodon の哲学 - 何とは言わない天然水飲みたさ</a>』、
+			『<a href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/">Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして - 何とは言わない天然水飲みたさ</a>』。
+		</p>
+	</eh:section>
+
+	<eh:section id="my-services--mastodon">
+		<eh:title>Mastodon</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://mastodon.cardina1.red/@lo48576/">@lo48576@mastodon.cardina1.red の投稿</a>
+			</li>
+		</ul>
+
+		<p>
+			<eh:xref linkend="my-services--gnu-social">GNU Social</eh:xref> と互換性のある後発の OSS 。
+			よりモダンなプロトコルに対応している。
+		</p>
+		<p>
+			もう私は twitter をメインで使っていないので、 twitter で私をﾎｮﾖｰしている皆様は是非 Mastodon へいらっしゃいませ。
+			どこ行けばいいかわからないという場合は <a href="https://mstdn.jp/about">mstdn.jp</a> 、 <a href="https://pawoo.net/about">Pawoo</a> 、 <a href="https://friends.nico/about">friends.nico</a> あたりの大手にでも行ってみればいいと思います<eh:footnote id="footnote-mastodon-instances">
+				まあ本当は<a href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/#federated-social-web">ブログでも書いた</a>とおり、自分で自分用のインスタンス立ててそれ使うのをおすすめしますが
+			</eh:footnote>。
+		</p>
+		<p>
+			Mastodon についての詳細は昔ブログを書いたのでそっち読んで:
+			『<a href="https://blog.cardina1.red/2017/04/13/federated-social-web/">gnusocial や mastodon の哲学 - 何とは言わない天然水飲みたさ</a>』、
+			『<a href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/">Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして - 何とは言わない天然水飲みたさ</a>』。
+		</p>
+	</eh:section>
+
+	<eh:section id="my-services--owncloud">
+		<eh:title>ownCloud</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://owncloud.cardina1.red/s/7dIt5IWeOag8uEB">公開中のファイル</a>
+			</li>
+		</ul>
+
+		<p>
+			ファイルホスティングサービス。
+			自家用 Dropbox みたいなやつ。
+		</p>
+		<p>
+			「プライベートな情報をわざわざ抜き出しやすい形でプロプライエタリなサービスに見せてあげるの嫌だし、検閲されるのもなぁ……自分で立てるか！」ということで立てた。
+			雑多なファイルを置いている。
+			ファイルの公開や共有にも使える。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="future">
+	<eh:title>これから欲しいもの</eh:title>
+
+	<eh:section id="future--meta">
+		<eh:title>メタなもの</eh:title>
+
+		<p>
+			いいかげんサーバとかサービスが増えてきたので、ここらでオーケストレーションと死活監視とログ収集に手を出したいなと思う今日このごろ。
+		</p>
+	</eh:section>
+
+	<eh:section id="future--mail">
+		<eh:title>メールサーバ</eh:title>
+
+		<p>
+			メールは歴史的な事情もあり、セキュリティ関係の設定をシビアにやらないと大変なことになってしまうのだが、 Gmail 依存をやめたいのと、自分の開発や鯖オペで使いたいので、暇になったら勉強しつつ立てたい。
+		</p>
+		<p>
+			メールはチャット的に使うこともできるし、用途ごとに UI さえ調整すれば何にでも使えるので、いろいろ遊べるはず。
+		</p>
+	</eh:section>
+
+	<eh:section id="future--development">
+		<eh:title>開発</eh:title>
+
+		<p>
+			自作サービスとかを載せて動かしたさがある
+			<eh:footnote id="developing-service">
+				一応作りたいものはあるのだが、認証まわりをちゃんと作るのが面倒なのでアイデアだけ用意して放置している。
+				そのうち Rust でいい感じのデファクトスタンダードが出てこないかな。
+			</eh:footnote>。
+		</p>
+		<p>
+			あとは開発に使えるような CI (Continuous Integration) サービスが欲しい。
+			GitLab に TeX ファイルを push したら PDF が自動で出てきたり、 XML ソースを push したらブログが勝手に更新されたりとか、そんな感じの自動化をしたい。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="conclusion">
+	<eh:title>まとめ</eh:title>
+
+	<ul>
+		<li>
+			いろいろサービス立てて使ってます
+		</li>
+		<li>
+			そんなに難しくないよ
+		</li>
+		<li>
+			脱プロプライエタリしましょう
+		</li>
+		<li>
+			まだまだいろいろ立てたい
+		</li>
+	</ul>
+</eh:section>
+
+</eh:article>
