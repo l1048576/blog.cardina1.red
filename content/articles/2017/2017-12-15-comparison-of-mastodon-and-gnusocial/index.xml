@@ -1,6 +1,6 @@
 ---
 created_at: 2017-12-15T23:52:55+0900
-updated_at: 2017-12-20T23:39:39+0900
+updated_at: 2018-01-01T00:44:03+09:00
 title: "Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして"
 htags:
   - "computer/gnu-social"
@@ -531,7 +531,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 				この場合、問題の本質は<strong>中央集権</strong>のシステム、すなわち twitter 社が圧倒的に強力で<strong>ユーザは権利を著しく制限されている/されうる環境であった</strong>というところにある。
 			</p>
 			<p>
-				それを踏まえて、今の mstdn.jp や Pawoo やニコフレ等の「大規模インスタンス」の現状はどうか。
+				それを踏まえて、今の mstdn.jp や Pawoo や friends.nico 等の「大規模インスタンス」の現状はどうか。
 				<strong>サービス運営者を変えただけ</strong>で、本質は段々と twitter と同様の中央集権に近付いており、 <strong>twitter と同じようなリスクを抱えつつある</strong>のではないか。
 			</p>
 			<p>
@@ -542,7 +542,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 			<p>
 				たとえば、「○○文化に理解がある」からといって、それらが全面的に保護されるわけではない。
 				運営者が取りたくないリスクは回避され、投稿の削除やアカウント BAN が行われることはあるのである(<strong>たとえそれが合法であっても</strong>、である)。
-				少なからぬユーザが twitter に見切りを付けて Pawoo や mstdn.jp 、ニコフレ等の Mastodon インスタンスに流れてきたが、いつか将来事情が変わって<strong>それらにもまた見切りを付けるときが来るかもしれない</strong><eh:footnote id="footnote-haiku1">
+				少なからぬユーザが twitter に見切りを付けて Pawoo や mstdn.jp 、 friends.nico 等の Mastodon インスタンスに流れてきたが、いつか将来事情が変わって<strong>それらにもまた見切りを付けるときが来るかもしれない</strong><eh:footnote id="footnote-haiku1">
 					ここで一句: いつまでも あると思うな いい運営 #575
 				</eh:footnote>。
 				私もそのような未来は信じたくないが、それを想定し事前に備えておくことが重要なのである。実際 twitter でも、凍結されたときには既に手遅れで、引越しをお知らせすることさえ難しくなっている。
