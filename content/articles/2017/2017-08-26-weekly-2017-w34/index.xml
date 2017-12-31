@@ -57,14 +57,15 @@ excerpt: "2017年 第34週 まとめ"
 			<li>
 				<snsq:sns-quote url="https://twitter.com/i/web/status/900886246515277824">
 					<snsq:identity url="https://twitter.com/intent/user?user_id=847733038087667713">
-						<snsq:icon src="https://pbs.twimg.com/profile_images/847740053367291909/oF-CLX8s_400x400.jpg" />
+						<snsq:icon src="sukerasparo.twitter.2017-12-02.jpg" />
 						<snsq:screen-name> 🐰ことのはアムリラート🦉本日発売🎉</snsq:screen-name>
 						<snsq:service>twitter</snsq:service>
 						<snsq:nickname>@SukeraSparo</snsq:nickname>
 					</snsq:identity>
 					<snsq:meta>
 						<snsq:timestamp datetime="2017-08-05T10:03:13.483+0900">2017-08-05 10:03:13</snsq:timestamp>
-						<snsq:reftime datetime="2017-08-25T23:08:48+0900">2016-08-25</snsq:reftime>
+						<!-- <snsq:reftime datetime="2017-08-25T23:08:48+0900">2016-08-25</snsq:reftime> -->
+						<snsq:reftime datetime="2017-12-02T00:46:35+0900">2017-12-02</snsq:reftime>
 					</snsq:meta>
 					<snsq:content>
 						<p>
