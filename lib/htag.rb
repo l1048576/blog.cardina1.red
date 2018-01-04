@@ -41,7 +41,7 @@ module Larry
       buffer = ''.dup
       decompose_htagpath(htag).each_with_object(tags_base_dir.dup){|tag, current_path|
         current_path << u(tag) + '/'
-        buffer << "<li>#{link_to_unless_current h(tag), current_path+'index.xhtml', attributes}</li>"
+        buffer << "<li>#{link_to_unless_current h(tag), current_path, attributes}</li>"
       }
       buffer
     end
@@ -172,7 +172,7 @@ module Larry
     def link_to_htag(tag_node, tagpage_base_dir, text=nil, options: {})
       text ||= h(tag_node.name)
       tagpage_base_dir += '/' unless tagpage_base_dir.end_with?('/')
-      link_to text, tagpage_base_dir + tag_node.rel_uri + '/index.xhtml', options
+      link_to text, tagpage_base_dir + tag_node.rel_uri, options
     end
 
     def print_tagtree(tag_node, tagpage_base_dir, node_text=nil, buffer: nil, options: {})
