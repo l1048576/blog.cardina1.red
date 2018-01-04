@@ -498,7 +498,7 @@ hi link logError Label
 
 let b:current_syntax = "portage-summary-log"
 </code></pre>
-				<figcaption><code class="filepath">~/.config/nvim/ftdetect/portage-summary-log.vim</code></figcaption>
+				<figcaption><code class="filepath">~/.config/nvim/syntax/portage-summary-log.vim</code></figcaption>
 			</figure>
 			<figcaption>適当なところに置いて使ってくださいな</figcaption>
 		</figure>
