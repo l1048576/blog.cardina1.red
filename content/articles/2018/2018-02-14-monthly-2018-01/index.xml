@@ -1,0 +1,523 @@
+---
+created_at: 2018-02-14T12:05:57+09:00
+title: "Monthly report 2018-01"
+htags:
+  - "日常/日記"
+kind: article
+
+excerpt: "2018年 01月 まとめ"
+---
+<?xml version="1.0"?>
+<eh:article
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
+	id="2018-02-13-monthly-2018-01"
+>
+<eh:title>Monthly report 2018-01</eh:title>
+<p>
+	2018-01 の日記。
+</p>
+
+<eh:section id="news">
+	<eh:title>ニュース・知ったこと</eh:title>
+
+	<eh:section id="intel-cpu-vulnerability">
+		<eh:title>Intel の CPU に 脆弱性 #575</eh:title>
+
+		<p>
+			リンクの順番は適当。
+			意味はない。
+		</p>
+
+		<ul>
+			<li>
+				公式或いはそれに近い情報源、大手プロジェクト
+				<ul>
+					<li>
+						<a href="https://googleprojectzero.blogspot.jp/2018/01/reading-privileged-memory-with-side.html">Project Zero: Reading privileged memory with a side-channel</a>
+					</li>
+					<li>
+						<a href="https://spectreattack.com/">Meltdown and Spectre</a>
+					</li>
+					<li>
+						<a href="https://bugs.gentoo.org/643352">643352 – sys-kernel/gentoo-sources: Meltdown mitigation (KPTI patch set)</a>
+					</li>
+					<li>
+						<a href="https://fedoramagazine.org/kpti-new-kernel-feature-mitigate-meltdown/">KPTI - the new kernel feature to mitigate "meltdown" - Fedora Magazine</a>
+					</li>
+					<li>
+						<a href="https://blog.mozilla.org/security/2018/01/03/mitigations-landing-new-class-timing-attack/">Mitigations landing for new class of timing attack | Mozilla Security Blog</a>
+					</li>
+					<li>
+						<a href="https://www.chromium.org/Home/chromium-security/ssca">Actions required to mitigate Speculative Side-Channel Attack techniques - The Chromium Projects</a>
+					</li>
+					<li>
+						<a href="https://blogs.windows.com/msedgedev/2018/01/03/speculative-execution-mitigations-microsoft-edge-internet-explorer/#guZS4P5qp126E3Bd.97">Mitigating speculative execution side-channel attacks in Microsoft Edge and Internet Explorer - Microsoft Edge Dev BlogMicrosoft Edge Dev Blog</a>
+					</li>
+					<li>
+						<a href="https://blog.trendmicro.co.jp/archives/16735">投機的実行に関する脆弱性「Meltdown」と「Spectre」について解説 | トレンドマイクロ セキュリティブログ</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				その他
+				<ul>
+					<li>
+						<a href="http://kroah.com/log/blog/2018/01/06/meltdown-status/">Meltdown and Spectre Linux kernel status - Linux Kernel Monkey Log</a>
+					</li>
+					<li>
+						<a href="https://mstdn.glorificatio.org/@spinlock/99290653238135027">spinlock: "CPUの脆弱性の問題が、明らかになってきたようです https://gigazine.net/n…" - マストドン丼部</a>
+					</li>
+					<li>
+						<a href="https://twitter.com/misc0110/status/948706387491786752">Michael Schwarz on Twitter: "Using #Meltdown to steal passwords in real time #intelbug #kaiser #kpti /cc @mlqxyz @lavados @StefanMangard @yuvalyarom https://t.co/gX4CxfL1Ax… https://t.co/TuFUTP0r0V"</a>
+					</li>
+					<li>
+						<a href="http://www.4gamer.net/games/999/G999902/20180105085/">Googleが発見した「CPUの脆弱性」とは何なのか。ゲーマーに捧ぐ「正しく恐れる」その方法まとめ - 4Gamer.net</a>
+					</li>
+					<li>
+						<a href="https://security.srad.jp/story/18/01/04/1044221/">本来アクセスできないメモリ領域のデータを読み出せる可能性がある脆弱性が見つかる、多くのCPUに影響 | スラド セキュリティ</a>
+					</li>
+					<li>
+						<a href="http://d.hatena.ne.jp/Kango/20180104/1515094046">CPUの脆弱性 MeltdownとSpectreについてまとめてみた - piyolog</a>
+					</li>
+					<li>
+						<a href="https://pc.watch.impress.co.jp/docs/news/1099687.html">Google、CPUの投機実行機能に脆弱性発見。業界をあげて対策へ ～Intel、AMD、Armなど多数のCPUが対象も、コンシューマでは影響は軽微 - PC Watch</a>
+					</li>
+					<li>
+						<a href="https://github.com/marcan/speculation-bugs"><eh:emoji fontawesome="github" /> marcan/speculation-bugs: Docs and resources on CPU Speculative Execution bugs</a>
+					</li>
+					<li>
+						<a href="http://mmi.hatenablog.com/entry/2018/02/02/003325">SpectreとeBPF - 睡分不足</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+		<p>
+			年明け早々どでかい花火だった。
+			漁れば情報は(信頼できないもの含め)いくらでもあるので、ここで多くは語らない。
+		</p>
+
+		<figure>
+			<pre class="code code-terminal">
+$ grep bugs /proc/cpuinfo
+bugs : cpu_meltdown
+bugs : cpu_meltdown
+bugs : cpu_meltdown
+bugs : cpu_meltdown
+$ uname -a
+Linux veg 4.14.13-gentoo #1 SMP Fri Jan 12 23:29:01 JST 2018 x86_64 Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz GenuineIntel GNU/Linux
+$
+</pre>
+			<figcaption>
+				&#x2014; <a href="https://mastodon.cardina1.red/@lo48576/99386865907574016">@lo48576</a>
+			</figcaption>
+		</figure>
+		<figure>
+			<pre class="code code-terminal">
+$ grep bugs /proc/cpuinfo
+bugs            : cpu_meltdown spectre_v1 spectre_v2
+bugs            : cpu_meltdown spectre_v1 spectre_v2
+bugs            : cpu_meltdown spectre_v1 spectre_v2
+bugs            : cpu_meltdown spectre_v1 spectre_v2
+$ uname -a
+Linux veg 4.14.18-gentoo #1 SMP Fri Feb 9 14:58:20 JST 2018 x86_64 Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz GenuineIntel GNU/Linux
+$
+</pre>
+			<figcaption>
+				&#x2014; <a href="https://mastodon.cardina1.red/@lo48576/99517428490160363">@lo48576</a>
+			</figcaption>
+		</figure>
+
+		<p>
+			こりゃおもしろい。
+		</p>
+	</eh:section>
+
+	<eh:section id="50th-mersenne-prime-found">
+		<eh:title>50番目のメルセンヌ素数 M77232917 発見 (<time datetime="2018-01-03">2018-01-03</time>)</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://www.mersenne.org/primes/press/M77232917.html">50th Known Mersenne Prime Discovered</a>
+			</li>
+			<li>
+				<a href="http://news.livedoor.com/article/detail/14117417/">「史上最大の素数」約2年ぶりに更新 最長だったものより約100万桁大 - ライブドアニュース</a>
+			</li>
+		</ul>
+
+		<p>
+			2<sup>77,232,917</sup>-1 らしい。
+		</p>
+	</eh:section>
+
+	<eh:section id="maitetsu-chinese">
+		<eh:title>『まいてつ』中国語版 製作決定 (<time datetime="2018-01-04">2018-01-04</time>)</eh:title>
+
+		<ul>
+			<li>
+				<snsq:sns-quote url="https://twitter.com/i/web/status/948897539691966464">
+					<snsq:identity url="https://twitter.com/intent/user?user_id=826149872701104128">
+						<snsq:icon src="news_lose.twitter.2017-12-02.jpg" />
+						<snsq:screen-name>Lose@まいてつ第３刷発売中！</snsq:screen-name>
+						<snsq:service>twitter</snsq:service>
+						<snsq:nickname>@news_lose</snsq:nickname>
+					</snsq:identity>
+					<snsq:meta>
+						<snsq:timestamp datetime="2018-01-04T21:42:57.783+09:00">2018-01-04 21:42:57</snsq:timestamp>
+						<snsq:reftime datetime="2018-02-13T17:08:39+09:00">2018-02-13</snsq:reftime>
+					</snsq:meta>
+					<snsq:content>
+						<p>
+							中国で行われていた茂伸奇谈のクラウドファンディングのストレッチゴールを達成し「まいてつ」も中国語版の製作が決定しました！　中国語名は「爱上火车(列車に恋するの意)」となります！続報にご期待下さい！<a href="https://zhongchou.modian.com/item/10188.html">https://zhongchou.modian.com/item/10188.html</a>
+						</p>
+					</snsq:content>
+					<snsq:attachments>
+						<snsq:image
+								orig-src="https://pbs.twimg.com/media/DSspDKtVoAA3YC1.jpg:orig"
+								orig-page="https://twitter.com/i/web/status/948897539691966464"
+								/>
+					</snsq:attachments>
+				</snsq:sns-quote>
+			</li>
+		</ul>
+
+		<p>
+			『ものべの』に続いて『まいてつ』も中国語版が出るのか。
+			めでたい。
+		</p>
+		<p>
+			卒研発表も終わったし、まいてつやるぞ！！！！！
+		</p>
+	</eh:section>
+
+	<eh:section id="false-positive-eew">
+		<eh:title>緊急地震速報 誤報 (2018-01-05)</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://twitter.com/nhk_news/status/949106435597586433">NHKニュース on Twitter: "茨城と石川で同時に地震 気象庁 １つの地震と解析し速報か #nhk_news https://t.co/X57DtwzQjZ"</a>
+			</li>
+			<li>
+				<a href="https://twitter.com/nhk_shutoken/status/949104961241038850">NHK@首都圏 on Twitter: "５日午前１１時２分ごろ茨城県と石川県でそれぞれ震度３の揺れを観測する地震。気象庁は午前１１時２分に関東地方などに緊急地震速報を発表したが異なる地域でほぼ同時に起きた２つの地震を１つの地震として解析したことが原因ではないかとみて調べ。 https://t.co/ToIymo1S6u"</a>
+			</li>
+		</ul>
+
+		<p>
+			こんなこともあるんですね。
+			緊急地震速報のアラートは久々に聞いた気がするが、惨事にならずなにより。
+		</p>
+	</eh:section>
+
+	<eh:section id="musicxml-3-1-published">
+		<eh:title>MusicXML 3.1 発行 (2017-12-14)</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://www.w3.org/community/music-notation/2017/12/14/musicxml-3-1-published-as-a-w3c-community-group-report/">https://www.w3.org/community/music-notation/2017/12/14/musicxml-3-1-published-as-a-w3c-community-group-report/</a>
+			</li>
+			<li>
+				<a href="https://github.com/w3c/musicxml/releases/tag/v3.1">Release v3.1 · w3c/musicxml</a> (GitHub)
+			</li>
+			<li>
+				<a href="https://www.w3.org/2017/12/musicxml31/">MusicXML</a> (仕様)
+			</li>
+		</ul>
+
+		<blockquote cite="https://www.w3.org/2017/12/musicxml31/">
+			<p>
+				MusicXML is a standard open format for exchanging digital sheet music.
+				It is designed for sharing sheet music files between applications,
+				and for archiving sheet music files for use in the future.
+				As of this publication date it is supported by over 200 applications.
+			</p>
+			<footer>
+				&#x2014; <a href="https://www.w3.org/2017/12/musicxml31/">MusicXML 3.1 仕様書 Abstract より</a>
+			</footer>
+		</blockquote>
+
+		<p>
+			こんな規格があるとは知らなかった。
+			良さそう。
+		</p>
+	</eh:section>
+
+	<eh:section id="websub-and-activity-pub-became-recommendation">
+		<eh:title>WebSub と ActivityPub が W3C 勧告に (2018-01-23)</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://news.mynavi.jp/article/20180125-575660/">WebSubとActivityPub、W3C勧告 | マイナビニュース</a>
+			</li>
+			<li>
+				<a href="https://www.w3.org/blog/news/archives/6785">ActivityPub is now a W3C Recommendation | W3C News</a>
+			</li>
+			<li>
+				<a href="https://www.w3.org/blog/news/archives/6787">WebSub is now a W3C Recommendation | W3C News</a>
+			</li>
+		</ul>
+
+		<p>
+			規格が安定化した🎉ということなので、これからより活発な関連ソフトウェアの開発が期待できる。
+			(期待できるというか、私も書きたい。)
+		</p>
+	</eh:section>
+
+	<eh:section id="rust-of-this-month">
+		<eh:title>最近の Rust</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/rust-lang/rust/pull/45379">impl FromIterator&lt;()&gt; for () by cuviper · Pull Request #45379 · rust-lang/rust</a> (merged)
+				<ul>
+					<li>
+						結果は捨てていいからイテレータを最後まで消費したいというとき、今までは <code>last()</code> や <code>count()</code> などを呼んで結果を捨てるようなことをしていたが、これからは <code>collect::&lt;()&gt;()</code> でできるようになる。
+					</li>
+				</ul>
+			</li>
+			<li>
+				impl Trait の安定化は近い
+				<ul>
+					<li>
+						<a href="https://internals.rust-lang.org/t/help-test-impl-trait/6516">Help test impl Trait! - announcements - Rust Internals</a>
+					</li>
+					<li>
+						<a href="http://qnighy.hatenablog.com/entry/2018/01/28/220000">安定化間近！Rustのimpl Traitを今こそ理解する - 簡潔なQ</a>
+					</li>
+					<li>
+						はよ安定化されてくれ～
+					</li>
+				</ul>
+			</li>
+			<li>
+				transpose
+				<ul>
+					<li>
+						<a href="https://github.com/rust-lang/rust/pull/47193">Add transpose conversions for nested Option and Result by cramertj · Pull Request #47193 · rust-lang/rust</a> (merged, feature gate)
+					</li>
+					<li>
+						<a href="https://github.com/rust-lang/rust/issues/47338">Tracking Issue for Result&lt;Option&gt; and Option&lt;Result&gt; Conversion · Issue #47338 · rust-lang/rust</a>
+					</li>
+					<li>
+						<code>Result&lt;Option&lt;T&gt;, E&gt;</code> と <code>Option&lt;Result&lt;T, E&gt;&gt;</code> を相互変換する <code>{Result, Option}::transpose()</code> メソッドの追加。
+						<code>transpose_result</code> feature gate で利用可能。
+					</li>
+				</ul>
+			</li>
+			<li>
+				never_type 安定化への道
+				<ul>
+					<li>
+						<a href="https://github.com/rust-lang/rust/pull/47630">Stabilise feature(never_type). Introduce feature(exhaustive_patterns) by canndrew · Pull Request #47630 · rust-lang/rust</a>
+					</li>
+					<li>
+						<a href="../../12/07/never-type-and-semicolon/">Rust での never type とセミコロン、型推論のルール変遷 - 何とは言わない天然水飲みたさ</a>
+						という過去の記事でちょっとした闇を見た never_type だが、ついに <code>!</code> 型も安定化されようとしている。
+						感慨深い。
+						(私は何もしていないが。)
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</eh:section>
+</eh:section>
+
+<eh:section id="public-activities">
+	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
+
+	<eh:section id="pullreqs-libskk">
+		<eh:title>libskk にプルリク投げまくった (いくつか merge された)</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/ueno/libskk">ueno/libskk: Japanese SKK input method library</a>
+			</li>
+			<li>
+				出したプルリクエスト:
+				<ul>
+					<li>
+						<a href="https://github.com/ueno/libskk/pull/47"><eh:emoji fontawesome="github" /> Add `Escape`, `Henkan`, `Muhenkan` keyval names by lo48576 · Pull Request #47 · ueno/libskk</a>
+					</li>
+					<li>
+						<a href="https://github.com/ueno/libskk/pull/48">Add `abort-to-latin` and `abort-to-latin-unhandled` command by lo48576 · Pull Request #48 · ueno/libskk</a> (merged)
+					</li>
+					<li>
+						<a href="https://github.com/ueno/libskk/pull/50">Inherit typing rule for dict edit by lo48576 · Pull Request #50 · ueno/libskk</a> (merged)
+					</li>
+					<li>
+						<a href="https://github.com/ueno/libskk/pull/51">improve hankaku katakana conversion by lo48576 · Pull Request #51 · ueno/libskk</a> (merged)
+					</li>
+					<li>
+						<a href="https://github.com/ueno/libskk/pull/52">Let key release events pass through by lo48576 · Pull Request #52 · ueno/libskk</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				issue など:
+				<ul>
+					<li>
+						<a href="https://github.com/ueno/libskk/pull/50">Pull Request #50</a> で解決済み
+						<ul>
+							<li>
+								<a href="https://github.com/ueno/libskk/issues/49">Custom typing rule is not used during dict edit · Issue #49 · ueno/libskk</a>
+							</li>
+							<li>
+								バグ解決までの一連の流れ: <a href="https://mastodon.cardina1.red/@lo48576/99383485768821234">らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn): "ところで libskk にて C-g が &quot;abort&quot; コマンド以上の特殊な挙動をしているようで…" - Mastodon</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="https://github.com/ueno/libskk/pull/52">Pull Request #52</a> で解決される
+						<ul>
+							<li>
+								バグ解決までの一連の流れ: <a href="https://mastodon.cardina1.red/@lo48576/99410692220871846">らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn): "Mastodon の検索ボックスが動かなくなった件、どうも fcitx-skk を使用中に com…" - Mastodon</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+		<p>
+			ふと思い立って(正確には卒論ライティングから逃避したくて)、ターミナルと入力まわりの環境を一新することにした。
+			特に uim-skk は内部コードが EUC-JP であり、「たし🦀そう🦆しれな🌾」などが辞書登録できないため、日頃から不便を感じていたゆえのことでもある。
+			fcitx の uim では Unicode が使えるとのことなので、これに乗り替えようとしたのだが、どうにも欲しい機能がなかったり挙動が不審だったりしたので、ソースを読みつつパッチを当てまくった次第。
+		</p>
+		<p>
+			vala とかいう聞いたことしかない言語を触ることになったが、文法はだいたい better C だしメモリ管理は参照カウントによる GC だし、意外と弄れた。
+		</p>
+	</eh:section>
+
+	<eh:section id="alacritty-ambiwidth-patch">
+		<eh:title>alacritty にパッチ投げた (merge されなそう) (2018-01-24)</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/jwilm/alacritty"><eh:emoji fontawesome="github" /> jwilm/alacritty: A cross-platform, GPU-accelerated terminal emulator</a>
+			</li>
+			<li>
+				<a href="https://github.com/jwilm/alacritty/pull/1049">Support config to control width of ambiguous width characters by lo48576 · Pull Request #1049 · jwilm/alacritty</a>
+			</li>
+			<li>
+				<a href="https://mastodon.cardina1.red/@lo48576/99401092118230857">らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn): "Support setting and changing width of ambiguous w…" - Mastodon</a>
+			</li>
+		</ul>
+
+		<p>
+			環境一新のついでに、脱 mlterm もしたかったので、この機会に Rust 製のターミナルエミュレータである <a href="https://github.com/lo48576/dotfiles/commit/bdabe699bfe45eef2e5ca5a6b9f227bb8d842a11">alacritty を使ってみる</a><a href="https://mastodon.cardina1.red/@lo48576/99377888300378580">ことにした</a>。
+		</p>
+		<p>
+			さてこういう場合いつものことではあるが、 ambiwidth の表示がやはりおかしかったので、 CJK 環境用に文字幅計算を切り替えるプルリクを出した。
+			……が、どうにも ambiwidth あたりの問題を理解してもらえていない感じであり、 merge されそうにない。
+			rust-jp slack で助けを求めたところ、 <a href="https://github.com/jwilm/alacritty/pull/1049#issuecomment-360949241">tatsuya6502 氏</a>が <code>width{,_cjk}</code> 関数ではなくフォントメトリクスに基く文字幅判定をする実装を進めてくださっているので、最終的には(高機能なので)そちらがマージされることになるかもしれない。
+		</p>
+		<p>
+			いずれにせよ今の段階ではローカルに clone してきてそれを使うなりするしかない。
+			私はそうしている。
+		</p>
+	</eh:section>
+
+	<eh:section id="pullreq-fcitx-skk">
+		<eh:title>fcitx-skk にパッチ投げた (2018-01-22)</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/fcitx/fcitx-skk"><eh:emoji fontawesome="github" /> fcitx/fcitx-skk</a>
+			</li>
+			<li>
+				<a href="https://github.com/fcitx/fcitx-skk/pull/7">Resolve `$FCITX_CONFIG_DIR` for read-only dictionary paths by lo48576 · Pull Request #7 · fcitx/fcitx-skk</a>
+			</li>
+			<li>
+				<a href="https://mastodon.cardina1.red/@lo48576/99388559742550428">らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn): "Resolve `$FCITX_CONFIG_DIR` for read-only diction…" - Mastodon</a>
+			</li>
+		</ul>
+
+		<p>
+			SKK 辞書を自動生成して複数用意したものを使いたかったが、設定ディレクトリのパス解決が微妙な感じの仕様になっていたので直すパッチを投げた。
+			どうも fcitx-skk は外部の翻訳システムによるコミット以外はアクティブでない感じなので、いつマージされるやら……
+		</p>
+	</eh:section>
+
+	<eh:section id="pullreq-stb-truetype-rs-merged">
+		<eh:title>大昔に stb_truetype-rs に投げたパッチが merge された (2018-01-09)</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/redox-os/stb_truetype-rs"><eh:emoji fontawesome="github" /> redox-os/stb_truetype-rs: A straight port of stb_truetype-rs from C to Rust</a>
+			</li>
+			<li>
+				<a href="https://github.com/redox-os/stb_truetype-rs/pull/4">Implement features for font name strings by lo48576 · Pull Request #4 · redox-os/stb_truetype-rs</a>
+			</li>
+		</ul>
+
+		<p>
+			フォント名を取得するために必要な機能を、 <a href="https://github.com/redox-os/rusttype">rusttype</a> で利用されているライブラリ stb_truetype に実装したプルリクエストが、やっとマージされた。
+		</p>
+	</eh:section>
+
+	<eh:section id="pullreq-rusttype">
+		<eh:title>大昔 rusttype に投げたパッチが merge された (2017-01-09)</eh:title>
+
+		<ul>
+			<li>
+				<a href="https://github.com/redox-os/rusttype"><eh:emoji fontawesome="github" /> redox-os/rusttype: A pure Rust alternative to libraries like FreeType.</a>
+			</li>
+			<li>
+				<a href="https://github.com/redox-os/rusttype/pull/72">Implement `Display` and `Error` traits for error types by lo48576 · Pull Request #72 · redox-os/rusttype</a>
+			</li>
+		</ul>
+
+		<p>
+			<a href="https://blog.cardina1.red/2018/01/01/monthly-2017-12/#pull-req-futures-rs">いつもの</a><a href="https://blog.cardina1.red/2017/12/02/monthly-2017-11/#handlebars-rust-issue">ごとく</a> <code>Error</code> trait の関連のプルリク。
+		</p>
+		<p>
+			べつに今はゲームをアクティブに作ってるわけじゃないから rusttype も現在進行形では使っていないが、気付いてしまったので投げた。
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="private-activities">
+	<eh:title>私的活動</eh:title>
+
+	<eh:section id="renewed-smart-phone">
+		<eh:title>ｽﾏﾋｮ壊れたので買い替えた (2018-01-31)</eh:title>
+
+		<p>
+			Xperia Z Ultra (SOL24) という、かれこれ4年くらい前のモデルを使っていたが、<a href="https://twitter.com/lo48576/status/958411343849123841">遂に壊れた</a>ので買い替え。
+			新しい機種は Xperia XZ1 (SOV26) 。
+		</p>
+		<p>
+			Android 4.4 から 8 への大ジャンプだったが、スクスト(ゲーム)のロード時間とか指紋センサの利便性とかカメラ画質とか、いろいろいい感じになっててすごかった。
+			これで <a href="https://blog.cardina1.red/2017/05/20/nginx-safe-ssl/">TLS 1.0 ともオサラバ</a>だ！
+		</p>
+	</eh:section>
+</eh:section>
+
+<eh:section id="conclusion">
+	<eh:title>雑感</eh:title>
+	<ul>
+		<li>
+			<p>
+				卒論 XeLaTeX で書いてたのに、公式テンプレ(ただし“無保証”)が pLaTeX だったでござる
+			</p>
+			<ul>
+				<li>
+					<p>
+						言うて upLaTeX で動くやろ……と思ったら枠線とかいろいろ崩れて駄目だったし、 pLaTeX にしても BibLateX あたりで<a href="https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=2313">意味不明な問題</a>に行き当たるし、つらかった。
+					</p>
+					<p>
+						現代的なプロセッサ使おうな……
+					</p>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<p>
+				卒論がヤバくなってくると関係ない進捗が捗るの、試験前に掃除するアレと同じだと思った。
+			</p>
+		</li>
+	</ul>
+</eh:section>
+
+</eh:article>
