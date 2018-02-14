@@ -1,5 +1,6 @@
 ---
 created_at: 2018-02-14T12:05:57+09:00
+updated_at: 2018-02-14T23:35:03+09:00
 title: "Monthly report 2018-01"
 htags:
   - "日常/日記"
@@ -410,7 +411,7 @@ $
 		<p>
 			さてこういう場合いつものことではあるが、 ambiwidth の表示がやはりおかしかったので、 CJK 環境用に文字幅計算を切り替えるプルリクを出した。
 			……が、どうにも ambiwidth あたりの問題を理解してもらえていない感じであり、 merge されそうにない。
-			rust-jp slack で助けを求めたところ、 <a href="https://github.com/jwilm/alacritty/pull/1049#issuecomment-360949241">tatsuya6502 氏</a>が <code>width{,_cjk}</code> 関数ではなくフォントメトリクスに基く文字幅判定をする実装を進めてくださっているので、最終的には(高機能なので)そちらがマージされることになるかもしれない。
+			rust-jp slack で助けを求めたところ、 <a href="https://github.com/jwilm/alacritty/pull/1049#issuecomment-360949241">tatsuya6502 氏</a>が <code>width{,_cjk}</code> 関数だけでなくフォントメトリクスも使える文字幅判定の実装を進めてくださっているので、最終的には(高機能なので)そちらがマージされることになるかもしれない。
 		</p>
 		<p>
 			いずれにせよ今の段階ではローカルに clone してきてそれを使うなりするしかない。
