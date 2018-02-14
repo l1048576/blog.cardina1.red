@@ -996,6 +996,14 @@ fn example_fixes() -> ! {
 				<li>
 					<a href="https://github.com/rust-lang/rust/issues/40801">Change which type variables fall back to `!` #40801</a>
 				</li>
+				<li>
+					<a href="https://github.com/rust-lang/rust/pull/45435">rustc_typeck: use subtyping on the LHS of binops. by eddyb · Pull Request #45435 · rust-lang/rust</a> (merged on 2017-11-01)
+					<ul>
+						<li>
+							<eh:xref linkend="time-series--issue-39297--problem-core"><code>Self</code> に対する型推論が弱い問題</eh:xref>についての解決策となる改善(だと思うが、ちゃんと確認したわけではない)。
+						</li>
+					</ul>
+				</li>
 			</ul>
 		</li>
 		<li>
