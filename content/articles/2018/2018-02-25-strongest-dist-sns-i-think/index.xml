@@ -1,12 +1,13 @@
 ---
 created_at: 2018-02-25T22:30:55+09:00
-title: "ぼくのかんがえたさいきょうの分散 SNS (のメモ)"
+updated_at: 2018-02-25T22:37:43+09:00
+title: "ぼくのかんがえたさいきょうの SNS (のメモ)"
 htags:
   - "computer"
-  - "思想/computer/分散SNS"
+  - "思想/computer/SNS"
 kind: article
 
-excerpt: "分散 SNS の(ユーザに面した)設計の在り方について考えたことのメモ"
+excerpt: "SNS の(ユーザに面した)設計の在り方について考えたことのメモ"
 ---
 <?xml version="1.0"?>
 <eh:article
@@ -15,9 +16,12 @@ excerpt: "分散 SNS の(ユーザに面した)設計の在り方について考
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	id="2018-02-25-strongest-dist-sns-i-think"
 >
-<eh:title>ぼくのかんがえたさいきょうの分散 SNS (のメモ)</eh:title>
+<eh:title>ぼくのかんがえたさいきょうの SNS (のメモ)</eh:title>
 <p>
 	分散 SNS の(ユーザに面した)設計の在り方について考えたことのメモ。
+</p>
+<p>
+	……と思ったけど、よく考えたらこれ分散関係なく SNS 全般について言えるわ。
 </p>
 
 <aside class="note">
