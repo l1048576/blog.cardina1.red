@@ -30,7 +30,7 @@ excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 		これは、書き換えられてしまったDirectXの一部ファイルを本来のファイルで上書きしてやることで解決可能である。
 	</p>
 	<p>
-		問題遭遇編は<a href="../../15/erg-install-battle">エロゲインストールバトル</a>を参照。
+		問題遭遇編は<a href="/2016/06/15/erg-install-battle">エロゲインストールバトル</a>を参照。
 	</p>
 	<p>
 		バグの詳細は<eh:xref linkend="bug-fixed">追記</eh:xref>を参照。
@@ -40,7 +40,7 @@ excerpt: "2016/06/16のエロゲインストールバトルに勝利した。"
 <eh:section id="environment">
 	<eh:title>環境</eh:title>
 	<p>
-		環境は<a href="../../15/erg-install-battle">エロゲインストールバトル実行時と同様</a>である。
+		環境は<a href="/2016/06/15/erg-install-battle">エロゲインストールバトル実行時と同様</a>である。
 	</p>
 </eh:section>
 
@@ -317,13 +317,13 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 		<eh:title>結果</eh:title>
 		<ul>
 			<li>
-				ものべのをはじめとする各ゲームの<a href="../../15/erg-install-battle#fig-monobeno-dx9-error">起動時のエラー</a>は出なくなった
+				ものべのをはじめとする各ゲームの<a href="/2016/06/15/erg-install-battle#fig-monobeno-dx9-error">起動時のエラー</a>は出なくなった
 				<ul>
 					<li>いずれも無事に起動できるようになった</li>
 					<li>しかし、あなオトのOPムービーでは音だけ再生され映像はブラックアウトした。まあひとまず本編は問題ないので良しとしよう。</li>
 				</ul>
 			</li>
-			<li><a href="../../15/erg-install-battle#anaoto-install-challenge-2">あなオトのautorunのエラー</a>は相変わらず出る。DirectXが原因ではないのかもしれない。</li>
+			<li><a href="/2016/06/15/erg-install-battle#anaoto-install-challenge-2">あなオトのautorunのエラー</a>は相変わらず出る。DirectXが原因ではないのかもしれない。</li>
 		</ul>
 		<div id="fig-games-run-success" class="independent-block grid-row">
 			<figure id="fig-anaoto-run-success" class="col-xs-12 col-sm-6">

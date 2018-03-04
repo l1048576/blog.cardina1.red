@@ -47,7 +47,7 @@ excerpt: "2017年 第29-30週 まとめ"
 		<eh:title>gnusocial.cardina1.red で nightly ブランチに追従することにした</eh:title>
 		<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/133082">
 			<snsq:identity url="https://gnusocial.cardina1.red/user/2">
-				<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+				<snsq:icon src="/assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
 				<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
 				<snsq:service>GNU Social</snsq:service>
 				<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
@@ -103,7 +103,7 @@ excerpt: "2017年 第29-30週 まとめ"
 		<snsq:sns-quotes mode="normal">
 			<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/155909">
 				<snsq:identity url="https://gnusocial.cardina1.red/user/2">
-					<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+					<snsq:icon src="/assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
 					<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
 					<snsq:service>GNU Social</snsq:service>
 					<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
@@ -120,7 +120,7 @@ excerpt: "2017年 第29-30週 まとめ"
 			</snsq:sns-quote>
 			<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/155912">
 				<snsq:identity url="https://gnusocial.cardina1.red/user/2">
-					<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+					<snsq:icon src="/assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
 					<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
 					<snsq:service>GNU Social</snsq:service>
 					<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>

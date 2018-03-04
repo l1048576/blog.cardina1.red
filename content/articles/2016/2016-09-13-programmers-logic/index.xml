@@ -90,7 +90,7 @@ excerpt: "プログラマは洗濯物を入れないことがある。"
 
 			<snsq:sns-quote url="https://twitter.com/i/web/status/775517223502819328">
 				<snsq:identity url="https://twitter.com/intent/user?user_id=2375406199">
-					<snsq:icon src="../../../../assets/img/profiles/icon/l16777216.twitter.com.2016-05-07.jpg" />
+					<snsq:icon src="/assets/img/profiles/icon/l16777216.twitter.com.2016-05-07.jpg" />
 					<snsq:screen-name>㉅㊛のルートノード㋞㋰㋷㋓(らりお)</snsq:screen-name>
 					<snsq:service>twitter</snsq:service>
 					<snsq:nickname>@L16777216</snsq:nickname>

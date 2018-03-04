@@ -109,7 +109,7 @@ excerpt: "2017年 第31週 まとめ"
 			<snsq:sns-quotes>
 				<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/166253">
 					<snsq:identity url="https://gnusocial.cardina1.red/user/3">
-						<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+						<snsq:icon src="/assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
 						<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
 						<snsq:service>GNU Social</snsq:service>
 						<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>
@@ -133,7 +133,7 @@ excerpt: "2017年 第31週 まとめ"
 				</snsq:sns-quote>
 				<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/166254">
 					<snsq:identity url="https://gnusocial.cardina1.red/user/3">
-						<snsq:icon src="../../../../assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
+						<snsq:icon src="/assets/img/profiles/icon/loliconductor.gnusocial.cardina1.red.2017-01-29.png" />
 						<snsq:screen-name>らりお (進捗垢)</snsq:screen-name>
 						<snsq:service>GNU Social</snsq:service>
 						<snsq:nickname>@loliconductor@gnusocial.cardina1.red</snsq:nickname>

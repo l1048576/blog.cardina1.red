@@ -313,7 +313,7 @@ $
 						<a href="https://github.com/rust-lang/rust/pull/47630">Stabilise feature(never_type). Introduce feature(exhaustive_patterns) by canndrew · Pull Request #47630 · rust-lang/rust</a>
 					</li>
 					<li>
-						<a href="../../12/07/never-type-and-semicolon/">Rust での never type とセミコロン、型推論のルール変遷 - 何とは言わない天然水飲みたさ</a>
+						<a href="/2017/12/07/never-type-and-semicolon/">Rust での never type とセミコロン、型推論のルール変遷 - 何とは言わない天然水飲みたさ</a>
 						という過去の記事でちょっとした闇を見た never_type だが、ついに <code>!</code> 型も安定化されようとしている。
 						感慨深い。
 						(私は何もしていないが。)

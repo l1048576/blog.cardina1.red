@@ -531,7 +531,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 				<li>
 					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/9329">
 						<snsq:identity url="https://gnusocial.cardina1.red/user/2">
-							<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+							<snsq:icon src="/assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
 							<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
 							<snsq:service>GNU Social</snsq:service>
 							<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
@@ -649,7 +649,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 						<li>
 							<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/10784">
 								<snsq:identity url="https://gnusocial.cardina1.red/user/2">
-									<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+									<snsq:icon src="/assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
 									<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
 									<snsq:service>GNU Social</snsq:service>
 									<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>

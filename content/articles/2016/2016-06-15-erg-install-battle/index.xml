@@ -323,7 +323,7 @@ autorun.exe は動作を停止しました
 		<snsq:sns-quotes>
 			<snsq:sns-quote url="https://twitter.com/i/web/status/728882674077573120">
 				<snsq:identity url="https://twitter.com/intent/user?user_id=2375406199">
-					<snsq:icon src="../../../../assets/img/profiles/icon/l16777216.twitter.com.2016-05-07.jpg" />
+					<snsq:icon src="/assets/img/profiles/icon/l16777216.twitter.com.2016-05-07.jpg" />
 					<snsq:screen-name>Windowsを殺して俺も死ぬ</snsq:screen-name>
 					<snsq:service>twitter</snsq:service>
 					<snsq:nickname>@L16777216</snsq:nickname>
@@ -340,7 +340,7 @@ autorun.exe は動作を停止しました
 			</snsq:sns-quote>
 			<snsq:sns-quote url="https://twitter.com/i/web/status/728969641331023872">
 				<snsq:identity url="https://twitter.com/intent/user?user_id=2375406199">
-					<snsq:icon src="../../../../assets/img/profiles/icon/l16777216.twitter.com.2016-05-07.jpg" />
+					<snsq:icon src="/assets/img/profiles/icon/l16777216.twitter.com.2016-05-07.jpg" />
 					<snsq:screen-name>Windowsを殺して俺も死ぬ</snsq:screen-name>
 					<snsq:service>twitter</snsq:service>
 					<snsq:nickname>@L16777216</snsq:nickname>
@@ -384,7 +384,7 @@ autorun.exe は動作を停止しました
 		<eh:title>追記2(<time datetime="2016-06-21T23:15:14+0900">2016-06-21</time>): 解決</eh:title>
 		<p>
 			問題は解決された。
-			<a href="../../20/erg-install-battle-victory">エロゲインストールバトルに勝利</a>を参照。
+			<a href="/2016/06/20/erg-install-battle-victory">エロゲインストールバトルに勝利</a>を参照。
 		</p>
 	</eh:section>
 </eh:section>

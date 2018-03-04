@@ -144,7 +144,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 			その他
 			<ul>
 				<li>
-					昔『<a href="../../04/13/federated-social-web/">gnusocial や mastodon の哲学</a>』なる記事を書いた
+					昔『<a href="/2017/04/13/federated-social-web/">gnusocial や mastodon の哲学</a>』なる記事を書いた
 				</li>
 				<li>
 					個人インスタンス推進派
@@ -433,7 +433,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 	<eh:section id="comparison--terms">
 		<eh:title>言葉(用語)</eh:title>
 		<p>
-			これについては、昔<a href="../../04/13/federated-social-web/#terms-differences">表を作った</a>のでそちらを参照してもらうとわかりやすいかもしれない。
+			これについては、昔<a href="/2017/04/13/federated-social-web/#terms-differences">表を作った</a>のでそちらを参照してもらうとわかりやすいかもしれない。
 		</p>
 		<p>
 			GNU Social は元々のプロトコル (OStatus やその基盤となっているプロトコル)がブログ関係発祥のものであるため、用語もそういった背景を感じさせるものになっている。
@@ -671,7 +671,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 		<snsq:sns-quotes mode="tiny">
 			<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/99077203745054695">
 				<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
-					<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+					<snsq:icon src="/assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
 					<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
 					<snsq:service>mastodon</snsq:service>
 					<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
@@ -690,7 +690,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 			</snsq:sns-quote>
 			<snsq:sns-quote url="https://mastodon.cardina1.red/@lo48576/99077211375451457">
 				<snsq:identity url="https://mastodon.cardina1.red/@lo48576">
-					<snsq:icon src="../../../../assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
+					<snsq:icon src="/assets/img/profiles/icon/lo48576.mastodon.cardina1.red.2017-10-15.jpg" />
 					<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ (mstdn)</snsq:screen-name>
 					<snsq:service>mastodon</snsq:service>
 					<snsq:nickname>@lo48576@mastodon.cardina1.red</snsq:nickname>
