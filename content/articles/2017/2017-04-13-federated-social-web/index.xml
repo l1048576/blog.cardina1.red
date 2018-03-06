@@ -1,6 +1,6 @@
 ---
 created_at: 2017-04-13T16:51:31+0900
-updated_at: 2017-06-02T13:55:55+0900
+updated_at: 2018-03-06T22:32:36+09:00
 title: "gnusocial や mastodon の哲学"
 htags:
   - "computer/gnu-social"
@@ -231,8 +231,9 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			複数のインスタンスがあるが、問題ない。
 			フォローしたいアカウントのページを開き、「リモートフォロー」などのボタンを押せば、自分の居るのとは別のインスタンスのアカウントもフォローできる。
 			実際、私は自分のサーバに立てたインスタンスの
-			<a href="https://gnusocial.cardina1.red/lo48576/">gnusocial.cardina1.red</a>
-			にアカウントを持っているが、そこから他のインスタンス(上に挙げたようなもの)のアカウントもフォローしている。
+			<a href="https://gnusocial.cardina1.red/lo48576/">gnusocial.cardina1.red</a><eh:footnote id="footnote-inactive-account">
+				2018-03-06 現在、 <a href="https://mastodon.cardina1.red">Mastodon</a> をメインで使っているので GNU Social のこのアカウントは使用していない。
+			</eh:footnote>にアカウントを持っているが、そこから他のインスタンス(上に挙げたようなもの)のアカウントもフォローしている。
 		</p>
 		<p>
 			このように、よく知らない誰かでなく、信頼できる人や組織(自分でもいい)の運用するインスタンスに居ることで、中央集権された自由のないサービスから解放されようというのが、 GNU Social や Mastodon が twitter と本質的に違うところである。
@@ -556,7 +557,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 	<eh:title>よく見る質問</eh:title>
 	<p>
 		twitter やはてブ等でときどき見掛けた疑問や意見に答えます。
-		間違い等あれば <a href="https://gnusocial.cardina1.red/lo48576">@lo48576@gnusocial.cardina1.red</a> までおしらせください。
+		間違い等あれば <a href="https://mastodon.cardina1.red/@lo48576">@lo48576@mastodon.cardina1.red</a> までおしらせください。
 	</p>
 
 	<dl>
