@@ -1,6 +1,6 @@
 ---
 created_at: 2017-12-07T22:41:11+0900
-updated_at: 2017-12-14T18:43:29+0900
+updated_at: 2018-03-21T23:03:53+09:00
 title: "Rust での never type とセミコロン、型推論のルール変遷"
 htags:
   - "computer/programming/language/rust"
@@ -525,7 +525,7 @@ match <_T0 as Deserialize>::deserialize() /* Result<_T0, String> */ {
 } /* _T3 */
 ]]></code></pre>
 			<p>
-				<code>Result&lt;_T0, String&gt;</code> と <code>Ok(v): Result&lt;</code> が同じ型であるから、<code>_T0</code> は <code>()</code> であると推論される。
+				<code>Result&lt;_T0, String&gt;</code> と <code>Ok(v): Result&lt;(), _&gt;</code> が同じ型であるから、<code>_T0</code> は <code>()</code> であると推論される。
 				こうして、 <code>deserialize()</code> は <code>Result&lt;(), String&gt;</code> を返すとされ、 <code>&lt;_ as Deserialize&gt;</code> は <code>&lt;() as Deserialize&gt;</code> と見做される。
 			</p>
 			<pre><code class="lang-rust language-rust"><![CDATA[
