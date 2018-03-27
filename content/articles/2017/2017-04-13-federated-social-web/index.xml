@@ -4,7 +4,8 @@ updated_at: 2018-03-27T22:28:46+09:00
 title: "gnusocial や mastodon の哲学"
 htags:
   - "computer/gnu-social"
-  - "思想/computer"
+  - "computer/mastodon"
+  - "思想/computer/SNS"
 kind: article
 
 excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良いのか。 federated social web の思想について。"
