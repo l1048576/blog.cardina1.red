@@ -1,6 +1,6 @@
 ---
 created_at: 2017-04-13T16:51:31+0900
-updated_at: 2018-03-06T22:32:36+09:00
+updated_at: 2018-03-27T22:28:46+09:00
 title: "gnusocial や mastodon の哲学"
 htags:
   - "computer/gnu-social"
@@ -202,16 +202,29 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 <eh:section id="what-is-gnusocial-and-mastodon">
 	<eh:title>GNU Social とは、 Mastodon とは何か</eh:title>
 	<p>
-		<strong>GNU Social</strong> や <strong>Mastodon</strong> は、 OStatus というプロトコル(通信やデータの規格)を実装した、 federated social web のための web サービス、またそのためのアプリケーションである。
+		<strong>GNU Social</strong> や <strong>Mastodon</strong> は、 OStatus や ActivityPub などのプロトコル(通信やデータの規格)を実装した、 federated social web のための web サービス、またそのためのアプリケーションである。
 	</p>
 	<p>
-		OStatus はオープンな(公開された)仕様であり、 twitter のように運営者の一存で仕様が変化したりはせず、また隠された仕様なども存在しない。
-		よって、 OStatus を実装したアプリケーションは誰でも開発することができる。
+		OStatus や ActivityPub はオープンな(公開された)仕様であり、 twitter のように運営者の一存で仕様が変化したりはせず、また隠された仕様なども存在しない。
+		よって、これらのプロトコルを実装したアプリケーションは誰でも開発することができる。
 	</p>
 	<p>
-		Mastodon は <a href="https://github.com/tootsuite/mastodon"><q lang="en">A GNU Social-compatible microblogging server</q> と説明されている</a>が、つまりこれは OStatus を実装しているということである。
+		Mastodon は <a href="https://github.com/tootsuite/mastodon"><q lang="en">A GNU Social-compatible microblogging server</q> と説明されている</a><eh:footnote id="footnote-mastodon-project-description">
+			2017-04-13 時点の文章。 <time datetime="2018-03-27T22:28:46+09:00">2018-03-27</time> 時点では <q lang="en">Your self-hosted, globally interconnected microblogging community</q> という説明になっている。
+		</eh:footnote>が、つまりこれは OStatus を実装しているということである。
 		ただそれだけであるが、つまり公開された仕様によっているということなので、全く別で開発された互換サービスと連携できる。
 	</p>
+	<aside class="note">
+		<eh:title>ActivityPub と OStatus (<time datetime="2018-03-27T22:28:46+09:00">2018-03-27</time> 追記)</eh:title>
+		<p>
+			OStatus は古くからある規格だが、正式なリリースになっていない(ドラフトの)規格などに依存していたり、更新が滞っていたりなどしており、健全にメンテナンスされているとは言い難い。
+			ActivityPub は後発の規格だが W3C によって策定されており、 <time datetime="2018-01-23">2018-01-23</time> には勧告 (Recommendation) となった(つまり正式に規格として策定されたといえる状態になった)。
+		</p>
+		<p>
+			GNU Social は古くからあり OStatus に対応しているが、 ActivityPub への対応は十分ではない。
+			Mastodon は後発だけあり、 OStatus と ActivityPub 両方に対応しており、適宜望ましい方が使われるようになっている。
+		</p>
+	</aside>
 
 	<eh:section id="federation">
 		<eh:title>連合を作る</eh:title>
@@ -343,7 +356,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 	<eh:section id="implementations--gnusocial-incompatible">
 		<eh:title>GNU Social と非互換</eh:title>
 		<p>
-			OStatus とは違うプロトコルで実装されているが、やはり federated social web を目指して作られたサービスやソフトウェアもある。
+			OStatus (や ActivityPub) とは違うプロトコルで実装されているが、やはり federated social web を目指して作られたサービスやソフトウェアもある。
 		</p>
 		<dl>
 			<dt><a href="https://matrix.org/">matrix</a></dt>
