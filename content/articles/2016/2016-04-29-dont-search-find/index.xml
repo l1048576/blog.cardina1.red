@@ -124,7 +124,7 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 	<eh:title>このブログでのタグ機能</eh:title>
 	<p>
 		偉そうに語ったところで、このブログでのタグの実装(2016/04/30時点)がどのようなものか説明する。<br />
-		詳しくは<a href="/tags/search.html">このブログでのタグ検索ページ</a>を見るのが早いだろう。
+		詳しくは<a href="/tags/search.xhtml">このブログでのタグ検索ページ</a>を見るのが早いだろう。
 	</p>
 	<eh:section id="descrendant-tags">
 		<eh:title>子孫タグ</eh:title>
@@ -143,7 +143,7 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 	<eh:section id="set-operations-on-tags">
 		<eh:title>タグに対する集合演算</eh:title>
 		<p>
-			<a href="/tags/search.html">このブログでのタグ検索</a>では、もちろん差集合を含めて集合演算を実装した。
+			<a href="/tags/search.xhtml">このブログでのタグ検索</a>では、もちろん差集合を含めて集合演算を実装した。
 			<code>or</code>, <code>and</code>, <code>xor</code>, <code>difference</code>の4つだ。
 			これらの機能があれば、それなりに精度の良い検索ができるだろうと考えている。
 		</p>
