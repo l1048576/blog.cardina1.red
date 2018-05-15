@@ -1,6 +1,6 @@
 ---
 created_at: 2017-04-13T16:51:31+0900
-updated_at: 2018-03-27T22:28:46+09:00
+updated_at: 2018-05-15T11:29:00+09:00
 title: "gnusocial や mastodon の哲学"
 htags:
   - "computer/gnu-social"
@@ -321,6 +321,20 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 		<blockquote cite="http://nlab.itmedia.co.jp/nl/articles/1704/13/news160.html">
 			ちなみに最初にどのインスタンスで始めても、ちゃんと世界中のユーザーとつながることができるのでご安心を。
 		</blockquote>
+
+		<aside class="note">
+			<eh:title>世界中のユーザと繋がれないインスタンス (<time datetime="2018-05-15T11:23:03+09:00">2018-05-15</time> 追記)</eh:title>
+
+			<p>
+				法律やサーバ管理ポリシーの違いなどもあり、特定のインスタンスの投稿の流入やリモートフォローなどを禁止していたり、場合によっては外部の全てのサーバとの接続を遮断していたりするインスタンスも存在する(した)<eh:footnote id="footnote-isolated-instances">
+					インターネットや fediverse の海で他の島(インスタンス)との交流を断つその姿から、そういったインスタンスは俗に「鎖国鯖」「鎖国インスタンス」などと呼ばれる
+				</eh:footnote>。
+				そのため、「どのインスタンスで始めても、ちゃんと世界中のユーザーとつながることができる」というのは、厳密には正しくない状況である。
+			</p>
+			<p>
+				もしもそれが不安であったり不満なのであれば、インスタンス管理者がそういった遮断を行わないと名言しているインスタンスに登録するか、自分専用のインスタンスを用意するべきだろう。
+			</p>
+		</aside>
 	</eh:section>
 </eh:section>
 
