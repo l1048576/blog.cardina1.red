@@ -1,6 +1,6 @@
 ---
 created_at: 2017-08-27T21:32:53+0900
-updated_at: 2018-07-17T17:26:46+09:00
+updated_at: 2018-07-17T17:38:07+09:00
 title: "Rust (1.19.0) でオレオレ unsized type を定義する"
 htags:
   - "computer/programming/language/rust"
@@ -288,7 +288,7 @@ impl Iri {
     /// IRI.
     #[inline]
     pub unsafe fn from_str_unchecked(s: &str) -> &Self {
-        ::std::mem::transmute(s)
+        &*(s as *const str as *const Self)
     }
 
     /// Converts a string slice to an IRI slice.
