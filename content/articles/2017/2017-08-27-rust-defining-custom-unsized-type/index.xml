@@ -1,6 +1,6 @@
 ---
 created_at: 2017-08-27T21:32:53+0900
-updated_at: 2017-08-30T18:52:34+0900
+updated_at: 2018-07-17T17:26:46+09:00
 title: "Rust (1.19.0) でオレオレ unsized type を定義する"
 htags:
   - "computer/programming/language/rust"
@@ -332,6 +332,23 @@ impl ::std::borrow::Borrow<Iri> for IriBuf {
 	</ul>
 	<p>
 		くわしい。
+	</p>
+</eh:section>
+
+<eh:section id="postscript-20180717">
+	<eh:title>追記2 (<time datetime="2018-07-17">2018-07-17</time>): crate 作った</eh:title>
+	<ul>
+		<li>
+			<a href="https://crates.io/crates/opaque_typedef">opaque_typedef - Cargo: packages for Rust</a>
+		</li>
+		<li>
+			<a href="https://github.com/lo48576/opaque_typedef"><eh:emoji fontawesome="github" /> lo48576/opaque_typedef: Easy opaque typedef for Rust programming language</a>
+		</li>
+	</ul>
+	<p>
+		opaque typedef 用の crate を書いた。
+		新たな型の定義と、ありがちな trait の自動実装ができる。
+		unsized type も簡単に定義できるようにしてある。
 	</p>
 </eh:section>
 
