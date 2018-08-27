@@ -308,7 +308,7 @@
 				<xsl:apply-templates select="snsq:identity" mode="sns-quote__header" />
 				<xsl:apply-templates select="snsq:meta/snsq:timestamp" mode="sns-quote__header" />
 			</div>
-		</div>
+		</header>
 		<xsl:apply-templates select="snsq:content" mode="sns-quote__quote-root" />
 		<xsl:apply-templates select="snsq:attachments" mode="sns-quote__quote-root" />
 		<xsl:call-template name="sns-quote__footer" />
@@ -335,7 +335,7 @@
 					<xsl:apply-templates select="snsq:identity" mode="sns-quote__header" />
 					<xsl:apply-templates select="snsq:meta/snsq:timestamp" mode="sns-quote__header" />
 				</div>
-			</div>
+			</header>
 			<xsl:apply-templates select="snsq:content" mode="sns-quote__quote-root" />
 			<xsl:apply-templates select="snsq:attachments" mode="sns-quote__quote-root" />
 			<xsl:call-template name="sns-quote__footer" />
@@ -498,7 +498,7 @@
 			<xsl:apply-templates select="snsq:meta/snsq:reftime" mode="sns-quote__footer" />
 			<xsl:apply-templates select="snsq:meta/snsq:in-reply-to" mode="sns-quote__footer" />
 			<xsl:apply-templates select="snsq:footer/node()" />
-		</div>
+		</footer>
 	</xsl:if>
 </xsl:template>
 
