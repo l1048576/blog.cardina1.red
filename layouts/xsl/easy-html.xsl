@@ -126,8 +126,6 @@
 	<xsl:message terminate="yes">error: unknown element `eh:<xsl:value-of select="local-name(.)" />`.</xsl:message>
 </xsl:template>
 
-<xsl:template match="/"><xsl:apply-templates /></xsl:template>
-
 <xsl:template match="eh:div">
 	<xsl:element name="div">
 		<xsl:call-template name="copy-attributes" />

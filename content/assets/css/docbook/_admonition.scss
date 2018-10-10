@@ -1,0 +1,56 @@
+%docbook-admon-base {
+	@extend %independent-block;
+	padding: 0.2rem 0.5rem;
+
+	@include headers {
+		@extend %reset-block;
+		font-size: 1.5rem;
+	}
+}
+
+@mixin docbook-admon($fg-color, $bg, $content: null) {
+	@extend %docbook-admon-base;
+	border-left: 0.5rem $fg-color solid;
+
+	@include headers {
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: $fg-color;
+		margin: 1rem 0;
+
+		&::before {
+			display: inline-block;
+			content: $content;
+			font-size: 2rem;
+			font-weight: normal;
+			color: $fg-color;
+			margin: 0 0.5rem;
+		}
+	}
+}
+
+.#{$docbook-class-prefix}caution {
+	// U+2621 CAUTION SIGN
+	// U+26A0 WARNING SIGN
+	@include docbook-admon(#ea5, #f8f0d0, "\26a0");
+}
+
+.#{$docbook-class-prefix}important {
+	// U+2757 HEAVY EXCLAMATION MARK SYMBOL
+	@include docbook-admon(#ea5, #f8f0d0, "\2757");
+}
+
+.#{$docbook-class-prefix}note {
+	// U+1F5C8 NOTE
+	@include docbook-admon(#5be, #f8f0d0, "\1f5c8");
+}
+
+.#{$docbook-class-prefix}tip {
+	// U+1F4A1 ELECTRIC LIGHT BULB
+	@include docbook-admon(#5be, #f8f0d0, "\1f4a1");
+}
+
+.#{$docbook-class-prefix}warning {
+	// U+26A0 WARNING SIGN
+	@include docbook-admon(red, #fee, "\26a0");
+}
