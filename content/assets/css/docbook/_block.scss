@@ -3,11 +3,18 @@
 }
 
 pre {
-	&.#{$docbook-class-prefix}programlisting,
-	&.#{$docbook-class-prefix}screen {
+	&.#{$docbook-class-prefix}programlisting {
 		white-space: normal;
 
 		>code {
+			@extend %docbook-preserve-spaces;
+		}
+	}
+
+	&.#{$docbook-class-prefix}screen {
+		white-space: normal;
+
+		>samp {
 			@extend %docbook-preserve-spaces;
 		}
 	}
@@ -43,6 +50,24 @@ pre {
 	.#{$docbook-class-prefix}attribution {
 		&::before {
 			content: "―― ";
+		}
+	}
+}
+
+.#{$docbook-class-prefix}screen {
+	&[data-docbook-role~="terminal"] {
+		font-weight: normal;
+		background: black;
+		color: #ccc;
+
+		.#{$docbook-class-prefix}prompt,
+		.#{$docbook-class-prefix}userinput {
+			display: inline;
+		}
+
+		.#{$docbook-class-prefix}userinput {
+			color: #f84;
+			font-weight: bolder;
 		}
 	}
 }
