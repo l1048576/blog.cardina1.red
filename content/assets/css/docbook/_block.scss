@@ -1,3 +1,5 @@
+$font-family-monospace: monospace !default;
+
 %docbook-preserve-spaces {
 	white-space: pre;
 }
@@ -26,48 +28,29 @@ pre {
 			font-family: inherit;
 		}
 		&[data-docbook-literallayout-class="monospaced"] {
-			font-family: monospace;
+			font-family: $font-family-monospace;
 		}
 	}
 }
 
 .#{$docbook-class-prefix}formalpara {
 	>.#{$docbook-class-prefix}title {
-		color: brown;
-		font-weight: bolder;
-		border-left: 0.5rem solid brown;
-		padding-left: 0.5rem;
-		line-height: $vertical-unit;
-		margin-bottom: 0;
-
-		& + * {
-			margin-top: 0;
-		}
+		@extend %paragraph-title
 	}
 }
 
 .#{$docbook-class-prefix}blockquote {
 	.#{$docbook-class-prefix}attribution {
-		&::before {
-			content: "―― ";
-		}
+		@extend %blockquote-attribution;
 	}
 }
 
 .#{$docbook-class-prefix}screen {
 	&[data-docbook-role~="terminal"] {
-		font-weight: normal;
-		background: black;
-		color: #ccc;
-
-		.#{$docbook-class-prefix}prompt,
-		.#{$docbook-class-prefix}userinput {
-			display: inline;
-		}
+		@extend %code-terminal;
 
 		.#{$docbook-class-prefix}userinput {
-			color: #f84;
-			font-weight: bolder;
+			@extend %code-terminal-userinput;
 		}
 	}
 }

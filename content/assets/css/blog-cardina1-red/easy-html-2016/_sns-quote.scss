@@ -17,8 +17,9 @@ $sns-quote-nested-quote-indent-right: 0;
 	}
 }
 
-blockquote.sns-quote {
-	@extend %reset-block;
+blockquote[data-lo48576-easy-html].sns-quote {
+	all: unset;
+	display: block;
 	border: $sns-quote-outer-border;
 
 	// Icon.
@@ -40,7 +41,8 @@ blockquote.sns-quote {
 
 	// Header.
 	header.sns-quote__header-wrapper {
-		@extend %reset-block;
+		all: unset;
+		display: block;
 	}
 	.sns-quote__screen-name {
 		font-weight: bolder;
@@ -97,7 +99,8 @@ blockquote.sns-quote {
 
 	// Footer.
 	footer.sns-quote__footer {
-		@extend %reset-block;
+		all: unset;
+		display: block;
 		font-size: 80%;
 		margin: $vertical-unit / 2 0 0;
 	}
@@ -158,10 +161,10 @@ blockquote.sns-quote {
 	}
 }
 
-.sns-quote__collection {
+[data-lo48576-easy-html].sns-quote__collection {
 	border: $sns-quote-outer-border;
 
-	> .sns-quote {
+	> [data-lo48576-easy-html].sns-quote {
 		border: none;
 
 		&:not(:first-child) {

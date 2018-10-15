@@ -81,6 +81,7 @@
 		</xsl:variable>
 		<xsl:element name="aside">
 			<xsl:attribute name="class">footnotes</xsl:attribute>
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			<xsl:if test="@id">
 				<xsl:attribute name="id"><xsl:call-template name="footnotes-section-id" /></xsl:attribute>
 			</xsl:if>
@@ -88,11 +89,13 @@
 			<xsl:element name="h{$header_level + 2}">
 				<xsl:attribute name="id">footnote-label</xsl:attribute>
 				<xsl:attribute name="class">footnote-label</xsl:attribute>
+				<xsl:apply-templates select="." mode="easy-html-data-attr" />
 				<xsl:text>脚注</xsl:text>
 			</xsl:element>
 			<xsl:element name="ol">
 				<xsl:attribute name="start">0</xsl:attribute>
-					<xsl:for-each select="//eh:footnote[generate-id(ancestor::eh:article[1]) = $article_id]">
+				<xsl:apply-templates select="." mode="easy-html-data-attr" />
+				<xsl:for-each select="//eh:footnote[generate-id(ancestor::eh:article[1]) = $article_id]">
 					<xsl:if test="not(@id)">
 						<xsl:message terminate="yes">error: No `@id` found for `eh:footnote`.</xsl:message>
 					</xsl:if>
@@ -101,10 +104,12 @@
 					</xsl:variable>
 					<xsl:element name="li">
 						<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+						<xsl:apply-templates select="." mode="easy-html-data-attr" />
 						<!--<xsl:attribute name="value"><xsl:value-of select="$footnote_index" /></xsl:attribute>-->
 						<xsl:apply-templates select="node()" />
 						<xsl:element name="a">
 							<xsl:attribute name="href">#ref-<xsl:value-of select="@id" /></xsl:attribute>
+							<xsl:apply-templates select="." mode="easy-html-data-attr" />
 							<xsl:text>&#x21B5;</xsl:text>
 						</xsl:element>
 					</xsl:element>
@@ -129,6 +134,7 @@
 <xsl:template match="eh:div">
 	<xsl:element name="div">
 		<xsl:call-template name="copy-attributes" />
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:apply-templates />
 	</xsl:element>
 </xsl:template>
@@ -136,6 +142,7 @@
 <xsl:template match="eh:article">
 	<xsl:element name="article">
 		<xsl:call-template name="copy-attributes" />
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:apply-templates />
 		<xsl:call-template name="footnotes" />
 	</xsl:element>
@@ -145,6 +152,7 @@
 	<xsl:element name="{local-name(.)}">
 		<xsl:call-template name="copy-attributes" />
 		<xsl:apply-templates />
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<!-- About void elements, see <https://developer.mozilla.org/en-US/docs/Glossary/Empty_element>. -->
 		<xsl:choose>
 			<!-- Void elements should be self-closing tag. -->
@@ -177,6 +185,7 @@
 <xsl:template match="eh:section">
 	<xsl:element name="section">
 		<xsl:call-template name="copy-attributes" />
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:apply-templates />
 	</xsl:element>
 </xsl:template>
@@ -188,6 +197,7 @@
 
 	<xsl:element name="h{number($header_level)}">
 		<xsl:call-template name="copy-attributes" />
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:value-of select="." /><xsl:call-template name="parent-permalink" />
 	</xsl:element>
 </xsl:template>
@@ -196,8 +206,10 @@
 	<xsl:element name="a">
 		<xsl:attribute name="id">ref-<xsl:value-of select="@id" /></xsl:attribute>
 		<xsl:attribute name="href">#<xsl:value-of select="@id" /></xsl:attribute>
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:element name="sup">
 			<xsl:attribute name="class">footnote-marker</xsl:attribute>
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			<xsl:text>[</xsl:text>
 			<xsl:call-template name="footnote-index" />
 			<xsl:text>]</xsl:text>
@@ -218,6 +230,7 @@
 	</xsl:choose>
 	<xsl:element name="a">
 		<xsl:attribute name="href">#<xsl:value-of select="$linkend" /></xsl:attribute>
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:choose>
 			<xsl:when test="node()">
 				<xsl:copy-of select="node()" />
@@ -247,6 +260,7 @@
 				<xsl:value-of select="concat(' ', $class)" /></xsl:if>
 		</xsl:attribute>
 		<xsl:attribute name="aria-hidden">true</xsl:attribute>
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<!-- `<i>` should not be self-closing. -->
 		<xsl:comment />
 	</xsl:element>
@@ -270,6 +284,7 @@
 
 <xsl:template match="snsq:sns-quotes[@mode='normal'] | snsq:sns-quotes[not(@mode)]">
 	<div class="sns-quote__collection sns-quote__collection-normal">
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:for-each select="snsq:sns-quote">
 			<xsl:call-template name="sns-quote__quote-normal" />
 		</xsl:for-each>
@@ -278,6 +293,7 @@
 
 <xsl:template match="snsq:sns-quotes[@mode='tiny']">
 	<div class="sns-quote__collection sns-quote__collection-iny">
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:for-each select="snsq:sns-quote">
 			<xsl:call-template name="sns-quote__quote-tiny" />
 		</xsl:for-each>
@@ -299,10 +315,13 @@
 			<xsl:if test="@class">
 				<xsl:value-of select="concat(' ', @class)" /></xsl:if>
 		</xsl:attribute>
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 
 		<header class="sns-quote__header-wrapper">
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			<xsl:apply-templates select="snsq:identity/snsq:icon" mode="sns-quote__header" />
 			<div class="sns-quote__header">
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 				<xsl:apply-templates select="snsq:identity" mode="sns-quote__header" />
 				<xsl:apply-templates select="snsq:meta/snsq:timestamp" mode="sns-quote__header" />
 			</div>
@@ -325,11 +344,15 @@
 				<xsl:value-of select="@url" />
 			</xsl:attribute>
 		</xsl:if>
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 
 		<xsl:apply-templates select="snsq:identity/snsq:icon" mode="sns-quote__header" />
 		<div class="sns-quote__main-block">
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			<header class="sns-quote__header-wrapper">
+				<xsl:apply-templates select="." mode="easy-html-data-attr" />
 				<div class="sns-quote__header">
+					<xsl:apply-templates select="." mode="easy-html-data-attr" />
 					<xsl:apply-templates select="snsq:identity" mode="sns-quote__header" />
 					<xsl:apply-templates select="snsq:meta/snsq:timestamp" mode="sns-quote__header" />
 				</div>
@@ -343,6 +366,7 @@
 
 <xsl:template match="snsq:icon" mode="sns-quote__header">
 	<div class="sns-quote__icon-wrapper">
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:if test="@src">
 			<xsl:call-template name="optional-anchor">
 				<xsl:with-param name="href" select="../@url" />
@@ -356,8 +380,11 @@
 
 <xsl:template match="snsq:identity" mode="sns-quote__header">
 	<div class="sns-quote__user-info">
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<div class="sns-quote__screen-name">
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			<bdi>
+				<xsl:apply-templates select="." mode="easy-html-data-attr" />
 				<xsl:call-template name="optional-anchor">
 					<xsl:with-param name="href" select="@url" />
 					<xsl:with-param name="body">
@@ -367,11 +394,24 @@
 			</bdi>
 		</div>
 		<div class="sns-quote__identity">
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			<xsl:call-template name="optional-anchor">
 				<xsl:with-param name="href" select="@url" />
 				<xsl:with-param name="body">
-					<span class="service"><bdi><xsl:apply-templates select="snsq:service/node()" /></bdi></span>:
-					<span class="nickname"><bdi><xsl:value-of select="snsq:nickname" /></bdi></span>
+					<span class="service">
+						<xsl:apply-templates select="." mode="easy-html-data-attr" />
+						<bdi>
+							<xsl:apply-templates select="." mode="easy-html-data-attr" />
+							<xsl:apply-templates select="snsq:service/node()" />
+						</bdi>
+					</span>:
+					<span class="nickname">
+						<xsl:apply-templates select="." mode="easy-html-data-attr" />
+						<bdi>
+							<xsl:apply-templates select="." mode="easy-html-data-attr" />
+							<xsl:value-of select="snsq:nickname" />
+						</bdi>
+					</span>
 				</xsl:with-param>
 			</xsl:call-template>
 		</div>
@@ -380,7 +420,9 @@
 
 <xsl:template match="snsq:timestamp" mode="sns-quote__header">
 	<div class="sns-quote__timestamp">
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<bdi>
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			<xsl:call-template name="optional-anchor">
 				<xsl:with-param name="href" select="../../@url" />
 				<xsl:with-param name="body">
@@ -400,6 +442,7 @@
 
 <xsl:template match="snsq:content" mode="sns-quote__quote-root">
 	<div class="sns-quote__content">
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:apply-templates select="node()" />
 	</div>
 </xsl:template>
@@ -408,10 +451,13 @@
 
 <xsl:template match="snsq:attachments" mode="sns-quote__quote-root">
 	<div class="sns-quote__attachments">
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		attachments:
 		<div class="sns-quote__attachments-outer-box">
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			<xsl:for-each select="snsq:*">
 				<div class="sns-quote__attachment-inner-box">
+					<xsl:apply-templates select="." mode="easy-html-data-attr" />
 					<xsl:apply-templates select="." mode="sns-quote__attachment" />
 				</div>
 			</xsl:for-each>
@@ -436,6 +482,7 @@
 		</xsl:with-param>
 		<xsl:with-param name="body">
 			<div class="sns-quote__attachment-medium-wrapper">
+				<xsl:apply-templates select="." mode="easy-html-data-attr" />
 				<xsl:element name="img">
 					<xsl:attribute name="class">
 						sns-quote__attachment sns-quote__image
@@ -457,29 +504,36 @@
 						</xsl:choose>
 					</xsl:attribute>
 					<xsl:attribute name="alt"><xsl:value-of select="@alt" /></xsl:attribute>
+					<xsl:apply-templates select="." mode="easy-html-data-attr" />
 				</xsl:element>
 			</div>
 		</xsl:with-param>
 	</xsl:call-template>
 	<div>
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<ul>
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			<xsl:if test="@thumb-src">
 				<li>
+					<xsl:apply-templates select="." mode="easy-html-data-attr" />
 					<a href="{@thumb-src}">link to the thumbnail</a>
 				</li>
 			</xsl:if>
 			<xsl:if test="@src">
 				<li>
+					<xsl:apply-templates select="." mode="easy-html-data-attr" />
 					<a href="{@src}">link to original file</a>
 				</li>
 			</xsl:if>
 			<xsl:if test="@orig-src">
 				<li>
+					<xsl:apply-templates select="." mode="easy-html-data-attr" />
 					<a href="{@orig-src}">link to original source</a>
 				</li>
 			</xsl:if>
 			<xsl:if test="@orig-page">
 				<li>
+					<xsl:apply-templates select="." mode="easy-html-data-attr" />
 					<a href="{@orig-page}">link to original page</a>
 				</li>
 			</xsl:if>
@@ -493,6 +547,7 @@
 			snsq:meta/snsq:reftime[@enabled = 'true'] |
 			snsq:meta/snsq:in-reply-to[not(@enabled = 'false')]">
 		<footer class="sns-quote__footer">
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			<xsl:apply-templates select="snsq:meta/snsq:reftime" mode="sns-quote__footer" />
 			<xsl:apply-templates select="snsq:meta/snsq:in-reply-to" mode="sns-quote__footer" />
 			<xsl:apply-templates select="snsq:footer/node()" />
@@ -503,15 +558,19 @@
 <!-- default disabled. -->
 <xsl:template match="snsq:reftime[@enabled = 'true']" mode="sns-quote__footer">
 	<div class="sns-quote__reftime">
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<small>
+			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			参照日時:
 			<bdi>
+				<xsl:apply-templates select="." mode="easy-html-data-attr" />
 				<xsl:element name="time">
 					<xsl:if test="@datetime">
 						<xsl:attribute name="datetime">
 							<xsl:value-of select="@datetime" />
 						</xsl:attribute>
 					</xsl:if>
+					<xsl:apply-templates select="." mode="easy-html-data-attr" />
 					<xsl:apply-templates select="node()" />
 				</xsl:element>
 			</bdi>
@@ -526,6 +585,7 @@
 
 <xsl:template match="snsq:in-reply-to" mode="sns-quote__footer">
 	<div class="sns-quote__in-reply-to">
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:call-template name="optional-anchor">
 			<xsl:with-param name="href" select="@url" />
 			<xsl:with-param name="body">
@@ -543,6 +603,48 @@
 			</xsl:with-param>
 		</xsl:call-template>
 	</div>
+</xsl:template>
+
+<xsl:template match="eh:*//html:* | snsq:*//html:*">
+	<xsl:element name="{local-name()}">
+		<xsl:call-template name="copy-attributes" />
+		<xsl:apply-templates select="." mode="easy-html-data-attr" />
+		<xsl:apply-templates />
+		<!-- About void elements, see <https://developer.mozilla.org/en-US/docs/Glossary/Empty_element>. -->
+		<xsl:choose>
+			<!-- Void elements should be self-closing tag. -->
+			<xsl:when test="
+				html:area |
+				html:base |
+				html:br |
+				html:col |
+				html:emded |
+				html:hr |
+				html:img |
+				html:input |
+				html:link |
+				html:meta |
+				html:param |
+				html:source |
+				html:track |
+				html:wbr
+				"></xsl:when>
+			<!-- Non-void elements with child content cannot not be self-closing and no more things to do. -->
+			<xsl:when test="html:*[node()]"></xsl:when>
+			<!-- Non-void elements without child content should not be self-closing. -->
+			<xsl:otherwise>
+				<xsl:comment />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:element>
+</xsl:template>
+
+<xsl:template match="*" select="." mode="easy-html-data-attr">
+	<xsl:if test="ancestor-or-self::eh:* | ancestor-or-self::snsq:*">
+		<xsl:attribute name="data-lo48576-easy-html">
+			<xsl:value-of select="concat('{', namespace-uri(), '}', local-name())" />
+		</xsl:attribute>
+	</xsl:if>
 </xsl:template>
 
 </xsl:stylesheet>

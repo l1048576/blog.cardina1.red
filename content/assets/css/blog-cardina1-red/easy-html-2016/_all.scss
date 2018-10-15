@@ -1,0 +1,113 @@
+@import 'sns-quote';
+
+pre.code[data-lo48576-easy-html] {
+	@extend %code-block;
+}
+
+pre[data-lo48576-easy-html] >code[data-lo48576-easy-html] {
+	@extend %code-block;
+	// `pre` has margin and border.
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+pre.code.code-terminal[data-lo48576-easy-html] {
+	@extend %code-terminal;
+
+	>kbd[data-lo48576-easy-html] {
+		@extend %code-terminal-userinput;
+	}
+}
+
+:not(pre):not(.code) >code[data-lo48576-easy-html] {
+	@include code-inline-block;
+}
+
+code[data-lo48576-easy-html] {
+	&.filepath {
+		@extend %filepath-file;
+	}
+	&.dirpath {
+		@extend %filepath-directory;
+	}
+}
+
+@mixin easy-html-admon($fg-color, $bg, $icon) {
+	@extend %admonition-block;
+	border-left: 0.5rem $fg-color solid;
+
+	>h1, >h2, >h3, >h4, >h5, >h6 {
+		color: $fg-color;
+
+		&::before {
+			@extend %admonition-block-before-icon;
+			content: $icon;
+			color: $fg-color;
+		}
+	}
+}
+
+aside[data-lo48576-easy-html] {
+	&.caution {
+		//// f071: fa-exclamation-triangle, fa-warning
+		//@include admon(#EA5, #f8f0d0, "\f071");
+		// U+2621 CAUTION SIGN
+		// U+26A0 WARNING SIGN
+		@include easy-html-admon(#ea5, #f8f0d0, "\26a0");
+	}
+	&.important {
+		//// f06a: fa-exclamation-circle
+		//@include admon(#EA5, #f8f0d0, "\f06a");
+		// U+2757 HEAVY EXCLAMATION MARK SYMBOL
+		@include easy-html-admon(#ea5, #f8f0d0, "\2757");
+	}
+	&.note {
+		//// f24a: fa-sticky-note-o
+		//// f05a: fa-info-circle
+		//@include admon(#5be, #e8f0f8, "\f05a ");
+		// U+1F5C8 NOTE
+		@include easy-html-admon(#5be, #f8f0d0, "\1f5c8");
+	}
+	&.tip {
+		//// f0eb: fa-lightbulb-o
+		//@include admon(#5BE, #e8f0f8, "\f0eb");
+		// U+1F4A1 ELECTRIC LIGHT BULB
+		@include easy-html-admon(#5be, #f8f0d0, "\1f4a1");
+	}
+	&.warning {
+		//// f06d: fa-fire
+		//@include admon(red, #FEE, "\f06d");
+		// U+26A0 WARNING SIGN
+		@include easy-html-admon(red, #fee, "\26a0");
+	}
+}
+
+// Footnote.
+aside[data-lo48576-easy-html] {
+	counter-reset: footnotes;
+
+	&.footnotes {
+		font-size: 80%;
+		margin-bottom: $vertical-unit;
+
+		&::before {
+			display: block;
+			border-top: $hr-border-top;
+			width: var(--hr-width, 50%);
+			content: " ";
+			margin: $vertical-unit auto;
+		}
+		>h1, >h2, >h3, >h4, >h5, >h6 {
+			@extend %reset-header-style;
+			margin-top: 0;
+			font-size: 1.8em;
+		}
+		p {
+			margin: 0.5em 0;
+		}
+		&:target {
+			background: yellow;
+		}
+	}
+}
