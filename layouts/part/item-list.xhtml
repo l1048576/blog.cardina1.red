@@ -4,10 +4,10 @@
 <%- @target_items.each do |item| -%>
 	<section>
 		<%= header_open_tag %><%= link_to "#{item[:title]}", item %><%= header_close_tag -%>
-		<div style="font-size: 80%"><!-- article metadata -->
+		<aside class="article-info"><!-- article metadata -->
 			<%= render '/part/created-at.*', target: item -%>
 			<%= render '/part/htags.*', target: item -%>
-		</div>
+		</aside>
 		<div><!-- excerpt -->
 			<%- if excerpt = item[:excerpt] -%>
 				<p>
