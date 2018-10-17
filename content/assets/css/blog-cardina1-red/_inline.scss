@@ -2,24 +2,20 @@ mark {
 	background: yellow;
 }
 
-del::before {
-	background: #fdd;
-	text-decoration: none;
-	// f014: fa-trash-o
-	@include font-awesome("\f014");
+ins {
+	@extend %inserted-part-inline;
 }
 
-ins::before {
-	background: #dfd;
-	text-decoration: none;
-	// f040: fa-pencil
-	@include font-awesome("\f040");
+del {
+	@extend %deleted-part-inline;
 }
 
 strong {
 	font-weight: bolder;
+
 	strong {
 		text-decoration: underline solid red;
+
 		strong {
 			text-decoration: underline double red;
 		}
@@ -29,8 +25,10 @@ strong {
 em {
 	font-weight: bolder;
 	font-style: italic;
+
 	em {
 		text-decoration: underline solid red;
+
 		em {
 			text-decoration: underline double red;
 		}
@@ -50,17 +48,9 @@ a {
 	&:hover {
 		text-decoration: underline;
 	}
-	&[href$=".pdf"]::before {
-		// f1c1: fa-file-pdf-o
-		@include font-awesome("\20\f1c1");
-	}
-	&[target="_blank"]::after {
-		// f08e: fa-external-link
-		@include font-awesome("\20\f08e");
-	}
 }
 
-img:not(.manualsize) {
+img {
 	max-width: 100%;
 	height: auto;
 }

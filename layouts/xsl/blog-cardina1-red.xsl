@@ -34,6 +34,40 @@
 	</xsl:if>
 </xsl:template>
 
+<xsl:template name="permalink">
+	<xsl:param name="node" select="." />
+	<xsl:param name="id" select="$node/@xml:id" />
+
+	<xsl:variable name="normalized-id" select="normalize-space($id)" />
+	<xsl:if test="$normalized-id != ''">
+		<xsl:element name="a" namespace="{$ds:html-ns}">
+			<xsl:attribute name="class">
+				<xsl:text>permalink</xsl:text>
+			</xsl:attribute>
+			<xsl:attribute name="href">
+				<xsl:text>#</xsl:text>
+				<xsl:value-of select="$normalized-id" />
+			</xsl:attribute>
+			<xsl:comment />
+		</xsl:element>
+	</xsl:if>
+</xsl:template>
+
+<xsl:template match="d:title" mode="ds:section-heading-inner">
+	<xsl:apply-templates />
+	<xsl:variable name="sect-id">
+		<xsl:apply-templates select="." mode="ds:section-id" />
+	</xsl:variable>
+	<xsl:call-template name="permalink">
+		<xsl:with-param name="id" select="$sect-id" />
+	</xsl:call-template>
+</xsl:template>
+
+<xsl:template match="d:term" mode="ds:inner">
+	<xsl:apply-templates />
+	<xsl:call-template name="permalink" />
+</xsl:template>
+
 <!-- TODO: Treat source URI of `d:blockquote`. -->
 
 </xsl:stylesheet>

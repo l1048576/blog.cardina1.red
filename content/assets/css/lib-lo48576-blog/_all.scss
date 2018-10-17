@@ -1,0 +1,105 @@
+$vertical-unit: 1.5rem !default;
+$font-family-monospace: monospace !default;
+$font-family-code: "Fira Mono", "Ricty", "Source Han Code JP", "Inconsolata", "Source Code Pro", $font-family-monospace !default;
+$font-family-codeblock: $font-family-code !default;
+$font-family-terminal: $font-family-code !default;
+$hr-border-top: 1px solid #aaa !default;
+
+
+%independent-block {
+	margin: $vertical-unit 0;
+}
+
+%filepath-file {
+	&::before {
+		// U+1F5C5 EMPTY NOTE
+		content: "\1f5c5";
+		margin-right: 0.1em;
+	}
+}
+
+%filepath-directory {
+	&::before {
+		// U+1F5C0 FOLDER
+		// U+1F5C1 OPEN FOLDER
+		content: "\1f5c1";
+		margin-right: 0.1em;
+	}
+}
+
+%paragraph-title {
+	color: brown;
+	font-weight: bolder;
+	border-left: 0.5rem solid brown;
+	padding-left: 0.5rem;
+	line-height: $vertical-unit;
+	margin-bottom: 0;
+
+	& + * {
+		margin-top: 0;
+	}
+}
+
+%blockquote-attribution {
+	&::before {
+		content: "―― ";
+	}
+}
+
+%inserted-part-inline {
+	&::before {
+		background: #dfd;
+		text-decoration: none;
+		// U+1F589 LOWER LEFT PENCIL
+		// U+2711 WHITE NIB
+		content: "\1f589";
+	}
+}
+
+%deleted-part-inline {
+	&::before {
+		background: #fdd;
+		text-decoration: none;
+		// U+1F5D1 WASTEBASKET
+		// U+1F5D9 CANCELLATION X
+		content: "\1f5d1";
+	}
+}
+
+%admonition-block {
+	@extend %independent-block;
+	padding: 0.2rem 0.5rem;
+
+	>h1, >h2, >h3, >h4, >h5, >h6 {
+		@extend %admonition-block-title;
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	>:last-child,
+	div:last-child >:last-child {
+		margin-bottom: 0;
+	}
+}
+
+%admonition-block-title {
+	all: unset;
+	display: block;
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin: 1rem 0;
+}
+
+%admonition-block-before-icon {
+	display: inline-block;
+	font-size: 2rem;
+	font-weight: normal;
+	margin: 0 0.5rem;
+}
+
+@import 'page-base';
+@import 'responsive';
+
+@import 'code';

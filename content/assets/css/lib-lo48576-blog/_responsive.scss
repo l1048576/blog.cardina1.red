@@ -51,14 +51,14 @@ $container-widths: (
 		}
 	}
 
-	//@include respond-to(lg) {
-	//    --independent-block-margin: 1rem 2.5rem;
-	//}
-
 	--site-title-font-size: 1rem;
 	--site-title-font-weight: normal;
 	@include respond-to(lg) {
 		--site-title-font-size: 2rem;
 		--site-title-font-weight: bold;
 	}
+
+	--hr-width: 50%;
+	--li-margin: 0 0 0 1.5rem;
+	--dd-margin: 0 0 0 1.5rem;
 }

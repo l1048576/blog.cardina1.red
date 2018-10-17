@@ -1,0 +1,54 @@
+@mixin code-common {
+	border: 1px solid #eeeef899;
+	background: #f4f4f499;
+}
+
+%code-common {
+	@include code-common;
+}
+
+@mixin code-inline-block {
+	@include code-common;
+	font-family: $font-family-code;
+	display: inline-block;
+	border-radius: 0.2em;
+	padding: 0 0.2em;
+}
+
+%code-inline-block {
+	@include code-inline-block;
+}
+
+@mixin code-block {
+	@include code-common;
+	font-family: $font-family-codeblock;
+	display: block;
+	padding: 0.3rem 0.3rem;
+
+	// Ignore font settings by sanitize.css.
+	code, kbd, samp {
+		font-family: inherit;
+		font-size: inherit;
+	}
+}
+
+%code-block {
+	@include code-block;
+}
+
+%code-terminal {
+	background: black;
+	font-family: $font-family-terminal;
+	color: #ccc;
+
+	code, kbd, samp {
+		// Ignore font settings by sanitize.css.
+		font-family: inherit;
+		font-size: inherit;
+	}
+}
+
+%code-terminal-userinput {
+	color: #f84;
+	font-weight: bolder;
+}

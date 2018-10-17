@@ -37,46 +37,9 @@ $header-custom-props: font-size, border, border-top, border-right, border-bottom
 	}
 }
 
-%reset-header-style {
-	@each $prop in $header-custom-props {
-		#{$prop}: unset;
-	}
-}
-
 // Apply %h1 - %h6 to real h1 - h6 elements.
 @each $elem in $header-elems {
 	#{$elem} {
 		@extend %#{$elem};
 	}
 }
-
-$sectioning-root: blockquote, details, fieldset, figure, td;
-$sectioning-content: body, section, article, aside, nav;
-
-/*
-#{$sectioning-root}, body #{$sectioning-content} {
-	h1 {
-		@extend %h1;
-	}
-	#{$sectioning-content} {
-		h1 {
-			@extend %h2;
-		}
-		#{$sectioning-content} {
-			h1 {
-				@extend %h3;
-			}
-			#{$sectioning-content} {
-				h1 {
-					@extend %h4;
-				}
-				#{$sectioning-content} {
-					h1 {
-						@extend %h5;
-					}
-				}
-			}
-		}
-	}
-}
-*/
