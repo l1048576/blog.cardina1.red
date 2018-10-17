@@ -26,7 +26,8 @@
 	padding: 0.3rem 0.3rem;
 
 	// Ignore font settings by sanitize.css.
-	kbd, samp {
+	code, kbd, samp {
+		font-family: inherit;
 		font-size: inherit;
 	}
 }
@@ -37,7 +38,14 @@
 
 %code-terminal {
 	background: black;
+	font-family: $font-family-terminal;
 	color: #ccc;
+
+	code, kbd, samp {
+		// Ignore font settings by sanitize.css.
+		font-family: inherit;
+		font-size: inherit;
+	}
 }
 
 %code-terminal-userinput {

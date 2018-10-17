@@ -1,49 +1,6 @@
 @import 'easy-html-2016/all';
-@import 'blog-page';
+@import 'page-base';
 @import 'header';
-@import 'normal';
+@import 'block';
+@import 'inline';
 @import 'table';
-
-body {
-	>header {
-		background: #333;
-		margin-bottom: #{$vertical-unit};
-
-		.site-title {
-			$title-color: #999;
-
-			color: $title-color;
-			margin-top: 0;
-			>a {
-				&, &:visited, &:hover {
-					color: $title-color;
-					text-decoration: none;
-				}
-			}
-		}
-	}
-	>footer {
-		background: #333;
-		color: #ccc;
-		margin-top: #{$vertical-unit};
-		padding: 1rem 0;
-	}
-}
-
-.share {
-	.twitter, .facebook, .hatena, .pocket {
-		display: inline-block;
-	}
-}
-
-.next-prev-link {
-	display: flex;
-
-	>.prev-link {
-		width: 50%;
-	}
-	>.next-link {
-		width: 50%;
-		text-align: right;
-	}
-}

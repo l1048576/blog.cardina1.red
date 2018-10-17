@@ -1,6 +1,6 @@
 @import 'sns-quote';
 
-pre.code[data-lo48576-easy-html] {
+pre[data-lo48576-easy-html].code:not(.code-terminal) {
 	@extend %code-block;
 }
 
@@ -12,7 +12,7 @@ pre[data-lo48576-easy-html] >code[data-lo48576-easy-html] {
 	border: none;
 }
 
-pre.code.code-terminal[data-lo48576-easy-html] {
+pre[data-lo48576-easy-html].code.code-terminal {
 	@extend %code-terminal;
 
 	>kbd[data-lo48576-easy-html] {
@@ -99,7 +99,7 @@ aside[data-lo48576-easy-html] {
 			margin: $vertical-unit auto;
 		}
 		>h1, >h2, >h3, >h4, >h5, >h6 {
-			@extend %reset-header-style;
+			all: unset;
 			margin-top: 0;
 			font-size: 1.8em;
 		}

@@ -1,9 +1,9 @@
 $hr-border-top: 1px solid #aaa !default;
 
-body {
-	font-family: "Mplus 1p", sans-serif;
-	background: #fcfcfc;
-	color: #444;
+hr {
+	width: var(--hr-width, 50%);
+	border-top: $hr-border-top;
+	margin: 0.8rem auto;
 }
 
 p {
@@ -74,89 +74,21 @@ dd {
 	margin: var(--dd-margin);
 }
 
-hr {
-	width: var(--hr-width, 50%);
-	border-top: $hr-border-top;
-	margin: 0.8rem auto;
-}
-
 figure {
 	padding: 0.5rem 1rem;
 	border: 1px solid #eee;
 	border-radius: 1rem;
 
-	>figcaption:last-child {
-		margin-top: 0.4rem;
-		border-top: 1px solid #999;
-		text-align: right;
-
-		>p:first-child {
-			margin-top: 0.2rem;
-		}
-	}
 	>blockquote {
 		margin: 1rem 0;
 	}
 }
+figcaption:last-child {
+	margin-top: 0.4rem;
+	border-top: 1px solid #999;
+	text-align: right;
 
-mark {
-	background: yellow;
-}
-
-ins {
-	@extend %inserted-part-inline;
-}
-
-del {
-	@extend %deleted-part-inline;
-}
-
-strong {
-	font-weight: bolder;
-
-	strong {
-		text-decoration: underline solid red;
-
-		strong {
-			text-decoration: underline double red;
-		}
+	>p:first-child {
+		margin-top: 0.2rem;
 	}
-}
-
-em {
-	font-weight: bolder;
-	font-style: italic;
-
-	em {
-		text-decoration: underline solid red;
-
-		em {
-			text-decoration: underline double red;
-		}
-	}
-}
-
-abbr[title] {
-	border: none;
-	text-decoration: underline dotted;
-}
-
-a {
-	&, &:visited {
-		color: #c86868;
-		text-decoration: none;
-	}
-	&:hover {
-		text-decoration: underline;
-	}
-}
-
-img:not(.manualsize) {
-	max-width: 100%;
-	height: auto;
-}
-
-rt {
-	// This would be cleared by sanitize.css.
-	font-size: 50%;
 }

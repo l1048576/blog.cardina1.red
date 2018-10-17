@@ -2,25 +2,13 @@ $vertical-unit: 1.5rem !default;
 $font-family-monospace: monospace !default;
 $font-family-code: "Fira Mono", "Ricty", "Source Han Code JP", "Inconsolata", "Source Code Pro", $font-family-monospace !default;
 $font-family-codeblock: $font-family-code !default;
+$font-family-terminal: $font-family-code !default;
 $hr-border-top: 1px solid #aaa !default;
 
-%reset {
-	all: unset;
-}
-
-%reset-block {
-	@extend %reset;
-	display: block;
-}
 
 %independent-block {
 	margin: $vertical-unit 0;
 }
-
-@import 'page-base';
-@import 'responsive';
-
-@import 'code';
 
 %filepath-file {
 	&::before {
@@ -97,7 +85,8 @@ $hr-border-top: 1px solid #aaa !default;
 }
 
 %admonition-block-title {
-	@extend %reset-block;
+	all: unset;
+	display: block;
 	font-size: 1.5rem;
 	font-weight: bold;
 	margin: 1rem 0;
@@ -110,9 +99,7 @@ $hr-border-top: 1px solid #aaa !default;
 	margin: 0 0.5rem;
 }
 
-$header-custom-props: font-size, border, border-top, border-right, border-bottom, border-left, padding, color, background;
-%reset-header-style {
-	@each $prop in $header-custom-props {
-		#{$prop}: unset;
-	}
-}
+@import 'page-base';
+@import 'responsive';
+
+@import 'code';
