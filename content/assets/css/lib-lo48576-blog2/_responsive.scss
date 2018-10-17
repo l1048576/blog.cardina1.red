@@ -1,0 +1,64 @@
+// Responsive.
+
+$screen-sizes: xs, sm, md, lg;
+$screen-min-widths: (
+	xs: 0,
+	sm: 768px,
+	md: 992px,
+	lg: 1200px,
+);
+$container-widths: (
+	xs: auto,
+	sm: 750px,
+	md: 970px,
+	lg: 1170px,
+);
+
+@mixin respond-to__impl($size) {
+	$min-width: map-get($screen-min-widths, $size);
+	$size-index: index($screen-sizes, $size);
+	$next-size: null;
+	@if $size-index < length($screen-sizes) {
+		$next-size: nth($screen-sizes, $size-index + 1);
+	}
+	$max-width: null;
+	@if $next-size {
+		$max-width: map-get($screen-min-widths, $next-size) - 1px;
+		@media screen and (min-width: $min-width) and (max-width: $max-width) {
+			@content;
+		}
+	}
+	@else {
+		@media screen and (min-width: $min-width) {
+			@content;
+		}
+	}
+}
+
+@mixin respond-to($sizes...) {
+	@each $size in $sizes {
+		@include respond-to__impl($size) {
+			@content;
+		}
+	}
+}
+
+:root {
+	--size-container-margin: 0 auto;
+	@each $size, $container-width in $container-widths {
+		@include respond-to($size) {
+			--size-container-width: #{$container-width};
+		}
+	}
+
+	//@include respond-to(lg) {
+	//    --independent-block-margin: 1rem 2.5rem;
+	//}
+
+	--site-title-font-size: 1rem;
+	--site-title-font-weight: normal;
+	@include respond-to(lg) {
+		--site-title-font-size: 2rem;
+		--site-title-font-weight: bold;
+	}
+}

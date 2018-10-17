@@ -1,17 +1,17 @@
-%code-ligature {
-	@extend %fira-code;
-}
-%code-noligature {
-	font-family: "Fira Mono", "Ricty", "Source Han Code JP", "Inconsolata", "Source Code Pro", monospace;
-}
+//%code-ligature {
+//    @extend %fira-code;
+//}
+//%code-noligature {
+//    font-family: "Fira Mono", "Ricty", "Source Han Code JP", "Inconsolata", "Source Code Pro", monospace;
+//}
 
 %code-inline {
-	border: 1px solid #eeeef8;
-	border-radius: 0.2em;
-	padding: 0 0.2em;
-	background: #f4f4f4;
+	//border: 1px solid #eeeef8;
+	//border-radius: 0.2em;
+	//padding: 0 0.2em;
+	//background: #f4f4f4;
 	display: inline-block;
-	@extend %code-noligature;
+	//@extend %code-noligature;
 }
 
 %code-block {
@@ -19,7 +19,7 @@
 	border: 1px solid #eeeef8;
 	padding: 0.3rem 0.3rem;
 	background: #f4f4f4;
-	@extend %code-noligature;
+	//@extend %code-noligature;
 }
 
 pre.code {
@@ -49,14 +49,14 @@ pre.code.code-terminal {
 
 code {
 	&.filepath {
-		@extend %code-noligature;
+		//@extend %code-noligature;
 		&::before {
 			// f016: fa-file-o
 			@include font-awesome("\f016\20");
 		}
 	}
 	&.dirpath {
-		@extend %code-noligature;
+		//@extend %code-noligature;
 		&::before {
 			// f114: fa-folder-o
 			@include font-awesome("\f114\20");
@@ -67,7 +67,7 @@ code {
 // Ignore font settings by sanitize.css.
 code, pre.code.code-terminal {
 	kbd, samp {
-		@extend %code-noligature;
+		//@extend %code-noligature;
 		font-size: inherit;
 	}
 }

@@ -1,0 +1,73 @@
+%docbook-preserve-spaces {
+	white-space: pre;
+}
+
+pre {
+	&.#{$docbook-class-prefix}programlisting {
+		white-space: normal;
+
+		>code {
+			@extend %docbook-preserve-spaces;
+		}
+	}
+
+	&.#{$docbook-class-prefix}screen {
+		white-space: normal;
+
+		>samp {
+			@extend %docbook-preserve-spaces;
+		}
+	}
+
+	&.#{$docbook-class-prefix}literallayout {
+		@extend %docbook-preserve-spaces;
+
+		&[data-docbook-literallayout-class="normal"] {
+			font-family: inherit;
+		}
+		&[data-docbook-literallayout-class="monospaced"] {
+			font-family: monospace;
+		}
+	}
+}
+
+.#{$docbook-class-prefix}formalpara {
+	>.#{$docbook-class-prefix}title {
+		color: brown;
+		font-weight: bolder;
+		border-left: 0.5rem solid brown;
+		padding-left: 0.5rem;
+		line-height: $vertical-unit;
+		margin-bottom: 0;
+
+		& + * {
+			margin-top: 0;
+		}
+	}
+}
+
+.#{$docbook-class-prefix}blockquote {
+	.#{$docbook-class-prefix}attribution {
+		&::before {
+			content: "―― ";
+		}
+	}
+}
+
+.#{$docbook-class-prefix}screen {
+	&[data-docbook-role~="terminal"] {
+		font-weight: normal;
+		background: black;
+		color: #ccc;
+
+		.#{$docbook-class-prefix}prompt,
+		.#{$docbook-class-prefix}userinput {
+			display: inline;
+		}
+
+		.#{$docbook-class-prefix}userinput {
+			color: #f84;
+			font-weight: bolder;
+		}
+	}
+}

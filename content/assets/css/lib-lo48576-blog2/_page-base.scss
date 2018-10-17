@@ -1,0 +1,37 @@
+// Default styles (which would be affected by screen size).
+.size-container {
+	width: var(--size-container-width);
+	margin: var(--size-container-margin);
+}
+
+body {
+	background: #fcfcfc;
+	color: #444;
+	font-family: "Mplus 1p", sans-serif;
+
+	>header {
+		background: #333;
+		display: grid;
+		margin-bottom: #{$vertical-unit};
+
+		.site-title {
+			$title-color: #999;
+			font-size: var(--site-title-font-size);
+			font-weight: var(--site-title-font-weight);
+			color: $title-color;
+			margin-top: 0;
+			>a {
+				&, &:visited, &:hover {
+					color: $title-color;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+	>footer {
+		background: #333;
+		color: #ccc;
+		margin-top: #{$vertical-unit};
+		padding: 1rem 0;
+	}
+}
