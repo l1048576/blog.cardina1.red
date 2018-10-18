@@ -54,7 +54,7 @@ excerpt: "CSSで喪に服す時代らしい。"
 		他のwebサイトは写真などいろいろ使っているが、これらが全てグレースケールになっているのは、（最初からグレースケールの画像を用意している場合もあるが、）CSSにより適用された効果である。
 	</p>
 
-	<div class="independent-block grid-row">
+	<div class="content-block grid-row">
 		<figure class="col-xs-12 col-lg-5">
 			<pre><code class="lang-css language-css" data-lang="css">
 /* home.css */

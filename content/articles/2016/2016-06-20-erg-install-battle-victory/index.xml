@@ -240,7 +240,7 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 								「セキュリティ」タブの、「アクセス許可を変更するには[編集]をクリックします。」の右にある「編集(E)...」ボタンをクリック。
 								「続行しますか？」のダイアログでは「はい」を押す
 							</p>
-							<div class="independent-block grid-row">
+							<div class="content-block grid-row">
 								<figure id="fig-security-tab-before" class="col-xs-12 col-sm-6">
 									<img src="security-tab-before.png" alt="権限変更前の「セキュリティ」タブの図" />
 									<figcaption>権限変更前の「セキュリティ」タブの様子</figcaption>
@@ -260,7 +260,7 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 							<p>
 								「詳細設定」ボタンを押して所有者の「変更」ボタンを押す
 							</p>
-							<div class="independent-block grid-row">
+							<div class="content-block grid-row">
 								<figure id="fig-advanced-config-before" class="col-xs-12 col-sm-6">
 									<img src="advanced-config-before.png" alt="「詳細設定」ボタンを押して出るウィンドウの図" />
 									<figcaption>「詳細設定」ボタンを押して出るウィンドウ</figcaption>
@@ -271,7 +271,7 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 							<p>
 								「選択するオブジェクト名を入力してください」のテキストボックスに <code>NT SERVICE\TrustedInstaller</code> と入力し、「名前の確認」ボタンを押す
 							</p>
-							<div class="independent-block grid-row">
+							<div class="content-block grid-row">
 								<figure id="fig-user-select-1" class="col-xs-12 col-sm-6">
 									<img src="user-select-1.png" alt="所有者の「変更」ボタンを押して出るダイアログの図" />
 									<figcaption>所有者の「変更」ボタンを押して出るダイアログに名前を入力したところ</figcaption>
@@ -287,7 +287,7 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 								「OK」ボタンでダイアログを閉じ、「セキュリティの詳細設定」のウィンドウの「適用」ボタンを押す。
 								途中でダイアログが出るかもしれないが、「OK」を押しておけばおｋ。
 							</p>
-							<div class="independent-block grid-row">
+							<div class="content-block grid-row">
 								<figure id="fig-owner-change-notice" class="col-xs-12 col-sm-6">
 									<img src="owner-change-notice.png" alt="所有者の変更後に出るダイアログの図" />
 									<figcaption>所有者の変更後に出るダイアログ</figcaption>
@@ -325,7 +325,7 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 			</li>
 			<li><a href="/2016/06/15/erg-install-battle#anaoto-install-challenge-2">あなオトのautorunのエラー</a>は相変わらず出る。DirectXが原因ではないのかもしれない。</li>
 		</ul>
-		<div id="fig-games-run-success" class="independent-block grid-row">
+		<div id="fig-games-run-success" class="content-block grid-row">
 			<figure id="fig-anaoto-run-success" class="col-xs-12 col-sm-6">
 				<img src="anaoto-run-success.png" alt="あなオト起動成功の図" />
 				<figcaption>あなオト起動成功</figcaption>

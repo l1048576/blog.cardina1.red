@@ -1,4 +1,4 @@
-%independent-block {
+%content-block {
 	margin: $vertical-unit 0;
 }
 
@@ -22,7 +22,7 @@
 }
 
 %admonition-block {
-	@extend %independent-block;
+	@extend %content-block;
 	padding: 0.2rem 0.5rem;
 
 	>h1, >h2, >h3, >h4, >h5, >h6 {

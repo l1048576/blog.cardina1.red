@@ -261,7 +261,7 @@ lrwxrwxrwx 1 larry larry    6 2015-11-18 13:24 mlterm-256color -> mlterm
 	<p>
 		残念ながらこの状態だと、<code>tmux</code>が256色出してくれない。
 	</p>
-	<div class="independent-block grid-row">
+	<div class="content-block grid-row">
 		<figure class="col-xs-12 col-sm-6">
 			<a href="mlterm-tmux-ok.png">
 				<img src="mlterm-tmux-ok.png" alt="期待していた結果" />
