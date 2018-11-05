@@ -68,6 +68,15 @@
 	<xsl:call-template name="permalink" />
 </xsl:template>
 
+<xsl:template match="d:programlisting" mode="ds:attr-class-value">
+	<xsl:call-template name="ds:attr-class-value" />
+	<!-- For syntax highlighting filter `colorize_syntax` of nanoc. -->
+	<xsl:if test="@language">
+		<xsl:text>language-</xsl:text>
+		<xsl:value-of select="@language" />
+	</xsl:if>
+</xsl:template>
+
 <!-- TODO: Treat source URI of `d:blockquote`. -->
 
 </xsl:stylesheet>
