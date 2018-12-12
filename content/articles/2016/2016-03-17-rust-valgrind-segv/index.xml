@@ -1,5 +1,6 @@
 ---
-created_at: 2016-03-17T13:15:50+0900
+created_at: 2016-03-17T13:15:50+09:00
+updated_at: 2018-11-05T15:35:49+09:00
 title: "Rust-1.6でvalgrindを使うとSEGVすることがある場合の対処"
 htags:
   - "computer/programming/language/rust"
@@ -16,7 +17,8 @@ excerpt: "Rust-1.6でvalgrindを使うとSEGVすることがある場合の対�
 >
 <eh:title>Rust-1.6でvalgrindを使うとSEGVすることがある場合の対処</eh:title>
 <p>
-	一応解決済。
+	解決済。
+	<eh:xref linkend="now-system-allocator-is-default">追記</eh:xref>を参照。
 </p>
 
 <eh:section id="abstract">
@@ -145,6 +147,22 @@ $
 	<p>
 		本当はmemcheckじゃなくてcallgrind使おうとしてたんだけど、正直あまり良いデータ得られなかったのでやっぱ使わなくていいや。
 		lifetimeに圧倒的感謝。
+	</p>
+</eh:section>
+
+<eh:section id="now-system-allocator-is-default">
+	<eh:title>追記 (2018-11-05): system allocator がデフォルトになった</eh:title>
+	<ul>
+		<li>
+			<a href="https://internals.rust-lang.org/t/jemalloc-was-just-removed-from-the-standard-library/8759">Jemalloc was just removed from the standard library 🎉 - announcements - Rust Internals</a>
+		</li>
+		<li>
+			<a href="https://github.com/rust-lang/rust/pull/55238">Remove the `alloc_jemalloc` crate by alexcrichton · Pull Request #55238 · rust-lang/rust</a>
+		</li>
+	</ul>
+	<p>
+		長らく Rust では jemalloc がデフォルトだったが、ついにシステムアロケータがデフォルトになり、 jemalloc は標準ライブラリから除去された。
+		よって、このプルリクエスト (<a href="https://github.com/rust-lang/rust/pull/55238">#55238</a>) が適用されたバージョンの rustc でビルドしたバイナリであれば、 valgrind も正常に動くであろうことが期待できる。
 	</p>
 </eh:section>
 </eh:article>

@@ -31,6 +31,7 @@ ul.no-marker {
 }
 li {
 	margin: var(--li-margin);
+	line-height: $vertical-unit;
 }
 //li {
 //	>p:first-child {
