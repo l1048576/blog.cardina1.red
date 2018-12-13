@@ -9,30 +9,29 @@ module Larry
       @filter = filter
     end
 
-    def get_direct_deps(layouts, layout_dir, identifier)
-      full_path = Pathname.new("#{layout_dir}#{layouts[identifier].identifier}")
-      dirname = full_path.dirname
-      content = layouts[identifier].raw_content
+    # Returns direct dependencies by relative paths from the layouts directory.
+    def get_direct_deps(layout_dir, identifier)
+      dirname = Pathname.new("#{layout_dir}#{filter.layouts[identifier].identifier}").dirname
+      content = filter.layouts[identifier].raw_content
       xml = ::Nokogiri::XML(content)
       # TODO: Deal with `@base` attr.
-      hrefs = xml.xpath(XSLT_DEP_ATTRS, 'xsl': XSLT_NAMESPACE)
-      hrefs.map do |attr|
+      xml.xpath(XSLT_DEP_ATTRS, 'xsl': XSLT_NAMESPACE).map do |attr|
         href = attr.content
         abs_path = (dirname + href).cleanpath
         abs_path.relative_path_from(layout_dir)
       end
     end
 
-    def get_all_deps(layouts, layout_dir, identifier)
-      unchecked_deps = get_direct_deps(layouts, layout_dir, identifier)
+    # Returns all dependencies including indirect ones by relative paths from the layouts directory.
+    def get_all_deps(layout_dir, identifier)
+      unchecked_deps = get_direct_deps(layout_dir, identifier)
       checked_deps = []
       loop do
         checking = unchecked_deps.pop
         break unless checking
         checking = "/#{checking}"
 
-        direct_deps = get_direct_deps(layouts, layout_dir, checking)
-        direct_deps.each do |direct|
+        get_direct_deps(layout_dir, checking).each do |direct|
           next if checked_deps.include?(direct) || unchecked_deps.include?(direct)
           unchecked_deps << direct
         end
@@ -72,8 +71,7 @@ module Larry
       xsl_dir = Pathname.new("#{layout_dir}#{@layouts[xsl_path].identifier.to_s}").dirname
 
       importer = XslImporter.new(self)
-      deps = importer.get_all_deps(@layouts, layout_dir, xsl_path)
-      deps.each do |dep|
+      importer.get_all_deps(layout_dir, xsl_path).each do |dep|
         # TODO: I don't know what parameters to be passed to `bounce`.
         @layouts[xsl_path]._context.dependency_tracker.bounce(@layouts[dep]._unwrap)
       end
