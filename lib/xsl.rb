@@ -18,18 +18,17 @@ module Larry
       xml.xpath(XSLT_DEP_ATTRS, 'xsl': XSLT_NAMESPACE).map do |attr|
         href = attr.content
         abs_path = (dirname + href).cleanpath
-        abs_path.relative_path_from(layout_dir)
+        "/#{abs_path.relative_path_from(layout_dir)}"
       end
     end
 
     # Returns all dependencies including indirect ones by relative paths from the layouts directory.
     def get_all_deps(layout_dir, identifier)
-      unchecked_deps = get_direct_deps(layout_dir, identifier)
+      unchecked_deps = [identifier]
       checked_deps = []
       loop do
         checking = unchecked_deps.pop
         break unless checking
-        checking = "/#{checking}"
 
         get_direct_deps(layout_dir, checking).each do |direct|
           next if checked_deps.include?(direct) || unchecked_deps.include?(direct)
@@ -73,7 +72,8 @@ module Larry
       importer = XslImporter.new(self)
       importer.get_all_deps(layout_dir, xsl_path).each do |dep|
         # TODO: I don't know what parameters to be passed to `bounce`.
-        @layouts[xsl_path]._context.dependency_tracker.bounce(@layouts[dep]._unwrap)
+        @layouts[xsl_path]._context.dependency_tracker.bounce(@layouts[dep]._unwrap) if dep != xsl_path
+        @item_rep._context.dependency_tracker.bounce(@layouts[dep]._unwrap)
       end
 
       xsl_xml = ::Nokogiri::XML(@layouts[xsl_path].raw_content)
