@@ -23,8 +23,11 @@ module Larry
     end
 
     # Returns all dependencies including indirect ones by relative paths from the layouts directory.
+    #
+    # Returned array does not contain the given `identifier` itself
+    # (if there are no circular dependencies).
     def get_all_deps(layout_dir, identifier)
-      unchecked_deps = [identifier]
+      unchecked_deps = get_direct_deps(layout_dir, identifier)
       checked_deps = []
       loop do
         checking = unchecked_deps.pop
@@ -60,23 +63,27 @@ module Larry
     def run(_content, params = {})
       Nanoc::Extra::JRubyNokogiriWarner.check_and_warn
 
-      xsl_path = params[:xsl]
+      if assigns[:layout].nil?
+        raise 'The XSL filter can only be run as a layout'
+      end
+
+      layout = assigns[:layout]
+      xsl_path = layout.identifier
       if xsl_path.nil?
         raise 'XSL path is not specified'
       end
 
       current_dir = Pathname.pwd
       layout_dir = current_dir + 'layouts'
-      xsl_dir = Pathname.new("#{layout_dir}#{@layouts[xsl_path].identifier.to_s}").dirname
+      xsl_dir = Pathname.new("#{layout_dir}#{xsl_path}").dirname
 
       importer = XslImporter.new(self)
       importer.get_all_deps(layout_dir, xsl_path).each do |dep|
         # TODO: I don't know what parameters to be passed to `bounce`.
-        @layouts[xsl_path]._context.dependency_tracker.bounce(@layouts[dep]._unwrap) if dep != xsl_path
-        @item_rep._context.dependency_tracker.bounce(@layouts[dep]._unwrap)
+        layout._context.dependency_tracker.bounce(@layouts[dep]._unwrap)
       end
 
-      xsl_xml = ::Nokogiri::XML(@layouts[xsl_path].raw_content)
+      xsl_xml = ::Nokogiri::XML(layout.raw_content)
       # TODO: Deal with `@base` attr.
       xsl_xml.xpath(XSLT_DEP_ATTRS, 'xsl': XSLT_NAMESPACE).each do |href|
         href.content = (xsl_dir + href).relative_path_from(current_dir).to_s
