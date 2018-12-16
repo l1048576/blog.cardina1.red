@@ -1,5 +1,6 @@
 ---
 created_at: 2017-04-02T16:43:54+0900
+format: "easy-html"
 title: "ソースコード直接実行のテクニック"
 htags:
   - "computer/programming"

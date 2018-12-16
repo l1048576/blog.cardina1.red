@@ -1,6 +1,7 @@
 ---
 created_at: 2017-12-07T22:41:11+0900
 updated_at: 2018-03-21T23:03:53+09:00
+format: "easy-html"
 title: "Rust での never type とセミコロン、型推論のルール変遷"
 htags:
   - "computer/programming/language/rust"

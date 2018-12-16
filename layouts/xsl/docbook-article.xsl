@@ -8,7 +8,6 @@
 >
 
 <xsl:import href="docbook/xsl/docbook.xsl" />
-<xsl:import href="easy-html.xsl" />
 
 <!-- set output format -->
 <xsl:output method="xml" encoding="utf-8" indent="yes" omit-xml-declaration="yes" />

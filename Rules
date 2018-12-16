@@ -34,7 +34,17 @@ compile '/archive/index.xhtml' do
 end
 
 compile '/articles/**/*.xml' do
-  layout '/xsl/blog-cardina1-red.xsl'
+  format = -> target {
+    -> f { f === target || f.include?(target) }
+  }
+  case @item[:format]
+  when format('docbook') then
+    layout '/xsl/docbook-article.xsl'
+  when format('easy-html') then
+    layout '/xsl/easy-html.xsl'
+  else
+    raise RuntimeError.new("Unknown article format: #{@item[:format]}")
+  end
   filter :colorize_syntax, default_colorizer: :pygmentsrb, syntax: :xml
   layout '/article.xhtml'
   filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
