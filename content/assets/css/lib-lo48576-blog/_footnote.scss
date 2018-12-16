@@ -1,0 +1,11 @@
+@mixin footnote-highlight {
+	background-color: yellow;
+}
+
+%footnote-marker-selected {
+	@include footnote-highlight;
+}
+
+%footnote-selected {
+	@include footnote-highlight;
+}

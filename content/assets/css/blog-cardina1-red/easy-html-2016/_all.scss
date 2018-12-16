@@ -112,7 +112,13 @@ aside[data-lo48576-easy-html] {
 			margin: 0.5em 0;
 		}
 		li:target {
-			background: yellow;
+			@extend %footnote-selected;
 		}
+	}
+}
+
+a.footnote-marker[data-lo48576-easy-html]:target {
+	sup {
+		@extend %footnote-marker-selected;
 	}
 }
