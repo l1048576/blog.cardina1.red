@@ -49,7 +49,8 @@
 
 %admonition-block-before-icon {
 	display: inline-block;
-	font-size: 2rem;
+	//font-size: 2rem; // For icon character.
+	font-size: 1em; // For text label.
 	font-weight: normal;
 	margin: 0 0.5rem;
 }
