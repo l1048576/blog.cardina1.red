@@ -24,25 +24,30 @@
 .#{$docbook-class-prefix}caution {
 	// U+2621 CAUTION SIGN
 	// U+26A0 WARNING SIGN
-	@include docbook-admon(#ea5, #f8f0d0, "\26a0");
+	//@include docbook-admon(#ea5, #f8f0d0, "\26a0");
+	@include docbook-admon(#ea5, #f8f0d0, "CAUTION:");
 }
 
 .#{$docbook-class-prefix}important {
 	// U+2757 HEAVY EXCLAMATION MARK SYMBOL
-	@include docbook-admon(#ea5, #f8f0d0, "\2757");
+	//@include docbook-admon(#ea5, #f8f0d0, "\2757");
+	@include docbook-admon(#ea5, #f8f0d0, "IMPORTANT:");
 }
 
 .#{$docbook-class-prefix}note {
 	// U+1F5C8 NOTE
-	@include docbook-admon(#5be, #f8f0d0, "\1f5c8");
+	//@include docbook-admon(#5be, #f8f0d0, "\1f5c8");
+	@include docbook-admon(#5be, #f8f0d0, "NOTE:");
 }
 
 .#{$docbook-class-prefix}tip {
 	// U+1F4A1 ELECTRIC LIGHT BULB
-	@include docbook-admon(#5be, #f8f0d0, "\1f4a1");
+	//@include docbook-admon(#5be, #f8f0d0, "\1f4a1");
+	@include docbook-admon(#5be, #f8f0d0, "TIP:");
 }
 
 .#{$docbook-class-prefix}warning {
 	// U+26A0 WARNING SIGN
-	@include docbook-admon(red, #fee, "\26a0");
+	//@include docbook-admon(red, #fee, "\26a0");
+	@include docbook-admon(red, #fee, "WARNING:");
 }

@@ -205,10 +205,10 @@
 <xsl:template match="eh:footnote">
 	<xsl:element name="a">
 		<xsl:attribute name="id">ref-<xsl:value-of select="@id" /></xsl:attribute>
+		<xsl:attribute name="class">footnote-marker</xsl:attribute>
 		<xsl:attribute name="href">#<xsl:value-of select="@id" /></xsl:attribute>
 		<xsl:apply-templates select="." mode="easy-html-data-attr" />
 		<xsl:element name="sup">
-			<xsl:attribute name="class">footnote-marker</xsl:attribute>
 			<xsl:apply-templates select="." mode="easy-html-data-attr" />
 			<xsl:text>[</xsl:text>
 			<xsl:call-template name="footnote-index" />
