@@ -1,5 +1,6 @@
 ---
 created_at: 2016-04-29T14:59:13+0900
+updated_at: 2018-12-18T01:18:13+09:00
 format: "easy-html"
 title: "探すな、絞り込め / 或いは階層化されたタグの話"
 htags:
@@ -17,6 +18,17 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 	id="2016-04-29-dont-search-find"
 >
 <eh:title>探すな、絞り込め / 或いは階層化されたタグの話</eh:title>
+
+<aside class="warning">
+	<eh:title>Outdated (2018-12-18)</eh:title>
+	<p>
+		この記事の内容はもはや古く、現状 (<time>2018-12-18</time> 時点) の著者の思想および実装に適合するものではない。
+	</p>
+	<p>
+		また、これに伴いリンク切れが発生していることがある。
+	</p>
+</aside>
+
 <eh:section id="categories-and-tags">
 	<eh:title>カテゴリとタグ</eh:title>
 	<eh:section id="incovenient-tags-and-categories-feature">
@@ -125,7 +137,7 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 	<eh:title>このブログでのタグ機能</eh:title>
 	<p>
 		偉そうに語ったところで、このブログでのタグの実装(2016/04/30時点)がどのようなものか説明する。<br />
-		詳しくは<a href="/tags/search.xhtml">このブログでのタグ検索ページ</a>を見るのが早いだろう。
+		<del>詳しくは<a>このブログでのタグ検索ページ</a>を見るのが早いだろう。</del>
 	</p>
 	<eh:section id="descrendant-tags">
 		<eh:title>子孫タグ</eh:title>
@@ -144,7 +156,7 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 	<eh:section id="set-operations-on-tags">
 		<eh:title>タグに対する集合演算</eh:title>
 		<p>
-			<a href="/tags/search.xhtml">このブログでのタグ検索</a>では、もちろん差集合を含めて集合演算を実装した。
+			<a>このブログでのタグ検索</a>では、もちろん差集合を含めて集合演算を実装した。
 			<code>or</code>, <code>and</code>, <code>xor</code>, <code>difference</code>の4つだ。
 			これらの機能があれば、それなりに精度の良い検索ができるだろうと考えている。
 		</p>
