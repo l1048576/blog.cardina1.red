@@ -7,7 +7,6 @@ XHTML_RELPATH_SELECTORS = ['*/@href', '*/@src', 'object/@data', 'param[@name="mo
 
 preprocess do
   create_archive_pages
-  create_htag_pages('/tags/', items: articles)
   create_article_list_pages
 
   @items.each do |i|
@@ -61,25 +60,11 @@ compile '/assets/**/*.scss' do
   filter :relativize_paths, type: :css
 end
 
-compile '/tags/index.xhtml.erb' do
-  filter :erb
-  layout '/page-base.xhtml'
+compile '/tags/data/*.xml' do
+  layout '/xsl/docbook-article.xsl'
+  filter :colorize_syntax, default_colorizer: :pygmentsrb, syntax: :xml
+  layout '/tag-page.xhtml'
   filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
-end
-
-compile '/tags/search.xhtml' do
-  filter :colorize_syntax, default_colorizer: :pygmentsrb
-  layout '/page-base.xhtml'
-  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
-end
-
-compile '/tags/**/*.xhtml' do
-  layout '/htag-page.xhtml'
-  filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
-end
-
-compile '/tags/**/*.json' do
-  layout '/htag-key.json'
 end
 
 compile '/feed.xml' do
@@ -133,6 +118,10 @@ end
 # /articles/**/yyyy-mm-dd-slug/* => /yyyy/mm/dd/slug/*
 route %r[^/articles/(?:[^/]+/)*(\d{4})-(\d{2})-(\d{2})-(.+)$] do |yyyy, mm, dd, slug_relpath|
   "/#{yyyy}/#{mm}/#{dd}/#{slug_relpath}"
+end
+
+route %r[^/tags/data/([^/]+)\.xml] do |tag,|
+  "/tags/#{tag}/index.xhtml"
 end
 
 route '/assets/**/*.scss' do

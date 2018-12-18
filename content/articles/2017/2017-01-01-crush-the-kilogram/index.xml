@@ -3,9 +3,8 @@ created_at: 2017-01-01T01:13:37+0900
 updated_at: 2017-01-01T03:57:31+0900
 format: "easy-html"
 title: "キログラムを粉砕せよ"
-htags:
-  - "雑記/妄想"
-  - "どうでもいいこと"
+tags:
+  - nonsense
 kind: article
 
 excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の真なる光明で人類を照らせ"

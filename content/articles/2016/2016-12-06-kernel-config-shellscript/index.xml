@@ -3,9 +3,9 @@ created_at: 2016-12-05T22:48:52+0900
 updated_at: 2017-06-26T18:52:01+0900
 format: "easy-html"
 title: "kernel config 生成(略記)のためのシェルスクリプト"
-htags:
-  - "computer/linux"
-  - "AdventCalendar/2016"
+tags:
+  - linux
+  - advent-calendar
 kind: article
 
 excerpt: "Linux の kernel config を秘伝のタレにしないための小さなシェルスクリプトを書いた"

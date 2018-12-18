@@ -1,6 +1,35 @@
-<div class="tags">
-	<p>
-		<i class="fa fa-tags"><!-- --></i>Tags: <%= tags_for(@item, { base_url: '/tags/', separator: ', ' }) -%>
-	</p>
-</div>
+<%- target = @target || @item -%>
+<%- tags_root = '/tags/' -%>
+<%- target_tags = target[:tags] || [] -%>
+<%- unless target_tags.empty? -%>
+  <div class="tags">
+    <div>
+      <a href="<%= tags_root %>">Tags</a>:
+    </div>
+    <!-- TODO: support ARIA breadcrumbs -->
+    <ul>
+      <li>
+        direct:
+        <ul>
+          <%- target_tags.each do |tag; tag_i| -%>
+            <%- tag_i = tags.item(tag) -%>
+            <li>
+              <%= link_to(tag_i[:title], tag_i) %>
+            </li>
+          <%- end -%>
+        </ul>
+      </li>
+      <%- if indirect_tags = tags.indirect_ancestors(target_tags) -%>
+        <ul>
+        <%- indirect_tags.to_a.each do |tag; tag_i| -%>
+            <li>
+              <%- tag_i = tags.item(tag) -%>
+              <%= link_to(tag_i[:title], tag_i) %>
+            </li>
+          <%- end -%>
+        </ul>
+      <%- end -%>
+    </ul>
+  </div>
+<%- end -%>
 <%-# vim: set ft=eruby : -%>

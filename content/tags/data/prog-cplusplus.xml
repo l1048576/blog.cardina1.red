@@ -1,0 +1,23 @@
+---
+title: "C++"
+kind: tag
+imply:
+  - programming
+
+excerpt: "C++の話題。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-prog-cplusplus"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>C++</title>
+
+<simpara>
+	C++の話題。
+</simpara>
+
+</article>

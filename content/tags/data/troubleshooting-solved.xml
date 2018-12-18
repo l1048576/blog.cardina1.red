@@ -1,0 +1,23 @@
+---
+title: "トラブルシューティング-解決済み"
+kind: tag
+imply:
+  - troubleshooting
+
+excerpt: "解決済のトラブルシューティングの記事。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-troubleshooting-solved"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>トラブルシューティング-解決済み</title>
+
+<simpara>
+	解決済のトラブルシューティングの記事。
+</simpara>
+
+</article>

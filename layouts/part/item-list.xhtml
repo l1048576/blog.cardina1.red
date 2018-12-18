@@ -6,7 +6,7 @@
 		<%= header_open_tag %><%= link_to "#{item[:title]}", item %><%= header_close_tag -%>
 		<aside class="article-info"><!-- article metadata -->
 			<%= render '/part/created-at.*', target: item -%>
-			<%= render '/part/htags.*', target: item -%>
+			<%= render '/part/tags.*', target: item -%>
 		</aside>
 		<div><!-- excerpt -->
 			<%- if excerpt = item[:excerpt] -%>

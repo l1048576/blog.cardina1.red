@@ -2,10 +2,10 @@
 created_at: 2016-06-27T10:55:21+0900
 format: "easy-html"
 title: "git入門の前に知っておきたい概念"
-htags:
-  - "computer/git"
-  - "入門"
-  - "書きかけ"
+tags:
+  - git
+  - getting-started
+  - incomplete
 kind: article
 
 excerpt: "実際にgitを使ってみる前に知っておきたい概念とかを連ねてみる。"

@@ -1,0 +1,23 @@
+---
+title: "不完全"
+kind: tag
+imply:
+  - blog-meta
+
+excerpt: "不完全だったり書きかけの記事。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-meta"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>meta</title>
+
+<simpara>
+	不完全だったり書きかけの記事。
+</simpara>
+
+</article>

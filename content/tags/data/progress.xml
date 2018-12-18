@@ -1,0 +1,21 @@
+---
+title: "進捗"
+kind: tag
+
+excerpt: "進捗の話題。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-progress"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>進捗</title>
+
+<simpara>
+	進捗の話題。
+</simpara>
+
+</article>

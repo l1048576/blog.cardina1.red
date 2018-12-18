@@ -1,0 +1,21 @@
+---
+title: "meta (blog)"
+kind: tag
+
+excerpt: "このブログそのものについてのメタな話題。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-blog-meta"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>meta (blog)</title>
+
+<simpara>
+	このブログそのものについてのメタな話題。
+</simpara>
+
+</article>

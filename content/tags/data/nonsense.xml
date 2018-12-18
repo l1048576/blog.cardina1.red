@@ -1,0 +1,23 @@
+---
+title: "戯言"
+kind: tag
+imply:
+  - misc
+
+excerpt: "戯言、適当発言、妄言など。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-nonsense"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>戯言</title>
+
+<simpara>
+	戯言、適当発言、妄言など。
+</simpara>
+
+</article>

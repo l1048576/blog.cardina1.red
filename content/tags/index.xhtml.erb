@@ -1,20 +1,19 @@
 ---
-title: "Tags Tree"
+title: "Tags"
+
+excerpt: "タグ一覧"
 ---
-
-<% root_node = articles_htag_items_tree %>
-
 <section>
-	<h1><%= @item[:title] %></h1>
-	<p>
-		<a href="search.xhtml">検索はこちら</a>
-	</p>
-	<section>
-		<h2>Tags</h2>
-		<ul>
-			<% root_node.children.each do |child| %>
-				<%= print_tagtree child, '/tags/' %>
-			<% end %>
-		</ul>
-	</section>
+  <h1><%= @item[:title] %></h1>
+  <% if all_tags = tags %>
+    <ul>
+      <% all_tags.tags.sort_by {|tag| all_tags.item(tag)[:title]}.each do |tag; item| %>
+        <li>
+          <% item = all_tags.item(tag) %>
+          <%= link_to(item[:title], item) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </section>
+<%# vim: set ft=eruby : -%>

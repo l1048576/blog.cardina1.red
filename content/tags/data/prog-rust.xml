@@ -1,0 +1,23 @@
+---
+title: "Rust"
+kind: tag
+imply:
+  - programming
+
+excerpt: "プログラミング言語 Rust の話題。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-prog-rust"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>Rust</title>
+
+<simpara>
+	プログラミング言語 Rust の話題。
+</simpara>
+
+</article>

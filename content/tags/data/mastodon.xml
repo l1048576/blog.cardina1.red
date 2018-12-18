@@ -1,0 +1,23 @@
+---
+title: "Mastodon"
+kind: tag
+imply:
+  - distributed-sns
+
+excerpt: "Mastodon の話題。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-mastodon"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>Mastodon</title>
+
+<simpara>
+	Mastodon の話題。
+</simpara>
+
+</article>

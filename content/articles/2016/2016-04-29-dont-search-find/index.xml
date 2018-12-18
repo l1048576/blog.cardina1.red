@@ -3,10 +3,10 @@ created_at: 2016-04-29T14:59:13+0900
 updated_at: 2018-12-18T01:18:13+09:00
 format: "easy-html"
 title: "探すな、絞り込め / 或いは階層化されたタグの話"
-htags:
-  - "computer/web"
-  - "思想/computer"
-  - "meta/blog"
+tags:
+  - web
+  - thought
+  - blog-meta
 kind: article
 
 excerpt: "ブログにありがちな「タグ」と「カテゴリ」について思うところがあったので書いておく。ついでにこのブログでの実装のことも。"

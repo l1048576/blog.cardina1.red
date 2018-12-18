@@ -2,10 +2,10 @@
 created_at: 2016-12-24T19:43:46+0900
 format: "easy-html"
 title: "ロ技研の部誌を書いた記録"
-htags:
-  - "AdventCalendar/2016"
-  - "computer/TeX"
-  - "つらぽよ"
+tags:
+  - advent-calendar
+  - tex
+  - tsurapoyo
 kind: article
 
 excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返ってのメモ"
