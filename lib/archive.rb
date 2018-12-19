@@ -1,7 +1,7 @@
 module Larry
   module Archive
     include Nanoc::Helpers::HTMLEscape
-    ARCHIVE_LIST_CAPACITY = 15
+    ARCHIVE_LIST_CAPACITY = 50
 
     # Descending order of year.
     # [(year, (article_first_index, article_last_index)]
