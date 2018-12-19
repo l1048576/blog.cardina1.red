@@ -36,19 +36,27 @@ aside.article-info {
 		line-height: $vertical-unit;
 		margin: initial;
 	}
+}
 
-	ul.htags {
-		>li {
-			display: inline-block;
-			margin: 0;
-			&::before {
-				content: " / ";
-			}
-			&:first-child::before {
-				// U+1F3F7 LABEL
-				content: "\1f3f7\20";
-			}
+ul.blog-tags {
+	>li {
+		// U+1F3F7 LABEL
+		$tag-prefix: "\1f3f7\20";
+
+		display: inline-block;
+		margin: 0;
+		&::before {
+			content: " / " $tag-prefix;
 		}
+		&:first-child::before {
+			content: $tag-prefix;
+		}
+	}
+}
+
+ul.blog-tag-classes {
+	ul.blog-tags {
+		display: inline-block;
 	}
 }
 
