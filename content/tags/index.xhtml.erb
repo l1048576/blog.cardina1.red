@@ -11,6 +11,11 @@ excerpt: "タグ一覧"
         <li>
           <% item = all_tags.item(tag) %>
           <%= link_to(item[:title], item) %>
+          [
+            <%= articles.count {|item| item[:tags].include?(tag) } %>
+            /
+            <%= articles.count {|item| !(item[:tags] & all_tags.descendants_and_self(tag).to_a).empty? } %>
+          ]
         </li>
       <% end %>
     </ul>

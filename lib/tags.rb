@@ -96,6 +96,15 @@ module Lo48576
         end
       end
 
+      def descendants_and_self(tag)
+        if tag.is_a? Enumerable
+          Set.new(tag.flat_map {|tag| descendants_and_self(tag).to_a})
+        else
+          raise "Unknown tag `#{tag}`" unless @graph.has_vertex?(tag)
+          Set.new(@graph_indirect.edges.select {|e| e.target == tag }.map {|e| e.source }.to_a).add(tag)
+        end
+      end
+
       def indirect_ancestors(tag)
         Set.new(ancestors(tag)) - parents(tag)
       end
