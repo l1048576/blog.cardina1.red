@@ -3,9 +3,8 @@ created_at: 2018-02-25T22:30:55+09:00
 updated_at: 2018-02-25T22:52:16+09:00
 format: "easy-html"
 title: "ぼくのかんがえたさいきょうの SNS (のメモ)"
-htags:
-  - "computer"
-  - "思想/computer/SNS"
+tags:
+  - sns
 kind: article
 
 excerpt: "SNS の(ユーザに面した)設計の在り方について考えたことのメモ"

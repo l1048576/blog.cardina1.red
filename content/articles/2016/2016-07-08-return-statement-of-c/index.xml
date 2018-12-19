@@ -2,9 +2,8 @@
 created_at: 2016-07-08T16:27:46+0900
 format: "easy-html"
 title: "C言語での\"return\"は他動詞ではなく自動詞"
-htags:
-  - "computer/programming/language/c"
-  - "入門"
+tags:
+  - prog-c
 kind: article
 
 excerpt: "C言語での\"return\"文は「値を返す」ものと解釈されがちだが、アセンブリ言語レベルでは単に「帰る(返る)」ものである。値を連れて返るのは追加機能だと考えるのが自然だ。"

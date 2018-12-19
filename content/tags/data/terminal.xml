@@ -1,0 +1,23 @@
+---
+title: "Terminal"
+kind: tag
+imply:
+  - computer
+
+excerpt: "仮想端末の話題。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-terminal"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>Terminal</title>
+
+<simpara>
+	仮想端末の話題。
+</simpara>
+
+</article>

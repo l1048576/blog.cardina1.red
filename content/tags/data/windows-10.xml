@@ -1,0 +1,23 @@
+---
+title: "Windows 10"
+kind: tag
+imply:
+  - computer
+
+excerpt: "Windows 10 の話題。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-windows-10"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>Windows 10</title>
+
+<simpara>
+	Windows 10 の話題。
+</simpara>
+
+</article>

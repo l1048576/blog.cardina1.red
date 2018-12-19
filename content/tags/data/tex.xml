@@ -1,0 +1,21 @@
+---
+title: "TeX"
+kind: tag
+
+excerpt: "TeX や LaTeX の話題。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-tex"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>TeX</title>
+
+<simpara>
+	TeX や LaTeX の話題。
+</simpara>
+
+</article>

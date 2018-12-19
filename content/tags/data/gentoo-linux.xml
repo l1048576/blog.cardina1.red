@@ -1,0 +1,23 @@
+---
+title: "Gentoo Linux"
+kind: tag
+imply:
+  - linux
+
+excerpt: "Gentoo Linux の話題。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-gentoo-linux"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>Gentoo Linux</title>
+
+<simpara>
+	Gentoo Linux の話題。
+</simpara>
+
+</article>

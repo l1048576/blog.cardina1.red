@@ -2,10 +2,10 @@
 created_at: 2015-11-18T21:00:00+09:00
 format: "easy-html"
 title: "mltermのterminfoがおかしかった件"
-htags:
-  - "computer/linux"
-  - "computer/terminal/terminfo"
-  - "troubleshooting/solved"
+tags:
+  - linux
+  - terminal
+  - troubleshooting-solved
 kind: article
 article_metadata:
   image_url: "mlterm-tmux-ok.png"

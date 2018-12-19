@@ -19,3 +19,5 @@ gem 'pygments.rb'
 #gem 'pandoc-ruby'
 
 gem 'w3c_validators'
+
+gem 'rgl', '~> 0.5.3'

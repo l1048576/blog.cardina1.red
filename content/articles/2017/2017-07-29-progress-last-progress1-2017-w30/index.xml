@@ -2,9 +2,9 @@
 created_at: 2017-07-29T14:16:01+0900
 format: "easy-html"
 title: "Progress report 2017-W29 - 2017-W30: last-progress1"
-htags:
-  - "日常/日記"
-  - "進捗/last-progress1"
+tags:
+  - diary
+  - progress
 kind: article
 
 excerpt: "2017年 第29-30週 last-progress1 の進捗"

@@ -1,0 +1,21 @@
+---
+title: "advent calendar"
+kind: tag
+
+excerpt: "advent calendar への投稿。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-advent-calendar"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>advent calendar</title>
+
+<simpara>
+	advent calendar への投稿。
+</simpara>
+
+</article>

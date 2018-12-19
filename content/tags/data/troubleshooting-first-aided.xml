@@ -1,0 +1,23 @@
+---
+title: "トラブルシューティング-未解決-応急処置済"
+kind: tag
+imply:
+  - troubleshooting
+
+excerpt: "応急処置済しかし未解決のトラブルシューティングの記事。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-troubleshooting-first-aided"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>トラブルシューティング-未解決-応急処置済</title>
+
+<simpara>
+	応急処置済しかし未解決のトラブルシューティングの記事。
+</simpara>
+
+</article>

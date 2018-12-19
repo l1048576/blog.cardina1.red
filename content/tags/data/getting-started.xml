@@ -1,0 +1,21 @@
+---
+title: "入門"
+kind: tag
+
+excerpt: "何らかの入門記事。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-getting-started"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>入門</title>
+
+<simpara>
+	何らかの入門記事。
+</simpara>
+
+</article>
