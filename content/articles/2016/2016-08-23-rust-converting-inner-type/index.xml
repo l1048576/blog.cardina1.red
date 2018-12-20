@@ -1,5 +1,6 @@
 ---
 created_at: 2016-08-23T23:46:43+0900
+published_at: 2016-08-23T23:46:43+0900
 updated_at: 2017-03-18T20:17:56+0900
 format: "easy-html"
 title: "Rustで T: From<U> のとき From<MyStruct<U>> for MyStruct<T> を実装したい"
