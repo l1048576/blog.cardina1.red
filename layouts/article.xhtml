@@ -1,5 +1,5 @@
-<%- prev_item_ = prev_item(sorted_articles) -%>
-<%- next_item_ = next_item(sorted_articles) -%>
+<%- prev_item_ = prev_item(articles_sorted_by_publish) -%>
+<%- next_item_ = next_item(articles_sorted_by_publish) -%>
 <%- prev_path = prev_item_.path if prev_item_ -%>
 <%- next_path = next_item_.path if next_item_ -%>
 <%- render '/page-base.*',

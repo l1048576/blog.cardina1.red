@@ -18,7 +18,7 @@
 		<%= @item[:page_index] + 1 %> / <%= @item[:num_pages] %> ページ
 	</p>
 	<%= prev_next -%>
-	<%= render '/part/item-list.*', target_items: sorted_articles.reverse[@item[:index_first]..@item[:index_last]], header_level: 2 -%>
+	<%= render '/part/item-list.*', target_items: articles_sorted_by_publish.reverse[@item[:index_first]..@item[:index_last]], header_level: 2 -%>
 	<%= prev_next -%>
 </section>
 <%- end -%>
