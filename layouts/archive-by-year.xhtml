@@ -20,7 +20,7 @@
 		<%- first_index, last_index = fl -%>
 		<section>
 			<h2><%= link_to "#{year4}/#{month2}", @items[source_path_for_archive(year4, month2)] %></h2>
-			<%= render '/part/item-list.*', target_items: sorted_articles[first_index..last_index], header_level: 3 -%>
+			<%= render '/part/item-list.*', target_items: articles_sorted_by_publish[first_index..last_index], header_level: 3 -%>
 		</section>
 	<%- end -%>
 	<%= prev_next -%>
