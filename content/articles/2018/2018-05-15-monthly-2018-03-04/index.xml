@@ -436,7 +436,7 @@ excerpt: "2018年 03--04月 まとめ"
 
 		<p>
 			いろいろ改良して、ひとまずの実用に堪える品質は確保できたと思う。
-			まだまだ文法がアレ (<code>derive(FooBarBazQuxQuux, ..)</code> のような長いオプションが無限にあるので、そのうちもうちょっとまともにしたい。
+			まだまだ文法がアレ (<code>derive(FooBarBazQuxQuux, ..)</code> のような長いオプションが無限にある)ので、そのうちもうちょっとまともにしたい。
 		</p>
 	</eh:section>
 </eh:section>
