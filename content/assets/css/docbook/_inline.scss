@@ -2,8 +2,12 @@
 	font-family: $font-family-monospace;
 }
 
-code {
-	&.#{$docbook-class-prefix}code {
-		@extend %code-inline-block;
-	}
+.#{$docbook-class-prefix}code,
+.#{$docbook-class-prefix}filename,
+.#{$docbook-class-prefix}keycap,
+.#{$docbook-class-prefix}keycode,
+.#{$docbook-class-prefix}keycombo,
+.#{$docbook-class-prefix}keysym
+{
+	@extend %code-inline-block;
 }
