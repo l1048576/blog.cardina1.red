@@ -1,0 +1,29 @@
+// Footnote.
+aside.footnotes {
+	font-size: 80%;
+	margin-bottom: $vertical-unit;
+
+	&::before {
+		display: block;
+		border-top: $hr-border-top;
+		width: var(--hr-width, 50%);
+		content: " ";
+		margin: $vertical-unit auto;
+	}
+
+	>h1, >h2, >h3, >h4, >h5, >h6 {
+		all: unset;
+		margin-top: 0;
+		font-size: 1.8em;
+	}
+	p {
+		margin: 0.5em 0;
+	}
+	li:target {
+		@extend %footnote-selected;
+	}
+}
+
+sup.#{$docbook-class-prefix}footnote-refmark:target {
+	@extend %footnote-marker-selected;
+}

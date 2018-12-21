@@ -76,6 +76,10 @@
 	</xsl:if>
 </xsl:template>
 
+<xsl:template match="*" mode="ds:footnotes-title">
+	<xsl:text>脚注</xsl:text>
+</xsl:template>
+
 <!-- TODO: Treat source URI of `d:blockquote`. -->
 
 </xsl:stylesheet>
