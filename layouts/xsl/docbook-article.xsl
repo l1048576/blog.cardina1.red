@@ -78,7 +78,7 @@
 
 <xsl:template match="d:footnote[count(*) = 1][d:simpara]/*">
 	<!-- Unwrap paragraph if it is the only content of a footnote. -->
-	<xsl:apply-templates mode="ds:inner" />
+	<xsl:apply-templates select="." mode="ds:inner" />
 </xsl:template>
 
 <xsl:template match="*" mode="ds:footnotes-title">
