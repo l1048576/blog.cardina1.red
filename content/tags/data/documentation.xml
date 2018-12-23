@@ -1,0 +1,21 @@
+---
+title: "documentation"
+kind: tag
+
+excerpt: "文書の話題。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="tag-documentation"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>documentation</title>
+
+<simpara>
+	文書の話題。
+</simpara>
+
+</article>

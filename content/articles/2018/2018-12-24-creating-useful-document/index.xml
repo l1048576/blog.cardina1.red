@@ -1,0 +1,772 @@
+---
+created_at: 2018-12-23T14:31:31+09:00
+published_at: 2018-12-24T01:26:24+09:00
+format: "docbook"
+title: "有用なドキュメントを作るために心掛けたいこと"
+tags:
+  - advent-calendar
+  - documentation
+kind: article
+
+excerpt: "ドキュメントをどう“書く”かだけでなく、どう“作る”かも気にかけたいという話。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="article-2018-12-24-creating-useful-document"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>有用な文書を作るために心掛けたいこと</title>
+
+<simpara>
+	この記事は <link xl:href="https://adventar.org/calendars/3279">rogy Advent Calendar 2018</link> の21日目の記事 (#LATECH) です。
+	前日の記事は <link xl:href="https://blog.rogiken.org/blog/2018/12/20/stm32%E3%81%A7%E3%83%9E%E3%82%A6%E3%82%B9%E3%81%A8%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%82%92%E4%BD%9C%E3%82%8B/">STM32でマウスとキーボードを作る – 東京工業大学 ロボット技術研究会公式ブログ</link> でした。
+</simpara>
+
+<section xml:id="abstract">
+	<title>文書を“作る”</title>
+
+	<simpara>
+		この記事を読む皆様は、少なからず日頃から文章を書くことがあるかと思います。
+		文章を書き公開しようというとき、「良い文章の書き方」はいろいろなところで目にしますし、必要とあらば勉強することもあるでしょう。
+	</simpara>
+	<simpara>
+		しかし、文章そのものではなく「良い<emphasis>文書</emphasis>の作り方」を意識したことはありますか？
+		どんなに良い文章であっても、駄目な性質を多く持つ文書として公開されると、その価値は暴落します<footnote xml:id="footnote-bad-document-spoils-information" refmark-id="footnote-ref-bad-document-spoils-information">
+			<simpara>
+				何故なら情報とは活用されることにより価値を発揮し、そして駄目な文書とは情報を活用させづらくするものだからです。
+			</simpara>
+		</footnote>。
+	</simpara>
+	<simpara>
+		本記事では、内容はさておき「良い文書」を作ろうというとき私が心掛けていることなどを紹介します。
+	</simpara>
+</section>
+
+<section xml:id="what-is-good-document">
+	<title>良い文書とは</title>
+
+	<simpara>
+		私の考える良い文書とは何なのか、以下で例を出しながら紹介します。
+	</simpara>
+
+	<section xml:id="permanently-accessible">
+		<title>永続的にアクセス可能</title>
+
+		<simpara>
+			これはある意味で、 web に (無論それに限りませんが) 情報を公開するうえで最も重要な性質です。
+		</simpara>
+		<simpara>
+			たとえば、私の書いた記事を他の人が引用したり、リンクして参照したりするかもしれません。
+			数年後 (あるいは十数年後) になって私のその記事が消えていた場合、もはや引用や参照を行った記事の正当性を確信することは難しくなります。
+			引用されていればまだマシで、リンクしか行われていなかった場合、正当性どころか情報の有効性さえ失うかもしれません。
+		</simpara>
+		<simpara>
+			リンク破綻は、直接・間接問わず、何らかの情報を参照していた多くの文書の価値を同時に低下させるものです。
+			あなたが他人の文書の価値を低下させないため、ひいては web 全体の有用性を低下させないために、一度公開された文書は (余程の理由がない限り) できるだけ<emphasis>永続的に、同じ URL で</emphasis>公開していくべきです。
+		</simpara>
+		<simpara>
+			また、ここで「私の文書は適当に書いたものであり、参照するに値しない」と主張する著者もいるかもしれません。
+			しかし、文書を参照するか決めるのは著者本人ではなく、引用者など別の人です。
+			どんな駄文であっても、著者が考えもしなかった観点で活用されるかもしれず、そうなったとき著者が「この文書に価値はない」といって公開を取り下げることで間接的に他の (有用かもしれない) 文書まで価値を落とすのは、あまりに勿体ないことです。
+		</simpara>
+
+		<section xml:id="permanently-accessible--what-to-do">
+			<title>何をすべきか</title>
+
+			<itemizedlist>
+				<listitem>
+					文書を公開したら、それをできるだけ公開しつづけること。
+				</listitem>
+				<listitem>
+					web ページであれば、 URL を変えないこと。
+					<itemizedlist>
+						<listitem>
+							仕方なく URL を変えたなら、リダイレクトを永続的に設定すること。
+						</listitem>
+					</itemizedlist>
+				</listitem>
+				<listitem>
+					もし公開しつづける自信がないなら、引用やコピー、再頒布を明示的に許可すること。
+					<itemizedlist>
+						<listitem>
+							たとえば文書を<link xl:href="https://creativecommons.jp/licenses/">クリエイティブ・コモンズ・ライセンス</link>などのライセンスにするのは良いことです。
+						</listitem>
+					</itemizedlist>
+				</listitem>
+			</itemizedlist>
+		</section>
+
+		<section xml:id="permanently-accessible--bad-examples">
+			<title>反面教師</title>
+
+			<section xml:id="permanently-accessible--bad-examples--legacy-mass-media">
+				<title>マスコミ各社の web ニュース記事</title>
+
+				<simpara>
+					記事が公開されるのは大変結構ですが、しばらくたつと公開が取り下げられているのはどういうことでしょうか。
+					多くの人々が (本文の引用でなく) URL によってニュース記事を参照しますが、ニュース記事が削除されると、それについての言及のほとんどは精密さを欠くか、何を言っているのかわからない状態になります。
+				</simpara>
+				<simpara>
+					マスコミは、組織や業界として社会や人々にそれなりに大規模に影響を与えていながら、その証拠は容易に参照できないよう人々の手から取り上げることを、恥ずかしく思わないのでしょうか。
+					品性を疑います。
+				</simpara>
+				<simpara>
+					アドバイス: マスコミのニュース記事に言及するときは、関係する本文を容赦なく引用しましょう。引用するべきです。
+				</simpara>
+			</section>
+
+			<section xml:id="permanently-accessible--bad-examples--cms">
+				<title>CMS</title>
+
+				<simpara>
+					CMS (Content Management System) は、それぞれが独自の URL を用いていることが多いため、 CMS を乗り替えようとすると、大抵記事の URL が変化します。
+					これは非常によくないことです。
+					特に、サイトの構造や記事集合が変化していないにも関わらずリンクが切れることなどがあり、その場合記事が削除されたのか、またはどこか他の場所に移動したのか、はたまたサイト自体が別物になったのか、閲覧者が判断することが困難になることさえあります。
+				</simpara>
+				<simpara>
+					CMS はこういった問題を比較的起こしやすいため、安易に CMS を使うのは避けるべきです。
+					CMS を使うのであれば、記事の URL や URL 規則を柔軟かつ簡単に指定可能なもの、かつ、リダイレクトを設定できるものを選ぶべきです。
+				</simpara>
+				<simpara>
+					URL の柔軟な指定や処理系間での維持しやすさでは、静的サイトジェネレータと呼ばれるものが秀でており、 CMS で敢えてサーバ側でコンテンツ生成や管理を行う必要がないのであれば、まず静的サイトジェネレータの利用を検討するべきでしょう。
+				</simpara>
+			</section>
+		</section>
+
+		<section xml:id="permanently-accessible--good-examples">
+			<title>良い例</title>
+
+			<section xml:id="permanently-accessible--good-examples--itmedia">
+				<title>ITmedia</title>
+
+				<itemizedlist>
+					<listitem>
+						<link xl:href="http://www.itmedia.co.jp/pcuser/subtop/archive/0306.html">過去記事一覧 - ITmedia PC USER</link> (2003-06)
+					</listitem>
+				</itemizedlist>
+
+				<simpara>
+					15年前の記事も閲覧できます。
+					つまり、たとえば15年前に ITmedia PC USER の記事にリンクして何事か書いた web サイトがあったとしても、我々はそれを今読んで内容を理解したり正しさを検証したりできるわけです。
+					安心感がありますね。
+				</simpara>
+			</section>
+		</section>
+	</section>
+
+	<section xml:id="stable-permalinks-per-sections">
+		<title>セクション単位の ID</title>
+
+		<simpara>
+			一般に、整理された文書や情報は構造を持ちます。
+			大きい単位の構造として、セクションがあります。
+			特定のトピックについて言及したいとき、人々は文書そのものではなく、さらにその一部分、すなわちセクションへのリンクを張ることができます。
+		</simpara>
+		<simpara>
+			ここで問題になるのが、 URL 内に現れるセクションの ID は安定しているかということです。
+			たとえば記事公開当初には <code>head01</code> という ID が「ごはん」というセクションに割り当てられていたのに、3日後には <code>head01</code> が「パン」というセクションに割り当てられていたようでは、 ID として使い物になりません。
+		</simpara>
+		<simpara>
+			セクション名を ID として使おうという手法もありますが、これも駄目です。
+			たとえば記事公開当初に「ごはん」というセクション名だったのが、その後内容の変更なしにセクション名だけ「米」に変更されたらどうでしょうか？
+			「ごはん」という ID でリンクしていた記事は、その後正しく「米」というセクションへ読者をジャンプさせることができません。
+		</simpara>
+		<simpara>
+			本質的に、「セクションそのもの」と「セクションのタイトル」は別の情報です。
+			そして、セクションの ID とは「セクションそのもの」を参照するための名前です。
+			ゆえに、セクションのタイトルを ID として使うのはおかしいはずなのです。
+		</simpara>
+
+		<section xml:id="stable-permalinks-per-sections--bad-examples">
+			<title>反面教師</title>
+
+			<section xml:id="stable-permalinks-per-sections--mediawiki">
+				<title>MediaWiki (Wikipedia 含む)</title>
+
+				<simpara>
+					MediaWiki は、セクション名をセクション ID として使おうとします<footnote xml:id="footnote-mediawiki-section-id" refmark-id="footnote-ref-mediawiki-section-id">
+						<simpara>
+							<link xl:href="https://ja.wikipedia.org/wiki/Help:%E3%82%BB%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3#%E3%82%BB%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%B8%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF">Help:セクション - Wikipedia</link>
+						</simpara>
+					</footnote>。
+					つまり、 Wikipedia などで特定のセクションに対して張ったリンクは、たとえ記事が存続してセクションの内容がほとんど変化しなかったとしても失効することがあります<footnote xml:id="footnote-mediawiki-section-link-expiration" refmark-id="footnote-ref-mediawiki-section-link-expiration">
+						<simpara>
+							たとえば<link xl:href="https://ja.wikipedia.org/wiki/Help:%E3%82%BB%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3#%E3%82%BB%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%B8%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF">Help:セクション - Wikipedia</link> の「特殊な例」節に以下のようにあります:
+						</simpara>
+						<blockquote>
+							<simpara>
+								セクション名が重複する場合には、アンカー名にアンダースコアと番号が自動的に付け加えられます。
+								例えば「例」というセクションが3つあったら、セクションへのリンクに使うセクション名は上から「例」、「例_2」、「例_3」となります。
+								ですが混乱を招くことに「例_2」や「例_3」のセクションを編集した後、例えば要約欄のリンクをクリックすると「例」のセクションに飛んでしまいます。
+							</simpara>
+						</blockquote>
+						<simpara>
+							つまり、対象セクションの内容やタイトルが全く変化していなくとも、それより前の場所に同名のセクションが追加されると、リンクが壊れるということです。
+						</simpara>
+					</footnote>。
+				</simpara>
+				<simpara>
+					セクションへのリンクを健全に機能させるためには、人間が手動で ID を付けてやるべきです。
+				</simpara>
+			</section>
+
+			<section xml:id="stable-permalinks-per-sections--markdown-processor">
+				<title>Markdown プロセッサ</title>
+
+				<simpara>
+					大抵の Markdown プロセッサもこのような問題を抱えています。
+				</simpara>
+				<simpara>
+					単にセクション ID が付けられないというのであればまだマシで、大抵のプロセッサは、セクションタイトルからの ID 自動生成機能か、連番生成機能が実装されており、持続性のない ID が暗黙に発行されてしまいます。
+				</simpara>
+				<simpara>
+					さらに性質の悪いことに、 markdown そのものにセクション ID 指定の機能がないため、健全な ID を付けようとするなら、 markdown プロセッサごとの拡張機能 (ただし互換性は低い) を使うか、空の HTML タグ (たとえば <code><![CDATA[<span id="some-section-id"><!-- --></span>]]></code>) などを直に書いてなんとかするしかありません<footnote xml:id="footnote-markdown-section-id-by-empty-html-element" refmark-id="footnote-ref-markdown-section-id-by-empty-html-element">
+						<simpara>
+							なお空の HTML タグの ID は、通常は文書構造上「セクションへのリンク」とは見做されず、「セクションの手前とか中にある空の要素の ID」になります。
+							まあ当然ですね。
+						</simpara>
+					</footnote>。
+				</simpara>
+				<simpara>
+					これは結構大きな問題で、たとえば Qiita のような markdown 文書を投稿できるサービスや、 crowi などの Wiki アプリケーション (サーバ) も、内部的に使っている markdown プロセッサが、このような劣悪な ID 生成を行うため、<emphasis>情報共有サービス上の情報へのリンクが壊れやすい</emphasis>という状況が生まれやすいのです。
+				</simpara>
+				<simpara>
+					せめて commonmark などの標準を目指す規格にはその辺りへのサポートが欲しいものですが、 HTML 混合で対応できるせいか、 0.28 時点でも ID 手動指定のための文法は用意されていないようです。
+				</simpara>
+				<simpara>
+					ちなみに、 <link xl:href="http://asciidoc.org/">AsciiDoc</link> には ID 指定の文法がちゃんと用意されています。
+					が、指定しなかった場合は自動生成になってしまいます (プロセッサによるかもしれませんが)。
+				</simpara>
+			</section>
+		</section>
+
+		<section xml:id="stable-permalinks-per-sections">
+			<title>良い例</title>
+
+			<simpara>
+				正直、あまり思い当たりませんね。
+				強いて言うなら、「ID の自動生成を行わない」というのが多少マシということになるでしょうか。
+				本当は「<emphasis>セクションに ID が指定されていなかったら警告したりエラーとする</emphasis>」という仕様が安心なのですが。
+			</simpara>
+			<simpara>
+				或いは CMS (Content Management System) などであれば、「一度自動生成された ID は明示的に指定され、ユーザが意図して ID を改変するまでは持続する」という仕組みも可能です。
+				こちらの仕組みを採用している CMS はそれなりにあるかもしれません。
+				私は CMS を使わないのでわかりませんが。
+			</simpara>
+		</section>
+	</section>
+
+	<section xml:id="published-date-and-modified-date">
+		<title>公開・更新日時がわかりやすい</title>
+
+		<simpara>
+			そのままです。
+			outdated な情報をそうと明示せず公開するのは危険です。
+		</simpara>
+		<simpara>
+			本当は「腐ったら腐臭を発する」という仕組みにできれば安全なのですが、一度公開した記事が古くなったか継続的に確認するというのは、著者にとってかなり負担の大きい作業になり、生産性もありません。
+			妥協点として、「賞味期限を書いておくから、イケるか無理かは読者が各自で判断せよ」とするのがバランスがとれていて良いでしょう。
+		</simpara>
+		<simpara>
+			記事の公開・更新日時は、記事末尾に書いてあるようでは読者に不親切です。
+			記事を読む前に、それがどのくらい古い情報なのか把握できるべきですから、それらの情報は文書の先頭近くに表示されるべきです。
+		</simpara>
+		<simpara>
+			なお、 outdated になったから (或いは、なる前に) 記事を取り除く、という戦略は愚行であり有害です。
+			『<xref linkend="permanently-accessible" />』節を参照。
+		</simpara>
+	</section>
+
+	<section xml:id="semantic-source">
+		<title>ソースコードがよく意味付けされている</title>
+
+		<simpara>
+			皆様はどのような言語、どのような形式で文書を書いていますか。
+			文書形式として、 markdown, AsciiDoc, DocBook, plain text, OpenDocument, Office Open XML, HTML, TEI, LaTeX, その他多くの形式が知られています。
+			これらの中で、或いは他のあらゆる形式で、どれを使うのが望ましいのでしょうか。
+		</simpara>
+		<simpara>
+			長く利用しやすい文書を作るうえで、いくつか欲しくなる性質があります。
+		</simpara>
+		<itemizedlist>
+			<listitem>
+				ソースとして欲しい性質
+				<itemizedlist>
+					<listitem>
+						他フォーマットへ変換しやすい
+					</listitem>
+					<listitem>
+						充実した語彙
+					</listitem>
+					<listitem>
+						一貫した文法
+						<itemizedlist>
+							<listitem>
+								もう少し贅沢を言うなら、機械で処理しやすい文法
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				出力フォーマットとして欲しい性質
+				<itemizedlist>
+					<listitem>
+						リンクなどの機能
+					</listitem>
+					<listitem>
+						数式や画像などの埋め込みやインライン表示
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+
+		<section xml:id="semantic-source--easily-convertible">
+			<title>他フォーマットへ変換しやすい</title>
+
+			<simpara>
+				この性質があると、たとえばより良いフォーマットを見付けたときや、使っていた処理系がメンテナンスされなくなったときなど、他形式への移行がしやすくなります。
+			</simpara>
+			<simpara>
+				また、入力フォーマットがこのような性質を持っていると、出力形式を選びやすいというメリットもあります。
+				たとえば普段は HTML に出力しているが、あるとき TeX で PDF 出力したデータを欲しくなった、などの場合に、ソースが変換に使いやすいものだと楽ができます。
+				(まあ、 pandoc のような高度なツールが対応していればどうにかなる場合も多いのですが。)
+				一般に読むより書く方が簡単なので、入力形式として (機械にとって) 良さげなものを選んでおけば、出力形式に使いづらいということはないでしょう。
+			</simpara>
+		</section>
+
+		<section xml:id="semantic-source--vocabulary">
+			<title>充実した語彙</title>
+
+			<simpara>
+				たとえば LaTeX で何事か書いているとき、独自にマクロを定義することがあるかもしれません。
+				こういったマクロを使うと、単なる見た目のみならず言葉や文章が持つ意味なども指定することができます——少なくとも文書内では。
+			</simpara>
+			<simpara>
+				また、 HTML を書いていても、 <code>class</code> 属性などを使って、要素の意味や役割をタグ名よりも細かく指定することができます。
+				しかしその値と意味は、 HTML で文書を書いている人や文書を処理する人々全体で合意されたものではありません。
+			</simpara>
+			<simpara>
+				こういった独自定義の語彙は、文書内では、また著者にとってはある程度一貫した意味付けがされています。
+				しかしこれを他人や外部プログラムが見たとき、その意味を正しく理解することは容易でないかもしれません。
+				特にプログラムにとっては、意味とはロジックに組み込まれる形でサポートされがちなものです。
+				ドキュメントごとにバラバラに自然言語で指定された何らかの名前から、その扱いを適切に推測するというのは一般に困難になります。
+				つまり、意味についての知識が機械可読な形で表現されていないということです。
+			</simpara>
+
+			<section xml:id="semantic-source--vocabulary--markdown">
+				<title>Markdown</title>
+
+				<simpara>
+					この観点では、 markdown はほぼ駄目です。
+					語彙として用意されている「意味」は極めて原始的であるか、そもそも「意味」の指定のない表示スタイル指定がほとんどです。
+				</simpara>
+			</section>
+
+			<section xml:id="semantic-source--vocabulary--html">
+				<title>HTML</title>
+
+				<simpara>
+					HTML (特に 5 以上) は、タグも増え、また CSS によって表示スタイルを分離された結果、だいぶ多くの「意味」をそれなりに綺麗に表現できます。
+					ただ、文法が XML よりも汚いうえ、 HTML 標準で用意したよりも細かい意味については <code>class</code> 属性や CSS による表示の区別を前提としている面があり、機械的な処理には使いづらくなっています。
+				</simpara>
+				<simpara>
+					具体的な例をひとつあげると、 HTML では脚注を意味する要素は存在しないため、何らかの <code>class</code> 属性などを設定したうえで JavaScript で処理してやるか、事前に「[1]」などのマーカーと記事末尾の脚注を別々に書いておくなどの必要があります。
+					その際、マーカーに使う文字列と記事末尾に書く文字列は、独自の属性で指定して CSS で表示させるか、手動で同期する必要があります。
+				</simpara>
+				<simpara>
+					HTML で本を執筆できるようにしようという HTMLBook という試みもあります<footnote xml:id="footnote-writing-book-in-html-based-format" refmark-id="footnote-ref-writing-book-in-html-based-format">
+						<simpara>
+							たとえば ePub は HTML ベースの規格ですが、人間が手書きすることは (おそらく) 想定されていません。
+							HTMLBook は、人間が手書きすることもできるフォーマットです。
+						</simpara>
+					</footnote>が、これもどちらかというと文書構造をより精密に指定できるようにしようというもので、フレーズなどの意味をより多彩に表現できるようにしようというものではありません。
+				</simpara>
+				<simpara>
+					HTML は、入力というより出力向けの形式であるといえるでしょう。
+				</simpara>
+			</section>
+
+			<section xml:id="semantic-source--vocabulary--latex">
+				<title>LaTeX</title>
+
+				<simpara>
+					データというより半ばプログラムなので、機械的な処理は難しそうです。
+					処理系を書いたことがないのでわかりませんが。
+					少なくとも、私は LaTeX 文書をソースに使おうという気持ちにはなりません。
+				</simpara>
+				<simpara>
+					私の好みはさておき語彙についてですが、 LaTeX のマクロは文字通りマクロなので、人間に対しては意味を表明しているように見えるかもしれませんが、機械から見てその意図を正しく把握するのは難しそうです。
+					すなわち、「どうなるべきか」と「どういうものか」が分離できていないということで、マクロは後者というより前者の機能が強く出ているように思われます。
+					マクロは独自定義や再定義も簡単に可能であり、たとえ広く使われるライブラリのようなものがあっても、マクロ名からその意味を取り出すのは簡単ではないでしょう。
+				</simpara>
+			</section>
+
+			<section xml:id="semantic-source--vocabulary--xml">
+				<title>XML</title>
+				<simpara>
+					XML 系の形式は、この問題について特異な解決策を提示しています。
+					名前空間と XSL です。
+				</simpara>
+				<simpara>
+					名前空間は、外部で定義された語彙を文書へ取り込んで使うことを可能にします。
+					たとえば DocBook 内に SVG 画像を埋め込んだり、 MathML で数式を埋め込んだり。
+					他にも、独自定義の語彙も、専用の名前空間を用意して一意に区別させることができます。
+				</simpara>
+				<simpara>
+					XSL は、文書で使われる語彙の意味そのものを表現するのではなく、語彙同士の変換を可能にします。
+					たとえば DocBook の語彙を HTML の語彙へ変換したりできます。
+					ある語彙から別の語彙への変換を、処理系が直接サポートせずユーザが書けるようにすることで、処理系が意味を理解することなく「意味を理解していたら行ったであろう変換」のロジックを実行できるようにするのです。
+				</simpara>
+				<simpara>
+					この名前空間と XSL の組み合わせによって、以下のようなことができるようになります。
+				</simpara>
+				<itemizedlist>
+					<listitem>
+						使用されている語彙が既知であるか、処理系自身が機械的に判断可能
+					</listitem>
+					<listitem>
+						語彙の追加が、文書の互換性を極端に損ねない
+						<itemizedlist>
+							<listitem>
+								タグが未知であっても XML という構文が共通のため、単にタグの存在を無視する (タグが何も意味していないとする) ことによって保守的に処理可能
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
+						未知の語彙について、語彙の作成者や利用者が用意した (文書とともに用意された) XSL スタイルシートを参照することで、意図された変換を把握したり利用できる
+						<itemizedlist>
+							<listitem>
+								XSL を使わないとしても、 XML という構文が共通のため、処理系に対して拡張を行いやすい
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
+						複数の語彙を必要なだけ組み合わせて利用可能
+					</listitem>
+				</itemizedlist>
+				<simpara>
+					こういった理由から、 XML は文書の内容に意味を付与する方法としてはかなりマシな選択肢であると思われます。
+				</simpara>
+			</section>
+		</section>
+	</section>
+
+	<section xml:id="static">
+		<title>静的である</title>
+
+		<simpara>
+			動的でないこと。
+			すなわち文書を閲覧するとき決まったデータが存在するだけで、ロジック (プログラム) ができるだけそこに介在しないということです。
+			もっとはっきり言えば、標準化されていない専用のビューアなどを必要としないこと<footnote xml:id="footnote-standard-viewer" refmark-id="footnote-ref-standard-viewer">
+				<simpara>
+					ここで言いたいのは、オレオレビューアや DRM のようなものを使わせるなということです。
+					ブラウザや PDF ビューアは、まあこういったものとはもはや別のステージにいると考えてよいでしょう。
+				</simpara>
+			</footnote>、また JavaScript のようなスクリプトを実行する必要がないことです。
+		</simpara>
+		<simpara>
+			動的な仕組みは文書の解析を困難にします。
+			たとえば、スクリプトによって内容がロードされるページは、単純にダウンロードしただけでは文書内容を読めない場合が多く、保存や機械的な処理が極端に難しくなります。
+		</simpara>
+		<simpara>
+			また、ユーザ端末のリソースを余計に消費します。
+			たとえば、 web ページに不必要なアニメーションを沢山入れれば、それだけ閲覧者の注意力や端末の電池を消耗させます。
+		</simpara>
+		<simpara>
+			オレオレビューアなどは、標準化されていない限りいつかメンテナンスされなくなります。
+			一般に文書というのはソフトウェアよりも寿命が長くなるものですから、文書を特定のソフトウェアに依存させるべきではありません。
+			長生きできたかもしれない文書を、短命なソフトウェアと心中させないようにすべきです。
+			そのために、国際標準や広く知られたフォーマット<footnote xml:id="footnote-using-defacto-standard" refmark-id="footnote-ref-using-defacto-standard">
+				<simpara>
+					デファクト標準も場合によっては使うべきではあるでしょうが、私は、プロプライエタリだったり曖昧だったり、特定の営利団体が全ての権利を持っているようなオレオレ規格を使うのは避けるべきと考えます。
+				</simpara>
+			</footnote>を利用しましょう。
+		</simpara>
+	</section>
+
+	<section xml:id="explicit-modification">
+		<title>変更が明示される</title>
+
+		<simpara>
+			全ての参照が必ずしも完全な引用によって行われるとは限りません。
+			リンクなどによって参照が行われた場合、リンク先の文書の内容を著しく改変することは、参照元の文書まで破壊することに繋がります。
+			大きな変更や重要な変更を行うのであれば、その内容や変更前後での違い自体について、何らかの情報や告知が (当該文書内に) 残されるべきです。
+		</simpara>
+		<simpara>
+			たとえば HTML などであれば <code>del</code> 要素や <code>ins</code> 要素によって、機械が判別可能な形で、一部分の削除や挿入を示すことが可能です。
+			さらに CSS を使えば、ユーザが認識しやすいように表示することもできます。
+			もちろん、大規模な変更については、こういったタグを使わず、専用のセクションや <code>aside</code> 要素などによって文書の変更について説明することもできます。
+		</simpara>
+
+		<section xml:id="static--bad-examples">
+			<title>反面教師</title>
+
+			<section xml:id="static--bad-examples--legacy-mass-media">
+				<title>マスコミ各社の web ニュース記事</title>
+
+				<simpara>
+					記事が公開されるのは大変結構ですが、記事の内容がサイレントに丸ごと書き換えられていたりするのはどういうことでしょうか。
+					多くの人々が (本文の引用でなく) URL によってニュース記事を参照しますが、ニュース記事が大きく改変されると、それについての言及のほとんどは精密さを欠くか、何を言っているのかわからない状態になります。
+				</simpara>
+				<simpara>
+					マスコミは、組織や業界として社会や人々にそれなりに大規模に影響を与えていながら、その手法や自分のしたことは容易に追跡できないよう工作することを、恥ずかしく思わないのでしょうか。
+					品性を疑います。
+				</simpara>
+				<simpara>
+					アドバイス: マスコミのニュース記事に言及するときは、関係する本文を容赦なく引用しましょう。引用するべきです。
+				</simpara>
+			</section>
+		</section>
+	</section>
+</section>
+
+<section xml:id="what-i-do">
+	<title>私は何をしているか</title>
+
+	<section xml:id="what-i-do--permanently-accessible">
+		<title>永続的なアクセスの提供</title>
+
+		<simpara>
+			これは正直難しいですが、まあ地道に頑張るしかありません。
+		</simpara>
+		<simpara>
+			技術的には、たとえば CMS を使うのではなく静的サイトジェネレータを使うことで、 URL を素朴にし、維持しやすくしています。
+			また、年月日で階層的にディレクトリを作って範囲を細かく切ることで、ある時期から URL 規則を変化させたくなったとしても、過去の記事の URL に与える影響が小さくなるようコントロールしています。
+		</simpara>
+		<simpara>
+			ドメインも <code>www.〜</code> でなく <code>blog.〜</code> を使うことで、ブログ専用で使える名前空間を確保し、ブログでない情報で行う変更の影響を受けないよう隔離してあります。
+		</simpara>
+	</section>
+
+	<section xml:id="what-i-do--stable-permalinks-per-sections">
+		<title>セクション単位の ID の手動指定</title>
+
+		<simpara>
+			このブログ記事のセクションのタイトルにマウスカーソルを乗せる (スマホならタップする) とわかると思いますが、すべてのセクションに手動で ID を付けており、またセクションへのリンクの URL を取得しやすくしてあります。
+		</simpara>
+		<simpara>
+			理想的には、記事中に埋め込んだ画像やコードなど、セクション以外の何らかの塊についてもそれぞれ ID を割り振りたいところですが、忘れがちです。
+			(まあ、自動化されて不安定な ID が勝手に発生するよりはマシだと思うことにしています。)
+		</simpara>
+	</section>
+
+	<section xml:id="what-i-do--published-date-and-modified-date">
+		<title>公開・更新日時を記事先頭で明示</title>
+
+		<simpara>
+			ページの頭で、記事の公開日時や更新日時を表示するようにしています。
+		</simpara>
+		<simpara>
+			記事の更新については、誤字脱字やスタイル変更などは更新とは見做さず、内容に意味的な変更や追加があった場合に更新日時を変化させるようにしています。
+		</simpara>
+	</section>
+
+	<section xml:id="what-i-do--semantic-source">
+		<title>ソースコードに意味付けする</title>
+
+		<simpara>
+			少し前までの記事は、 HTML をベースにいくらかの独自の語彙 (セクションレベル非依存のセクションタイトル、脚注、クロスリファレンス、絵文字参照、 SNS の投稿引用など) を加えた XML 形式を利用しており、 XSLT によって XHTML5 (HTML5 の一種) に変換していました。
+			この形式は、 HTML の語彙を前提にしつつ、 HTML では (私にとって) 不足していた語彙を追加したものです。
+			独自に定義した語彙を潰して (あるいは人間にとって意味ある構造に変換して) HTML にすることで、 web ページを生成します。
+		</simpara>
+		<simpara>
+			最近の記事は、 <link xl:href="https://ja.wikipedia.org/wiki/DocBook">DocBook 5</link> で書いています。
+			多少の拡張を加えてあるのですが、今のところは簡単かつ単純に DocBook に潰せる程度のものです。
+			これからも拡張をしていくつもりですが、いずれにせよ DocBook か HTML に潰せるように作るつもりです。
+		</simpara>
+		<simpara>
+			実は DocBook から HTML への変換の XSLT は、公式で用意されていたもので満足できなかったため、独自に用意しました。
+			語彙についてきちんと定義したドキュメントが存在するからこそ、こうしてサードパーティで自分に合った処理系を用意することができるのです。
+		</simpara>
+	</section>
+
+	<section xml:id="what-i-do--easily-convertible">
+		<title>他フォーマットへ変換しやすい</title>
+
+		<simpara>
+			独自拡張 HTML は、まあ HTML なので別形式への意味を保ったままの変換は難しいでしょう。
+			できるとしても精々が、文書構造を保ったままの変換といったところです。
+		</simpara>
+		<simpara>
+			DocBook は、 (その界隈では) 広く知られた形式であり、たとえば pandoc なども対応していますので、変換はしやすいでしょう。
+			たとえば AsciiDoc などは DocBook の文書構造を参考に作られたもので、 DocBook → AsciiDoc の変換なども難しくないはずです。
+			どうしてもツールが対応していない形式にしたいというのであれば、自分で XSLT スタイルシートを書くこともできますし、 XML ライブラリを使っていろいろな言語で処理ツールを書くこともできます。
+		</simpara>
+		<simpara>
+			DocBook は割と意味がはっきりしている部類なので、語彙の少ない大抵の形式にはそう苦労することなく変換できるはずです。
+		</simpara>
+	</section>
+
+	<section xml:id="what-i-do--static">
+		<title>静的である</title>
+
+		<simpara>
+			このブログは極めて静的です。
+			nginx によってファイルが配信されており、そのファイルは静的サイトジェネレータによって生成されたものがそのままサーバに置かれています。
+			また、ページを閲覧するのに JavaScript を必要としません
+			。
+		</simpara>
+		<simpara>
+			ページ末尾にある共有ボタンなどは、正直要らない気がするしプライバシーについての懸念もあるので、そのうち削除するかもしれません。
+			Twitter のツイートの引用も、 (スクリプトなしでも閲覧はできますが) スクリプトのロードを要求している部分なので、実は気に入っていません。
+			そのうちなんとかするかも<footnote xml:id="footnote-quoting-twitter-tweet" refmark-id="footnote-ref-quoting-twitter-tweet">
+				<simpara>
+					Twitter 公式のスクリプトを利用しない引用、利用規約的に大丈夫なんだろうか。
+					確認しないとなぁ。
+					(引用なので法的には大丈夫な気はするけど…… #IANAL #TINLA)
+				</simpara>
+			</footnote>。
+		</simpara>
+	</section>
+
+	<section xml:id="what-i-do--explicit-modification">
+		<title>変更の明示</title>
+
+		<simpara>
+			明示しましょう。
+			それだけです。
+		</simpara>
+		<simpara>
+			明示しやすくするための仕組みとして、 admonition block というのを使っています。
+			たとえば DocBook でいう <code>important</code> 要素とか <code>note</code> 要素とか <code>warning</code> 要素とかです。
+			独自 HTML にも、これに似た仕組みは導入して使っていました。
+		</simpara>
+	</section>
+</section>
+
+<section xml:id="conclusion">
+	<title>まとめ</title>
+
+	<itemizedlist>
+		<listitem>
+			良い文章の書き方だけでなく、良い文書の作り方を気にかけてみましょう。
+			<itemizedlist>
+				<listitem>
+					永続的にアクセスできるよう、 URL を固定してしっかり維持しましょう。
+				</listitem>
+				<listitem>
+					セクションごとに手動で固定の ID を割り振り、しっかり維持しましょう。
+				</listitem>
+				<listitem>
+					公開・更新日時はしっかり表示しましょう。
+				</listitem>
+				<listitem>
+					機械にとってもよく意味付けされた文書を書くようにしましょう。
+				</listitem>
+				<listitem>
+					静的でよい文書は静的にしましょう。
+				</listitem>
+				<listitem>
+					変更は明示しましょう。
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			文書フォーマットをよく選びましょう。
+			<itemizedlist>
+				<listitem>
+					markdown は微妙なので良い文書を書くのに使うべきではありません。
+					<itemizedlist>
+						<listitem>
+							Wiki などで markdown を使っている場合は、長期的なデータの持続性や互換性、外部からのリンクの維持に疑念があるので要注意です。
+						</listitem>
+					</itemizedlist>
+				</listitem>
+				<listitem>
+					HTML5 はかなりマシではありますが、これもどちらかというと出力寄りです。
+				</listitem>
+				<listitem>
+					LaTeX は人間にとってはよく意味付けされているように見えるかもしれませんが、機械にとってはそうでもありません。
+				</listitem>
+				<listitem>
+					DocBook 5 はイケてます (個人の感想)。
+					そうでなくとも XML ベースだと割といい感じに調整しやすいです。
+				</listitem>
+			</itemizedlist>
+		</listitem>
+	</itemizedlist>
+</section>
+
+<section xml:id="references">
+	<title>参考</title>
+
+	<itemizedlist>
+		<listitem>
+			<link xl:href="https://www.w3.org/Provider/Style/URI.html">Hypertext Style: Cool URIs don't change.</link>
+			<itemizedlist>
+				<listitem>
+					日本語訳:
+					<link xl:href="https://www.kanzaki.com/docs/Style/URI">クールなURIは変わらない -- Style Guide for Online Hypertext</link>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			DocBook
+			<itemizedlist>
+				<listitem>
+					<link xl:href="https://docbook.org/">DocBook.org</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://ja.wikipedia.org/wiki/DocBook">DocBook - Wikipedia</link>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			AsciiDoc
+			<itemizedlist>
+				<listitem>
+					<link xl:href="http://asciidoc.org/">AsciiDoc Home Page</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://ja.wikipedia.org/wiki/AsciiDoc">AsciiDoc - Wikipedia</link>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			CC license
+			<itemizedlist>
+				<listitem>
+					<link xl:href="https://creativecommons.jp/licenses/">クリエイティブ・コモンズ・ライセンスとは | クリエイティブ・コモンズ・ジャパン</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://creativecommons.jp/faq/">FAQ　よくある質問と回答 | クリエイティブ・コモンズ・ジャパン</link>
+					<link xl:href="https://creativecommons.jp/faq/#f14">14. CCライセンスで作品を公開するメリットはなんですか？</link>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			HTMLBook
+			<itemizedlist>
+				<listitem>
+					<link xl:href="http://oreillymedia.github.io/HTMLBook/">HTMLBook</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://github.com/oreillymedia/HTMLBook">GitHub - oreillymedia/HTMLBook: Let's write books in HTML!</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://www.jagat.or.jp/archives/8554">HTMLBookとCSSを利用した書籍組版の可能性 | JAGAT</link>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			semantic web
+			<itemizedlist>
+				<listitem>
+					<link xl:href="https://ja.wikipedia.org/wiki/%E3%82%BB%E3%83%9E%E3%83%B3%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E3%83%BB%E3%82%A6%E3%82%A7%E3%83%96">セマンティック・ウェブ - Wikipedia</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://www.kanzaki.com/docs/sw/">メタ情報とセマンティック・ウェブ</link>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="https://ja.wikipedia.org/wiki/XSL_Transformations">XSL Transformations - Wikipedia</link>
+		</listitem>
+	</itemizedlist>
+</section>
+
+</article>
