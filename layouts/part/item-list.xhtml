@@ -5,7 +5,7 @@
 	<section>
 		<%= header_open_tag %><%= link_to "#{item[:title]}", item %><%= header_close_tag -%>
 		<aside class="article-info"><!-- article metadata -->
-			<%= render '/part/created-at.*', target: item -%>
+			<%= render '/part/article-dates.*', target: item -%>
 			<%= render '/part/tags.*', target: item -%>
 		</aside>
 		<div><!-- excerpt -->
