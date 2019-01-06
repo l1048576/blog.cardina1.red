@@ -50,38 +50,27 @@ code[data-lo48576-easy-html] {
 
 aside[data-lo48576-easy-html] {
 	&.caution {
-		//// f071: fa-exclamation-triangle, fa-warning
-		//@include admon(#EA5, #f8f0d0, "\f071");
 		// U+2621 CAUTION SIGN
 		// U+26A0 WARNING SIGN
 		//@include easy-html-admon(#ea5, #f8f0d0, "\26a0");
 		@include easy-html-admon(#ea5, #f8f0d0, "CAUTION:");
 	}
 	&.important {
-		//// f06a: fa-exclamation-circle
-		//@include admon(#EA5, #f8f0d0, "\f06a");
 		// U+2757 HEAVY EXCLAMATION MARK SYMBOL
 		//@include easy-html-admon(#ea5, #f8f0d0, "\2757");
 		@include easy-html-admon(#ea5, #f8f0d0, "IMPORTANT:");
 	}
 	&.note {
-		//// f24a: fa-sticky-note-o
-		//// f05a: fa-info-circle
-		//@include admon(#5be, #e8f0f8, "\f05a ");
 		// U+1F5C8 NOTE
 		//@include easy-html-admon(#5be, #f8f0d0, "\1f5c8");
 		@include easy-html-admon(#5be, #f8f0d0, "NOTE:");
 	}
 	&.tip {
-		//// f0eb: fa-lightbulb-o
-		//@include admon(#5BE, #e8f0f8, "\f0eb");
 		// U+1F4A1 ELECTRIC LIGHT BULB
 		//@include easy-html-admon(#5be, #f8f0d0, "\1f4a1");
 		@include easy-html-admon(#5be, #f8f0d0, "TIP:");
 	}
 	&.warning {
-		//// f06d: fa-fire
-		//@include admon(red, #FEE, "\f06d");
 		// U+26A0 WARNING SIGN
 		//@include easy-html-admon(red, #fee, "\26a0");
 		@include easy-html-admon(red, #fee, "WARNING:");
