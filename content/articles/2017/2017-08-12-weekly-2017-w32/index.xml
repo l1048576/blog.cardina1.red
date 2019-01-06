@@ -46,7 +46,7 @@ excerpt: "2017年 第32週 まとめ"
 			WebVR サポートとかは個人的には当面使いそうにないのであまり興味ない。
 		</p>
 		<p>
-			<eh:emoji fontawesome="firefox" /> Firefox はいいぞ
+			Firefox はいいぞ
 		</p>
 	</eh:section>
 
@@ -130,10 +130,7 @@ index 18e8539eb4aa..7f7f04c50a60 100644
 		<eh:title>cloud-dl</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/cghdev/cloud-dl">
-					<eh:emoji fontawesome="github" />
-					cghdev/cloud-dl: Bash script to list/upload/download files from owncloud/nextcloud
-				</a>
+				<a href="https://github.com/cghdev/cloud-dl">cghdev/cloud-dl: Bash script to list/upload/download files from owncloud/nextcloud</a>
 			</li>
 			<li>
 				<a href="http://blog.maud.io/entry/2017/08/05/nextcloud">Nextcloud鯖を立てた - ﾏﾂﾀﾞｲｱﾘｰ</a>
@@ -153,10 +150,7 @@ index 18e8539eb4aa..7f7f04c50a60 100644
 				<a href="http://unmaintained.tech/">No Maintenance Intended</a>
 			</li>
 			<li>
-				<a href="https://github.com/potch/unmaintained.tech">
-					<eh:emoji fontawesome="github" />
-					potch/unmaintained.tech: No Maintenance Intended
-				</a>
+				<a href="https://github.com/potch/unmaintained.tech">potch/unmaintained.tech: No Maintenance Intended</a>
 			</li>
 			<li>
 				<!-- Don't use `http://unmaintained.tech/badge.svg` directly because the site doesn't support HTTPS! -->

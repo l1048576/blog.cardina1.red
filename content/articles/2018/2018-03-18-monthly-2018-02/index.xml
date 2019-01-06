@@ -54,7 +54,7 @@ excerpt: "2018年 02月 まとめ"
 
 		<ul>
 			<li>
-				<a href="https://github.com/rayon-rs/rayon"><eh:emoji fontawesome="github" /> rayon-rs/rayon: Rayon: A data parallelism library for Rust</a>
+				<a href="https://github.com/rayon-rs/rayon">rayon-rs/rayon: Rayon: A data parallelism library for Rust</a>
 			</li>
 			<li>
 				<a href="https://twitter.com/nikomatsakis/status/964058038259896320">Niko Matsakis on Twitter: "Rayon 1.0 is released! 🍾 #rustlang https://t.co/6aEwIrEesi"</a>
@@ -144,7 +144,7 @@ excerpt: "2018年 02月 まとめ"
 
 		<ul>
 			<li>
-				<a href="https://github.com/rust-lang-nursery/futures-rs"><eh:emoji fontawesome="github" /> rust-lang-nursery/futures-rs: Zero-cost futures and streams in Rust</a>
+				<a href="https://github.com/rust-lang-nursery/futures-rs">rust-lang-nursery/futures-rs: Zero-cost futures and streams in Rust</a>
 			</li>
 			<li>
 				<a href="https://aturon.github.io/2018/02/27/futures-0-2-RC/">Futures 0.2 is nearing release · Aaron Turon</a>
@@ -165,7 +165,7 @@ excerpt: "2018年 02月 まとめ"
 		<eh:title>大昔に出した rusttype へのプルリクなどが merge された (2018-02-13)</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/redox-os/rusttype"><eh:emoji fontawesome="github" /> redox-os/rusttype: A pure Rust alternative to libraries like FreeType.</a>
+				<a href="https://github.com/redox-os/rusttype">redox-os/rusttype: A pure Rust alternative to libraries like FreeType.</a>
 			</li>
 			<li>
 				<a href="https://github.com/redox-os/rusttype/pull/17">Make `gpu_cache` optional by lo48576 · Pull Request #17 · redox-os/rusttype</a>
@@ -361,7 +361,7 @@ excerpt: "2018年 02月 まとめ"
 				<a href="https://mailu.io/">Mailu — Mailu, Docker based mail server</a>
 			</li>
 			<li>
-				<a href="https://github.com/Mailu/Mailu"><eh:emoji fontawesome="github" /> Mailu/Mailu: Insular email distribution - mail server as Docker images</a>
+				<a href="https://github.com/Mailu/Mailu">Mailu/Mailu: Insular email distribution - mail server as Docker images</a>
 			</li>
 			<li>
 				<a href="https://github.com/Mailu/Mailu/issues/98">How to use DKIM · Issue #98 · Mailu/Mailu</a>

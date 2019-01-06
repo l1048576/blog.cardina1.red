@@ -246,33 +246,11 @@
 	</xsl:element>
 </xsl:template>
 
-<xsl:template name="emoji-font-awesome">
-	<xsl:param name="name" />
-	<xsl:param name="class"><xsl:value-of select="@class" /></xsl:param>
-	<xsl:if test="$name = ''">
-		<xsl:message terminate="yes">error: `name` param is not specified for `emoji-font-awesome`.</xsl:message>
-	</xsl:if>
-	<xsl:element name="i">
-		<xsl:attribute name="class">
-			<xsl:text>fa fa-</xsl:text>
-			<xsl:value-of select="$name" />
-			<xsl:if test="$class != ''">
-				<xsl:value-of select="concat(' ', $class)" /></xsl:if>
-		</xsl:attribute>
-		<xsl:attribute name="aria-hidden">true</xsl:attribute>
-		<xsl:apply-templates select="." mode="easy-html-data-attr" />
-		<!-- `<i>` should not be self-closing. -->
-		<xsl:comment />
-	</xsl:element>
-</xsl:template>
-
 <!-- Generic emoji. -->
 <xsl:template match="eh:emoji">
 	<xsl:choose>
 		<xsl:when test="@fontawesome">
-			<xsl:call-template name="emoji-font-awesome">
-				<xsl:with-param name="name" select="@fontawesome" />
-			</xsl:call-template>
+			<xsl:message terminate="yes">error: `eh:emoji[@fontawesome]` is deprecated and removed.</xsl:message>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:message terminate="yes">error: `eh:emoji` does not have any emoji-specifier attributes.</xsl:message>

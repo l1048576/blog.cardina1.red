@@ -99,7 +99,7 @@ body {
 	</p>
 	<p>
 		ちなみにGoogle chromeも、2016/10/15時点でSVG要素に対するfilterに対応していない。
-		<strong>喪に服したいなら<a href="https://www.mozilla.org/ja/firefox/new/"><i class="fa fa-firefox"></i>firefox</a>だ！</strong>
+		<strong>喪に服したいなら<a href="https://www.mozilla.org/ja/firefox/new/">firefox</a>だ！</strong>
 	</p>
 </eh:section>
 

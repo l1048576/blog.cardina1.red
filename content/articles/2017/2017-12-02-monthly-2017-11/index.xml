@@ -224,7 +224,7 @@ excerpt: "2017年 11月 まとめ"
 				<a href="https://www.rust-lang.org/ja-JP/">プログラミング言語 Rust</a>
 			</li>
 			<li>
-				<a href="https://github.com/rust-lang/rust/"><eh:emoji fontawesome="github" /> rust-lang/rust: A safe, concurrent, practical language.</a>
+				<a href="https://github.com/rust-lang/rust/">rust-lang/rust: A safe, concurrent, practical language.</a>
 			</li>
 		</ul>
 		<p>
@@ -240,7 +240,7 @@ excerpt: "2017年 11月 まとめ"
 		<eh:title>diesel crate の v0.99.0 がリリース (2017-11-29)</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/diesel-rs/diesel"><eh:emoji fontawesome="github" /> diesel-rs/diesel: A safe, extensible ORM and Query Builder for Rust</a>
+				<a href="https://github.com/diesel-rs/diesel">diesel-rs/diesel: A safe, extensible ORM and Query Builder for Rust</a>
 			</li>
 			<li>
 				<snsq:sns-quotes mode="tiny">
@@ -320,7 +320,7 @@ excerpt: "2017年 11月 まとめ"
 		<eh:title>lazy-init crate へプルリク出した(マージされた)</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/khuey/lazy-init"><eh:emoji fontawesome="github" /> khuey/lazy-init</a>
+				<a href="https://github.com/khuey/lazy-init">khuey/lazy-init</a>
 			</li>
 			<li>
 				<a href="https://crates.io/crates/lazy-init">lazy-init - Cargo: packages for Rust</a>
@@ -414,7 +414,7 @@ excerpt: "2017年 11月 まとめ"
 		<eh:title>coco crate へドキュメントの誤字修正のプルリク出した(マージされた)</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/stjepang/coco"><eh:emoji fontawesome="github" /> stjepang/coco: Concurrent collections (deprecated in favor of Crossbeam)</a>
+				<a href="https://github.com/stjepang/coco">stjepang/coco: Concurrent collections (deprecated in favor of Crossbeam)</a>
 			</li>
 			<li>
 				<a href="https://github.com/stjepang/coco/pull/19">Fix typo: `s/Attemps/Attempts/` by lo48576 · Pull Request #19 · stjepang/coco</a>
@@ -496,7 +496,7 @@ excerpt: "2017年 11月 まとめ"
 		<eh:title>handlebars-rust crate に issue 立てたら修正してもらえた</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/sunng87/handlebars-rust"><eh:emoji fontawesome="github" /> sunng87/handlebars-rust: Rust templating with Handlebars</a>
+				<a href="https://github.com/sunng87/handlebars-rust">sunng87/handlebars-rust: Rust templating with Handlebars</a>
 			</li>
 			<li>
 				<a href="https://crates.io/crates/handlebars">handlebars - Cargo: packages for Rust</a>
@@ -517,7 +517,7 @@ excerpt: "2017年 11月 まとめ"
 		<eh:title>strum crate に issue 立てた</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/Peternator7/strum"><eh:emoji fontawesome="github" /> Peternator7/strum: A small rust library for adding custom derives to enums</a>
+				<a href="https://github.com/Peternator7/strum">Peternator7/strum: A small rust library for adding custom derives to enums</a>
 			</li>
 			<li>
 				<a href="https://crates.io/crates/strum">strum - Cargo: packages for Rust</a>
@@ -546,7 +546,7 @@ excerpt: "2017年 11月 まとめ"
 		<eh:title>opaque_typedef crate を作りはじめた (2017-11-29)</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/lo48576/opaque_typedef"><eh:emoji fontawesome="github" /> lo48576/opaque_typedef</a>
+				<a href="https://github.com/lo48576/opaque_typedef">lo48576/opaque_typedef</a>
 			</li>
 		</ul>
 		<p>

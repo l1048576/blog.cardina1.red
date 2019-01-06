@@ -31,7 +31,7 @@ excerpt: "2017年 12月 まとめ"
 				<a href="http://www.itmedia.co.jp/news/articles/1711/05/news030.html">Cobaltに似たP2P版YouTube「PeerTube」がActivityPub実装へ - ITmedia NEWS</a>
 			</li>
 			<li>
-				<a href="https://github.com/Chocobozzz/PeerTube"><eh:emoji fontawesome="github" /> Chocobozzz/PeerTube: [WIP] Federated (ActivityPub) video streaming platform using P2P (BitTorrent) directly in the web browser with WebTorrent and Angular.</a>
+				<a href="https://github.com/Chocobozzz/PeerTube">Chocobozzz/PeerTube: [WIP] Federated (ActivityPub) video streaming platform using P2P (BitTorrent) directly in the web browser with WebTorrent and Angular.</a>
 			</li>
 			<li>
 				<a href="https://peertube.cpy.re/videos/watch/f78a97f8-a142-4ce1-a5bd-154bf9386504">PeerTube demonstration - PeerTube</a>
@@ -250,7 +250,7 @@ excerpt: "2017年 12月 まとめ"
 
 		<ul>
 			<li>
-				<a href="https://github.com/lo48576/sgr_macro"><eh:emoji fontawesome="github" /> lo48576/sgr_macro: C/C++ macros to improve readability of SGRs.</a>
+				<a href="https://github.com/lo48576/sgr_macro">lo48576/sgr_macro: C/C++ macros to improve readability of SGRs.</a>
 			</li>
 		</ul>
 		<p>
