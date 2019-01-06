@@ -344,7 +344,7 @@ impl ::std::borrow::Borrow<Iri> for IriBuf {
 			<a href="https://crates.io/crates/opaque_typedef">opaque_typedef - Cargo: packages for Rust</a>
 		</li>
 		<li>
-			<a href="https://github.com/lo48576/opaque_typedef"><eh:emoji fontawesome="github" /> lo48576/opaque_typedef: Easy opaque typedef for Rust programming language</a>
+			<a href="https://github.com/lo48576/opaque_typedef">lo48576/opaque_typedef: Easy opaque typedef for Rust programming language</a>
 		</li>
 	</ul>
 	<p>

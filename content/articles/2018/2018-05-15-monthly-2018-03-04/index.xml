@@ -337,7 +337,7 @@ excerpt: "2018年 03--04月 まとめ"
 
 		<ul>
 			<li>
-				<a href="https://github.com/nanoc/nanoc"><eh:emoji fontawesome="github" /> nanoc/nanoc: A powerful web publishing system</a>
+				<a href="https://github.com/nanoc/nanoc">nanoc/nanoc: A powerful web publishing system</a>
 			</li>
 			<li>
 				<a href="https://github.com/nanoc/nanoc/issues/1328">internal_links check for xhtml files · Issue #1328 · nanoc/nanoc</a>
@@ -358,7 +358,7 @@ excerpt: "2018年 03--04月 まとめ"
 
 		<ul>
 			<li>
-				<a href="https://github.com/jwilm/alacritty"><eh:emoji fontawesome="github" /> jwilm/alacritty: A cross-platform, GPU-accelerated terminal emulator</a>
+				<a href="https://github.com/jwilm/alacritty">jwilm/alacritty: A cross-platform, GPU-accelerated terminal emulator</a>
 			</li>
 			<li>
 				<a href="https://github.com/jwilm/alacritty/issues/921">Error creating GL context; Couldn't find any pixel format that matches the criterias. · Issue #921 · jwilm/alacritty</a>

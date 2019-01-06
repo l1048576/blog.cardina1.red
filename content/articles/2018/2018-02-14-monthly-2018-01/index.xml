@@ -88,7 +88,7 @@ excerpt: "2018年 01月 まとめ"
 						<a href="https://pc.watch.impress.co.jp/docs/news/1099687.html">Google、CPUの投機実行機能に脆弱性発見。業界をあげて対策へ ～Intel、AMD、Armなど多数のCPUが対象も、コンシューマでは影響は軽微 - PC Watch</a>
 					</li>
 					<li>
-						<a href="https://github.com/marcan/speculation-bugs"><eh:emoji fontawesome="github" /> marcan/speculation-bugs: Docs and resources on CPU Speculative Execution bugs</a>
+						<a href="https://github.com/marcan/speculation-bugs">marcan/speculation-bugs: Docs and resources on CPU Speculative Execution bugs</a>
 					</li>
 					<li>
 						<a href="http://mmi.hatenablog.com/entry/2018/02/02/003325">SpectreとeBPF - 睡分不足</a>
@@ -340,7 +340,7 @@ $
 				出したプルリクエスト:
 				<ul>
 					<li>
-						<a href="https://github.com/ueno/libskk/pull/47"><eh:emoji fontawesome="github" /> Add `Escape`, `Henkan`, `Muhenkan` keyval names by lo48576 · Pull Request #47 · ueno/libskk</a>
+						<a href="https://github.com/ueno/libskk/pull/47">Add `Escape`, `Henkan`, `Muhenkan` keyval names by lo48576 · Pull Request #47 · ueno/libskk</a>
 					</li>
 					<li>
 						<a href="https://github.com/ueno/libskk/pull/48">Add `abort-to-latin` and `abort-to-latin-unhandled` command by lo48576 · Pull Request #48 · ueno/libskk</a> (merged)
@@ -397,7 +397,7 @@ $
 
 		<ul>
 			<li>
-				<a href="https://github.com/jwilm/alacritty"><eh:emoji fontawesome="github" /> jwilm/alacritty: A cross-platform, GPU-accelerated terminal emulator</a>
+				<a href="https://github.com/jwilm/alacritty">jwilm/alacritty: A cross-platform, GPU-accelerated terminal emulator</a>
 			</li>
 			<li>
 				<a href="https://github.com/jwilm/alacritty/pull/1049">Support config to control width of ambiguous width characters by lo48576 · Pull Request #1049 · jwilm/alacritty</a>
@@ -426,7 +426,7 @@ $
 
 		<ul>
 			<li>
-				<a href="https://github.com/fcitx/fcitx-skk"><eh:emoji fontawesome="github" /> fcitx/fcitx-skk</a>
+				<a href="https://github.com/fcitx/fcitx-skk">fcitx/fcitx-skk</a>
 			</li>
 			<li>
 				<a href="https://github.com/fcitx/fcitx-skk/pull/7">Resolve `$FCITX_CONFIG_DIR` for read-only dictionary paths by lo48576 · Pull Request #7 · fcitx/fcitx-skk</a>
@@ -447,7 +447,7 @@ $
 
 		<ul>
 			<li>
-				<a href="https://github.com/redox-os/stb_truetype-rs"><eh:emoji fontawesome="github" /> redox-os/stb_truetype-rs: A straight port of stb_truetype-rs from C to Rust</a>
+				<a href="https://github.com/redox-os/stb_truetype-rs">redox-os/stb_truetype-rs: A straight port of stb_truetype-rs from C to Rust</a>
 			</li>
 			<li>
 				<a href="https://github.com/redox-os/stb_truetype-rs/pull/4">Implement features for font name strings by lo48576 · Pull Request #4 · redox-os/stb_truetype-rs</a>
@@ -464,7 +464,7 @@ $
 
 		<ul>
 			<li>
-				<a href="https://github.com/redox-os/rusttype"><eh:emoji fontawesome="github" /> redox-os/rusttype: A pure Rust alternative to libraries like FreeType.</a>
+				<a href="https://github.com/redox-os/rusttype">redox-os/rusttype: A pure Rust alternative to libraries like FreeType.</a>
 			</li>
 			<li>
 				<a href="https://github.com/redox-os/rusttype/pull/72">Implement `Display` and `Error` traits for error types by lo48576 · Pull Request #72 · redox-os/rusttype</a>

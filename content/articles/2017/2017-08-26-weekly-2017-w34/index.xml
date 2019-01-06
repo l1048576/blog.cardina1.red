@@ -118,13 +118,13 @@ excerpt: "2017年 第34週 まとめ"
 				<a href="http://moznion.hatenadiary.com/entry/2017/04/10/192953">サービスを提供するにあたって取得されたくないアカウント名が集まっているライブラリが欲しいんですけど〜みたいな時 - その手の平は尻もつかめるさ</a>
 				<ul>
 					<li>
-						<a href="https://github.com/marteinn/The-Big-Username-Blacklist"><eh:emoji fontawesome="github" /> marteinn/The-Big-Username-Blacklist: This is a opinionated blacklist of words that you might not like to see used as usernames in your service.</a>
+						<a href="https://github.com/marteinn/The-Big-Username-Blacklist">marteinn/The-Big-Username-Blacklist: This is a opinionated blacklist of words that you might not like to see used as usernames in your service.</a>
 					</li>
 					<li>
-						<a href="https://github.com/shouldbee/reserved-usernames"><eh:emoji fontawesome="github" /> shouldbee/reserved-usernames: 590+ usernames in this dictionary! A list of reserved usernames to prevent url collision with resource paths. This repository hosts the list in multiple formats like JSON, CSV, SQL and plain text. You can use its just download its by wget.</a>
+						<a href="https://github.com/shouldbee/reserved-usernames">shouldbee/reserved-usernames: 590+ usernames in this dictionary! A list of reserved usernames to prevent url collision with resource paths. This repository hosts the list in multiple formats like JSON, CSV, SQL and plain text. You can use its just download its by wget.</a>
 					</li>
 					<li>
-						<a href="https://github.com/rono23/reserved_word"><eh:emoji fontawesome="github" /> rono23/reserved_word: Make your reserved words on Rails.</a>
+						<a href="https://github.com/rono23/reserved_word">rono23/reserved_word: Make your reserved words on Rails.</a>
 					</li>
 				</ul>
 			</li>
@@ -135,7 +135,7 @@ excerpt: "2017年 第34週 まとめ"
 						<a href="https://dev.twitter.com/rest/reference/get/help/configuration">GET help/configuration — Twitter Developers</a> (<code>non_username_paths</code>)
 					</li>
 					<li>
-						<a href="https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words"><eh:emoji fontawesome="github" /> LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words: List of Dirty, Naughty, Obscene, and Otherwise Bad Words</a>
+						<a href="https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words">LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words: List of Dirty, Naughty, Obscene, and Otherwise Bad Words</a>
 					</li>
 					<li>
 						<a href="https://www.slideshare.net/tadsan/ss-31387472">これからの名前の話をしよう</a>
@@ -223,7 +223,7 @@ excerpt: "2017年 第34週 まとめ"
 		<eh:title>strum にプルリク出した (merge された)</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/Peternator7/strum"><eh:emoji fontawesome="github" /> Peternator7/strum</a>
+				<a href="https://github.com/Peternator7/strum">Peternator7/strum</a>
 			</li>
 			<li>
 				<a href="https://github.com/Peternator7/strum/pull/10">Add `derive(AsRefStr)` implementation by lo48576 · Pull Request #10 · Peternator7/strum</a>
@@ -249,7 +249,7 @@ excerpt: "2017年 第34週 まとめ"
 		<eh:title>進捗: rustivitypub</eh:title>
 		<ul>
 			<li>
-				<a href="https://github.com/lo48576/rustivitypub"><eh:emoji fontawesome="github" /> lo48576/rustivitypub: [WIP] ActivityPub implementation for Rust programming language</a>
+				<a href="https://github.com/lo48576/rustivitypub">lo48576/rustivitypub: [WIP] ActivityPub implementation for Rust programming language</a>
 			</li>
 		</ul>
 
