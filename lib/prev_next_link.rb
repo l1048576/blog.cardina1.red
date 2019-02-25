@@ -1,4 +1,4 @@
-module Larry
+module Lo48576
   module PrevNextLink
     def prev_item(items, target: @item)
       if items
@@ -40,4 +40,4 @@ module Larry
   end
 end
 
-include Larry::PrevNextLink
+include Lo48576::PrevNextLink

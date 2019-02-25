@@ -1,4 +1,4 @@
-module Larry
+module Lo48576
   module Archive
     include Nanoc::Helpers::HTMLEscape
     ARCHIVE_LIST_CAPACITY = 50
@@ -224,4 +224,4 @@ module Larry
   end
 end
 
-include Larry::Archive
+include Lo48576::Archive

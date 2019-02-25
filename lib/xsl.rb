@@ -1,4 +1,4 @@
-module Larry
+module Lo48576
   XSLT_NAMESPACE = "http://www.w3.org/1999/XSL/Transform"
   XSLT_DEP_ATTRS = "(/xsl:stylesheet/xsl:import | /xsl:stylesheet/xsl:include)/@href"
 
@@ -45,7 +45,7 @@ module Larry
 
   # See <https://github.com/nanoc/nanoc/blob/4.9.4/nanoc/lib/nanoc/filters/xsl.rb>
   class XSL < Nanoc::Filter
-    identifier :larry_xsl
+    identifier :lo48576_xsl
 
     requires 'nokogiri'
 

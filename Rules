@@ -140,7 +140,7 @@ route '/**/*' do
   @item.identifier.to_s
 end
 
-layout '/xsl/**/*.xsl', :larry_xsl
+layout '/xsl/**/*.xsl', :lo48576_xsl
 
 layout '/**/*', :erb, trim_mode: '-'
 
