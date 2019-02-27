@@ -91,7 +91,7 @@ module Lo48576
       # TODO: Cache this `xsl` or `xsl_xml`.
       xsl = ::Nokogiri::XSLT::Stylesheet.parse_stylesheet_doc(xsl_xml)
 
-      parse_opts = ::Nokogiri::XML::ParseOptions::new.strict.norecover.nonoent
+      parse_opts = ::Nokogiri::XML::ParseOptions::new.strict.norecover.nonoent.nonet
       xml = ::Nokogiri::XML(assigns[:content], nil, nil, parse_opts)
 
       xsl.apply_to(xml, ::Nokogiri::XSLT.quote_params(params))
