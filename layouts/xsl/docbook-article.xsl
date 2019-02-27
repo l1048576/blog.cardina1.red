@@ -47,7 +47,7 @@
 				<xsl:text>#</xsl:text>
 				<xsl:value-of select="$normalized-id" />
 			</xsl:attribute>
-			<xsl:comment />
+			<xsl:comment><xsl:text> </xsl:text></xsl:comment>
 		</xsl:element>
 	</xsl:if>
 </xsl:template>
