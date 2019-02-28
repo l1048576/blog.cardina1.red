@@ -1,34 +1,3 @@
-body {
-	font-family: "Mplus 1p", sans-serif;
-	background: #fcfcfc;
-	color: #444;
-
-	>header {
-		background: #333;
-		margin-bottom: #{$vertical-unit};
-
-		.site-title {
-			$title-color: #999;
-
-			color: $title-color;
-			margin-top: 0;
-
-			>a {
-				&, &:visited, &:hover {
-					color: $title-color;
-					text-decoration: none;
-				}
-			}
-		}
-	}
-	>footer {
-		background: #333;
-		color: #ccc;
-		margin-top: #{$vertical-unit};
-		padding: 1rem 0;
-	}
-}
-
 aside.article-info {
 	font-size: 0.7rem;
 

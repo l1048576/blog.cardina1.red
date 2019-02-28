@@ -1,6 +1,7 @@
 // TODO: Use grid layout.
 
 @import 'lib/responsive';
+@import 'lib/vertical-unit';
 
 :root {
 	--size-container-margin: 0 auto;
@@ -15,3 +16,5 @@
 	width: var(--size-container-width);
 	margin: var(--size-container-margin);
 }
+
+@import 'page-base/page-layout';
