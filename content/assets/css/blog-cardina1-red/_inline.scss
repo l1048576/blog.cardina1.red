@@ -1,43 +1,9 @@
-mark {
-	background: yellow;
-}
-
 ins {
 	@extend %inserted-part-inline;
 }
 
 del {
 	@extend %deleted-part-inline;
-}
-
-strong {
-	font-weight: bolder;
-
-	strong {
-		text-decoration: underline solid red;
-
-		strong {
-			text-decoration: underline double red;
-		}
-	}
-}
-
-em {
-	font-weight: bolder;
-	font-style: italic;
-
-	em {
-		text-decoration: underline solid red;
-
-		em {
-			text-decoration: underline double red;
-		}
-	}
-}
-
-abbr[title] {
-	border: none;
-	text-decoration: underline dotted;
 }
 
 a {
@@ -53,9 +19,4 @@ a {
 img {
 	max-width: 100%;
 	height: auto;
-}
-
-rt {
-	// This would have been cleared by sanitize.css.
-	font-size: 50%;
 }
