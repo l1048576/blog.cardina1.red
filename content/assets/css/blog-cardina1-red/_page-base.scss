@@ -1,34 +1,3 @@
-aside.article-info {
-	font-size: 0.7rem;
-
-	.article-dates p {
-		line-height: $vertical-unit;
-		margin: initial;
-	}
-}
-
-ul.blog-tags {
-	>li {
-		// U+1F3F7 LABEL
-		$tag-prefix: "\1f3f7\20";
-
-		display: inline-block;
-		margin: 0;
-		&::before {
-			content: " / " $tag-prefix;
-		}
-		&:first-child::before {
-			content: $tag-prefix;
-		}
-	}
-}
-
-ul.blog-tag-classes {
-	ul.blog-tags {
-		display: inline-block;
-	}
-}
-
 a.permalink::after {
 	display: inline-block;
 	margin-left: 0.2em;
@@ -41,23 +10,5 @@ a.permalink::after {
 	:hover >& {
 		visibility: visible;
 		text-decoration: none;
-	}
-}
-
-.share {
-	.twitter, .facebook, .hatena, .pocket {
-		display: inline-block;
-	}
-}
-
-.next-prev-link {
-	display: flex;
-
-	>.prev-link {
-		width: 50%;
-	}
-	>.next-link {
-		width: 50%;
-		text-align: right;
 	}
 }
