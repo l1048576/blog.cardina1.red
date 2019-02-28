@@ -1,11 +1,3 @@
-ins {
-	@extend %inserted-part-inline;
-}
-
-del {
-	@extend %deleted-part-inline;
-}
-
 a {
 	&, &:visited {
 		color: #c86868;
