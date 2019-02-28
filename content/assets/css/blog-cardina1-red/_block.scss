@@ -6,19 +6,6 @@ hr {
 	margin: 0.8rem auto;
 }
 
-p {
-	line-height: $vertical-unit;
-	margin: $vertical-unit 0;
-
-	&[data-lo48576-easy-html][data-paratitle] {
-		&::before {
-			@extend %paragraph-title;
-			display: block;
-			content: attr(data-paratitle);
-		}
-	}
-}
-
 pre {
 	overflow-x: auto;
 	padding: 0.5rem 1rem;
