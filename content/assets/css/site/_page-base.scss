@@ -1,0 +1,21 @@
+// TODO: Use grid layout.
+
+@import 'lib/responsive';
+@import 'lib/vertical-unit';
+
+:root {
+	--size-container-margin: 0 auto;
+	@each $size, $container-width in $container-widths {
+		@include respond-to($size) {
+			--size-container-width: #{$container-width};
+		}
+	}
+}
+
+.size-container {
+	width: var(--size-container-width);
+	margin: var(--size-container-margin);
+}
+
+@import 'page-base/page-layout';
+@import 'page-base/article-layout';

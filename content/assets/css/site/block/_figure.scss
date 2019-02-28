@@ -1,0 +1,19 @@
+figure {
+	padding: 0.5rem 1rem;
+	border: 1px solid #eee;
+	border-radius: 1rem;
+
+	>blockquote {
+		margin: 1rem 0;
+	}
+}
+
+figcaption:last-child {
+	margin-top: 0.4rem;
+	border-top: 1px solid #999;
+	text-align: right;
+
+	>p:first-child {
+		margin-top: 0.2rem;
+	}
+}

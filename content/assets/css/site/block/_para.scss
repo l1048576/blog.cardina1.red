@@ -1,0 +1,26 @@
+%paragraph-title {
+	color: brown;
+	font-weight: bolder;
+	border-left: 0.5rem solid brown;
+	padding-left: 0.5rem;
+	line-height: $vertical-unit;
+	margin-bottom: 0;
+
+	& + * {
+		margin-top: 0;
+	}
+}
+
+p {
+	line-height: $vertical-unit;
+	margin: $vertical-unit 0;
+
+	// TODO: Remove this feature.
+	&[data-lo48576-easy-html][data-paratitle] {
+		&::before {
+			@extend %paragraph-title;
+			display: block;
+			content: attr(data-paratitle);
+		}
+	}
+}

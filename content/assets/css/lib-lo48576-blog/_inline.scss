@@ -14,23 +14,3 @@
 		margin-right: 0.1em;
 	}
 }
-
-%inserted-part-inline {
-	&::before {
-		background: #dfd;
-		text-decoration: none;
-		// U+1F589 LOWER LEFT PENCIL
-		// U+2711 WHITE NIB
-		content: "\1f589";
-	}
-}
-
-%deleted-part-inline {
-	&::before {
-		background: #fdd;
-		text-decoration: none;
-		// U+1F5D1 WASTEBASKET
-		// U+1F5D9 CANCELLATION X
-		content: "\1f5d1";
-	}
-}

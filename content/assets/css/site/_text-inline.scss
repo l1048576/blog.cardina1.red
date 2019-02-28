@@ -3,11 +3,25 @@ mark {
 }
 
 ins {
-	@extend %inserted-part-inline;
+	// TODO: Improve `ins` style.
+	&::before {
+		background: #dfd;
+		text-decoration: none;
+		// U+1F589 LOWER LEFT PENCIL
+		// U+2711 WHITE NIB
+		content: "\1f589";
+	}
 }
 
 del {
-	@extend %deleted-part-inline;
+	// TODO: Improve `del` style.
+	&::before {
+		background: #fdd;
+		text-decoration: none;
+		// U+1F5D1 WASTEBASKET
+		// U+1F5D9 CANCELLATION X
+		content: "\1f5d1";
+	}
 }
 
 strong {
@@ -38,21 +52,6 @@ em {
 abbr[title] {
 	border: none;
 	text-decoration: underline dotted;
-}
-
-a {
-	&, &:visited {
-		color: #c86868;
-		text-decoration: none;
-	}
-	&:hover {
-		text-decoration: underline;
-	}
-}
-
-img {
-	max-width: 100%;
-	height: auto;
 }
 
 rt {
