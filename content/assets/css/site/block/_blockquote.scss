@@ -1,0 +1,15 @@
+// TODO: Improve margin and padding.
+blockquote {
+	border-left: 0.3rem solid #ccc;
+	margin: $vertical-unit/2 0;
+	padding: $vertical-unit/2;
+
+	>:first-child,
+	>div:first-child >:first-child {
+		margin-top: 0;
+	}
+	>:last-child,
+	>div:last-child >:last-child {
+		margin-bottom: 0;
+	}
+}
