@@ -2,7 +2,7 @@
 created_at: 2016-03-24T00:26:45+0900
 published_at: 2016-03-24T00:26:45+0900
 updated_at: 2017-06-01T17:52:32+0900
-format: "easy-html"
+format: docbook
 title: "Rust-1.7.0でDefault::default()を使ったコードのコンパイルが通らない、処理系の不具合と思われる挙動"
 tags:
   - prog-rust
@@ -12,86 +12,91 @@ kind: article
 excerpt: "Rust-1.7.0でDefault::default()を使ったコードのコンパイルが通らない、処理系の不具合と思われる挙動に遭遇した。回避策はあるが、つらい。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	id="2016-03-24-rust-default-wont-conpile"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="article-2016-03-24-rust-default-wont-conpile"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>Rust-1.7.0でDefault::default()を使ったコードのコンパイルが通らない、処理系の不具合と思われる挙動</eh:title>
-<p>
+<title>Rust-1.7.0でDefault::default()を使ったコードのコンパイルが通らない、処理系の不具合と思われる挙動</title>
+<simpara>
 	未解決。
-	<eh:xref linkend="first-aid">応急処置</eh:xref>済。
-</p>
+	<link linkend="first-aid">応急処置</link>済。
+</simpara>
 
-<eh:section id="abstract">
-	<eh:title>概要</eh:title>
-	<p>
+<section xml:id="abstract">
+	<title>概要</title>
+	<simpara>
 		Rust-1.7で以下のコードのコンパイルが通らない。
-	</p>
-	<figure>
-		<pre><code class="lang-rust language-rust" data-lang="rust">use std::fmt::Debug;
+	</simpara>
+	<informalfigure xml:id="figure-invalid-code-sample">
+		<programlisting language="rust"><![CDATA[use std::fmt::Debug;
 
 #[derive(Debug, Default)]
-struct Struct&lt;T: Debug&gt; {
-    pub opt: Option&lt;T&gt;,
+struct Struct<T: Debug> {
+    pub opt: Option<T>,
 }
 
-impl&lt;T: Debug&gt; Struct&lt;T&gt; {
-    pub fn new() -&gt; Self {
+impl<T: Debug> Struct<T> {
+    pub fn new() -> Self {
         Default::default() // bad
         //Struct { opt: Default::default(), } // ok
     }
 }
 
 pub fn main () {
-    let s = Struct::&lt;i32&gt;::new();
+    let s = Struct::<i32>::new();
     println!("s: {:?}", s);
-}
-</code></pre>
-		<figcaption>コンパイルの通らないバージョン (<a href="https://play.rust-lang.org/?code=use%20std%3A%3Afmt%3A%3ADebug%3B%0A%0A%23[derive%28Debug%2C%20Default%29]%0Astruct%20Struct%3CT%3A%20Debug%3E%20{%0A%20%20%20%20pub%20opt%3A%20Option%3CT%3E%2C%0A}%0A%0Aimpl%3CT%3A%20Debug%3E%20Struct%3CT%3E%20{%0A%20%20%20%20pub%20fn%20new%28%29%20-%3E%20Self%20{%0A%20%20%20%20%20%20%20%20Default%3A%3Adefault%28%29%20%2F%2F%20bad%0A%20%20%20%20%20%20%20%20%2F%2FStruct%20{%20opt%3A%20Default%3A%3Adefault%28%29%2C%20}%20%2F%2F%20ok%0A%20%20%20%20}%0A}%0A%0A%0A%0Apub%20fn%20main%20%28%29%20{%0A%20%20%20%20let%20s%20%3D%20Struct%3A%3A%3Ci32%3E%3A%3Anew%28%29%3B%0A%20%20%20%20println!%28%22s%3A%20{%3A%3F}%22%2C%20s%29%3B%0A}&amp;version=stable" target="_blank">Rust Playgroundへのリンク</a>)</figcaption>
-	</figure>
-	<figure>
-		<pre>&lt;anon&gt;:10:9: 10:25 error: the trait `core::default::Default` is not implemented for the type `T` [E0277]
-&lt;anon&gt;:10         Default::default() // bad
+}]]></programlisting>
+		<caption>コンパイルの通らないバージョン (<link xl:href="https://play.rust-lang.org/?code=use%20std%3A%3Afmt%3A%3ADebug%3B%0A%0A%23[derive%28Debug%2C%20Default%29]%0Astruct%20Struct%3CT%3A%20Debug%3E%20{%0A%20%20%20%20pub%20opt%3A%20Option%3CT%3E%2C%0A}%0A%0Aimpl%3CT%3A%20Debug%3E%20Struct%3CT%3E%20{%0A%20%20%20%20pub%20fn%20new%28%29%20-%3E%20Self%20{%0A%20%20%20%20%20%20%20%20Default%3A%3Adefault%28%29%20%2F%2F%20bad%0A%20%20%20%20%20%20%20%20%2F%2FStruct%20{%20opt%3A%20Default%3A%3Adefault%28%29%2C%20}%20%2F%2F%20ok%0A%20%20%20%20}%0A}%0A%0A%0A%0Apub%20fn%20main%20%28%29%20{%0A%20%20%20%20let%20s%20%3D%20Struct%3A%3A%3Ci32%3E%3A%3Anew%28%29%3B%0A%20%20%20%20println!%28%22s%3A%20{%3A%3F}%22%2C%20s%29%3B%0A}&amp;version=stable">Rust Playgroundへのリンク</link>)</caption>
+	</informalfigure>
+	<informalfigure xml:id="figure-error-message-sample">
+		<screen><![CDATA[<anon>:10:9: 10:25 error: the trait `core::default::Default` is not implemented for the type `T` [E0277]
+<anon>:10         Default::default() // bad
                   ^~~~~~~~~~~~~~~~
-&lt;anon&gt;:10:9: 10:25 help: see the detailed explanation for E0277
-&lt;anon&gt;:10:9: 10:25 note: required by `core::default::Default::default`
-</pre>
-		<figcaption>Rust Playgroundで(Rust-1.7.0 stableで)コンパイルした場合のエラーメッセージ</figcaption>
-	</figure>
-	<p>
+<anon>:10:9: 10:25 help: see the detailed explanation for E0277
+<anon>:10:9: 10:25 note: required by `core::default::Default::default`]]></screen>
+		<caption>Rust Playgroundで(Rust-1.7.0 stableで)コンパイルした場合のエラーメッセージ</caption>
+	</informalfigure>
+	<simpara>
 		おかしい。
-		<a href="https://doc.rust-lang.org/std/option/enum.Option.html#implementations">ドキュメント</a>によれば、<code>Option&lt;T&gt;</code>は<code>Defaut</code> traitを実装していて、その際<code>T</code>に対して<code>T: Default</code>等の制約はかかっていない。
-		(コメントアウトされている<code>opt: Default::default()</code>のコンパイルが通るのはそのためである)。<br />
-		しかし、構造体のメンバ変数(の型)すべてが<code>Default</code>を実装しているにも関わらず、「<code>T</code>が<code>Default</code>を実装していない」という理由でコンパイルは失敗する。
-	</p>
-	<p>
-		奇妙なのは、<code>Struct&lt;T&gt;</code>全体に対しての<code>Default::default()</code>呼び出しが失敗するにも関わらず、<code>#[derive(Debug, Default)]</code>にはコンパイラが何の文句も言ってこないところだ。
-	</p>
-	<p>
+	</simpara>
+	<simpara>
+		<link xl:href="https://doc.rust-lang.org/std/option/enum.Option.html#implementations">ドキュメント</link>によれば、<type>Option&lt;T&gt;</type>は<code>Default</code> traitを実装していて、その際<type>T</type>に対して<code>T: Default</code>等の制約はかかっていない。
+		(コメントアウトされている<code language="rust">opt: Default::default()</code>のコンパイルが通るのはそのためである)。
+	</simpara>
+	<simpara>
+		しかし、構造体のメンバ変数(の型)すべてが<code>Default</code>を実装しているにも関わらず、「<type>T</type>が<code>Default</code>を実装していない」という理由でコンパイルは失敗する。
+	</simpara>
+	<simpara>
+		奇妙なのは、<type>Struct&lt;T&gt;</type>全体に対しての<code language="rust">Default::default()</code>呼び出しが失敗するにも関わらず、<code language="rust">#[derive(Debug, Default)]</code>にはコンパイラが何の文句も言ってこないところだ。
+	</simpara>
+	<simpara>
 		やっぱりgithubでissueとか投げるべきなのかなぁ……
-	</p>
-</eh:section>
-<eh:section id="first-aid">
-	<eh:title>応急処置</eh:title>
-	<p>
-		コード例のとおり、<code>Default::default()</code>が失敗するのは構造体全体に対してのみであるため、各メンバ変数それぞれについて<code>Default::default()</code>を呼び出すことで、意図した通りのオブジェクトを生成することは可能である。
+	</simpara>
+</section>
+<section xml:id="first-aid">
+	<title>応急処置</title>
+	<simpara>
+		コード例のとおり、<code language="rust">Default::default()</code>が失敗するのは構造体全体に対してのみであるため、各メンバ変数それぞれについて<code language="rust">Default::default()</code>を呼び出すことで、意図した通りのオブジェクトを生成することは可能である。
 		メンバ変数が沢山あると大変だが、仕方がない……
-	</p>
-</eh:section>
-<eh:section id="postscript">
-	<eh:title>追記 (2016-03-24 02:23)</eh:title>
-	<p>
-		すごい後輩氏が該当issueを見付けてくれた。 &gt; <a href="https://github.com/rust-lang/rust/issues/26925" target="_blank">#[derive] is too conservative with field trait bounds · Issue #26925 · rust-lang/rust</a><br />
-		すごい。<br />
+	</simpara>
+</section>
+<section xml:id="postscript">
+	<title>追記 (2016-03-24 02:23)</title>
+	<simpara>
+		すごい後輩氏が該当issueを見付けてくれた。 &gt; <link xl:href="https://github.com/rust-lang/rust/issues/26925">#[derive] is too conservative with field trait bounds · Issue #26925 · rust-lang/rust</link><h:br />
+		すごい。<h:br />
 		このissue、ここ4ヶ月ほど動きがないようだが、ひとまず動きを注視することにしてみようと思う。
 		(でも再燃させた方がよかったりするのかなぁ……)
-	</p>
-</eh:section>
-<eh:section id="postscript2">
-	<eh:title>追記2 (2017-06-01 17:52)</eh:title>
-	<p>
-		<a href="http://qnighy.hatenablog.com/entry/2017/06/01/070000">Rustのderiveはあまり頭がよくない - 簡潔なQ</a> で問題が説明されている。
-	</p>
-</eh:section>
-</eh:article>
+	</simpara>
+</section>
+<section xml:id="postscript2">
+	<title>追記2 (2017-06-01 17:52)</title>
+	<simpara>
+		<link xl:href="http://qnighy.hatenablog.com/entry/2017/06/01/070000">Rustのderiveはあまり頭がよくない - 簡潔なQ</link> で問題が説明されている。
+	</simpara>
+</section>
+</article>

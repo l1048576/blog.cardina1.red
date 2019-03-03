@@ -2,7 +2,7 @@
 created_at: 2016-08-23T23:46:43+0900
 published_at: 2016-08-23T23:46:43+0900
 updated_at: 2017-03-18T20:17:56+0900
-format: "easy-html"
+format: docbook
 title: "Rustで T: From<U> のとき From<MyStruct<U>> for MyStruct<T> を実装したい"
 tags:
   - prog-rust
@@ -12,24 +12,26 @@ kind: article
 excerpt: "Rustで T: From<U> のとき From<MyStruct<U>> for MyStruct<T> を実装したいが、無理だった。 From や Into を実装する代わりに、 map() メソッドを用意してやることで解決とする。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	id="2016-08-23-rust-converting-inner-type"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="article-2016-08-23-rust-converting-inner-type"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>Rustで <code>T: From&lt;U&gt;</code> のとき <code>From&lt;MyStruct&lt;U&gt;&gt; for MyStruct&lt;T&gt;</code> を実装したい</eh:title>
-<p>
+<title>Rustで <code>T: From&lt;U&gt;</code> のとき <code>From&lt;MyStruct&lt;U&gt;&gt; for MyStruct&lt;T&gt;</code> を実装したい</title>
+<simpara>
 	一応解決済。
-</p>
+</simpara>
 
-<eh:section id="abstract">
-	<eh:title>概要</eh:title>
-	<p>
+<section xml:id="abstract">
+	<title>概要</title>
+	<simpara>
 		Rust (2016-08-23時点でのstableな最新は Rust-1.11.0) で以下のようなことを行いたい。
 		要するに、型パラメータが変換可能なとき、外側の構造体もまた変換可能であるようにしたい。
-	</p>
-	<figure>
-		<pre><code class="lang-rust language-rust" data-lang="rust">#[derive(Debug, Clone, Copy)]
+	</simpara>
+	<informalfigure xml:id="code-point-sample">
+		<programlisting language="rust">#[derive(Debug, Clone, Copy)]
 struct Point&lt;T: Clone + Copy&gt; {
     pub x: T,
     pub y: T,
@@ -53,10 +55,10 @@ fn main() {
     let p_f64: Point&lt;f64&gt; = p_i64();
     println!("p_f64: {:?}", p_f64);
 }
-</code></pre>
-	</figure>
-	<figure>
-		<pre>error: conflicting implementations of trait `std::convert::From&lt;Point&lt;_&gt;&gt;` for type `Point&lt;_&gt;`: [--explain E0119]
+</programlisting>
+	</informalfigure>
+	<informalfigure xml:id="code-point-sample-error">
+		<literallayout class="monospaced">error: conflicting implementations of trait `std::convert::From&lt;Point&lt;_&gt;&gt;` for type `Point&lt;_&gt;`: [--explain E0119]
  --&gt; &lt;anon&gt;:7:1
   |&gt;
 7 |&gt; impl&lt;T, U: From&lt;T&gt;&gt; From&lt;Point&lt;T&gt;&gt; for Point&lt;U&gt; {
@@ -64,20 +66,22 @@ fn main() {
 note: conflicting implementation in crate `core`
 
 error: aborting due to previous error
-</pre>
-		<figcaption>Rust Playgroundで(Rust-1.11.0 stableで)コンパイルした場合のエラーメッセージ</figcaption>
-	</figure>
-	<p>
-		有難いことに、Rustにおいては厄介事の種となる暗黙の型変換は制約が強い(<a href="https://doc.rust-lang.org/std/ops/trait.Deref.html" target="_blank"><code>Deref</code> trait</a>等で実装できるが複数の変換先を用意できない)ので、擬似的なポインタや参照のように透過的な変換を実現したい理由がなければ、<a href="https://doc.rust-lang.org/std/convert/trait.From.html" target="_blank"><code>From</code> trait</a>や<a href="https://doc.rust-lang.org/std/convert/trait.Into.html" target="_blank"><code>Into</code> trait</a>を実装することになる。
-	</p>
-	<p>
-		これを踏まえたうえで上記コードを説明しよう。<br />
-		<code>Point&lt;T&gt;</code>型は、2次元の点を表し、その座標を<code>T</code>型で持っているものである。<br />
+</literallayout>
+		<caption>Rust Playgroundで(Rust-1.11.0 stableで)コンパイルした場合のエラーメッセージ</caption>
+	</informalfigure>
+	<simpara>
+		有難いことに、Rustにおいては厄介事の種となる暗黙の型変換は制約が強い(<link xl:href="https://doc.rust-lang.org/std/ops/trait.Deref.html"><code>Deref</code> trait</link>等で実装できるが複数の変換先を用意できない)ので、擬似的なポインタや参照のように透過的な変換を実現したい理由がなければ、<link xl:href="https://doc.rust-lang.org/std/convert/trait.From.html" target="_blank"><code>From</code> trait</link>や<link xl:href="https://doc.rust-lang.org/std/convert/trait.Into.html" target="_blank"><code>Into</code> trait</link>を実装することになる。
+	</simpara>
+	<simpara>
+		これを踏まえたうえで上記コードを説明しよう。
+	</simpara>
+	<simpara>
+		<code>Point&lt;T&gt;</code>型は、2次元の点を表し、その座標を<code>T</code>型で持っているものである。
 		要求は簡潔明瞭で、<code>T</code>型が<code>U</code>型に変換可能であれば、<code>Point&lt;T&gt;</code>型もまた<code>Point&lt;U&gt;</code>型に変換可能であれ、ということである。
 		C++であれば以下のように実装したことだろう。
-	</p>
-	<figure>
-		<pre><code class="lang-cpp language-cpp" data-lang="cpp">#include &lt;iostream&gt;
+	</simpara>
+	<informalfigure xml:id="code-point-cpp">
+		<programlisting language="cpp">#include &lt;iostream&gt;
 #include &lt;type_traits&gt;
 
 template &lt;typename T&gt;
@@ -102,40 +106,40 @@ int main(void) {
     std::cout &lt;&lt; "p_f64 { " &lt;&lt; p_f64.x &lt;&lt; ", " &lt;&lt; p_f64.y &lt;&lt; " }" &lt;&lt; std::endl;
     return 0;
 }
-</code></pre>
-		<figcaption>C++で同様のことをしようとした場合 (<a href="http://melpon.org/wandbox/permlink/KnQrL7HNhObry64q" target="_blank">Wandboxへのリンク</a>)</figcaption>
-	</figure>
-	<figure>
-		<pre>p_i16 { 3, 4 }
+</programlisting>
+		<caption>C++で同様のことをしようとした場合 (<link xl:href="http://melpon.org/wandbox/permlink/KnQrL7HNhObry64q">Wandboxへのリンク</link>)</caption>
+	</informalfigure>
+	<informalfigure xml:id="code-point-cpp-output">
+		<literallayout>p_i16 { 3, 4 }
 p_f64 { 3, 4 }
-</pre>
-		<figcaption>上記C++コードの出力</figcaption>
-	</figure>
-	<p>
+</literallayout>
+		<caption>上記C++コードの出力</caption>
+	</informalfigure>
+	<simpara>
 		C++では、Rustの<code>From</code> traitに対応するのがコンストラクタ、<code>Into</code> traitに対応するのがキャスト演算子と考えていいだろう。
 		今回はコンストラクタで対応した。
-	</p>
-	<p>
-		さて本題のRustのコードであるが、エラーの原因に<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;U&gt;</code>の実装がcore crateと衝突していることが挙げられている。<br />
-		これは<code>From</code>でなく<code>Into</code>を使って<code>Impl&lt;T, U: Into&lt;T&gt;&gt; Into&lt;Point&lt;T&gt;&gt; for Point&lt;U&gt;</code>としても同様のエラーになる。<br />
+	</simpara>
+	<simpara>
+		さて本題のRustのコードであるが、エラーの原因に<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;U&gt;</code>の実装がcore crateと衝突していることが挙げられている。
+		これは<code>From</code>でなく<code>Into</code>を使って<code>Impl&lt;T, U: Into&lt;T&gt;&gt; Into&lt;Point&lt;T&gt;&gt; for Point&lt;U&gt;</code>としても同様のエラーになる。
 		ユーザ定義型に対してまでcore crateで定義されているものといえば、反射律(reflexive law)だ。
-	</p>
-	<p>
-		結論を言えば、このreflexive lawがエラーの原因だ。<br />
-		<code>From</code>はreflexiveである(すなわち全ての<code>T</code>に対してcore crateで<code>From&lt;T&gt; for T</code>が実装されている)ため、問題のコードで<code>U = T</code>の場合である<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;T&gt;</code>が実装される。<br />
-		一方、またもや<code>From</code>のreflexivityより、<code>Point&lt;T&gt;</code>に対してcore crateで<code>From&lt;Ponit&lt;T&gt;&gt; for Point&lt;T&gt;</code>が実装される。<br />
+	</simpara>
+	<simpara>
+		結論を言えば、このreflexive lawがエラーの原因だ。
+		<code>From</code>はreflexiveである(すなわち全ての<code>T</code>に対してcore crateで<code>From&lt;T&gt; for T</code>が実装されている)ため、問題のコードで<code>U = T</code>の場合である<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;T&gt;</code>が実装される。
+		一方、またもや<code>From</code>のreflexivityより、<code>Point&lt;T&gt;</code>に対してcore crateで<code>From&lt;Ponit&lt;T&gt;&gt; for Point&lt;T&gt;</code>が実装される。
 		斯くして<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;T&gt;</code>が二重で実装され、衝突と相成ったわけである。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="solution">
-	<eh:title>とりあえずの解決策</eh:title>
-	<p>
-		<code>map</code>メソッドを定義する。<br />
-		<a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.map"><code>Option::map</code></a>のようなものだ。
-	</p>
-	<figure>
-		<pre><code class="lang-rust language-rust" data-lang="rust">#[derive(Debug, Clone, Copy)]
+<section xml:id="solution">
+	<title>とりあえずの解決策</title>
+	<simpara>
+		<code>map</code>メソッドを定義する。
+		<link xl:href="https://doc.rust-lang.org/std/option/enum.Option.html#method.map"><code>Option::map</code></link>のようなものだ。
+	</simpara>
+	<informalfigure xml:id="code-point-with-map">
+		<programlisting language="rust">#[derive(Debug, Clone, Copy)]
 struct Point&lt;T: Clone + Copy&gt; {
     pub x: T,
     pub y: T,
@@ -159,30 +163,30 @@ fn main() {
     let p_f64: Point&lt;f64&gt; = p_i16.map(Into::into);
     println!("p_f64: {:?}", p_f64);
 }
-</code></pre>
-		<figcaption>コンパイルの通るバージョン (<a href="https://play.rust-lang.org/?code=%23%5Bderive(Debug%2C%20Clone%2C%20Copy)%5D%0Astruct%20Point%3CT%3A%20Clone%20%2B%20Copy%3E%20%7B%0A%20%20%20%20pub%20x%3A%20T%2C%0A%20%20%20%20pub%20y%3A%20T%2C%0A%7D%0A%0Aimpl%3CT%3A%20Clone%20%2B%20Copy%3E%20Point%3CT%3E%20%7B%0A%20%20%20%20fn%20map%3CU%3A%20Clone%20%2B%20Copy%2C%20F%3A%20Fn(T)%20-%3E%20U%3E(self%2C%20f%3A%20F)%20-%3E%20Point%3CU%3E%20%7B%0A%20%20%20%20%20%20%20%20Point%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20x%3A%20f(self.x)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20y%3A%20f(self.y)%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%7D%0A%0Afn%20main()%20%7B%0A%20%20%20%20let%20p_i16%20%3D%20Point%3A%3A%3Ci16%3E%20%7B%0A%20%20%20%20%20%20%20%20x%3A%203%2C%0A%20%20%20%20%20%20%20%20y%3A%204%2C%0A%20%20%20%20%7D%3B%0A%20%20%20%20println!(%22p_i16%3A%20%7B%3A%3F%7D%22%2C%20p_i16)%3B%0A%20%20%20%20let%20p_f64%3A%20Point%3Cf64%3E%20%3D%20p_i16.map(Into%3A%3Ainto)%3B%0A%20%20%20%20println!(%22p_f64%3A%20%7B%3A%3F%7D%22%2C%20p_f64)%3B%0A%7D&amp;version=stable&amp;backtrace=0" target="_blank">Rust Playgroundへのリンク</a>)</figcaption>
-	</figure>
-	<figure>
-		<pre>p_i16: Point { x: 3, y: 4 }
+</programlisting>
+		<caption>コンパイルの通るバージョン (<link xl:href="https://play.rust-lang.org/?code=%23%5Bderive(Debug%2C%20Clone%2C%20Copy)%5D%0Astruct%20Point%3CT%3A%20Clone%20%2B%20Copy%3E%20%7B%0A%20%20%20%20pub%20x%3A%20T%2C%0A%20%20%20%20pub%20y%3A%20T%2C%0A%7D%0A%0Aimpl%3CT%3A%20Clone%20%2B%20Copy%3E%20Point%3CT%3E%20%7B%0A%20%20%20%20fn%20map%3CU%3A%20Clone%20%2B%20Copy%2C%20F%3A%20Fn(T)%20-%3E%20U%3E(self%2C%20f%3A%20F)%20-%3E%20Point%3CU%3E%20%7B%0A%20%20%20%20%20%20%20%20Point%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20x%3A%20f(self.x)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20y%3A%20f(self.y)%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%7D%0A%0Afn%20main()%20%7B%0A%20%20%20%20let%20p_i16%20%3D%20Point%3A%3A%3Ci16%3E%20%7B%0A%20%20%20%20%20%20%20%20x%3A%203%2C%0A%20%20%20%20%20%20%20%20y%3A%204%2C%0A%20%20%20%20%7D%3B%0A%20%20%20%20println!(%22p_i16%3A%20%7B%3A%3F%7D%22%2C%20p_i16)%3B%0A%20%20%20%20let%20p_f64%3A%20Point%3Cf64%3E%20%3D%20p_i16.map(Into%3A%3Ainto)%3B%0A%20%20%20%20println!(%22p_f64%3A%20%7B%3A%3F%7D%22%2C%20p_f64)%3B%0A%7D&amp;version=stable&amp;backtrace=0">Rust Playgroundへのリンク</link>)</caption>
+	</informalfigure>
+	<informalfigure xml:id="code-point-with-map-output">
+		<literallayout>p_i16: Point { x: 3, y: 4 }
 p_f64: Point { x: 3, y: 4 }
-</pre>
-		<figcaption>実行結果</figcaption>
-	</figure>
-	<p>
-		どうにかして<code>From</code>か<code>Into</code>を実装したかったが、無理そうな雰囲気があったので妥協した。<br />
-		もしかすると、オーバーロード関連の機能の具合によっては<code>From</code>などで実装できるようになるのかもしれないが、今のところstableでは使えないので、せめてstdにある<code>Option</code>や<code>Result</code>とインターフェースを合わせて実装してしまうことにした。<br />
+</literallayout>
+		<caption>実行結果</caption>
+	</informalfigure>
+	<simpara>
+		どうにかして<code>From</code>か<code>Into</code>を実装したかったが、無理そうな雰囲気があったので妥協した。
+		もしかすると、オーバーロード関連の機能の具合によっては<code>From</code>などで実装できるようになるのかもしれないが、今のところstableでは使えないので、せめてstdにある<code>Option</code>や<code>Result</code>とインターフェースを合わせて実装してしまうことにした。
 		<code>foo.map(|v| v.into())</code>よりも<code>foo.map(Into::into)</code>の方が、2文字短くなるし意図もわかりやすいというのがポイントだ。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="solution2">
-	<eh:title>追記 (2017/03/18): 解決策2</eh:title>
-	<p>
+<section xml:id="solution2">
+	<title>追記 (2017/03/18): 解決策2</title>
+	<simpara>
 		良い方法が紹介されている記事があった:
-		<a href="https://ferrisellis.com/posts/rust-implementing-units-for-types/">Math with distances in Rust: safety and correctness across units</a>
-	</p>
-	<figure>
-		<pre><code class="lang-rust language-rust" data-lang="rust">#[derive(Debug, Clone, Copy)]
+		<link xl:href="https://ferrisellis.com/posts/rust-implementing-units-for-types/">Math with distances in Rust: safety and correctness across units</link>
+	</simpara>
+	<informalfigure xml:id="code-point-with-ref-from">
+		<programlisting language="rust">#[derive(Debug, Clone, Copy)]
 struct Point&lt;T: Clone + Copy&gt; {
     pub x: T,
     pub y: T,
@@ -211,12 +215,12 @@ fn main() {
     let p_f32 = Point::&lt;f32&gt;::from(&amp;p_i16);
     println!("p_f32: {:?}", p_f32);
 }
-</code></pre>
-		<figcaption>コンパイルの通るバージョンその2 (<a href="https://play.rust-lang.org/?code=%23%5Bderive(Debug%2C%20Clone%2C%20Copy)%5D%0Astruct%20Point%3CT%3A%20Clone%20%2B%20Copy%3E%20%7B%0A%20%20%20%20pub%20x%3A%20T%2C%0A%20%20%20%20pub%20y%3A%20T%2C%0A%7D%0A%0Aimpl%3C%27a%2C%20T%2C%20U%3E%20From%3C%26%27a%20Point%3CT%3E%3E%20for%20Point%3CU%3E%0A%20%20%20%20where%20T%3A%20%27a%20%2B%20Clone%20%2B%20Copy%2C%0A%20%20%20%20%20%20%20%20%20%20U%3A%20Clone%20%2B%20Copy%20%2B%20From%3CT%3E%2C%0A%7B%0A%20%20%20%20fn%20from(o%3A%20%26%27a%20Point%3CT%3E)%20-%3E%20Self%20%7B%0A%20%20%20%20%20%20%20%20Point%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20x%3A%20o.x.into()%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20y%3A%20o.y.into()%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%7D%0A%0Afn%20main()%20%7B%0A%20%20%20%20let%20p_i16%20%3D%20Point%3A%3A%3Ci16%3E%20%7B%0A%20%20%20%20%20%20%20%20x%3A%203%2C%0A%20%20%20%20%20%20%20%20y%3A%204%2C%0A%20%20%20%20%7D%3B%0A%20%20%20%20println!(%22p_i16%3A%20%7B%3A%3F%7D%22%2C%20p_i16)%3B%0A%20%20%20%20let%20p_f64%3A%20Point%3Cf64%3E%20%3D%20(%26p_i16).into()%3B%0A%20%20%20%20println!(%22p_f64%3A%20%7B%3A%3F%7D%22%2C%20p_f64)%3B%0A%20%20%20%20let%20p_f32%20%3D%20Point%3A%3A%3Cf32%3E%3A%3Afrom(%26p_i16)%3B%0A%20%20%20%20println!(%22p_f32%3A%20%7B%3A%3F%7D%22%2C%20p_f32)%3B%0A%7D&amp;version=stable&amp;backtrace=0" target="_blank">Rust Playgroundへのリンク</a>)</figcaption>
-	</figure>
-	<p>
+</programlisting>
+		<caption>コンパイルの通るバージョンその2 (<link xl:href="https://play.rust-lang.org/?code=%23%5Bderive(Debug%2C%20Clone%2C%20Copy)%5D%0Astruct%20Point%3CT%3A%20Clone%20%2B%20Copy%3E%20%7B%0A%20%20%20%20pub%20x%3A%20T%2C%0A%20%20%20%20pub%20y%3A%20T%2C%0A%7D%0A%0Aimpl%3C%27a%2C%20T%2C%20U%3E%20From%3C%26%27a%20Point%3CT%3E%3E%20for%20Point%3CU%3E%0A%20%20%20%20where%20T%3A%20%27a%20%2B%20Clone%20%2B%20Copy%2C%0A%20%20%20%20%20%20%20%20%20%20U%3A%20Clone%20%2B%20Copy%20%2B%20From%3CT%3E%2C%0A%7B%0A%20%20%20%20fn%20from(o%3A%20%26%27a%20Point%3CT%3E)%20-%3E%20Self%20%7B%0A%20%20%20%20%20%20%20%20Point%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20x%3A%20o.x.into()%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20y%3A%20o.y.into()%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%7D%0A%0Afn%20main()%20%7B%0A%20%20%20%20let%20p_i16%20%3D%20Point%3A%3A%3Ci16%3E%20%7B%0A%20%20%20%20%20%20%20%20x%3A%203%2C%0A%20%20%20%20%20%20%20%20y%3A%204%2C%0A%20%20%20%20%7D%3B%0A%20%20%20%20println!(%22p_i16%3A%20%7B%3A%3F%7D%22%2C%20p_i16)%3B%0A%20%20%20%20let%20p_f64%3A%20Point%3Cf64%3E%20%3D%20(%26p_i16).into()%3B%0A%20%20%20%20println!(%22p_f64%3A%20%7B%3A%3F%7D%22%2C%20p_f64)%3B%0A%20%20%20%20let%20p_f32%20%3D%20Point%3A%3A%3Cf32%3E%3A%3Afrom(%26p_i16)%3B%0A%20%20%20%20println!(%22p_f32%3A%20%7B%3A%3F%7D%22%2C%20p_f32)%3B%0A%7D&amp;version=stable&amp;backtrace=0" target="_blank">Rust Playgroundへのリンク</link>)</caption>
+	</informalfigure>
+	<simpara>
 		<code>T</code> と <code>&amp;T</code> は別の型として扱われるから、これを使い分ければ core crate での reflexivity law の実装と競合しないということである。
 		参照を使う都合 move ができなくなるため、実装によっては素朴な実装より効率が悪くなるかもしれないが、こうして内部の型を変換したいという場合の多くは数値やら copy 可能な単純な型だろうから、そうした場合にはオーバーヘッドもなくユーザにとっても煩雑でない、効果的な方法であるといえるだろう。
-	</p>
-</eh:section>
-</eh:article>
+	</simpara>
+</section>
+</article>

@@ -2,7 +2,7 @@
 created_at: 2017-04-13T16:51:31+0900
 published_at: 2017-04-13T16:51:31+0900
 updated_at: 2018-05-15T11:29:00+09:00
-format: "easy-html"
+format: docbook
 title: "gnusocial や mastodon の哲学"
 tags:
   - distributed-sns
@@ -13,131 +13,134 @@ kind: article
 excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良いのか。 federated social web の思想について。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xl="http://www.w3.org/1999/xlink"
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
-	id="2017-04-13-federated-social-web"
+	xml:id="article-2017-04-13-federated-social-web"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>gnusocial や mastodon の哲学</eh:title>
-<p>
+<title>gnusocial や mastodon の哲学</title>
+<simpara>
 	Mastodon が急に話題になってきた。
 	しかし、その哲学についてはあまり理解されていないように感じる。
-</p>
-<p>
-	Mastodon や GNU Social は、単なる「ポスト twitter 」<strong>ではない</strong>。
+</simpara>
+<simpara>
+	Mastodon や GNU Social は、単なる「ポスト twitter 」<emphasis>ではない</emphasis>。
 	この記事では、 twitter の根本的な問題や、それに対する Mastodon 等の思想を解説する。
-</p>
-<p>
+</simpara>
+<simpara>
 	キーワードだけ先に書いておこう。
-</p>
-<ul>
-	<li>federation (連合)</li>
-	<li>decentralization (脱中央集権)</li>
-	<li>オープン (オープンソース、オープンな仕様)</li>
-</ul>
+</simpara>
+<itemizedlist>
+	<listitem>federation (連合)</listitem>
+	<listitem>decentralization (脱中央集権)</listitem>
+	<listitem>オープン (オープンソース、オープンな仕様)</listitem>
+</itemizedlist>
 
-<eh:section id="tl-dr">
-	<eh:title>長い文章を読みたくない人のためのまとめ</eh:title>
-	<p>
+<section xml:id="tl-dr">
+	<title>長い文章を読みたくない人のためのまとめ</title>
+	<simpara>
 		でも、できれば本文も読んでほしいです。
-	</p>
-	<ul>
-		<li>
-			Mastodon や GNU Social などでは、どこか<strong>信頼できる運営者のインスタンス(サーバ)にひとつアカウントを作って</strong>、そこから他のインスタンスのアカウントをフォローすることができます。
+	</simpara>
+	<itemizedlist>
+		<listitem>
+			Mastodon や GNU Social などでは、どこか<emphasis>信頼できる運営者のインスタンス(サーバ)にひとつアカウントを作って</emphasis>、そこから他のインスタンスのアカウントをフォローすることができます。
 			(インスタンスはグループのような意味を持つものではなく、単に自分の情報がどこで管理されるかを決めるものにすぎません。)
 			無理して複数のインスタンスにアカウントを取る必要はありません。
-			<ul>
-				<li>
-					<strong>自分用のインスタンス(サーバ)を立てて</strong>そこに自分のアカウントを作るのが、一番安心かも。
+			<itemizedlist>
+				<listitem>
+					<emphasis>自分用のインスタンス(サーバ)を立てて</emphasis>そこに自分のアカウントを作るのが、一番安心かも。
 					これならインスタンス管理者による情報の悪用等を心配する必要もありません。
-				</li>
-				<li>
-					個人の(自分の)インスタンスで<strong>他人の登録を受け付ける必要はありません</strong>。
+				</listitem>
+				<listitem>
+					個人の(自分の)インスタンスで<emphasis>他人の登録を受け付ける必要はありません</emphasis>。
 					自分のアカウントだけ置いて使うことができます。
-				</li>
-			</ul>
-		</li>
-		<li>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
 			Mastodon や GNU Social では、自分のサーバ (VPS 、自宅サーバ、 etc...) にサービスを立てることができます。
-		</li>
-		<li>
-			Mastodon や GNU Social などが重視しているのは、<strong>ユーザの自由</strong>です。
+		</listitem>
+		<listitem>
+			Mastodon や GNU Social などが重視しているのは、<emphasis>ユーザの自由</emphasis>です。
 			これが twitter 等との大きな違いです。
-		</li>
-		<li>
-			IRC に似ていますが、大きな違いとしては <strong>notice がすべてサーバに保存されること</strong>です。
-			IRC はクライアント(や proxy) にしかログが残りませんが、 GNU Social や Mastodon は<strong>マイクロブログサービス</strong>なので、サーバ側にデータを保存する仕組みになっています。
-		</li>
-		<li>
-			その他の疑問については<eh:xref linkend="faq" />を参照してください。
-		</li>
-	</ul>
-</eh:section>
+		</listitem>
+		<listitem>
+			IRC に似ていますが、大きな違いとしては <emphasis>notice がすべてサーバに保存されること</emphasis>です。
+			IRC はクライアント(や proxy) にしかログが残りませんが、 GNU Social や Mastodon は<emphasis>マイクロブログサービス</emphasis>なので、サーバ側にデータを保存する仕組みになっています。
+		</listitem>
+		<listitem>
+			その他の疑問については<xref linkend="faq" />を参照してください。
+		</listitem>
+	</itemizedlist>
+</section>
 
-<eh:section id="twitters-issues">
-	<eh:title>twitter の問題</eh:title>
-	<p>
+<section xml:id="twitters-issues">
+	<title>twitter の問題</title>
+	<simpara>
 		twitter には、以下のような問題がある。
-	</p>
-	<ul>
-		<li>
+	</simpara>
+	<itemizedlist>
+		<listitem>
 			twitter が落ちるとみんな死ぬ
-			<ul>
-				<li>仕組みからして仕方ないけど、そうは言っても致命的</li>
-			</ul>
-		</li>
-		<li>
+			<itemizedlist>
+				<listitem>仕組みからして仕方ないけど、そうは言っても致命的</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
 			ツイートのデータが(基本的に) twitter 社のサーバにしか残らない
-			<ul>
-				<li>
+			<itemizedlist>
+				<listitem>
 					外部サービスでの保存や自分のツイートのダウンロードはできるが、「昔TLに流れてきたはずのあのツイートが見付からない」という事例には無力
-				</li>
-			</ul>
-		</li>
-		<li>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
 			悪意ある第三者により、アカウントの凍結やツイートの削除の強制などの制限や弾圧を受けることがある
-			<ul>
-				<li>えっちな絵を書く人たちが「ツイレディ」と呼ばれる過激派にスパム報告されまくって凍結される事例とか</li>
-				<li>違法ではないはずの画像の投稿でも規約違反扱いされたり</li>
-				<li>運営者による検閲や規制があったら、避ける手段は存在しない</li>
-			</ul>
-		</li>
-		<li>
+			<itemizedlist>
+				<listitem>えっちな絵を書く人たちが「ツイレディ」と呼ばれる過激派にスパム報告されまくって凍結される事例とか</listitem>
+				<listitem>違法ではないはずの画像の投稿でも規約違反扱いされたり</listitem>
+				<listitem>運営者による検閲や規制があったら、避ける手段は存在しない</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
 			仕様が twitter 社の一存で決まる
-			<ul>
-				<li>ユーザの意見は(おそらく、普通は)取り入れられない</li>
-				<li>開発者は黙って追従するしかない</li>
-				<li>なんならサードパーティのクライアント開発者を締め出したりもする</li>
-			</ul>
-		</li>
-		<li>
+			<itemizedlist>
+				<listitem>ユーザの意見は(おそらく、普通は)取り入れられない</listitem>
+				<listitem>開発者は黙って追従するしかない</listitem>
+				<listitem>なんならサードパーティのクライアント開発者を締め出したりもする</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
 			仕様のみならず、実装(ソースコード)も公開されない
-			<ul>
-				<li>会社なので仕方ないところもあるが、そうはいってもプロプライエタリ</li>
-				<li>たとえば公式の twitter に問題があったとき、ユーザが修正する手段はない</li>
-				<li>無論改造もできない</li>
-			</ul>
-		</li>
-	</ul>
-	<p>
-		これらの問題は、つまるところマイクロブロギングサービスが<strong>twitter という単一のサービスに依存している</strong>ところに原因がある。
+			<itemizedlist>
+				<listitem>会社なので仕方ないところもあるが、そうはいってもプロプライエタリ</listitem>
+				<listitem>たとえば公式の twitter に問題があったとき、ユーザが修正する手段はない</listitem>
+				<listitem>無論改造もできない</listitem>
+			</itemizedlist>
+		</listitem>
+	</itemizedlist>
+	<simpara>
+		これらの問題は、つまるところマイクロブロギングサービスが<emphasis>twitter という単一のサービスに依存している</emphasis>ところに原因がある。
 		プラットフォームを単一の運営者が管理していて(中央集権)、逆らえないため、自由が制限されているのである。
-		そういった自由を SNS のユーザが取り戻すための思想が、 <strong>federated social web</strong> だ。
-	</p>
-</eh:section>
+		そういった自由を SNS のユーザが取り戻すための思想が、 <emphasis>federated social web</emphasis> だ。
+	</simpara>
+</section>
 
-<eh:section id="how-federated-social-web-solve-the-problems">
-	<eh:title>Federated social web はどう問題を解決するか</eh:title>
-	<p>
+<section xml:id="how-federated-social-web-solve-the-problems">
+	<title>Federated social web はどう問題を解決するか</title>
+	<simpara>
 		federation とは「連合」である。
 		federated social web
-		<eh:footnote id="footnote-federated-social-web">federated social network, distributed social network 等いろいろな呼び方があるが、結局は同じ思想である</eh:footnote>
+		<footnote xml:id="footnote-federated-social-web" refmark-id="ref-footnote-federated-social-web">federated social network, distributed social network 等いろいろな呼び方があるが、結局は同じ思想である</footnote>
 		とは、 SNS のサーバを各々が持ったり複数用意することで不要な制約を受けないようにし、それでいてサーバ間で連携することで巨大なひとつの SNS として利用できるようにするという思想であり、またその思想が目指すネットワークサービスのことである。
-	</p>
-	<p>
+	</simpara>
+	<simpara>
 		この思想は、先に挙げた twitter の問題を以下のように解決する。
-	</p>
+	</simpara>
 	<table class="visual">
 		<thead>
 			<tr>
@@ -153,13 +156,13 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			<tr>
 				<td>ツイートが twitter のサーバにしか残らない</td>
 				<td>
-					<p>
+					<simpara>
 						notice (ツイート相当の情報)は、受信者のアカウントのあるサーバ全てで複製して保存される。
 						発信者のサーバが死んでも、受信者のサーバには情報が残るので、リンクが切れて参照が潰れることは避けられる。
-					</p>
-					<p>
+					</simpara>
+					<simpara>
 						自分の notice だけでなく、自分の TL に流れてきたすべての notice が、受信者のサーバに保存される。
-					</p>
+					</simpara>
 				</td>
 			</tr>
 			<tr>
@@ -167,16 +170,16 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 					悪意ある第三者により、アカウントの凍結やツイートの削除の強制などの制限や弾圧を受けることがある
 				</td>
 				<td>
-					<p>
+					<simpara>
 						サーバの運営者のポリシーによる。
 						たとえば政治的な主張を発信するなら、政治的な主張を弾圧しないようなインスタンス(サーバ)でアカウントを用意すればいい。
 						えっちな画像を投稿したければ、そういった画像に対して理解があり過剰に反応しない運営者のサーバにアカウントを用意すればいい。
-					</p>
-					<p>
+					</simpara>
+					<simpara>
 						他人を完全に信用しなくとも、自分でインスタンスを運営し、自分でそこにアカウントを作ることもできる。
 						これなら、検閲や BAN もない。
 						自分のアカウント専用のインスタンスにしてしまえば、他人が法的にヤバい書き込みをして云々という問題も避けやすくなるし、問題がある投稿を自分でサーバから消すこともできる。
-					</p>
+					</simpara>
 				</td>
 			</tr>
 			<tr>
@@ -189,211 +192,229 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			<tr>
 				<td>仕様のみならず、実装(ソースコード)も公開されない</td>
 				<td>
-					<p>
+					<simpara>
 						オープンソースである。
 						実装の詳細も公開されるし、もし不満があれば改造して使ったりすることもできる。
-					</p>
-					<p>
+					</simpara>
+					<simpara>
 						プラグイン等の機能もある場合があり、 twitter 連携などいろいろな機能の追加もできる。
-					</p>
+					</simpara>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-</eh:section>
+</section>
 
-<eh:section id="what-is-gnusocial-and-mastodon">
-	<eh:title>GNU Social とは、 Mastodon とは何か</eh:title>
-	<p>
-		<strong>GNU Social</strong> や <strong>Mastodon</strong> は、 OStatus や ActivityPub などのプロトコル(通信やデータの規格)を実装した、 federated social web のための web サービス、またそのためのアプリケーションである。
-	</p>
-	<p>
+<section xml:id="what-is-gnusocial-and-mastodon">
+	<title>GNU Social とは、 Mastodon とは何か</title>
+	<simpara>
+		<emphasis>GNU Social</emphasis> や <emphasis>Mastodon</emphasis> は、 OStatus や ActivityPub などのプロトコル(通信やデータの規格)を実装した、 federated social web のための web サービス、またそのためのアプリケーションである。
+	</simpara>
+	<simpara>
 		OStatus や ActivityPub はオープンな(公開された)仕様であり、 twitter のように運営者の一存で仕様が変化したりはせず、また隠された仕様なども存在しない。
 		よって、これらのプロトコルを実装したアプリケーションは誰でも開発することができる。
-	</p>
-	<p>
-		Mastodon は <a href="https://github.com/tootsuite/mastodon"><q lang="en">A GNU Social-compatible microblogging server</q> と説明されている</a><eh:footnote id="footnote-mastodon-project-description">
-			2017-04-13 時点の文章。 <time datetime="2018-03-27T22:28:46+09:00">2018-03-27</time> 時点では <q lang="en">Your self-hosted, globally interconnected microblogging community</q> という説明になっている。
-		</eh:footnote>が、つまりこれは OStatus を実装しているということである。
+	</simpara>
+	<simpara>
+		Mastodon は <link xl:href="https://github.com/tootsuite/mastodon"><quote xml:lang="en">A GNU Social-compatible microblogging server</quote> と説明されている</link><footnote xml:id="footnote-mastodon-project-description" refmark-id="ref-footnote-mastodon-project-description">
+			2017-04-13 時点の文章。 <h:time datetime="2018-03-27T22:28:46+09:00">2018-03-27</h:time> 時点では <quote xml:lang="en">Your self-hosted, globally interconnected microblogging community</quote> という説明になっている。
+		</footnote>が、つまりこれは OStatus を実装しているということである。
 		ただそれだけであるが、つまり公開された仕様によっているということなので、全く別で開発された互換サービスと連携できる。
-	</p>
-	<aside class="note">
-		<eh:title>ActivityPub と OStatus (<time datetime="2018-03-27T22:28:46+09:00">2018-03-27</time> 追記)</eh:title>
-		<p>
+	</simpara>
+	<note>
+		<title>ActivityPub と OStatus (<h:time datetime="2018-03-27T22:28:46+09:00">2018-03-27</h:time> 追記)</title>
+		<simpara>
 			OStatus は古くからある規格だが、正式なリリースになっていない(ドラフトの)規格などに依存していたり、更新が滞っていたりなどしており、健全にメンテナンスされているとは言い難い。
-			ActivityPub は後発の規格だが W3C によって策定されており、 <time datetime="2018-01-23">2018-01-23</time> には勧告 (Recommendation) となった(つまり正式に規格として策定されたといえる状態になった)。
-		</p>
-		<p>
+			ActivityPub は後発の規格だが W3C によって策定されており、 <h:time datetime="2018-01-23">2018-01-23</h:time> には勧告 (Recommendation) となった(つまり正式に規格として策定されたといえる状態になった)。
+		</simpara>
+		<simpara>
 			GNU Social は古くからあり OStatus に対応しているが、 ActivityPub への対応は十分ではない。
 			Mastodon は後発だけあり、 OStatus と ActivityPub 両方に対応しており、適宜望ましい方が使われるようになっている。
-		</p>
-	</aside>
+		</simpara>
+	</note>
 
-	<eh:section id="federation">
-		<eh:title>連合を作る</eh:title>
-		<p>
+	<section xml:id="federation">
+		<title>連合を作る</title>
+		<simpara>
 			GNU Social 互換サービスを運用しているインスタンス(サーバ)には、たとえば有名な(というか私が知っている)ところでは、以下のようなものがある。
-		</p>
-		<ul>
-			<li><a href="https://freezepeach.xyz/">freezepeach.xyz</a> (言論の自由を大切にしてるのかな？ 児ポの投稿禁止が唯一のルールやでと書いてある)</li>
-			<li><a href="https://gs.smuglo.li/">gs.smuglo.li</a> (えっちな絵とかよく流れてるので注意。たぶん運営者がえっちなイラストに理解がある。とはいえ法律は守りましょう)</li>
-			<li><a href="https://social.pzn.lgbt/">social.pzn.lgbt</a> (LGBTPZN について議論してたりする人たちの集まっているインスタンス。ぶっちゃけ私もよく知らない。詳細は <a href="http://lgbtpzn.tk/">LGBTPZNポータル</a> を参照)</li>
-			<li><a href="https://quitter.se/">quitter.se</a> (twitter から逃げてきた人たちが集まったインスタンスらしい)</li>
-			<li><a href="https://mstdn.jp/">mstdn.jp</a></li>
-			<li><a href="https://mstdn.io/">mstdn.io</a></li>
-			<li><a href="https://mastodon.cloud/">mastodon.cloud</a></li>
-		</ul>
-		<p>
+		</simpara>
+		<itemizedlist>
+			<listitem><link xl:href="https://freezepeach.xyz/">freezepeach.xyz</link> (言論の自由を大切にしてるのかな？ 児ポの投稿禁止が唯一のルールやでと書いてある)</listitem>
+			<listitem><link xl:href="https://gs.smuglo.li/">gs.smuglo.li</link> (えっちな絵とかよく流れてるので注意。たぶん運営者がえっちなイラストに理解がある。とはいえ法律は守りましょう)</listitem>
+			<listitem><link xl:href="https://social.pzn.lgbt/">social.pzn.lgbt</link> (LGBTPZN について議論してたりする人たちの集まっているインスタンス。ぶっちゃけ私もよく知らない。詳細は <link xl:href="http://lgbtpzn.tk/">LGBTPZNポータル</link> を参照)</listitem>
+			<listitem><link xl:href="https://quitter.se/">quitter.se</link> (twitter から逃げてきた人たちが集まったインスタンスらしい)</listitem>
+			<listitem><link xl:href="https://mstdn.jp/">mstdn.jp</link></listitem>
+			<listitem><link xl:href="https://mstdn.io/">mstdn.io</link></listitem>
+			<listitem><link xl:href="https://mastodon.cloud/">mastodon.cloud</link></listitem>
+		</itemizedlist>
+		<simpara>
 			複数のインスタンスがあるが、問題ない。
 			フォローしたいアカウントのページを開き、「リモートフォロー」などのボタンを押せば、自分の居るのとは別のインスタンスのアカウントもフォローできる。
 			実際、私は自分のサーバに立てたインスタンスの
-			<a href="https://gnusocial.cardina1.red/lo48576/">gnusocial.cardina1.red</a><eh:footnote id="footnote-inactive-account">
-				2018-03-06 現在、 <a href="https://mastodon.cardina1.red">Mastodon</a> をメインで使っているので GNU Social のこのアカウントは使用していない。
-			</eh:footnote>にアカウントを持っているが、そこから他のインスタンス(上に挙げたようなもの)のアカウントもフォローしている。
-		</p>
-		<p>
+			<link xl:href="https://gnusocial.cardina1.red/lo48576/">gnusocial.cardina1.red</link><footnote xml:id="footnote-inactive-account" refmark-id="ref-footnote-inactive-account">
+				2018-03-06 現在、 <link xl:href="https://mastodon.cardina1.red">Mastodon</link> をメインで使っているので GNU Social のこのアカウントは使用していない。
+			</footnote>にアカウントを持っているが、そこから他のインスタンス(上に挙げたようなもの)のアカウントもフォローしている。
+		</simpara>
+		<simpara>
 			このように、よく知らない誰かでなく、信頼できる人や組織(自分でもいい)の運用するインスタンスに居ることで、中央集権された自由のないサービスから解放されようというのが、 GNU Social や Mastodon が twitter と本質的に違うところである。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="articles">
-	<eh:title>巷の記事、紹介</eh:title>
+<section xml:id="articles">
+	<title>巷の記事、紹介</title>
 
-	<eh:section id="misunderstanding">
-		<eh:title>誤解や不理解</eh:title>
-		<p>
-			最近急に話題になった Mastodon だが、 ASCII.jp の記事「<a href="http://ascii.jp/elem/000/001/465/1465842/">ASCII.jp：Twitterのライバル？　実は、新しい「マストドン」（Mastodon）とは！｜遠藤諭のプログラミング＋日記</a>」はどうにも Mastodon の思想がよく理解されないまま書かれているように感じる。
-		</p>
-		<p>
+	<section xml:id="misunderstanding">
+		<title>誤解や不理解</title>
+		<simpara>
+			最近急に話題になった Mastodon だが、 ASCII.jp の記事「<link xl:href="http://ascii.jp/elem/000/001/465/1465842/">ASCII.jp：Twitterのライバル？　実は、新しい「マストドン」（Mastodon）とは！｜遠藤諭のプログラミング＋日記</link>」はどうにも Mastodon の思想がよく理解されないまま書かれているように感じる。
+		</simpara>
+		<simpara>
 			たとえば、以下のような記述があった。
-		</p>
-		<blockquote cite="https://ascii.jp/elem/000/001/465/1465842/">
+		</simpara>
+		<h:blockquote cite="https://ascii.jp/elem/000/001/465/1465842/">
 			Twitterは、どこまでもだだっ広くて、なんの垣根もない草原のような感じだった。
 			それに対して、Mastodonは、土地に根差して活動しやすくなっている。
 			ちょうど、なんの制約もなく空を飛んでつぶやいているTweet（さえずる）と、集団をつくってはToot（吠える）の違いだろうか？
-		</blockquote>
-		<p>
+		</h:blockquote>
+		<simpara>
 			Mastodon は、それぞれが自身や同志のためのインスタンスを立てやすい
-			<eh:footnote id="footnote-owning-instance">これは federation を進めるために必要なことであり、実際 docker 等で楽にインスタンスを立てる手段が用意されている</eh:footnote>
+			<footnote xml:id="footnote-owning-instance" refmark-id="ref-footnote-owning-instance">これは federation を進めるために必要なことであり、実際 docker 等で楽にインスタンスを立てる手段が用意されている</footnote>
 			というのは事実だが、「土地に根差して活動しやすく〜」っというのは見方が偏っている。
 			似た人々が集まるのは、自分たちに理解のある運営者のインスタンスに集まることが自分たちの自由のために重要だからであって、フォロー関係がインスタンスを跨げる以上、同じ趣味の人々が同じインスタンスに集まることはあまり意味がない。
-		</p>
-		<blockquote cite="https://ascii.jp/elem/000/001/465/1465842/">
+		</simpara>
+		<h:blockquote cite="https://ascii.jp/elem/000/001/465/1465842/">
 			たとえば、 Twitter にあてはめたらトランプ陣営と非トランプ陣営で真っ二つのインスタンスの連邦ができそうである。
-		</blockquote>
-		<p>
+		</h:blockquote>
+		<simpara>
 			中央集権的なサービスの問題は、「トランプ陣営」だとか「非トランプ陣営」などといった政治的主張や思想などが(スパブロ攻撃等で)弾圧され、言論の自由が奪われかねないことにある。
 			Federated social web 流の考えかたであれば、政治的主張が弾圧されず積極的に議論ができるような、つまり「政治的な主張や議論を積極的に交わせるインスタンス」が立つだろう。
 			(無論、陣営ごとにインスタンスが立つこともあるかもしれないが、内々に篭って外と隔絶するようなやりかたは、 federation を真っ向から否定するものであるし、 GNU Social や Mastodon の目指すところの反対である。)
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			そもそもこの記事では decentralization (脱中央集権)の考え方に触れておらず、あまりに表面的な紹介である。
 			繰り返し言うが、 Mastodon は単なる twitter クローンやちょっと良くなった代替などではない。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="itmedia-article">
-		<eh:title>ITmedia の記事は良い</eh:title>
-		<p>
-			ITmedia NEWSの記事「<a href="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">ポストTwitter？　急速に流行中「マストドン」とは - ITmedia NEWS</a>」は良い記事であるといえるだろう。
-		</p>
-		<blockquote cite="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">
+	<section xml:id="itmedia-article">
+		<title>ITmedia の記事は良い</title>
+		<simpara>
+			ITmedia NEWSの記事「<link xl:href="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">ポストTwitter？　急速に流行中「マストドン」とは - ITmedia NEWS</link>」は良い記事であるといえるだろう。
+		</simpara>
+		<h:blockquote cite="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">
 			Twitterとの大きな違いは、サイトが1つではなく複数に分散していることだ。
-		</blockquote>
-		<blockquote cite="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">
+		</h:blockquote>
+		<h:blockquote cite="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">
 			Rochkoさんは「Mastodonは分散化したプラットフォームであり、コミュニケーションが単一の企業に独占されるリスクを避けられる」と説明。
 			Twitterの弱点をカバーする“ポストTwitter”を意識して制作したようだ。
-		</blockquote>
-		<p>
+		</h:blockquote>
+		<simpara>
 			その通りである。
 			Mastodon (や互換サービス)の目指すところは、脱中央集権と federation (連合)による分散プラットフォームである。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="netlab-article">
-		<eh:title>ねとらぼの記事も良い感じ</eh:title>
-		<p>
-			ねとらぼも記事を書いている: 「<a href="http://nlab.itmedia.co.jp/nl/articles/1704/13/news160.html">ポストTwitter有力候補？　500文字まで書き込めるオープンソースSNS「マストドン」が脚光浴びる - ねとらぼ</a>」。
-		</p>
-		<blockquote cite="http://nlab.itmedia.co.jp/nl/articles/1704/13/news160.html">
+	<section xml:id="netlab-article">
+		<title>ねとらぼの記事も良い感じ</title>
+		<simpara>
+			ねとらぼも記事を書いている: 「<link xl:href="http://nlab.itmedia.co.jp/nl/articles/1704/13/news160.html">ポストTwitter有力候補？　500文字まで書き込めるオープンソースSNS「マストドン」が脚光浴びる - ねとらぼ</link>」。
+		</simpara>
+		<h:blockquote cite="http://nlab.itmedia.co.jp/nl/articles/1704/13/news160.html">
 			「分散型」をうたうマストドンでは、誰でもサーバ（インスタンス）を立ち上げることができ、どこか1つにトラブルがあっても、他のインスタンスが生きていればサービスを継続することが可能となっています。
 			また、運営会社の倒産により突然のサービス終了……といった事態も避けられます。
-		</blockquote>
-		<blockquote cite="http://nlab.itmedia.co.jp/nl/articles/1704/13/news160.html">
+		</h:blockquote>
+		<h:blockquote cite="http://nlab.itmedia.co.jp/nl/articles/1704/13/news160.html">
 			ちなみに最初にどのインスタンスで始めても、ちゃんと世界中のユーザーとつながることができるのでご安心を。
-		</blockquote>
+		</h:blockquote>
 
-		<aside class="note">
-			<eh:title>世界中のユーザと繋がれないインスタンス (<time datetime="2018-05-15T11:23:03+09:00">2018-05-15</time> 追記)</eh:title>
+		<note>
+			<title>世界中のユーザと繋がれないインスタンス (<h:time datetime="2018-05-15T11:23:03+09:00">2018-05-15</h:time> 追記)</title>
 
-			<p>
-				法律やサーバ管理ポリシーの違いなどもあり、特定のインスタンスの投稿の流入やリモートフォローなどを禁止していたり、場合によっては外部の全てのサーバとの接続を遮断していたりするインスタンスも存在する(した)<eh:footnote id="footnote-isolated-instances">
+			<simpara>
+				法律やサーバ管理ポリシーの違いなどもあり、特定のインスタンスの投稿の流入やリモートフォローなどを禁止していたり、場合によっては外部の全てのサーバとの接続を遮断していたりするインスタンスも存在する(した)<footnote xml:id="footnote-isolated-instances" refmark-id="ref-footnote-isolated-instances">
 					インターネットや fediverse の海で他の島(インスタンス)との交流を断つその姿から、そういったインスタンスは俗に「鎖国鯖」「鎖国インスタンス」などと呼ばれる
-				</eh:footnote>。
+				</footnote>。
 				そのため、「どのインスタンスで始めても、ちゃんと世界中のユーザーとつながることができる」というのは、厳密には正しくない状況である。
-			</p>
-			<p>
+			</simpara>
+			<simpara>
 				もしもそれが不安であったり不満なのであれば、インスタンス管理者がそういった遮断を行わないと明言しているインスタンスに登録するか、自分専用のインスタンスを用意するべきだろう。
-			</p>
-		</aside>
-	</eh:section>
-</eh:section>
+			</simpara>
+		</note>
+	</section>
+</section>
 
-<eh:section id="implementations">
-	<eh:title>その他の実装など</eh:title>
-	<eh:section id="implementations--gnusocial-compatible">
-		<eh:title>GNU Social と互換</eh:title>
-		<p>
+<section xml:id="implementations">
+	<title>その他の実装など</title>
+	<section xml:id="implementations--gnusocial-compatible">
+		<title>GNU Social と互換</title>
+		<simpara>
 			要するに OStatus を実装しているもの。
 			Mastodon は "GNU Social-compatible" であるが、このような実装はいくつか存在する。
-		</p>
-		<dl>
-			<dt><a href="https://www.gnu.org/software/social/">GNU Social</a></dt>
-			<dd>
-				GNU が開発している本家。
-				プラグインでの拡張(たとえば twitter 連携など)ができる。
-				リポジトリは <a href="https://git.gnu.io/gnu/gnu-social">git.gnu.io</a> 。
-			</dd>
-			<dt><a href="https://mastodon.social/about">Mastodon</a></dt>
-			<dd>
-				最近話題になっている実装。
-				TweetDeck 風の UI が特徴？
-				新しい実装なので、内部も結構洗練されてるのではないかと思う。
-				リポジトリは <a href="https://github.com/tootsuite/mastodon">GitHub</a> 。
-			</dd>
-			<dt><a href="https://joindiaspora.com/">Diaspora</a></dt>
-			<dd>
-				名前しか知らない。
-				リポジトリは <a href="https://github.com/diaspora/diaspora">GitHub</a> 。
-			</dd>
-		</dl>
-	</eh:section>
+		</simpara>
+		<variablelist>
+			<varlistentry>
+				<term><link xl:href="https://www.gnu.org/software/social/">GNU Social</link></term>
+				<listitem>
+					<simpara>
+						GNU が開発している本家。
+						プラグインでの拡張(たとえば twitter 連携など)ができる。
+						リポジトリは <link xl:href="https://git.gnu.io/gnu/gnu-social">git.gnu.io</link> 。
+					</simpara>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><link xl:href="https://mastodon.social/about">Mastodon</link></term>
+				<listitem>
+					<simpara>
+						最近話題になっている実装。
+						TweetDeck 風の UI が特徴？
+						新しい実装なので、内部も結構洗練されてるのではないかと思う。
+						リポジトリは <link xl:href="https://github.com/tootsuite/mastodon">GitHub</link> 。
+					</simpara>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><link xl:href="https://joindiaspora.com/">Diaspora</link></term>
+				<listitem>
+					<simpara>
+						名前しか知らない。
+						リポジトリは <link xl:href="https://github.com/diaspora/diaspora">GitHub</link> 。
+					</simpara>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
 
-	<eh:section id="implementations--gnusocial-incompatible">
-		<eh:title>GNU Social と非互換</eh:title>
-		<p>
+	<section xml:id="implementations--gnusocial-incompatible">
+		<title>GNU Social と非互換</title>
+		<simpara>
 			OStatus (や ActivityPub) とは違うプロトコルで実装されているが、やはり federated social web を目指して作られたサービスやソフトウェアもある。
-		</p>
-		<dl>
-			<dt><a href="https://matrix.org/">matrix</a></dt>
-			<dd>
-				こちらはプロトコルが新規に設計されており、 OStatus より洗練されている。
-				(とはいえ、それをライトユーザが実感するかは別の話だが。)
-				json ベースの通信や、ビデオチャット等との統合、人間のユーザ以外の IoT デバイスからの利用等も見据えた拡張性の高くシンプルな仕様など、純粋なマイクロブログサービスとは多少目標が異なっている。
-				リポジトリは <a href="https://github.com/matrix-org/synapse">GitHub</a> 。
-				(個人的には、リファレンス実装 (synapse) が Python2 なのがちょっと悲しい。)
-			</dd>
-		</dl>
-	</eh:section>
-</eh:section>
+		</simpara>
+		<variablelist>
+			<varlistentry>
+				<term><link xl:href="https://matrix.org/">matrix</link></term>
+				<listitem>
+					<simpara>
+						こちらはプロトコルが新規に設計されており、 OStatus より洗練されている。
+						(とはいえ、それをライトユーザが実感するかは別の話だが。)
+						json ベースの通信や、ビデオチャット等との統合、人間のユーザ以外の IoT デバイスからの利用等も見据えた拡張性の高くシンプルな仕様など、純粋なマイクロブログサービスとは多少目標が異なっている。
+					</simpara>
+					<simpara>
+						リポジトリは <link xl:href="https://github.com/matrix-org/synapse">GitHub</link> 。
+						(個人的には、リファレンス実装 (synapse) が Python2 なのがちょっと悲しい。)
+					</simpara>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+</section>
 
-<eh:section id="terms-differences">
-	<eh:title>おまけ: 言葉の違い</eh:title>
-	<p>
+<section xml:id="terms-differences">
+	<title>おまけ: 言葉の違い</title>
+	<simpara>
 		同じプロトコル (OStatus) を使っているのに、何故かサービス毎に使っている用語が違ったりするので、比較表を載せておきます。
-	</p>
-	<table class="visual">
+	</simpara>
+	<table>
 		<thead>
 			<tr>
 				<th>twitter</th>
@@ -423,9 +444,9 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			</tr>
 		</tbody>
 	</table>
-	<p>
+	<simpara>
 		なんだかなぁ。
-	</p>
+	</simpara>
 	<snsq:sns-quote url="https://js4.in/alttw/notice/5192">
 		<snsq:identity url="https://js4.in/alttw/obsoletestandard">
 			<snsq:icon src="https://js4.in/alttw/avatar/8-96-20170110112521.png" />
@@ -438,247 +459,198 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 			<snsq:reftime datetime="2017-04-13T16:51:31+0900">2017-04-13</snsq:reftime>
 		</snsq:meta>
 		<snsq:content>
-			<p>
+			<simpara>
 				Qvitterの何が嫌かって、例えば投稿された物を元々"notice"だった奴を"quip"というような、インフラに乗っかっておいてその文化を分断しに行く姿勢が嫌い
-			</p>
+			</simpara>
 		</snsq:content>
 	</snsq:sns-quote>
-</eh:section>
+</section>
 
-<eh:section id="setting-up-a-new-instance">
-	<eh:title>おまけ: 自前のサーバにインスタンスを立てるなら</eh:title>
-	<ul>
-		<li>
+<section xml:id="setting-up-a-new-instance">
+	<title>おまけ: 自前のサーバにインスタンスを立てるなら</title>
+	<itemizedlist>
+		<listitem>
 			楽したい人には Mastodon の方がおすすめ。
-		</li>
-		<li>
+		</listitem>
+		<listitem>
 			ユーザの登録機能は無効化した方が良い。
 			個人で見ず知らずの他人の投稿に責任を持ち管理するのは流石に面倒すぎる。
-		</li>
-	</ul>
+		</listitem>
+	</itemizedlist>
 
-	<eh:section id="installing-gnu-social-is-a-bit-hard">
-		<eh:title>GNU Social のインストールはちょっと難しい</eh:title>
-		<p>
+	<section xml:id="installing-gnu-social-is-a-bit-hard">
+		<title>GNU Social のインストールはちょっと難しい</title>
+		<simpara>
 			GNU Social は、公式では以下のようなインストール手段が用意されている。
-		</p>
-		<ul>
-			<li><a href="https://git.gnu.io/gnu/gnu-social/blob/1.2.x/INSTALL#L77">アーカイブをダウンロードして展開する (INSTALL ファイル)</a></li>
-			<li><a href="https://git.gnu.io/gnu/gnu-social/tree/1.2.x#unstable-version">git で引っ張ってくる</a></li>
-		</ul>
-		<p>
+		</simpara>
+		<itemizedlist>
+			<listitem><link xl:href="https://git.gnu.io/gnu/gnu-social/blob/1.2.x/INSTALL#L77">アーカイブをダウンロードして展開する (INSTALL ファイル)</link></listitem>
+			<listitem><link xl:href="https://git.gnu.io/gnu/gnu-social/tree/1.2.x#unstable-version">git で引っ張ってくる</link></listitem>
+		</itemizedlist>
+		<simpara>
 			公式の docker ファイル等は用意されていないため、手動でメンテナンスするか、自前で書くことになる。
 			プラグインでの拡張も、アーカイブを展開するか git を使うことで管理する。
-		</p>
-		<p>
-			ちなみに私の場合、 <code class="filepath">Dockerfile</code> と <code class="filepath">docker-compose.yaml</code> とシェルスクリプトを書いて、コンテナ化と自動更新を行うようにしている。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
+			ちなみに私の場合、 <filename>Dockerfile</filename> と <filename>docker-compose.yaml</filename> とシェルスクリプトを書いて、コンテナ化と自動更新を行うようにしている。
+		</simpara>
+		<simpara>
 			そこそこ面倒で、最低でもサーバに環境を構築しシェルスクリプトを書いたりコマンドを叩くくらいの知識は必要である。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="installing-mastodon-looks-easy">
-		<eh:title>Mastodon のインストールは簡単そう</eh:title>
-		<p>
-			Mastodon では、<a href="https://github.com/tootsuite/mastodon/tree/v1.1.2#running-with-docker-and-docker-compose">公式に docker や docker-compose を使う方法が用意されている</a> ので、 GNU Social に比べればかなり楽そうである。
-		</p>
-		<p>
+	<section xml:id="installing-mastodon-looks-easy">
+		<title>Mastodon のインストールは簡単そう</title>
+		<simpara>
+			Mastodon では、<link xl:href="https://github.com/tootsuite/mastodon/tree/v1.1.2#running-with-docker-and-docker-compose">公式に docker や docker-compose を使う方法が用意されている</link> ので、 GNU Social に比べればかなり楽そうである。
+		</simpara>
+		<simpara>
 			今からインストールをすることをおすすめするなら、 Mastodon の方だろう。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="see-also">
-	<eh:title>参考になりそうなリンク</eh:title>
-	<dl>
-		<dt><a href="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">ポストTwitter？　急速に流行中「マストドン」とは - ITmedia NEWS</a></dt>
-		<dt><a href="http://nlab.itmedia.co.jp/nl/articles/1704/13/news160.html">ポストTwitter有力候補？　500文字まで書き込めるオープンソースSNS「マストドン」が脚光浴びる - ねとらぼ</a></dt>
-		<dd>
-			Mastodon の紹介記事。
-		</dd>
-		<dt><a href="https://isid.ai/diary/2017/04/14/1179/">Mastodon は自分のドメインでIDを持つことが大事。「リモートフォロー」の価値を最大化するべし。 ｜ 諸多日記</a></dt>
-		<dd>
-			個人や所属組織でインスタンスを立てるのが良いのだという話。
-		</dd>
-		<dt><a href="https://blog.potproject.net/archives/977">小規模Mastodonインスタンスを運用するコツ – potproject.net blog</a></dt>
-		<dd>
-			個人用レベルの小規模インスタンスを運用するとどんな様子なのか紹介されている。
-		</dd>
-		<dt><a href="http://tanaka.sakura.ad.jp/2017/04/mastodon-north-korea-internet.html">マストドンと北朝鮮危機にみるインターネットの本質的価値 - さくらインターネット創業日記</a></dt>
-		<dd>
-			<p>
-				さくらインターネットの創業者の記事。
-				web サービスだけでなく、そもそもインターネット自体が分散と連携という思想と仕組みの上に成り立っており、それを回線等のより物理に近い面からどのように支えていくか等も語られている。
-			</p>
-			<blockquote cite="http://tanaka.sakura.ad.jp/2017/04/mastodon-north-korea-internet.html">
-				インターネットの本質的な価値とは、核攻撃などで部分的に壊滅的な被害を受けようともネットワークが維持されるというもので、完全に分散していることと、一つのネットワークであり続けるという、一見矛盾したことを両立させているところにあります。
-			</blockquote>
-		</dd>
-		<dt><a href="https://isid.ai/dev/2017/04/16/1191/">マストドン（OStatus）による防災情報の配信をはじめました ｜ 諸多日記</a></dt>
-		<dd>
-			災害情報や緊急時情報などを、 OStatus で発信することで、 Mastodon や GNU Social で受信・伝達できるようにしたという記事。
-			twitter 等とは違い、 Mastodon であれば、どこかのインスタンスが落ちてもそれ以外のインスタンスへの情報の伝達に影響が出ないため、分散プラットフォームの利点をとても有効に活用できている良い事例。
-		</dd>
-		<dt><a href="http://hitoasa.hateblo.jp/entry/20101013/1286950786">OStatusの仕様をかいつまんで適当に和訳するよ - hito_asaの日記</a></dt>
-		<dd>
-			OStatus の仕様についての解説。
-		</dd>
-		<dt><a href="http://ja.akionux.net/wiki/index.php/GNU_social%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">GNU socialのインストール - Akionux-wiki</a></dt>
-		<dd>
-			GNU Social のインストールについての記事。
-			GNU Social の概要について説明あり。
-		</dd>
-		<dt><a href="https://hakabahitoyo.wordpress.com/2017/01/08/gnu-social-%E3%81%AE%E3%83%9C%E3%83%83%E3%83%88%E3%82%92-c-%E3%81%A7%E4%BD%9C%E3%82%8B/">GNU Social のボットを C++ で作る | 墓場一夜 (WordPress.com)</a></dt>
-		<dd>
-			GNU Social や Qvitter plugin の概要について説明あり。
-			ちなみに "We have 1 simple rule" というのは、一時期 <a href="https://freezepeach.xyz">freezepeach.xyz</a> というインスタンスで「マイクロブロガー連合は道徳と団結を大切にして、中央集権化された資本主義なサービスからの離脱を目指しています。」という定型文の代わりに表示されていたメッセージ。
-		</dd>
-		<dt><a href="https://www.w3.org/community/fedsocweb/">Federated Social Web Community Group</a></dt>
-		<dd>
-			非営利の国際標準化団体 W3C の、 federated social web 関連の仕様策定のためのグループ。
-			最近活動の形跡が見えないので超心配だが、たぶん <a href="https://www.w3.org/community/fedid/">Federated Identities for the Open Web Community Group</a> の活動が優先されているのだと思う。
-			そう信じたい。
-		</dd>
-		<dt><a href="https://cpplover.blogspot.jp/2017/04/blog-post_15.html">本の虫: そろそろマストドンについて語っておくか</a></dt>
-		<dd>
-			GNU Social や Mastodon (というより、そもそも OStatus) の設計が、(理想の実現のためには)技術的にイケてないという話。
-			思想からすると、すべての個々人がサーバ(や、同等の動作をするアプリケーション)を持ってネットワークに参加するべきだが、難易度やコストからそれは現実的ではない。
-			P2P はもう少し理想に近いが、それでさえ BitTorrent 以外のプロトコルは廃れてしまった。
-			ままならないものだ。
-		</dd>
-		<dt>私の GNU Social の投稿</dt>
-		<dd>
-			<p>
-				暇ならリンク先の notice から始まる conversation を読んでみてください。
-			</p>
-			<ul>
-				<li>
-					<a href="https://gnusocial.cardina1.red/notice/9745">他のインスタンスの notice を repeat するにはちょっとした条件があるという話</a>
-				</li>
-				<li>
-					<a href="https://gnusocial.cardina1.red/notice/9337">自前のインスタンス立てるといいよねという話</a>
-				</li>
-				<li>
-					<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/9329">
-						<snsq:identity url="https://gnusocial.cardina1.red/user/2">
-							<snsq:icon src="/assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
-							<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
-							<snsq:service>GNU Social</snsq:service>
-							<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
-						</snsq:identity>
-						<snsq:meta>
-							<snsq:timestamp datetime="2017-04-12T23:29:46+0900">2017-04-12 23:29:46</snsq:timestamp>
-							<snsq:reftime datetime="2017-04-13T16:51:31+0900">2017-04-13</snsq:reftime>
-						</snsq:meta>
-						<snsq:content>
-							<p>
-								gnu socialの鯖、自分で立てないと結局twitter社に依存するかGS鯖缶の思想と運用に依存するかしかなくなるので、dockerとか使って自前でどうにかできるのが最適だし、是非自前鯖に乗せるべき
-							</p>
-						</snsq:content>
-					</snsq:sns-quote>
-				</li>
-			</ul>
-		</dd>
-	</dl>
-</eh:section>
-
-<eh:section id="faq">
-	<eh:title>よく見る質問</eh:title>
-	<p>
-		twitter やはてブ等でときどき見掛けた疑問や意見に答えます。
-		間違い等あれば <a href="https://mastodon.cardina1.red/@lo48576">@lo48576@mastodon.cardina1.red</a> までおしらせください。
-	</p>
-
-	<dl>
-		<dt>
-			<p>
-				投稿がフォロワーのインスタンスに配信・複製されてしまうということは、投稿が一度放流されたら消せないの？
-			</p>
-		</dt>
-		<dd>
-			<p>
-				<strong>消せないと思ってください</strong>。
-				これは悪いことばかりではありません。
-			</p>
-			<ul>
-				<li>
-					発信者や運営者が意図的に投稿を「削除」した場合
-					<ul>
-						<li>
-							自分のインスタンスからは、消せます。
-						</li>
-						<li>
-							他のインスタンスからは、実装によります。
-							基本的に消えないものと思ってください。
-						</li>
-					</ul>
-				</li>
-				<li>
-					発信者がアカウントを消したり、インスタンスが死んだりした場合
-					<ul>
-						<li>
-							他のインスタンスからは消えずに残るはずです。
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<p>
-				まず、発信者のインスタンスから消せるというのは当然なので良いでしょう。
-			</p>
-			<p>
-				他のインスタンスについてですが、まず発信者が投稿を削除すると、「投稿が削除された」というメッセージが(通常の投稿と同様に)フォロワーのインスタンスに配信されます。
-				それを受け取ったフォロワーのインスタンスがその後どうするかは、インスタンス次第です。
-				私が複数のインスタンスで試してみたところ、 GNU Social でも Mastodon でも、他のインスタンスでの削除が反映されない場合がありました<eh:footnote id="footnote-notice-delete">
-					これがまた微妙なところで、単にメッセージ伝送の時間差で消えないように見えただけなのか、本当に消えない場合があるのかよくわかりませんでした。
-					ただしそれとは別の問題として、<strong>メッセージを削除しないような改造が簡単である</strong>ことと、<strong>メッセージ削除のメッセージが(サーバトラブル等で)受信されなかった場合、メッセージは削除されない</strong>ことは留意すべきでしょう。
-				</eh:footnote>。
-			</p>
-			<p>
-				イメージとしては tumblr のリブログのようなものでしょう。
-				あなたが投稿を放流した時点で、その<strong>投稿はあなただけのものではなく、それを読みたがった受信者たちのものでもある</strong>と捉えてください。
-				この仕様は、あるユーザのいたインスタンスが止まったり永久になくなってしまった場合であっても、<strong>自分が過去に受け取った投稿が意図せず消えることはない</strong>ということを意味します。
-			</p>
-			<p>
-				これを「<strong>情報を削除したくてもできない</strong>」と否定的に捉えることもできますし、「<strong>かつて私が受け取ったメッセージは、他者の手によって勝手に消されることはない</strong>」という<strong>ユーザ(フォロワー)の自由を尊重</strong>した仕様であると肯定的に捉えることもできます。
-				いずれにせよ、そういう仕様であるということは知っておくべきです。
-			</p>
-		</dd>
-
-		<dt>
-			<p>
-				悪いことを考えている人の Mastodon インスタンスに登録してしまうと、メールアドレスやパスワードを悪用されかねない。
-				危険では？
-			</p>
-		</dt>
-		<dd>
-			<p>
-				Mastodon に限らない問題です。
-				Mastodon の件で注意喚起されて初めて「確かに」と思った人は、セキュリティ意識がちょっと低いと思うので注意してください。
-			</p>
-			<ul>
-				<li>
-					そもそも、<strong>信用できないサーバに情報を渡してはいけません</strong>。
-					<ul>
-						<li>
-							たとえば twitter アカウントを持っている人は、 twitter に登録するときメールアドレスや電話番号を登録したと思います。
-							それは、 twitter 社が情報を悪用しないと<strong>あなたが信用したから</strong>ですよね？
-						</li>
-						<li>
-							Mastodon インスタンスも同じことです。
-							あなたが「この運営者なら信用してもいい」と思った場合だけ登録してください。
-						</li>
-						<li>
-							「どのインスタンスの運営者もよく知りません。これでは登録できません！」→それなら仕方がありません。
-							どうにかして探すか、甘んじて大手を信用する(そしてある程度のリスクを許容する)か、諦めてください。
-							<small>
-								ヒント:
-								たとえば <a href="https://twitter.com/pixiv/status/852879122183278593">pixiv がインスタンスを立てたようです</a>。
-								あなたは pixiv を信用しますか？
-							</small>
-						</li>
-						<li>
-							<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/10784">
+<section xml:id="see-also">
+	<title>参考になりそうなリンク</title>
+	<itemizedlist>
+		<listitem>
+			<link xl:href="http://www.itmedia.co.jp/news/articles/1704/13/news131.html">ポストTwitter？　急速に流行中「マストドン」とは - ITmedia NEWS</link>
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						Mastodon の紹介記事。
+					</simpara>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="http://nlab.itmedia.co.jp/nl/articles/1704/13/news160.html">ポストTwitter有力候補？　500文字まで書き込めるオープンソースSNS「マストドン」が脚光浴びる - ねとらぼ</link>
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						Mastodon の紹介記事。
+					</simpara>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="https://isid.ai/diary/2017/04/14/1179/">Mastodon は自分のドメインでIDを持つことが大事。「リモートフォロー」の価値を最大化するべし。 ｜ 諸多日記</link>
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						個人や所属組織でインスタンスを立てるのが良いのだという話。
+					</simpara>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="https://blog.potproject.net/archives/977">小規模Mastodonインスタンスを運用するコツ – potproject.net blog</link>
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						個人用レベルの小規模インスタンスを運用するとどんな様子なのか紹介されている。
+					</simpara>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="http://tanaka.sakura.ad.jp/2017/04/mastodon-north-korea-internet.html">マストドンと北朝鮮危機にみるインターネットの本質的価値 - さくらインターネット創業日記</link>
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						さくらインターネットの創業者の記事。
+						web サービスだけでなく、そもそもインターネット自体が分散と連携という思想と仕組みの上に成り立っており、それを回線等のより物理に近い面からどのように支えていくか等も語られている。
+					</simpara>
+					<h:blockquote cite="http://tanaka.sakura.ad.jp/2017/04/mastodon-north-korea-internet.html">
+						インターネットの本質的な価値とは、核攻撃などで部分的に壊滅的な被害を受けようともネットワークが維持されるというもので、完全に分散していることと、一つのネットワークであり続けるという、一見矛盾したことを両立させているところにあります。
+					</h:blockquote>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="https://isid.ai/dev/2017/04/16/1191/">マストドン（OStatus）による防災情報の配信をはじめました ｜ 諸多日記</link>
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						災害情報や緊急時情報などを、 OStatus で発信することで、 Mastodon や GNU Social で受信・伝達できるようにしたという記事。
+						twitter 等とは違い、 Mastodon であれば、どこかのインスタンスが落ちてもそれ以外のインスタンスへの情報の伝達に影響が出ないため、分散プラットフォームの利点をとても有効に活用できている良い事例。
+					</simpara>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="http://hitoasa.hateblo.jp/entry/20101013/1286950786">OStatusの仕様をかいつまんで適当に和訳するよ - hito_asaの日記</link>
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						OStatus の仕様についての解説。
+					</simpara>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="http://ja.akionux.net/wiki/index.php/GNU_social%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">GNU socialのインストール - Akionux-wiki</link>
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						GNU Social のインストールについての記事。
+						GNU Social の概要について説明あり。
+					</simpara>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="https://hakabahitoyo.wordpress.com/2017/01/08/gnu-social-%E3%81%AE%E3%83%9C%E3%83%83%E3%83%88%E3%82%92-c-%E3%81%A7%E4%BD%9C%E3%82%8B/">GNU Social のボットを C++ で作る | 墓場一夜 (WordPress.com)</link>
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						GNU Social や Qvitter plugin の概要について説明あり。
+						ちなみに "We have 1 simple rule" というのは、一時期 <link xl:href="https://freezepeach.xyz">freezepeach.xyz</link> というインスタンスで「マイクロブロガー連合は道徳と団結を大切にして、中央集権化された資本主義なサービスからの離脱を目指しています。」という定型文の代わりに表示されていたメッセージ。
+					</simpara>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="https://www.w3.org/community/fedsocweb/">Federated Social Web Community Group</link>
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						非営利の国際標準化団体 W3C の、 federated social web 関連の仕様策定のためのグループ。
+						最近活動の形跡が見えないので超心配だが、たぶん <link xl:href="https://www.w3.org/community/fedid/">Federated Identities for the Open Web Community Group</link> の活動が優先されているのだと思う。
+						そう信じたい。
+					</simpara>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="https://cpplover.blogspot.jp/2017/04/blog-post_15.html">本の虫: そろそろマストドンについて語っておくか</link>
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						GNU Social や Mastodon (というより、そもそも OStatus) の設計が、(理想の実現のためには)技術的にイケてないという話。
+						思想からすると、すべての個々人がサーバ(や、同等の動作をするアプリケーション)を持ってネットワークに参加するべきだが、難易度やコストからそれは現実的ではない。
+						P2P はもう少し理想に近いが、それでさえ BitTorrent 以外のプロトコルは廃れてしまった。
+						ままならないものだ。
+					</simpara>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			私の GNU Social の投稿
+			<itemizedlist>
+				<listitem>
+					<simpara>
+						暇ならリンク先の notice から始まる conversation を読んでみてください。
+					</simpara>
+					<itemizedlist>
+						<listitem>
+							<link xl:href="https://gnusocial.cardina1.red/notice/9745">他のインスタンスの notice を repeat するにはちょっとした条件があるという話</link>
+						</listitem>
+						<listitem>
+							<link xl:href="https://gnusocial.cardina1.red/notice/9337">自前のインスタンス立てるといいよねという話</link>
+						</listitem>
+						<listitem>
+							<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/9329">
 								<snsq:identity url="https://gnusocial.cardina1.red/user/2">
 									<snsq:icon src="/assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
 									<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
@@ -686,177 +658,303 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 									<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
 								</snsq:identity>
 								<snsq:meta>
-									<snsq:timestamp datetime="2017-04-14T20:33:03+0900">2017-04-14 20:33:03</snsq:timestamp>
-									<snsq:reftime datetime="2017-06-02T13:55:55+0900">2017-06-02</snsq:reftime>
-									<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/10781" />
+									<snsq:timestamp datetime="2017-04-12T23:29:46+0900">2017-04-12 23:29:46</snsq:timestamp>
+									<snsq:reftime datetime="2017-04-13T16:51:31+0900">2017-04-13</snsq:reftime>
 								</snsq:meta>
 								<snsq:content>
-									<p>
-										「最近聞いたサーバに登録したけど、メールアドレスとパスワードが悪用されるかも！ 怖い！」って、<br />
-										「最近見た人に部屋の鍵渡したけど、鍵を悪用されるかも！ 怖い！」と何が違うんですか。
-									</p>
+									<simpara>
+										gnu socialの鯖、自分で立てないと結局twitter社に依存するかGS鯖缶の思想と運用に依存するかしかなくなるので、dockerとか使って自前でどうにかできるのが最適だし、是非自前鯖に乗せるべき
+									</simpara>
 								</snsq:content>
 							</snsq:sns-quote>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<strong>パスワードを使い回すのは論外</strong>です。
-					そのようなことをすれば、 Mastodon 以外のどのようなサービスであっても危険性が格段に高まります。
-				</li>
-				<li>
-					パスワードを使い回していなければ、メールアドレスを知られるだけで済みます。
-					知られたくないメールアドレスであれば、そもそも登録に使ってはいけません。
-				</li>
-			</ul>
-		</dd>
+						</listitem>
+					</itemizedlist>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+	</itemizedlist>
+</section>
 
-		<dt>
-			<p>
-				インスタンス運営者の方針によっては、無法地帯になりかねないのでは？
-			</p>
-		</dt>
-		<dd>
-			<p>
-				一般登録を受け付けているインスタンスについていえば、その通りです。
-				だからこそ、<strong>信用できる運営者のインスタンスを使ってください</strong>。
-			</p>
-			<p>
-				そもそも、もしインスタンスに法的に問題のある情報が投稿されれば、それを削除する責任はインスタンス管理者にあります。
-				(もちろん、だからといって投稿者が悪くないというわけではありません。)
-				よって、インスタンス管理者は、問題のある投稿を知らされたら適切な対応をとるか、信用できないユーザが登録しないよう制限をかけるべきです。
-			</p>
-			<p>
-				<strong>個人用(自分用)のインスタンスであれば、そのような問題は基本的に(そうそうは)生じません</strong>。
-				そのインスタンスに保存されるデータは、自分の投稿か、自分がフォローしたユーザの投稿だけだからです。
-				(つまり、当然ではありますが、迂闊に良くないユーザをフォローしない方が良いです。)
-				もしインスタンスに法的に問題のある投稿が流れてきても、インスタンスの管理コマンド等でデータを削除することはできるはずです。
-			</p>
-		</dd>
+<section xml:id="faq">
+	<title>よく見る質問</title>
+	<simpara>
+		twitter やはてブ等でときどき見掛けた疑問や意見に答えます。
+		間違い等あれば <link xl:href="https://mastodon.cardina1.red/@lo48576">@lo48576@mastodon.cardina1.red</link> までおしらせください。
+	</simpara>
 
-		<dt>
-			<p>
-				個人ユーザがポコポコ新しいインスタンスを立てて、流行が廃れてそれらの多くが死んでしまったら、断絶や分断が発生するのでは？
-			</p>
-		</dt>
-		<dd>
-			<p>
-				これは誤解を含んでいると思われます。
-			</p>
-			<ul>
-				<li>
-					あるインスタンスが消えたり接続できなくなったときの影響は、<strong>そのインスタンスからの投稿が届かなくなるだけで、他との繋がりには一切影響はありません</strong>。
-				</li>
-				<li>
-					GNU Social や Mastodon のインスタンス同士は、直接互いに通信しあっています。
-					よって、当事者インスタンス間にある第三の中継インスタンスのようなものは存在しないため、<strong>断絶や分断はそもそも発生しえません</strong>。
-				</li>
-			</ul>
-			<p>
-				たとえばあなたのインスタンスを X とし、 X のアカウントからインスタンス A 、 B 、 C のアカウントをフォローしているとしましょう。
-				ここでインスタンス A が消えてしまっても、 X は依然として B 、 C からの投稿を受け取ることができます。
-				B や C が消えた場合でも同様に、消えたインスタンス以外との通信に影響が及ぶことはありません。
-			</p>
-			<p>
-				よって、個人ユーザがポコポコ新しいインスタンスを立てると、消えるインスタンスがユーザ単位になります。
-				(インスタンスが生き残ってユーザが活動しなくなっても、結局何も得られなくなることに変わりはないので、それならインスタンスが消えても同じことです。)
-				インスタンスと共に死ぬユーザが少なくなるのは、むしろ好ましいことです。
-			</p>
-			<p>
-				インスタンスが乱立することで、むしろ衰退の影響範囲が小さくなり、これは<strong>ユーザにとっては良いこと</strong>です。
-				個人や組織単位で、もっと気軽にポンポンインスタンスを立てましょう！
-			</p>
-		</dd>
+	<qandaset>
+		<qandaentry>
+			<question>
+				<simpara>
+					投稿がフォロワーのインスタンスに配信・複製されてしまうということは、投稿が一度放流されたら消せないの？
+				</simpara>
+			</question>
+			<answer>
+				<simpara>
+					<emphasis>消せないと思ってください</emphasis>。
+					これは悪いことばかりではありません。
+				</simpara>
+				<itemizedlist>
+					<listitem>
+						発信者や運営者が意図的に投稿を「削除」した場合
+						<itemizedlist>
+							<listitem>
+								自分のインスタンスからは、消せます。
+							</listitem>
+							<listitem>
+								他のインスタンスからは、実装によります。
+								基本的に消えないものと思ってください。
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
+						発信者がアカウントを消したり、インスタンスが死んだりした場合
+						<itemizedlist>
+							<listitem>
+								他のインスタンスからは消えずに残るはずです。
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+				<simpara>
+					まず、発信者のインスタンスから消せるというのは当然なので良いでしょう。
+				</simpara>
+				<simpara>
+					他のインスタンスについてですが、まず発信者が投稿を削除すると、「投稿が削除された」というメッセージが(通常の投稿と同様に)フォロワーのインスタンスに配信されます。
+					それを受け取ったフォロワーのインスタンスがその後どうするかは、インスタンス次第です。
+					私が複数のインスタンスで試してみたところ、 GNU Social でも Mastodon でも、他のインスタンスでの削除が反映されない場合がありました<footnote xml:id="footnote-notice-delete" refmark-id="ref-footnote-notice-delete">
+						これがまた微妙なところで、単にメッセージ伝送の時間差で消えないように見えただけなのか、本当に消えない場合があるのかよくわかりませんでした。
+						ただしそれとは別の問題として、<emphasis>メッセージを削除しないような改造が簡単である</emphasis>ことと、<emphasis>メッセージ削除のメッセージが(サーバトラブル等で)受信されなかった場合、メッセージは削除されない</emphasis>ことは留意すべきでしょう。
+					</footnote>。
+				</simpara>
+				<simpara>
+					イメージとしては tumblr のリブログのようなものでしょう。
+					あなたが投稿を放流した時点で、その<emphasis>投稿はあなただけのものではなく、それを読みたがった受信者たちのものでもある</emphasis>と捉えてください。
+					この仕様は、あるユーザのいたインスタンスが止まったり永久になくなってしまった場合であっても、<emphasis>自分が過去に受け取った投稿が意図せず消えることはない</emphasis>ということを意味します。
+				</simpara>
+				<simpara>
+					これを「<emphasis>情報を削除したくてもできない</emphasis>」と否定的に捉えることもできますし、「<emphasis>かつて私が受け取ったメッセージは、他者の手によって勝手に消されることはない</emphasis>」という<emphasis>ユーザ(フォロワー)の自由を尊重</emphasis>した仕様であると肯定的に捉えることもできます。
+					いずれにせよ、そういう仕様であるということは知っておくべきです。
+				</simpara>
+			</answer>
+		</qandaentry>
+		<qandaentry>
+			<question>
+				<simpara>
+					悪いことを考えている人の Mastodon インスタンスに登録してしまうと、メールアドレスやパスワードを悪用されかねない。
+					危険では？
+				</simpara>
+			</question>
+			<answer>
+				<simpara>
+					Mastodon に限らない問題です。
+					Mastodon の件で注意喚起されて初めて「確かに」と思った人は、セキュリティ意識がちょっと低いと思うので注意してください。
+				</simpara>
+				<itemizedlist>
+					<listitem>
+						そもそも、<emphasis>信用できないサーバに情報を渡してはいけません</emphasis>。
+						<itemizedlist>
+							<listitem>
+								たとえば twitter アカウントを持っている人は、 twitter に登録するときメールアドレスや電話番号を登録したと思います。
+								それは、 twitter 社が情報を悪用しないと<emphasis>あなたが信用したから</emphasis>ですよね？
+							</listitem>
+							<listitem>
+								Mastodon インスタンスも同じことです。
+								あなたが「この運営者なら信用してもいい」と思った場合だけ登録してください。
+							</listitem>
+							<listitem>
+								「どのインスタンスの運営者もよく知りません。これでは登録できません！」→それなら仕方がありません。
+								どうにかして探すか、甘んじて大手を信用する(そしてある程度のリスクを許容する)か、諦めてください。
+								<phrase>
+									(ヒント: たとえば <link xl:href="https://twitter.com/pixiv/status/852879122183278593">pixiv がインスタンスを立てたようです</link>。
+									あなたは pixiv を信用しますか？)
+								</phrase>
+							</listitem>
+							<listitem>
+								<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/10784">
+									<snsq:identity url="https://gnusocial.cardina1.red/user/2">
+										<snsq:icon src="/assets/img/profiles/icon/lo48576.gnusocial.cardina1.red.2017-01-29.jpg" />
+										<snsq:screen-name>らりお・ザ・㉅㊛の🈗然㊌ソムリエ</snsq:screen-name>
+										<snsq:service>GNU Social</snsq:service>
+										<snsq:nickname>@lo48576@gnusocial.cardina1.red</snsq:nickname>
+									</snsq:identity>
+									<snsq:meta>
+										<snsq:timestamp datetime="2017-04-14T20:33:03+0900">2017-04-14 20:33:03</snsq:timestamp>
+										<snsq:reftime datetime="2017-06-02T13:55:55+0900">2017-06-02</snsq:reftime>
+										<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/10781" />
+									</snsq:meta>
+									<snsq:content>
+										<simpara>
+											「最近聞いたサーバに登録したけど、メールアドレスとパスワードが悪用されるかも！ 怖い！」って、<h:br />
+											「最近見た人に部屋の鍵渡したけど、鍵を悪用されるかも！ 怖い！」と何が違うんですか。
+										</simpara>
+									</snsq:content>
+								</snsq:sns-quote>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
+						<emphasis>パスワードを使い回すのは論外</emphasis>です。
+						そのようなことをすれば、 Mastodon 以外のどのようなサービスであっても危険性が格段に高まります。
+					</listitem>
+					<listitem>
+						パスワードを使い回していなければ、メールアドレスを知られるだけで済みます。
+						知られたくないメールアドレスであれば、そもそも登録に使ってはいけません。
+					</listitem>
+				</itemizedlist>
+			</answer>
+		</qandaentry>
+		<qandaentry>
+			<question>
+				<simpara>
+					インスタンス運営者の方針によっては、無法地帯になりかねないのでは？
+				</simpara>
+			</question>
+			<answer>
+				<simpara>
+					一般登録を受け付けているインスタンスについていえば、その通りです。
+					だからこそ、<emphasis>信用できる運営者のインスタンスを使ってください</emphasis>。
+				</simpara>
+				<simpara>
+					そもそも、もしインスタンスに法的に問題のある情報が投稿されれば、それを削除する責任はインスタンス管理者にあります。
+					(もちろん、だからといって投稿者が悪くないというわけではありません。)
+					よって、インスタンス管理者は、問題のある投稿を知らされたら適切な対応をとるか、信用できないユーザが登録しないよう制限をかけるべきです。
+				</simpara>
+				<simpara>
+					<emphasis>個人用(自分用)のインスタンスであれば、そのような問題は基本的に(そうそうは)生じません</emphasis>。
+					そのインスタンスに保存されるデータは、自分の投稿か、自分がフォローしたユーザの投稿だけだからです。
+					(つまり、当然ではありますが、迂闊に良くないユーザをフォローしない方が良いです。)
+					もしインスタンスに法的に問題のある投稿が流れてきても、インスタンスの管理コマンド等でデータを削除することはできるはずです。
+				</simpara>
+			</answer>
+		</qandaentry>
+		<qandaentry>
+			<question>
+				<simpara>
+					個人ユーザがポコポコ新しいインスタンスを立てて、流行が廃れてそれらの多くが死んでしまったら、断絶や分断が発生するのでは？
+				</simpara>
+			</question>
+			<answer>
+				<simpara>
+					これは誤解を含んでいると思われます。
+				</simpara>
+				<itemizedlist>
+					<listitem>
+						あるインスタンスが消えたり接続できなくなったときの影響は、<emphasis>そのインスタンスからの投稿が届かなくなるだけで、他との繋がりには一切影響はありません</emphasis>。
+					</listitem>
+					<listitem>
+						GNU Social や Mastodon のインスタンス同士は、直接互いに通信しあっています。
+						よって、当事者インスタンス間にある第三の中継インスタンスのようなものは存在しないため、<emphasis>断絶や分断はそもそも発生しえません</emphasis>。
+					</listitem>
+				</itemizedlist>
+				<simpara>
+					たとえばあなたのインスタンスを X とし、 X のアカウントからインスタンス A 、 B 、 C のアカウントをフォローしているとしましょう。
+					ここでインスタンス A が消えてしまっても、 X は依然として B 、 C からの投稿を受け取ることができます。
+					B や C が消えた場合でも同様に、消えたインスタンス以外との通信に影響が及ぶことはありません。
+				</simpara>
+				<simpara>
+					よって、個人ユーザがポコポコ新しいインスタンスを立てると、消えるインスタンスがユーザ単位になります。
+					(インスタンスが生き残ってユーザが活動しなくなっても、結局何も得られなくなることに変わりはないので、それならインスタンスが消えても同じことです。)
+					インスタンスと共に死ぬユーザが少なくなるのは、むしろ好ましいことです。
+				</simpara>
+				<simpara>
+					インスタンスが乱立することで、むしろ衰退の影響範囲が小さくなり、これは<emphasis>ユーザにとっては良いこと</emphasis>です。
+					個人や組織単位で、もっと気軽にポンポンインスタンスを立てましょう！
+				</simpara>
+			</answer>
+		</qandaentry>
+		<qandaentry>
+			<question>
+				<simpara>
+					公式アカウントのような機能がないけど、アカウントが自分の思っている人のものであるとどう確認すればいいの？
+				</simpara>
+			</question>
+			<answer>
+				<simpara>
+					短い答:
+					個人用インスタンスであれば、その<emphasis>ドメインの所有者を確認</emphasis>しましょう。
+					そうでなければ、ブログや公式 web ページなど<emphasis>別の信頼できる情報源で聞いたり、そこからリンクされているか確認</emphasis>しましょう。
+					(当然ですが、アカウントの説明に公式 web ページ等へのリンクが書いてあったとしても、偽装の可能性があるので信頼してはいけません。)
+				</simpara>
+				<simpara>
+					これは分散プラットフォームの特徴によるものです。
+					twitter における公式アカウントは、「 twitter という絶対の管理者が身分確認を行うことで、当人であると証明する」という仕組みです。
+					GNU Social や Mastodon では、この仕組みは合いません。
+					何故なら「絶対の管理者」など存在せず、単にそれぞれのインスタンスの運営を行う人が各所に居るだけだからです。
+					<emphasis>分散プラットフォームに、絶対の権威はいません</emphasis>。
+				</simpara>
+			</answer>
+		</qandaentry>
+		<qandaentry>
+			<question>
+				<simpara>
+					マイクロブログで自分が読んだ情報が消えないメディアなら、 <emphasis>tumblr</emphasis> があるじゃん。それじゃ駄目なの？
+				</simpara>
+			</question>
+			<answer>
+				<simpara>
+					たしかに、ブログの「トラックバック」は OStatus (や Mastodon) の設計によく似ていますし、 tumblr のリブログは情報を発信者だけでなく読者が保持することを可能にします。
+				</simpara>
+				<simpara>
+					しかし勘違いしないでください。
+					<emphasis>tumblr は、れっきとした中央集権サービスです</emphasis>。
+					分散なんてしていません。
+					そもそも twitter や Mastodon ほどチャットに近い SNS ではありません。
+				</simpara>
+				<itemizedlist>
+					<listitem>
+						tumblr では、運営会社がその権限をもって、投稿やアカウントを消すことができてしまいます。
+						<itemizedlist>
+							<listitem>
+								分散していれば、自分用のサーバを立ててそこで同じようなサービスを利用可能です。
+								しかし tumblr は単一の会社が提供するサービスであり、「自分のサーバに tumblr を立てる」ことはできません。
+							</listitem>
+							<listitem>
+								tumblr を真似た OSS は存在するようなので、それらを使うことはできるでしょうが、それは「tumblr」ではありません。
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
+						tumblr のサービスがなくなったり tumblr の会社が消えたりすると、 tumblr 上の全てのサイトが駄目になります。
+						<itemizedlist>
+							<listitem>
+								分散していれば、落ちたサーバ以外にある情報はすべて無事のままです。
+								(たとえば mstdn.jp が落ちても mstdn.io は何事もなく動いていたように。)
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
+						twitter や Mastodon のように、チャットに近い用途で設計されていません。
+						<itemizedlist>
+							<listitem>
+								tumblr はそもそもチャットに使ってる人いませんよね？
+								(いるかもしれませんが、使い勝手は Mastodon と比べるまでもなさそうです)
+							</listitem>
+							<listitem>
+								tumblr は記事を配信するブログをベースにして作られていますが、 Mastodon は「マイクロブログ」という呼称で勘違いされがちですが、 IRC や チャットに近いものです。
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
+						仕様や API がいつまでも公開されているとは限らない
+						<itemizedlist>
+							<listitem>
+								仕様や API は会社が定めて管理しているものであり、国際規格ではありません。
+								よって、会社の都合などで勝手に変更される可能性があります。
+								(一応 forum はありますが、それを言ったら twitter にも開発者フォーラムがあるのにあの様です。)
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+				<simpara>
+					このようなわけで、 tumblr はその仕組みからして中央集権であり、 twitter と同様のものです。
+					<emphasis>tumblr は分散プラットフォームではありません</emphasis>。
+					「分散プラットフォームなら Mastodon じゃなくても tumblr がある」という意見は、分散プラットフォームというものを勘違いしています。
+					(tumblr で満足できるなら、そもそも twitter を離れずとも twilog やクライアントの機能等でログをとるので十分です。)
+				</simpara>
+			</answer>
+		</qandaentry>
+	</qandaset>
+</section>
 
-		<dt>
-			<p>
-				公式アカウントのような機能がないけど、アカウントが自分の思っている人のものであるとどう確認すればいいの？
-			</p>
-		</dt>
-		<dd>
-			<p>
-				短い答:
-				個人用インスタンスであれば、その<strong>ドメインの所有者を確認</strong>しましょう。
-				そうでなければ、ブログや公式 web ページなど<strong>別の信頼できる情報源で聞いたり、そこからリンクされているか確認</strong>しましょう。
-				(当然ですが、アカウントの説明に公式 web ページ等へのリンクが書いてあったとしても、偽装の可能性があるので信頼してはいけません。)
-			</p>
-			<p>
-				これは分散プラットフォームの特徴によるものです。
-				twitter における公式アカウントは、「 twitter という絶対の管理者が身分確認を行うことで、当人であると証明する」という仕組みです。
-				GNU Social や Mastodon では、この仕組みは合いません。
-				何故なら「絶対の管理者」など存在せず、単にそれぞれのインスタンスの運営を行う人が各所に居るだけだからです。
-				<strong>分散プラットフォームに、絶対の権威はいません</strong>。
-			</p>
-		</dd>
-
-		<dt>
-			<p>
-				マイクロブログで自分が読んだ情報が消えないメディアなら、 <strong>tumblr</strong> があるじゃん。それじゃ駄目なの？
-			</p>
-		</dt>
-		<dd>
-			<p>
-				たしかに、ブログの「トラックバック」は OStatus (や Mastodon) の設計によく似ていますし、 tumblr のリブログは情報を発信者だけでなく読者が保持することを可能にします。
-			</p>
-			<p>
-				しかし勘違いしないでください。
-				<strong>tumblr は、れっきとした中央集権サービスです</strong>。
-				分散なんてしていません。
-				そもそも twitter や Mastodon ほどチャットに近い SNS ではありません。
-			</p>
-			<ul>
-				<li>
-					tumblr では、運営会社がその権限をもって、投稿やアカウントを消すことができてしまいます。
-					<ul>
-						<li>
-							分散していれば、自分用のサーバを立ててそこで同じようなサービスを利用可能です。
-							しかし tumblr は単一の会社が提供するサービスであり、「自分のサーバに tumblr を立てる」ことはできません。
-						</li>
-						<li>
-							tumblr を真似た OSS は存在するようなので、それらを使うことはできるでしょうが、それは「tumblr」ではありません。
-						</li>
-					</ul>
-				</li>
-				<li>
-					tumblr のサービスがなくなったり tumblr の会社が消えたりすると、 tumblr 上の全てのサイトが駄目になります。
-					<ul>
-						<li>
-							分散していれば、落ちたサーバ以外にある情報はすべて無事のままです。
-							(たとえば mstdn.jp が落ちても mstdn.io は何事もなく動いていたように。)
-						</li>
-					</ul>
-				</li>
-				<li>
-					twitter や Mastodon のように、チャットに近い用途で設計されていません。
-					<ul>
-						<li>
-							tumblr はそもそもチャットに使ってる人いませんよね？
-							(いるかもしれませんが、使い勝手は Mastodon と比べるまでもなさそうです)
-						</li>
-						<li>
-							tumblr は記事を配信するブログをベースにして作られていますが、 Mastodon は「マイクロブログ」という呼称で勘違いされがちですが、 IRC や チャットに近いものです。
-						</li>
-					</ul>
-				</li>
-				<li>
-					仕様や API がいつまでも公開されているとは限らない
-					<ul>
-						<li>
-							仕様や API は会社が定めて管理しているものであり、国際規格ではありません。
-							よって、会社の都合などで勝手に変更される可能性があります。
-							(一応 forum はありますが、それを言ったら twitter にも開発者フォーラムがあるのにあの様です。)
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<p>
-				このようなわけで、 tumblr はその仕組みからして中央集権であり、 twitter と同様のものです。
-				<strong>tumblr は分散プラットフォームではありません</strong>。
-				「分散プラットフォームなら Mastodon じゃなくても tumblr がある」という意見は、分散プラットフォームというものを勘違いしています。
-				(tumblr で満足できるなら、そもそも twitter を離れずとも twilog やクライアントの機能等でログをとるので十分です。)
-			</p>
-		</dd>
-	</dl>
-</eh:section>
-
-</eh:article>
+</article>

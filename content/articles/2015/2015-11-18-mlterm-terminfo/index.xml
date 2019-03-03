@@ -1,7 +1,7 @@
 ---
 created_at: 2015-11-18T21:00:00+09:00
 published_at: 2015-11-18T21:00:00+09:00
-format: "easy-html"
+format: docbook
 title: "mltermのterminfoがおかしかった件"
 tags:
   - linux
@@ -16,183 +16,187 @@ article_metadata:
 excerpt: "mltermでHomeやEndキーがうまく動かなかったため、原因を究明し解決した。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	id="2015-11-18-mlterm-terminfo"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="article-2015-11-18-mlterm-terminfo"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>mltermのterminfoがおかしかった件</eh:title>
-<p>
-	解決済。
-</p>
-<p>
-	何度か失敗したので、必要な手順だけ読みたければ<a href="#abstract">概要</a>と<a href="#conclusion">まとめ</a>だけ参照。
-</p>
+<title>mltermのterminfoがおかしかった件</title>
 
-<eh:section id="abstract">
-	<eh:title>概要</eh:title>
-	<p>
-		<a href="https://wiki.archlinuxjp.org/index.php/Zsh#.E3.82.AD.E3.83.BC.E3.83.90.E3.82.A4.E3.83.B3.E3.83.89">Zsh - ArchWiki</a>を参考に以下のようなコードを書いたのだが、これが何故かmltermで動かない。
-	</p>
-	<figure>
-		<pre><code class="language-bash lang-bash" data-lang="bash">typeset -A key
+<simpara>
+	解決済。
+</simpara>
+<simpara>
+	何度か失敗したので、必要な手順だけ読みたければ<xref linkend="abstract" />と<xref linkend="conclusion" />だけ参照。
+</simpara>
+
+<section xml:id="abstract">
+	<title>概要</title>
+
+	<simpara>
+		<link xl:href="https://wiki.archlinuxjp.org/index.php/Zsh#.E3.82.AD.E3.83.BC.E3.83.90.E3.82.A4.E3.83.B3.E3.83.89">Zsh - ArchWiki</link>を参考に以下のようなコードを書いたのだが、これが何故かmltermで動かない。
+	</simpara>
+	<figure xml:id="figure-sample-bindkey-conf"><programlisting language="bash"><![CDATA[typeset -A key
 key[Home]=${terminfo[khome]}
 key[End]=${terminfo[kend]}
 [[ -n ${key[Home]}        ]] &amp;&amp; bindkey "${key[Home]}"      beginning-of-line
-[[ -n ${key[End]}         ]] &amp;&amp; bindkey "${key[End]}"       end-of-line
-</code></pre>
-		<figcaption><code class="filepath">~/.zshrc</code> (抜粋)</figcaption>
+[[ -n ${key[End]}         ]] &amp;&amp; bindkey "${key[End]}"       end-of-line]]></programlisting>
+		<caption><filename>~/.zshrc</filename> (抜粋)</caption>
 	</figure>
-	<p>
-		具体的には、<kbd>Home</kbd>キーや<kbd>End</kbd>キーでの挙動がおかしくなる。
+	<simpara>
+		具体的には、<keycap function="home">Home</keycap>キーや<keycap function="end">End</keycap>キーでの挙動がおかしくなる。
 		どうせterminfoが合っていないんだろうと思ったらその通りだった。
-	</p>
-	<p>
+	</simpara>
+	<simpara>
 		mltermのソースコードと一緒に配られているterminfoのソースを使おうにも、それも駄目だった。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="understand-the-situation">
-	<eh:title>状況把握</eh:title>
+<section xml:id="understand-the-situation">
+	<title>状況把握</title>
 
-	<figure>
-		<pre class="code code-terminal">$ <kbd>printf '%q' "${terminfo[khome]}"</kbd>
+	<figure xml:id="figure-get-home-key-seq"><screen role="terminal"><prompt>$ </prompt><userinput>printf '%q' "${terminfo[khome]}"</userinput>
 $'\033'OH
-$ <kbd>printf '%q' "(ここで<kbd>C-v</kbd> <kbd>Home</kbd>)"</kbd>
+<prompt>$ </prompt><userinput>printf '%q' "(ここで<keycombo action="seq"><keycombo action="simul"><keycap function="control">Ctrl</keycap><keycap>v</keycap></keycombo> <keycap function="home">Home</keycap></keycombo>)"</userinput>
 $'\033'\[H
-</pre>
-		<figcaption>terminal</figcaption>
+</screen>
+		<caption>terminal</caption>
 	</figure>
-	<p>
-		こんな感じの方法でHomeキーを使ったときのシーケンスと違うのがわかるので、どうにかしよう。
-	</p>
+	<simpara>
+		こんな感じの方法で<keycap function="home">Home</keycap>キーを使ったときのシーケンスと違うのがわかるので、どうにかしよう。
+	</simpara>
 
-	<aside class="note">
-		<eh:title><code>%q</code></eh:title>
-		<p>
-			<code>printf '%q'</code>は、bashやzshでないと使えない。
-		</p>
-	</aside>
-</eh:section>
+	<note>
+		<title><code>%q</code></title>
 
-<eh:section id="investigation">
-	<eh:title>調査</eh:title>
-	<p>何処からかmlterm-256colorのterminfoが導入されているようなので、それを把握する。</p>
-	<figure>
-		<pre class="code code-terminal">$ <kbd>infocmp mlterm-256color | head -2</kbd>
+		<simpara>
+			<code language="bash">printf '%q'</code>は、bashやzshでないと使えない。
+		</simpara>
+	</note>
+</section>
+
+<section xml:id="investigation">
+	<title>調査</title>
+
+	<simpara>何処からかmlterm-256colorのterminfoが導入されているようなので、それを把握する。</simpara>
+	<figure xml:id="figure-check-mlterm-256color-terminfo"><screen role="terminal"><prompt>$ </prompt><userinput>infocmp mlterm-256color | head -2</userinput>
 #       Reconstructed via infocmp from file: /usr/share/terminfo/m/mlterm-256color
 mlterm-256color|mlterm 3.0 with xterm 256-colors,
-</pre>
-		<figcaption>terminal</figcaption>
+</screen>
+		<caption>terminal</caption>
 	</figure>
-	<p>
+	<simpara>
 		ファイルパスがわかったので、どのパッケージがそのファイルを導入したのか調べる。
-		gentoo linux なら<code>qfile</code>コマンドを使う。
-	</p>
-	<figure>
-		<pre class="code code-terminal">$ <kbd>qfile /usr/share/terminfo/m/mlterm-256color</kbd>
+		gentoo linux なら<command>qfile</command>コマンドを使う。
+	</simpara>
+	<figure xml:id="figure-check-ncurses-version"><screen role="terminal"><prompt>$ </prompt><userinput>qfile /usr/share/terminfo/m/mlterm-256color</userinput>
 sys-libs/ncurses (/usr/share/terminfo/m/mlterm-256color)
-$ <kbd>ncurses6-config --version</kbd>
+<prompt>$ </prompt><userinput>ncurses6-config --version</userinput>
 6.0.20150808
-</pre>
-		<figcaption>terminal</figcaption>
+</screen>
+		<caption>terminal</caption>
 	</figure>
-	<p>
+	<simpara>
 		ncurses-6.0 のファイルが古いのだということがわかった。
-	</p>
+	</simpara>
 
-	<aside class="tip">
-		<eh:title><code>qfile</code></eh:title>
-		<p>
-			<code>qfile</code>コマンドは、gentooでは<code>app-portage/portage-utils</code>パッケージにある。
-		</p>
-	</aside>
+	<tip>
+		<title><command>qfile</command></title>
 
-	<p>
+		<simpara>
+			<command>qfile</command>コマンドは、gentooでは<package>app-portage/portage-utils</package>パッケージにある。
+		</simpara>
+	</tip>
+
+	<simpara>
 		たぶん昔ncursesに追加されてから更新されていなかったのだろう。
-	</p>
-	<p>
+	</simpara>
+	<simpara>
 		mltermのバージョンを見てみる。
-	</p>
-	<figure>
-		<pre class="code code-terminal">$ <kbd>mlterm --version</kbd>
+	</simpara>
+	<figure xml:id="figure-check-mlterm-version">
+		<screen role="terminal"><prompt>$ </prompt><userinput>mlterm --version</userinput>
 mlterm version 3.5.0
-</pre>
-		<figcaption>terminal</figcaption>
+</screen>
+		<caption>terminal</caption>
 	</figure>
-	<p>
+	<simpara>
 		ソースコードを落とすなりしてChangeLogで<code>sequence</code>や<code>\x1b</code>といったパターンで検索し確認すると、2012-09-04に以下のような変更があった。
-	</p>
-	<figure>
-		<pre>
-- Following key sequences are changed.
+	</simpara>
+	<figure xml:id="figure-mlterm-changelog">
+		<literallayout class="monospaced"><![CDATA[- Following key sequences are changed.
   XK_BackSpace: \x7f -> \x08
   XK_Home:   \x1bOH -> \x1b[H
   XK_End:    \x1bOF -> \x1b[F
   XK_F1:     \x1b[11~ -> \x1bOP
   XK_F2:     \x1b[12~ -> \x1bOQ
   XK_F3:     \x1b[13~ -> \x1bOR
-  XK_F4:     \x1b[14~ -> \x1bOS
-</pre>
-		<figcaption><code class="filepath">ChangeLog</code> (抜粋)</figcaption>
+	XK_F4:     \x1b[14~ -> \x1bOS]]></literallayout>
+		<caption><filename>ChangeLog</filename> (抜粋)</caption>
 	</figure>
-	<p>
+	<simpara>
 		これに追従できていなかったのだろう。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="cope">
-	<eh:title>対処</eh:title>
-	<eh:section id="upstream-file-is-outdated">
-		<eh:title>本家ファイルからして古かった</eh:title>
-		<p>
+<section xml:id="cope">
+	<title>対処</title>
+
+	<section xml:id="upstream-file-is-outdated">
+		<title>本家ファイルからして古かった</title>
+
+		<simpara>
 			mlterm本家のterminfoをユーザーローカルで導入すればいいと、この時は思っていたのだ。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			現時点(2015-11-18)で最新の、mlterm-3.6.0のソースを落とす。
 			ChangeLogを確認したところ、前述のもの以降でこれといったterminfoの変更は無さそうなので、バージョン違いは気にせず新しいやつを使ってしまうことにしよう。
-		</p>
-		<p>
-			展開したソースの<code class="filepath">doc/term/mlterm.ti</code>がterminfoのソースだ。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
+			展開したソースの<filename>doc/term/mlterm.ti</filename>がterminfoのソースだ。
+		</simpara>
+		<simpara>
 			まあ念のためと思って中身を確認するじゃん？
-		</p>
-		<figure>
-			<pre class="code code-terminal">$ <kbd>grep khome doc/term/mlterm.ti</kbd>
+		</simpara>
+		<figure xml:id="figure-mlterm-mi-old"><screen role="terminal"><prompt>$ </prompt><userinput>grep khome doc/term/mlterm.ti</userinput>
         kfnd=\E[1~, khome=\EOH, kich1=\E[2~, kmous=\E[M, knp=\E[6~, kpp=\E[5~,
-</pre>
-			<figcaption>terminal</figcaption>
+</screen>
+			<caption>terminal</caption>
 		</figure>
-		<p>
+		<simpara>
 			なんかもう、ダメダメだ。
 			ncurses、お前は悪くなかったんや……
-		</p>
+		</simpara>
 
-		<aside class="note">
-			<eh:title>Experimental</eh:title>
-			<p>
-				いや、実は<code class="filepath">doc/term/README.term</code>に以下のように書いてある。
-			</p>
+		<note>
+			<title>Experimental</title>
+
+			<simpara>
+				いや、実は<filename>doc/term/README.term</filename>に以下のように書いてある。
+			</simpara>
 			<blockquote>
 				Exprinemtal terminfo/termcap data for mlterm
 			</blockquote>
-			<p>
+			<simpara>
 				Experimentalだから、おかしくても仕方がないよね！！！
-			</p>
-		</aside>
-	</eh:section>
+			</simpara>
+		</note>
+	</section>
 
-	<eh:section id="edit-manually">
-		<eh:title>自力で編集</eh:title>
-		<p>
+	<section xml:id="edit-manually">
+		<title>自力で編集</title>
+
+		<simpara>
 			仕方ないので、これをベースに自分でシーケンスの変更を適用していく。
-		</p>
-		<p>
-			以下<code class="filepath">mlterm-3.6.0.ti</code>は、mltermの<code class="filepath">doc/term/mlterm.ti</code>をどこかにコピーしてきたものとする。
-		</p>
-		<figure>
-			<pre class="code code-terminal">$ <kbd>sed \
+		</simpara>
+		<simpara>
+			以下<filename>mlterm-3.6.0.ti</filename>は、mltermの<filename>doc/term/mlterm.ti</filename>をどこかにコピーしてきたものとする。
+		</simpara>
+		<figure xml:id="figure-edit-mlterm-ti">
+			<screen role="terminal"><prompt>$ </prompt><userinput>sed \
     -e '1s/mlterm\|/mlterm|mlterm-256color|/' \
     -e 's/khome=\\EOH,/khome=\\E[H,/' \
     -e 's/kend=\\EOF,/kend=\\E[F,/' \
@@ -200,151 +204,157 @@ mlterm version 3.5.0
     -e 's/kf2=\\E\[12~,/kf2=\\EOQ,/' \
     -e 's/kf3=\\E\[13~,/kf3=\\EOR,/' \
     -e 's/kf4=\\E\[14~,/kf4=\\EOS,/' \
-    -i mlterm-3.6.0.ti</kbd>
-</pre>
-			<figcaption>terminal</figcaption>
+    -i mlterm-3.6.0.ti</userinput>
+</screen>
+			<caption>terminal</caption>
 		</figure>
-		<p>
+		<simpara>
 			どうにも泥臭くて好きではないが、こんなの実行するのは一度きりなのでこれでいいだろう。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			適用した変更は2種類。
 			シーケンスの変更の反映と、<code>mlterm-256color</code>への対応だ。
-		</p>
-		<p>
-			<code>mlterm-256color</code>への対応であるが、公式のソースが<code>mlterm</code>向けに記述されているため、<code>TERM</code>環境変数が<code>mlterm-256color</code>の状態でもこれを適用してほしいのであれば、その指定も追加する必要がある。
+		</simpara>
+		<simpara>
+			<code>mlterm-256color</code>への対応であるが、公式のソースが<command>mlterm</command>向けに記述されているため、<envar>TERM</envar>環境変数が<code>mlterm-256color</code>の状態でもこれを適用してほしいのであれば、その指定も追加する必要がある。
 			その変更が<code>-e '1s/mlterm\|/mlterm|mlterm-256color|/'</code>だ。
-		</p>
-		<p>
-			<code>sed</code>の<code>-i</code>オプションは、入力ファイルをそのまま置換結果で上書きしてくれるので、これで<code class="filepath">mlterm-3.6.0.ti</code>は正しくmltermのシーケンスを解釈するterminfoのソースファイルとなった。
-		</p>
-		<p>
-			これをコンパイルし、<code class="filepath">~/.terminfo/m/mlterm-256color</code>というファイルとして置いてやればよい。
-		</p>
-	</eh:section>
+		</simpara>
+		<simpara>
+			<command>sed</command>の<option>-i</option>オプションは、入力ファイルをそのまま置換結果で上書きしてくれるので、これで<filename>mlterm-3.6.0.ti</filename>は正しくmltermのシーケンスを解釈するterminfoのソースファイルとなった。
+		</simpara>
+		<simpara>
+			これをコンパイルし、<filename>~/.terminfo/m/mlterm-256color</filename>というファイルとして置いてやればよい。
+		</simpara>
+	</section>
 
-	<eh:section id="compile-terminfo-source">
-		<eh:title>terminfoのソースのコンパイル</eh:title>
-		<p>
+	<section xml:id="compile-terminfo-source">
+		<title>terminfoのソースのコンパイル</title>
+
+		<simpara>
 			これといって特筆することもない。
 			本当にコンパイルするだけだ。
-		</p>
-		<figure>
-			<pre class="code code-terminal">$ <kbd>ls ~/.terminfo</kbd>
+		</simpara>
+		<figure xml:id="figure-execute-tic">
+			<screen role="terminal"><prompt>$ </prompt><userinput>ls ~/.terminfo</userinput>
 ls: cannot access /home/larry/.terminfo: No such file or directory
-$ <kbd>tic mlterm-3.6.0.ti</kbd>
-$ <kbd>ls -l ~/.terminfo/m/</kbd>
+<prompt>$ </prompt><userinput>tic mlterm-3.6.0.ti</userinput>
+<prompt>$ </prompt><userinput>ls -l ~/.terminfo/m/</userinput>
 total 8
 -rw-r--r-- 1 larry larry 1990 2015-11-18 13:24 mlterm
 lrwxrwxrwx 1 larry larry    6 2015-11-18 13:24 mlterm-256color -> mlterm
-</pre>
-			<figcaption>terminal</figcaption>
+</screen>
+			<caption>terminal</caption>
 		</figure>
-		<p>
-			配置先のディレクトリがなくても<code>tic</code>は勝手にディレクトリを作ってくれるので、
+		<simpara>
+			配置先のディレクトリがなくても<command>tic</command>は勝手にディレクトリを作ってくれるので、
 			頭を空っぽにして実行すればいい。
-		</p>
+		</simpara>
 
-		<aside class="warning">
-			<eh:title>ticの実行ユーザ</eh:title>
-			<p>
-				root権限で<code>tic</code>を実行すると、<code class="dirpath">/usr/share/terminfo</code>等のシステムデフォルトのディレクトリへファイルを生成してしまうかもしれない。
-				この挙動を望まないのであれば、<code>TERMINFO</code>環境変数か<code>-o</code>オプションで<code class="dirpath">~/.terminfo</code>等のディレクトリを指定すること。
-			</p>
-		</aside>
-		<p>
+		<warning>
+			<title><command>tic</command>の実行ユーザ</title>
+
+			<simpara>
+				root権限で<command>tic</command>を実行すると、<filename class="directory">/usr/share/terminfo</filename>等のシステムデフォルトのディレクトリへファイルを生成してしまうかもしれない。
+				この挙動を望まないのであれば、<envar>TERMINFO</envar>環境変数か<option>-o</option>オプションで<filename class="directory">~/.terminfo</filename>等のディレクトリを指定すること。
+			</simpara>
+		</warning>
+		<simpara>
 			これにて問題は解決した...と思うじゃん？
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="solved">
-	<eh:title>解決</eh:title>
-	<p>
-		残念ながらこの状態だと、<code>tmux</code>が256色出してくれない。
-	</p>
-	<div class="content-block grid-row">
-		<figure class="col-xs-12 col-sm-6">
-			<a href="mlterm-tmux-ok.png">
-				<img src="mlterm-tmux-ok.png" alt="期待していた結果" />
-			</a>
-			<figcaption>期待していた結果</figcaption>
+<section xml:id="solved">
+	<title>解決</title>
+
+	<simpara>
+		残念ながらこの状態だと、<command>tmux</command>が256色出してくれない。
+	</simpara>
+	<figure xml:id="figure-tmux-working-captures" role="independent-block grid-row">
+		<figure xml:id="figure-tmux-expected-colors" role="col-xs-12 col-sm-6">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="mlterm-tmux-ok.png" />
+				</imageobject>
+				<textobject>
+					<phrase>256色が正しく表示されることが期待されていた。</phrase>
+				</textobject>
+			</mediaobject>
+			<caption>期待していた結果</caption>
 		</figure>
-		<figure class="col-xs-12 col-sm-6">
-			<a href="mlterm-tmux-bad.png">
-				<img src="mlterm-tmux-bad.png" alt="実際の結果" />
-			</a>
-			<figcaption>mlterm公式のterminfoをベースにした結果</figcaption>
+		<figure xml:id="figure-tmux-actual-colors-by-official-terminfo" role="col-xs-12 col-sm-6">
+			<mediaobject>
+				<imageobject condition="web">
+					<imagedata fileref="mlterm-tmux-bad.png" />
+				</imageobject>
+				<textobject>
+					<phrase>実際には、256色どころか16色さえ正しく表示されていない。</phrase>
+				</textobject>
+			</mediaobject>
+			<caption>mlterm公式のterminfoをベースにした結果</caption>
 		</figure>
-	</div>
-	<p>
+	</figure>
+	<simpara>
 		つらい。
-	</p>
-	<p>
+	</simpara>
+	<simpara>
 		原因を探ったところ、<code>setab</code>と<code>setaf</code>の指定が問題であることがわかった。
-	</p>
+	</simpara>
 
-	<figure>
-		<pre>
-	setab=\E[4%p1%dm,
-	setaf=\E[3%p1%dm,
-</pre>
-		<figcaption>tmuxが256色出さないterminfo (mlterm-3.6.0 公式)</figcaption>
+	<figure xml:id="figure-problematic-part-of-mlterm-official-terminfo">
+		<literallayout class="monospaced"><![CDATA[	setab=\E[4%p1%dm,
+	setaf=\E[3%p1%dm,]]></literallayout>
+		<caption>tmuxが256色出さないterminfo (mlterm-3.6.0 公式)</caption>
 	</figure>
-	<figure>
-		<pre>
-	setab=\E[%?%p1%{8}%&lt;%t4%p1%d%e%p1%{16}%&lt;%t10%p1%{8}%-%d%e48;5;%p1%d%;m,
-	setaf=\E[%?%p1%{8}%&lt;%t3%p1%d%e%p1%{16}%&lt;%t9%p1%{8}%-%d%e38;5;%p1%d%;m,
-</pre>
-		<figcaption>tmuxが256色出すterminfo (ncurses-6.0 同梱)</figcaption>
+	<figure xml:id="figure-problematic-part-of-mlterm-terminfo-after-fix">
+		<literallayout class="monospaced"><![CDATA[	setab=\E[%?%p1%{8}%&lt;%t4%p1%d%e%p1%{16}%&lt;%t10%p1%{8}%-%d%e48;5;%p1%d%;m,
+	setaf=\E[%?%p1%{8}%&lt;%t3%p1%d%e%p1%{16}%&lt;%t9%p1%{8}%-%d%e38;5;%p1%d%;m,]]></literallayout>
+		<caption>tmuxが256色出すterminfo (ncurses-6.0 同梱)</caption>
 	</figure>
 
-	<aside class="tip">
-		<eh:title>究明の方法</eh:title>
-		<p>
-			<code>vimdiff &lt;(infocmp -A /usr/share/terminfo mlterm-256color | sed -e 's/, /,\n\t/g') &lt;(infocmp mlterm-256color | sed -e 's/, /,\n\t/g')</code>して、異なるそれぞれの項目をマージしてコンパイルし、確認していく。
-		</p>
-		<p>
+	<tip>
+		<title>究明の方法</title>
+
+		<simpara>
+			<command>vimdiff &lt;(infocmp -A /usr/share/terminfo mlterm-256color | sed -e 's/, /,\n\t/g') &lt;(infocmp mlterm-256color | sed -e 's/, /,\n\t/g')</command>して、異なるそれぞれの項目をマージしてコンパイルし、確認していく。
+		</simpara>
+		<simpara>
 			<code>&lt;(command)</code>はbashやzshでないと使えないので注意。
-		</p>
-	</aside>
+		</simpara>
+	</tip>
 
-	<p>
+	<simpara>
 		結局、ncursesの方が正しかったらしい。
-		<a href="http://invisible-island.net/ncurses/terminfo.ti.html#tic-mlterm">terminfo.src (colored) for NCURSES</a>を見ると、<code>mlterm3</code>の項目のコメントに以下のようにあった。
-	</p>
-	<figure>
-		<pre>
-# Tested mlterm 3.2.2:
+		<link xl:href="http://invisible-island.net/ncurses/terminfo.ti.html#tic-mlterm">terminfo.src (colored) for NCURSES</link>を見ると、<command>mlterm3</command>の項目のコメントに以下のようにあった。
+	</simpara>
+	<figure xml:id="figure-ncurses-mlterm-terminfo-comment">
+		<literallayout class="monospaced"><![CDATA[# Tested mlterm 3.2.2:
 # mlterm 3.x has made changes, but they are not reflected in the included
-# mlterm.ti; this entry is based on testing with tack and vttest -TD
-</pre>
-		<figcaption><a href="http://invisible-island.net/ncurses/terminfo.ti.html#tic-mlterm">terminfo.src</a>のコメント (抜粋)</figcaption>
+# mlterm.ti; this entry is based on testing with tack and vttest -TD]]></literallayout>
+		<caption><link xl:href="http://invisible-island.net/ncurses/terminfo.ti.html#tic-mlterm">terminfo.src</link>のコメント (抜粋)</caption>
 	</figure>
-	<p>
+	<simpara>
 		そういうわけで、折角一部キー以外問題ないものがあるのだから、それを使おう。
-	</p>
-	<figure>
-		<pre>
-mlterm|mlterm-256color|multi lingual terminal emulator,
+	</simpara>
+	<figure xml:id="figure-fixed-mlterm-terminfo-simple">
+		<literallayout class="monospaced"><![CDATA[mlterm|mlterm-256color|multi lingual terminal emulator,
 	khome=\E[H,
 	kend=\E[F,
 	kf1=\EOP,
 	kf2=\EOQ,
 	kf3=\EOR,
 	kf4=\EOS,
-	use=mlterm-256color,
-</pre>
-		<figcaption>mlterm用terminfoソース完成版(1)</figcaption>
+	use=mlterm-256color,]]></literallayout>
+		<caption>mlterm用terminfoソース完成版(1)</caption>
 	</figure>
-	<p>
+	<simpara>
 		<code>use=</code>で他のterminfoを参照できる。
 		ここではncursesが入れてくれた<code>mlterm-256color</code>を参照する。
 		循環参照っぽさがあるが、とりあえず動いたので良しとしよう。
 		心配なら以下のようにしてやれば同じ結果が得られるだろう。
-	</p>
-	<figure>
-		<pre class="code code-terminal">$ <kbd>infocmp -A /usr/share/terminfo mlterm-256color \
+	</simpara>
+	<figure xml:id="figure-edit-mlterm-terminfo">
+		<screen role="terminal"><prompt>$ </prompt><userinput>infocmp -A /usr/share/terminfo mlterm-256color \
     | sed \
         -e 's/khome=\\EOH,/khome=\\E[H,/' \
         -e 's/kend=\\EOF,/kend=\\E[F,/' \
@@ -352,60 +362,64 @@ mlterm|mlterm-256color|multi lingual terminal emulator,
         -e 's/kf2=\\E\[12~,/kf2=\\EOQ,/' \
         -e 's/kf3=\\E\[13~,/kf3=\\EOR,/' \
         -e 's/kf4=\\E\[14~,/kf4=\\EOS,/' \
-	&gt;mlterm-256color.ti</kbd>
-$ <kbd>tic mlterm-256color.ti</kbd>
-</pre>
-		<figcaption>mlterm用terminfoソース(2)の作り方</figcaption>
+	&gt;mlterm-256color.ti</userinput>
+<prompt>$ </prompt><userinput>tic mlterm-256color.ti</userinput>
+</screen>
+		<caption>mlterm用terminfoソース(2)の作り方</caption>
 	</figure>
-	<p>
+	<simpara>
 		これでやっと意図した結果が得られた(何を隠そう、先の「期待される結果」の画像はこのファイルを使ったものだ)。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="conclusion">
-	<eh:title>まとめ</eh:title>
-	<eh:section id="conclusion--problem">
-		<eh:title>問題</eh:title>
-		<ul>
-			<li>
-				ncurses6に含まれている<code>mlterm-256color</code>のterminfoは古く、一部キーが正常に認識されない原因になる。
-			</li>
-			<li>
-				かといってmltermのソースコードに含まれているものを使おうにも、これもまた古く、256色が正しく扱えないことがある。
-			</li>
-			<li>
-				よって、ncurses6の<code>mlterm-256color</code>のファイルをベースに、一部キーのシーケンスを変更し、これを優先的に使うことにした。
-				<ul>
-					<li>
-						古いバージョンから変更されたシーケンスは、mltermのChangeLogに記録されているため追跡できた。
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</eh:section>
-	<eh:section id="conclusion--operations">
-		<eh:title>手順</eh:title>
-		<p>
+<section xml:id="conclusion">
+	<title>まとめ</title>
+
+	<section xml:id="conclusion--problem">
+		<title>問題</title>
+
+		<itemizedlist>
+			<listitem>
+				<application>ncurses6</application>に含まれている<code>mlterm-256color</code>のterminfoは古く、一部キーが正常に認識されない原因になる。
+			</listitem>
+			<listitem>
+				かといって<command>mlterm</command>のソースコードに含まれているものを使おうにも、これもまた古く、256色が正しく扱えないことがある。
+			</listitem>
+			<listitem>
+				よって、<application>ncurses6</application>の<code>mlterm-256color</code>のファイルをベースに、一部キーのシーケンスを変更し、これを優先的に使うことにした。
+				<itemizedlist>
+					<listitem>
+						古いバージョンから変更されたシーケンスは、<command>mlterm</command>のChangeLogに記録されているため追跡できた。
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</section>
+
+	<section xml:id="conclusion--operations">
+		<title>手順</title>
+
+		<simpara>
 			<code>mlterm-256color</code>のterminfoのファイルがインストールされているか確認する。
-			このファイルがncursesによるものであるのが理想的だ。
-		</p>
-		<figure>
-			<pre class="code code-terminal">$ <kbd>ncurses6-config --version</kbd>
+			このファイルが<application>ncurses</application>によるものであるのが理想的だ。
+		</simpara>
+		<figure xml:id="figure--conclusion--check-ncurses-version">
+			<screen role="terminal"><prompt>$ </prompt><userinput>ncurses6-config --version</userinput>
 6.0.20150808
-$ <kbd>infocmp -D</kbd>
+<prompt>$ </prompt><userinput>infocmp -D</userinput>
 /home/larry/.terminfo
 /etc/terminfo
 /usr/share/terminfo
-$ <kbd>ls /usr/share/terminfo/m/mlterm-256color</kbd>
+<prompt>$ </prompt><userinput>ls /usr/share/terminfo/m/mlterm-256color</userinput>
 /usr/share/terminfo/m/mlterm-256color
-</pre>
-			<figcaption>terminal</figcaption>
+</screen>
+			<caption>terminal</caption>
 		</figure>
-		<p>
+		<simpara>
 			ファイルがあったら、これを以下のコマンドで編集する。
-		</p>
-		<figure>
-			<pre class="code code-terminal">$ <kbd>infocmp -A /usr/share/terminfo mlterm-256color \
+		</simpara>
+		<figure xml:id="figure--conclusion--edit-mlterm-terminfo">
+			<screen role="terminal"><prompt>$ </prompt><userinput>infocmp -A /usr/share/terminfo mlterm-256color \
   | sed \
     -e 's/khome=\\EOH,/khome=\\E[H,/' \
     -e 's/kend=\\EOF,/kend=\\E[F,/' \
@@ -413,22 +427,22 @@ $ <kbd>ls /usr/share/terminfo/m/mlterm-256color</kbd>
     -e 's/kf2=\\E\[12~,/kf2=\\EOQ,/' \
     -e 's/kf3=\\E\[13~,/kf3=\\EOR,/' \
     -e 's/kf4=\\E\[14~,/kf4=\\EOS,/' \
-  &gt;mlterm-256color.ti</kbd>
-</pre>
-			<figcaption>terminal</figcaption>
+  &gt;mlterm-256color.ti</userinput>
+</screen>
+			<caption>terminal</caption>
 		</figure>
-		<p>
+		<simpara>
 			このファイルをコンパイルし、インストールする。
 			このときroot権限だとシステムディレクトリに入れてしまう可能性があるので注意。
-		</p>
-		<figure>
-			<pre class="code code-terminal">$ <kbd>tic mlterm-256color.ti</kbd>
-</pre>
-			<figcaption>terminal</figcaption>
+		</simpara>
+		<figure xml:id="figure--conclusion--execute-tic">
+			<screen role="terminal"><prompt>$ </prompt><userinput>tic mlterm-256color.ti</userinput>
+</screen>
+			<caption>terminal</caption>
 		</figure>
-		<p>
+		<simpara>
 			これでおしまい。
-		</p>
-	</eh:section>
-</eh:section>
-</eh:article>
+		</simpara>
+	</section>
+</section>
+</article>

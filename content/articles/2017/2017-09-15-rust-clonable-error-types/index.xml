@@ -2,7 +2,7 @@
 created_at: 2017-09-17T01:58:08+0900
 published_at: 2017-09-17T01:58:08+0900
 updated_at: 2017-09-18T17:47:54+0900
-format: "easy-html"
+format: docbook
 title: "Rust でエラー型に Clone が実装されていてほしい"
 tags:
   - prog-rust
@@ -12,107 +12,110 @@ kind: article
 excerpt: "Rust でエラー型に Clone trait が実装されていてほしい理由とか愚痴とか。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	id="2017-09-15-rust-clonable-error-types"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xml:id="article-2017-09-15-rust-clonable-error-types"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>Rust でエラー型に Clone が実装されていてほしい</eh:title>
+<title>Rust でエラー型に Clone が実装されていてほしい</title>
 
-<p>
+<simpara>
 	これは物申す系の話とかではなく、単なる愚痴。
-	現状については<eh:xref linkend="current-status" />セクション参照。
-</p>
+	現状については<xref linkend="current-status" />セクション参照。
+</simpara>
 
-<eh:section id="abstract">
-	<eh:title>概要</eh:title>
-	<ul>
-		<li>
-			エラー云々以前に、ユーザが後から (<code>Clone</code> 等、自前でない trait の)実装を追加できない<eh:footnote id="trait-coherence">
-				<a href="http://qnighy.hatenablog.com/entry/2017/07/20/220000">Rustのコヒーレンス - 簡潔なQ</a>
-			</eh:footnote>以上、ライブラリ作者はできるだけ基本的な trait 群を derive しておくべきである。
-		</li>
-		<li>
+<section xml:id="abstract">
+	<title>概要</title>
+	<itemizedlist>
+		<listitem>
+			エラー云々以前に、ユーザが後から (<code>Clone</code> 等、自前でない trait の)実装を追加できない<footnote xml:id="footnote-trait-coherence" refmark-id="ref-footnote-trait-coherence">
+				<link xl:href="http://qnighy.hatenablog.com/entry/2017/07/20/220000">Rustのコヒーレンス - 簡潔なQ</link>
+			</footnote>以上、ライブラリ作者はできるだけ基本的な trait 群を derive しておくべきである。
+		</listitem>
+		<listitem>
 			エラー型のオブジェクトを clone したい場合が存在する。
-		</li>
-		<li>
-			<a href="https://crates.io/crates/error-chain">error_chain</a> crate でエラー型を用意すると、現状(<a href="https://crates.io/crates/error-chain/0.11.0">0.11.0</a> (<time datetime="2017-09-06">2017-09-06</time> リリース)時点)では <code>derive(Clone)</code> できない。
-		</li>
-	</ul>
+		</listitem>
+		<listitem>
+			<link xl:href="https://crates.io/crates/error-chain">error_chain</link> crate でエラー型を用意すると、現状(<link xl:href="https://crates.io/crates/error-chain/0.11.0">0.11.0</link> (<h:time datetime="2017-09-06">2017-09-06</h:time> リリース)時点)では <code>derive(Clone)</code> できない。
+		</listitem>
+	</itemizedlist>
 
-	<p>
+	<simpara>
 		以上のような理由で、つらい。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="situations">
-	<eh:title>エラーを clone したい状況</eh:title>
+<section xml:id="situations">
+	<title>エラーを clone したい状況</title>
 
-	<eh:section id="returning-result-from-iterator">
-		<eh:title>処理の完了や致命的な失敗の後にも、 Result を返す関数の呼び出しに制約をかけたくない場合</eh:title>
-		<p>
+	<section xml:id="returning-result-from-iterator">
+		<title>処理の完了や致命的な失敗の後にも、 Result を返す関数の呼び出しに制約をかけたくない場合</title>
+		<simpara>
 			たとえば XML パーサである xml-rs crate 等が該当する。
-			<a href="https://docs.rs/xml-rs/0.6.1/xml/reader/struct.EventReader.html#method.next"><code>xml::reader::EventReader::next()</code></a> は、(致命的な)パースエラー等があると <code>Err</code> を返すが、エラーが返された後も <code>next()</code> 自体は制限なく何度でも呼び出すことができる。
-		</p>
-		<blockquote cite="https://docs.rs/xml-rs/0.6.1/xml/reader/struct.EventReader.html#method.next">
-			<p>
-				If returned event is <code>XmlEvent::Error</code> or <code>XmlEvent::EndDocument</code>, then further calls to this method <strong>will return this event again</strong>.
-			</p>
-			<footer>
-				<a href="https://docs.rs/xml-rs/0.6.1/xml/reader/struct.EventReader.html#method.next">xml-rs 0.6.1 のドキュメント</a> より。
+			<link xl:href="https://docs.rs/xml-rs/0.6.1/xml/reader/struct.EventReader.html#method.next"><code>xml::reader::EventReader::next()</code></link> は、(致命的な)パースエラー等があると <code>Err</code> を返すが、エラーが返された後も <code>next()</code> 自体は制限なく何度でも呼び出すことができる。
+		</simpara>
+		<h:blockquote cite="https://docs.rs/xml-rs/0.6.1/xml/reader/struct.EventReader.html#method.next">
+			<simpara>
+				If returned event is <code>XmlEvent::Error</code> or <code>XmlEvent::EndDocument</code>, then further calls to this method <emphasis>will return this event again</emphasis>.
+			</simpara>
+			<h:footer>
+				<link xl:href="https://docs.rs/xml-rs/0.6.1/xml/reader/struct.EventReader.html#method.next">xml-rs 0.6.1 のドキュメント</link> より。
 				強調は引用者による。
-			</footer>
-		</blockquote>
-		<p>
+			</h:footer>
+		</h:blockquote>
+		<simpara>
 			このような場合、最後のエラーを複数回返す必要が出てくるため、当然エラー型は <code>Clone</code> を実装していてほしい。
-		</p>
-		<p>
-			以前、私が xml-rs を参考に書いた <a href="https://crates.io/crates/fbx_direct">fbx_direct</a> crate では、エラーとして I/O エラー (<a href="https://doc.rust-lang.org/std/io/struct.Error.html"><code>std::io::Error</code></a>) が有り得たため、<a href="https://docs.rs/fbx_direct/0.6.2/src/fbx_direct/reader/error.rs.html#89-104">自前で <code>Clone</code> を実装することになってしまった</a>。
-			Qiita の記事『<a href="http://qiita.com/lo48576/items/8873866b8e7edf477985">Rustで std::io::Error をcloneしたいとき - Qiita</a>』はこのときの副産物である。
-		</p>
-		<p>
-			完了や失敗の後の関数呼び出しに制約をかけるというのもひとつの選択で、たとえば <a href="https://crates.io/crates/futures">futures-rs</a> などはその選択を採っている。
-		</p>
-		<blockquote cite="https://docs.rs/futures/0.1.16/futures/future/trait.Future.html#tymethod.poll">
-			<p>
-				<strong>Once a future has completed</strong> (returned <code>Ready</code> or <code>Err</code> from poll),
-				<strong>then any future calls to <code>poll</code> may panic</strong>, block forever, or otherwise cause wrong behavior.
+		</simpara>
+		<simpara>
+			以前、私が xml-rs を参考に書いた <link xl:href="https://crates.io/crates/fbx_direct">fbx_direct</link> crate では、エラーとして I/O エラー (<link xl:href="https://doc.rust-lang.org/std/io/struct.Error.html"><code>std::io::Error</code></link>) が有り得たため、<link xl:href="https://docs.rs/fbx_direct/0.6.2/src/fbx_direct/reader/error.rs.html#89-104">自前で <code>Clone</code> を実装することになってしまった</link>。
+			Qiita の記事『<link xl:href="http://qiita.com/lo48576/items/8873866b8e7edf477985">Rustで std::io::Error をcloneしたいとき - Qiita</link>』はこのときの副産物である。
+		</simpara>
+		<simpara>
+			完了や失敗の後の関数呼び出しに制約をかけるというのもひとつの選択で、たとえば <link xl:href="https://crates.io/crates/futures">futures-rs</link> などはその選択を採っている。
+		</simpara>
+		<h:blockquote cite="https://docs.rs/futures/0.1.16/futures/future/trait.Future.html#tymethod.poll">
+			<simpara>
+				<emphasis>Once a future has completed</emphasis> (returned <code>Ready</code> or <code>Err</code> from poll),
+				<emphasis>then any future calls to <code>poll</code> may panic</emphasis>, block forever, or otherwise cause wrong behavior.
 				The <code>Future</code> trait itself provides no guarantees about the behavior of <code>poll</code> after a future has completed.
-			</p>
-			<footer>
-				<a href="https://docs.rs/futures/0.1.16/futures/future/trait.Future.html#tymethod.poll">futures-rs 0.1.16 のドキュメント <code>poll</code> 関数の項目</a>の Panics セクションより。
+			</simpara>
+			<h:footer>
+				<link xl:href="https://docs.rs/futures/0.1.16/futures/future/trait.Future.html#tymethod.poll">futures-rs 0.1.16 のドキュメント <code>poll</code> 関数の項目</link>の Panics セクションより。
 				強調は引用者による。
-			</footer>
-		</blockquote>
-		<p>
+			</h:footer>
+		</h:blockquote>
+		<simpara>
 			futures-rs の <code>Future</code> trait 自体は各ライブラリ開発者が各々の型に対して実装しうるものであり、エラー型も様々だから、実装を単純にするためにこのように定めたのであろう。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="error-type-for-warnings">
-		<eh:title>エラー型を致命的でない警告に対して使いたい場合</eh:title>
+	<section xml:id="error-type-for-warnings">
+		<title>エラー型を致命的でない警告に対して使いたい場合</title>
 
-		<eh:section id="error-type-for-warnings--concept">
-			<eh:title>コンセプト (サンプルコード)</eh:title>
-			<p>
+		<section xml:id="error-type-for-warnings--concept">
+			<title>コンセプト (サンプルコード)</title>
+			<simpara>
 				致命的でない警告をエラーとして扱うかどうかユーザに委ねたい場合などがあり、この場合警告は <code>Error</code> trait を実装していると良い。
-				<a href="https://gist.github.com/anonymous/2ce762d67289613e4403c547d1153e67">コード例</a>を書いたので参照されたい (<a href="https://play.rust-lang.org/?gist=2ce762d67289613e4403c547d1153e67&amp;version=stable">playground へのリンク</a>)。
-			</p>
-			<figure>
-				<pre><code class="lang-rust language-rust"><![CDATA[
+				<link xl:href="https://gist.github.com/anonymous/2ce762d67289613e4403c547d1153e67">コード例</link>を書いたので参照されたい (<link xl:href="https://play.rust-lang.org/?gist=2ce762d67289613e4403c547d1153e67&amp;version=stable">playground へのリンク</link>)。
+			</simpara>
+			<informalfigure>
+				<programlisting language="rust"><![CDATA[
     // Buy only clean and not broken items.
     assert_eq!(
         Err(ShoppingError::Warning(ShoppingWarning::Dirty(2))),
         buy(1, 2, |w| Err(w))
     );
-]]></code></pre>
-				<figcaption>
+]]></programlisting>
+				<caption>
 					商品が汚れていたり壊れていたら買い物をやめる例
-					(<a href="https://gist.github.com/anonymous/2ce762d67289613e4403c547d1153e67">ソースコード</a> より抜粋, <a href="https://play.rust-lang.org/?gist=2ce762d67289613e4403c547d1153e67&amp;version=stable">playground へのリンク</a>)。
-				</figcaption>
-			</figure>
-			<figure>
-				<pre><code class="lang-rust language-rust"><![CDATA[
+					(<link xl:href="https://gist.github.com/anonymous/2ce762d67289613e4403c547d1153e67">ソースコード</link> より抜粋, <link xl:href="https://play.rust-lang.org/?gist=2ce762d67289613e4403c547d1153e67&amp;version=stable">playground へのリンク</link>)。
+				</caption>
+			</informalfigure>
+			<informalfigure>
+				<programlisting language="rust"><![CDATA[
     // Buy not broken items, allow dirty items.
     assert_eq!(
         Ok(2),
@@ -135,14 +138,14 @@ excerpt: "Rust でエラー型に Clone trait が実装されていてほしい�
             }
         })
     );
-]]></code></pre>
-				<figcaption>
+]]></programlisting>
+				<caption>
 					商品が汚れていても買うが、壊れていたら買い物をやめる例
-					(<a href="https://gist.github.com/anonymous/2ce762d67289613e4403c547d1153e67">ソースコード</a> より抜粋, <a href="https://play.rust-lang.org/?gist=2ce762d67289613e4403c547d1153e67&amp;version=stable">playground へのリンク</a>)。
-				</figcaption>
-			</figure>
-			<figure>
-				<pre><code class="lang-rust language-rust"><![CDATA[
+					(<link xl:href="https://gist.github.com/anonymous/2ce762d67289613e4403c547d1153e67">ソースコード</link> より抜粋, <link xl:href="https://play.rust-lang.org/?gist=2ce762d67289613e4403c547d1153e67&amp;version=stable">playground へのリンク</link>)。
+				</caption>
+			</informalfigure>
+			<informalfigure>
+				<programlisting language="rust"><![CDATA[
     // Buy not broken items, allow dirty items.
     // Log troubles.
     let mut troubles = Vec::new();
@@ -164,60 +167,67 @@ excerpt: "Rust でエラー型に Clone trait が実装されていてほしい�
             ShoppingWarning::Broken,
         ]
     );
-]]></code></pre>
-				<figcaption>
+]]></programlisting>
+				<caption>
 					商品が汚れていても買うが、壊れていたら買い物をやめ、それはさておきトラブルを外部に記録しておく例
-					(<a href="https://gist.github.com/anonymous/2ce762d67289613e4403c547d1153e67">ソースコード</a> より抜粋, <a href="https://play.rust-lang.org/?gist=2ce762d67289613e4403c547d1153e67&amp;version=stable">playground へのリンク</a>)。
-				</figcaption>
-			</figure>
-			<p>
+					(<link xl:href="https://gist.github.com/anonymous/2ce762d67289613e4403c547d1153e67">ソースコード</link> より抜粋, <link xl:href="https://play.rust-lang.org/?gist=2ce762d67289613e4403c547d1153e67&amp;version=stable">playground へのリンク</link>)。
+				</caption>
+			</informalfigure>
+			<simpara>
 				警告のエラー型が <code>Clone</code> を実装していてほしいのは、まさに最後の例のような場合である。
-				エラーをどこかに記憶(複製)したのち確認したい場合、 <code>clone()</code> できてほしい<eh:footnote id="referring-without-cloning">
+				エラーをどこかに記憶(複製)したのち確認したい場合、 <code>clone()</code> できてほしい<footnote xml:id="footnote-referring-without-cloning" refmark-id="ref-footnote-referring-without-cloning">
 					どうしてもというなら、大抵のコンテナは挿入した要素やエントリへの参照を返してくれたり <code>Vec::last()</code> のような機能を持っているので、 <code>Clone</code> が実装されておらずともやりようはあるが、余計な手間がかかるし、そういう話をしているのではない
-				</eh:footnote>し、 <code>assert_eq!()</code> 等でテストをしたい場合には <code>Clone</code> 以外にも <code>PartialEq</code> なども必要になるから、 <code>Clone</code> に限らず基本的な trait はとにかく実装しておいてほしいということである。
-			</p>
-		</eh:section>
+				</footnote>し、 <code>assert_eq!()</code> 等でテストをしたい場合には <code>Clone</code> 以外にも <code>PartialEq</code> なども必要になるから、 <code>Clone</code> に限らず基本的な trait はとにかく実装しておいてほしいということである。
+			</simpara>
+		</section>
 
-		<eh:section id="error-type-for-warnings--fbxcel">
-			<eh:title>具体例: fbxcel crate (自作)</eh:title>
-			<p>
-				先述の fbx_direct crate とは別に(というか改良して)、 <a href="https://github.com/lo48576/fbxcel">fbxcel</a> という crate を開発していて、こちらでは、致命的ではないがおかしいデータについて <a href="https://github.com/lo48576/fbxcel/blob/adf9fac0f313ad04cef9f626cd04157176e66d01/src/parser/binary/error.rs#L179-L246"><code>Warning</code> 型</a>で警告を発するようになっている。
+		<section xml:id="error-type-for-warnings--fbxcel">
+			<title>具体例: fbxcel crate (自作)</title>
+			<simpara>
+				先述の fbx_direct crate とは別に(というか改良して)、 <link xl:href="https://github.com/lo48576/fbxcel">fbxcel</link> という crate を開発していて、こちらでは、致命的ではないがおかしいデータについて <link xl:href="https://github.com/lo48576/fbxcel/blob/adf9fac0f313ad04cef9f626cd04157176e66d01/src/parser/binary/error.rs#L179-L246"><code>Warning</code> 型</link>で警告を発するようになっている。
 				単なるロギングではなく、こうして専用の型のついたオブジェクトを経由させることで、このライブラリを利用するアプリケーションからも警告履歴を利用可能となる。
-			</p>
-			<figure>
-				<img src="fbx-tree-view-capture.png" alt="fbxcel が発した警告を、 fbxcel を利用するアプリケーションが自由に整形して表示できる。" />
-				<figcaption><a href="https://github.com/lo48576/fbx-tree-view">fbx-tree-view</a> (GUI のビューア)で fbxcel が発した警告を表示した例 (画像下部)</figcaption>
-			</figure>
-			<aside class="note">
-				<eh:title>FBX と validation error</eh:title>
-				<p>
+			</simpara>
+			<informalfigure>
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="fbx-tree-view-capture.png" />
+					</imageobject>
+					<textobject>
+						<phrase>fbxcel が発した警告を、 fbxcel を利用するアプリケーションが自由に整形して表示できる。</phrase>
+					</textobject>
+				</mediaobject>
+				<caption><link xl:href="https://github.com/lo48576/fbx-tree-view">fbx-tree-view</link> (GUI のビューア)で fbxcel が発した警告を表示した例 (画像下部)</caption>
+			</informalfigure>
+			<note>
+				<title>FBX と validation error</title>
+				<simpara>
 					FBX ファイル形式はプロプライエタリであり、データが valid であるか否かがそもそもわからない。
 					よって、致命的でない限り、どのような予想外のデータであっても致命的なエラー扱いとするわけにはいかなかった。
-				</p>
-				<p>
+				</simpara>
+				<simpara>
 					かといって、潜在的にエラーや不整合の原因となりうるデータを静かに無視するわけにもいかない。
 					たとえば、 Blender の FBX exporter は boolean value を本来の <code>0x54</code> と <code>0x59</code> でなく <code>0x00</code> と <code>0x01</code> で吐くため、 FBX SDK では boolean 型のプロパティが無視され欠落する。
 					これを寛容に解釈して許すか、 FBX SDK との解釈の違いを避けるためエラーとするかは、ライブラリのユーザに委ねられるべきである。
-				</p>
-				<p>
-					また、 <a href="https://github.com/lo48576/fbxcel/blob/adf9fac0f313ad04cef9f626cd04157176e66d01/src/parser/binary/event/mod.rs#L117-L119">fbxcel のコメントに記してある</a>ように、 Blender の FBX exporter はパディングが16バイトアラインされておらず、これも valid な FBX のみを想定するアプリケーションでファイルフッタを正しく読めない原因となりうる。
+				</simpara>
+				<simpara>
+					また、 <link xl:href="https://github.com/lo48576/fbxcel/blob/adf9fac0f313ad04cef9f626cd04157176e66d01/src/parser/binary/event/mod.rs#L117-L119">fbxcel のコメントに記してある</link>ように、 Blender の FBX exporter はパディングが16バイトアラインされておらず、これも valid な FBX のみを想定するアプリケーションでファイルフッタを正しく読めない原因となりうる。
 					フッタには特に有益な情報はないが、このエラーを許すか許さないかは目的によるから、ライブラリが中立であるためには無条件の拒否や無視を行うべきではない。
-				</p>
-			</aside>
-		</eh:section>
+				</simpara>
+			</note>
+		</section>
 
-		<eh:section id="error-type-for-warnings--fsck-xv6">
-			<eh:title>具体例: fsck-xv6 (自作)</eh:title>
-			<p>
-				いつぞやの OS の授業の課題で <a href="https://github.com/mit-pdos/xv6-public">xv6</a> のファイルシステムの validator (<a href="https://gitlab.cardina1.red/lo48576/titech-1610-os/tree/homework/4/fsck-xv6">fsck-xv6</a>) を実装したことがあり、このときもファイルシステムエラーを表現するための型に <code>Error</code> trait を実装した。
-			</p>
-			<p>
+		<section xml:id="error-type-for-warnings--fsck-xv6">
+			<title>具体例: fsck-xv6 (自作)</title>
+			<simpara>
+				いつぞやの OS の授業の課題で <link xl:href="https://github.com/mit-pdos/xv6-public">xv6</link> のファイルシステムの validator (<link xl:href="https://gitlab.cardina1.red/lo48576/titech-1610-os/tree/homework/4/fsck-xv6">fsck-xv6</link>) を実装したことがあり、このときもファイルシステムエラーを表現するための型に <code>Error</code> trait を実装した。
+			</simpara>
+			<simpara>
 				こちらは一般的な意味での「エラー」ではあるが、ファイルシステムの妥当性検証という性質上、ファイルシステムのエラーがそのままプログラムの継続不可能を意味するわけではない。
 				よって、複数のエラーが発生すればそれらを全て列挙したり、或いは <code>Vec</code> 等のコンテナに溜めたりといった用途を想定することになる。
-			</p>
-			<figure>
-				<figure>
-					<pre><code class="lang-rust language-rust"><![CDATA[
+			</simpara>
+			<informalfigure>
+				<informalfigure>
+					<programlisting language="rust"><![CDATA[
     let errors = fs::validate(target_file)
         .expect("Critical error happened and validation cannot be proceeded");
     if errors.is_empty() {
@@ -228,21 +238,21 @@ excerpt: "Rust でエラー型に Clone trait が実装されていてほしい�
             println!("{}", err);
         }
     }
-]]></code></pre>
-					<figcaption><a href="https://gitlab.cardina1.red/lo48576/titech-1610-os/blob/homework/4/fsck-xv6/src/main.rs#L24-33"><code class="filepath">src/main.rs</code>, <code>main</code> 関数内より抜粋</a></figcaption>
-				</figure>
-				<figure>
-					<pre><code class="lang-rust language-rust"><![CDATA[
+]]></programlisting>
+					<caption><link xl:href="https://gitlab.cardina1.red/lo48576/titech-1610-os/blob/homework/4/fsck-xv6/src/main.rs#L24-33"><filename>src/main.rs</filename>, <function>main</function> 関数内より抜粋</link></caption>
+				</informalfigure>
+				<informalfigure>
+					<programlisting language="rust"><![CDATA[
 pub fn validate<P: AsRef<Path>>(path: P) -> io::Result<Vec<Error>> {
     let path = path.as_ref();
     let mut reader = BufReader::new(File::open(path)?);
 
     let mut errors = vec![];
-]]></code></pre>
-					<figcaption><a href="https://gitlab.cardina1.red/lo48576/titech-1610-os/blob/homework/4/fsck-xv6/src/fs/mod.rs#L39-43"><code class="filepath">src/fs/mod.rs</code>, トップレベルより抜粋</a></figcaption>
-				</figure>
-				<figure>
-					<pre><code class="lang-rust language-rust"><![CDATA[
+]]></programlisting>
+					<caption><link xl:href="https://gitlab.cardina1.red/lo48576/titech-1610-os/blob/homework/4/fsck-xv6/src/fs/mod.rs#L39-43"><filename>src/fs/mod.rs</filename>, トップレベルより抜粋</link></caption>
+				</informalfigure>
+				<informalfigure>
+					<programlisting language="rust"><![CDATA[
 /// Validation error.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Error {
@@ -250,72 +260,72 @@ pub enum Error {
     DataBlockReferenceConflict { block: BlockIndex },
     DirectoryWithoutDot { inode: Inode },
     DirectoryWithoutDotdot { inode: Inode },
-]]></code></pre>
-					<figcaption><a href="https://gitlab.cardina1.red/lo48576/titech-1610-os/blob/homework/4/fsck-xv6/src/fs/error.rs#L9-15"><code class="filepath">src/fs/error.rs</code>, トップレベルより抜粋</a></figcaption>
-				</figure>
-				<figcaption>エラー型の実装</figcaption>
-			</figure>
-			<p>
+]]></programlisting>
+					<caption><link xl:href="https://gitlab.cardina1.red/lo48576/titech-1610-os/blob/homework/4/fsck-xv6/src/fs/error.rs#L9-15"><filename>src/fs/error.rs</filename>, トップレベルより抜粋</link></caption>
+				</informalfigure>
+				<caption>エラー型の実装</caption>
+			</informalfigure>
+			<simpara>
 				この設計は fbxcel のエラー処理の発想をそのまま使ったものであり、ゆえに結局警告をエラーとして使いたいのかそうでないのかよくわからない設計になっている。
-				今の私が同じような目的のコードを書いたら、<eh:xref linkend="error-type-for-warnings--concept">最初の例</eh:xref>のように特定の警告にフックをかけて処理を中断できるように作るはずである。
-			</p>
-		</eh:section>
-	</eh:section>
-</eh:section>
+				今の私が同じような目的のコードを書いたら、<link linkend="error-type-for-warnings--concept">最初の例</link>のように特定の警告にフックをかけて処理を中断できるように作るはずである。
+			</simpara>
+		</section>
+	</section>
+</section>
 
-<eh:section id="current-status">
-	<eh:title>現状</eh:title>
-	<p>
+<section xml:id="current-status">
+	<title>現状</title>
+	<simpara>
 		ここまで熟々と書いてきたのは、つまるところエラーを clone したいというだけの話である。
 		現状でそれを妨げる要因は、以下のようなものである。
-	</p>
+	</simpara>
 
-	<eh:section id="std-io-error-doesnt-implement-clone">
-		<eh:title>std::io::Error が Clone を実装していない</eh:title>
-		<p>
+	<section xml:id="std-io-error-doesnt-implement-clone">
+		<title>std::io::Error が Clone を実装していない</title>
+		<simpara>
 			悲しいことに、そうなのである。
-		</p>
-		<p>
-			<a href="https://github.com/rust-lang/rust/issues/24135">issue が立ってはいる</a>が進展の様子はなく、当面は <a href="http://qiita.com/lo48576/items/8873866b8e7edf477985">Qiita に書いた</a>ように誤魔化しつつやっていくしかない。
-		</p>
-	</eh:section>
+		</simpara>
+		<simpara>
+			<link xl:href="https://github.com/rust-lang/rust/issues/24135">issue が立ってはいる</link>が進展の様子はなく、当面は <link xl:href="http://qiita.com/lo48576/items/8873866b8e7edf477985">Qiita に書いた</link>ように誤魔化しつつやっていくしかない。
+		</simpara>
+	</section>
 
-	<eh:section id="error-chain-doesnt-support-derive-on-the-error">
-		<eh:title>error-chain trait がエラー型に対する derive をサポートしていない</eh:title>
-		<p>
-			<a href="https://crates.io/crates/error-chain">error-chain</a> crate は、エラー型や関連する諸々を用意する際のボイラープレートを減らすためのライブラリである。
-			イマドキ手書きの温かみのあるエラー型を書いたりしないよね、 error-chain は人権だよねという空気がある<sup>[要出典]</sup>が、残念ながら error-chain で定義したエラー型は <code>Clone</code> を実装していないのである！！！
-			<small>(<time datetime="2017-09-17">2017-09-17 時点</time>)</small>
-		</p>
-		<p>
-			<a href="https://github.com/rust-lang-nursery/error-chain/pull/163">プルリクエスト</a>もあり議論は進んでいるようだが、今使いたい私にとっては重大な問題である<eh:footnote id="not-using-error-chain">
+	<section xml:id="error-chain-doesnt-support-derive-on-the-error">
+		<title>error-chain trait がエラー型に対する derive をサポートしていない</title>
+		<simpara>
+			<link xl:href="https://crates.io/crates/error-chain">error-chain</link> crate は、エラー型や関連する諸々を用意する際のボイラープレートを減らすためのライブラリである。
+			イマドキ手書きの温かみのあるエラー型を書いたりしないよね、 error-chain は人権だよねという空気がある<superscript>[要出典]</superscript>が、残念ながら error-chain で定義したエラー型は <code>Clone</code> を実装していないのである！！！
+			(<h:time datetime="2017-09-17">2017-09-17 時点</h:time>)
+		</simpara>
+		<simpara>
+			<link xl:href="https://github.com/rust-lang-nursery/error-chain/pull/163">プルリクエスト</link>もあり議論は進んでいるようだが、今使いたい私にとっては重大な問題である<footnote xml:id="footnote-not-using-error-chain" refmark-id="ref-footnote-not-using-error-chain">
 				error-chain を使わなければ良いではないかという話はその通りで、私も(まさに <code>Clone</code> を実装したいという理由で)今まで使わずにやってきたのだが、つらい。ボイラープレートつらい。
-			</eh:footnote>。
-		</p>
-	</eh:section>
-</eh:section>
+			</footnote>。
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="references">
-	<eh:title>参考リンク</eh:title>
-	<ul>
-		<li>
-			<a href="https://crates.io/crates/error-chain">error-chain</a>
-			<ul>
-				<li>
-					<a href="https://github.com/rust-lang-nursery/error-chain/issues/134">Allow deriving traits on the Error · Issue #134 · rust-lang-nursery/error-chain</a>
-				</li>
-				<li>
-					<a href="https://github.com/rust-lang-nursery/error-chain/pull/163">[WIP] Add derive block for deriving additional traits on error types by pengowen123 · Pull Request #163 · rust-lang-nursery/error-chain</a>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="https://github.com/rust-lang/rust/issues/24135">Consider changing io::Error to use Arc so it can implement Clone · Issue #24135 · rust-lang/rust</a>
-		</li>
-		<li>
-			<a href="http://qiita.com/lo48576/items/8873866b8e7edf477985">Rustで std::io::Error をcloneしたいとき - Qiita</a>
-		</li>
-	</ul>
-</eh:section>
+<section xml:id="references">
+	<title>参考リンク</title>
+	<itemizedlist>
+		<listitem>
+			<link xl:href="https://crates.io/crates/error-chain">error-chain</link>
+			<itemizedlist>
+				<listitem>
+					<link xl:href="https://github.com/rust-lang-nursery/error-chain/issues/134">Allow deriving traits on the Error · Issue #134 · rust-lang-nursery/error-chain</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://github.com/rust-lang-nursery/error-chain/pull/163">[WIP] Add derive block for deriving additional traits on error types by pengowen123 · Pull Request #163 · rust-lang-nursery/error-chain</link>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="https://github.com/rust-lang/rust/issues/24135">Consider changing io::Error to use Arc so it can implement Clone · Issue #24135 · rust-lang/rust</link>
+		</listitem>
+		<listitem>
+			<link xl:href="http://qiita.com/lo48576/items/8873866b8e7edf477985">Rustで std::io::Error をcloneしたいとき - Qiita</link>
+		</listitem>
+	</itemizedlist>
+</section>
 
-</eh:article>
+</article>

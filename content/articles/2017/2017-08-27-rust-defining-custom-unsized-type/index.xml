@@ -2,7 +2,7 @@
 created_at: 2017-08-27T21:32:53+0900
 published_at: 2017-08-27T21:32:53+0900
 updated_at: 2018-07-17T17:38:07+09:00
-format: "easy-html"
+format: docbook
 title: "Rust (1.19.0) でオレオレ unsized type を定義する"
 tags:
   - prog-rust
@@ -11,100 +11,103 @@ kind: article
 excerpt: "Rust-1.19.0 で str や std::path::Path のような型を定義する方法。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	id="2017-08-27-rust-defining-custom-unsized-type"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xml:id="article-2017-08-27-rust-defining-custom-unsized-type"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>Rust (1.19.0) でオレオレ unsized type を定義する</eh:title>
+<title>Rust (1.19.0) でオレオレ unsized type を定義する</title>
 
-<p>
-	TL;DR: <eh:xref linkend="conclusion" />
-</p>
+<simpara>
+	TL;DR: <xref linkend="conclusion" />
+</simpara>
 
-<eh:section id="abstract">
-	<eh:title>概要</eh:title>
-	<p>
-		Rust 用の ActivityPub ライブラリとサーバを実装しようとしているのだが、 オブジェクトの ID を <a href="https://ja.wikipedia.org/wiki/Internationalized_Resource_Identifier">IRI</a> (<a href="https://www.ietf.org/rfc/rfc3987">RFC 3987</a>, まあ URI や URL みたいなもの) で表現することになっている。
-		これは Unicode の文字列のサブセットであるから、 IRI を表現する型は <code>&amp;str</code> や <code>String</code> 型をベースとして値の範囲を制限した strong typedef により実装できそうである。
-		しかし、 <code>str</code> は unsized な型であるから、安直に実装しようとしてもうまくいかない。
-		そこで、似たような型である <code>std::path::Path</code> 等を参考にしつつ方法を調べた。
-	</p>
-	<p>
+<section xml:id="abstract">
+	<title>概要</title>
+	<simpara>
+		Rust 用の ActivityPub ライブラリとサーバを実装しようとしているのだが、 オブジェクトの ID を <link xl:href="https://ja.wikipedia.org/wiki/Internationalized_Resource_Identifier">IRI</link> (<link xl:href="https://www.ietf.org/rfc/rfc3987">RFC 3987</link>, まあ URI や URL みたいなもの) で表現することになっている。
+		これは Unicode の文字列のサブセットであるから、 IRI を表現する型は <type>&amp;str</type> や <type>String</type> 型をベースとして値の範囲を制限した strong typedef により実装できそうである。
+		しかし、 <type>str</type> は unsized な型であるから、安直に実装しようとしてもうまくいかない。
+		そこで、似たような型である <type>std::path::Path</type> 等を参考にしつつ方法を調べた。
+	</simpara>
+	<simpara>
 		C/C++ で言うところの VLAIS みたいなのは未対応っぽいので、 unsized type とはいってもそういう話ではない。
 		(詳細は以下リンク)
-	</p>
-	<ul>
-		<li>
-			<a href="https://github.com/rust-lang/rfcs/issues/813">RFC: truly unsized types · Issue #813 · rust-lang/rfcs · GitHub</a>
-		</li>
-		<li>
-			<a href="https://github.com/rust-lang/rfcs/pull/1524">Custom Dynamically Sized Types for Rust by ubsan · Pull Request #1524 · rust-lang/rfcs · GitHub</a>
-		</li>
-		<li>
-			<eh:xref linkend="postscript-20170829" />
-		</li>
-	</ul>
-</eh:section>
+	</simpara>
+	<itemizedlist>
+		<listitem>
+			<link xl:href="https://github.com/rust-lang/rfcs/issues/813">RFC: truly unsized types · Issue #813 · rust-lang/rfcs · GitHub</link>
+		</listitem>
+		<listitem>
+			<link xl:href="https://github.com/rust-lang/rfcs/pull/1524">Custom Dynamically Sized Types for Rust by ubsan · Pull Request #1524 · rust-lang/rfcs · GitHub</link>
+		</listitem>
+		<listitem>
+			<xref linkend="postscript-20170829" />
+		</listitem>
+	</itemizedlist>
+</section>
 
-<eh:section id="strong-typedef">
-	<eh:title>strong typedef とは</eh:title>
-	<p>
-		strong typedef とは、内部表現としてある型 (<code>A</code> とする)を用いつつ、暗黙の型変換を禁止したり、明示的な型変換であっても値が制約を満たすかチェックすることで、別の型として扱わせるというテクニックである。
-		これを活かすと、コンストラクタ等での構築時にチェックをかけることで、値のとれる範囲を <code>A</code> 型よりも小さくしたり、演算子を独自に定義することで <code>A</code> と挙動を変化させたりといったことが可能になる。
-	</p>
-	<p>
-		たとえば「偶数しか値を持たない(持てない)ような整数 (<code>i32</code>) 型」を定義すると、<a href="https://play.rust-lang.org/?gist=7d26bf8e84723b3c2397dba3d8a26ac8&amp;version=stable">このようになる</a>。
+<section xml:id="strong-typedef">
+	<title>strong typedef とは</title>
+	<simpara>
+		strong typedef とは、内部表現としてある型 (<type>A</type> とする)を用いつつ、暗黙の型変換を禁止したり、明示的な型変換であっても値が制約を満たすかチェックすることで、別の型として扱わせるというテクニックである。
+		これを活かすと、コンストラクタ等での構築時にチェックをかけることで、値のとれる範囲を <type>A</type> 型よりも小さくしたり、演算子を独自に定義することで <type>A</type> と挙動を変化させたりといったことが可能になる。
+	</simpara>
+	<simpara>
+		たとえば「偶数しか値を持たない(持てない)ような整数 (<type>i32</type>) 型」を定義すると、<link xl:href="https://play.rust-lang.org/?gist=7d26bf8e84723b3c2397dba3d8a26ac8&amp;version=stable">このようになる</link>。
 		(この例では演算子の定義をサボったが、もし整数と同様に透過的に使えるようにするなら <code>std::ops::Add</code> をはじめとする数々の演算子を用意することになる。めっちゃめんどい。)
-	</p>
-	<p>
-		より実用的でちゃんとした例としては、 <a href="https://crates.io/crates/ordered-float">ordered-float</a> crate の <a href="https://docs.rs/ordered-float/0.5.0/ordered_float/struct.NotNaN.html"><code>NotNaN</code></a> 型などがある。
-		これは「 NaN をとらない float (<code>f32</code>, <code>f64</code>) 型」である。
-		<code>f32</code> や <code>f64</code> に使える演算子はだいたいそのまま用意されており(つまり使い勝手は既存の float に劣らない)、更に追加で <code>std::cmp::Ord</code> 等も実装されている嬉しい型だ。
-	</p>
-</eh:section>
+	</simpara>
+	<simpara>
+		より実用的でちゃんとした例としては、 <link xl:href="https://crates.io/crates/ordered-float">ordered-float</link> crate の <link xl:href="https://docs.rs/ordered-float/0.5.0/ordered_float/struct.NotNaN.html"><type>NotNaN</type></link> 型などがある。
+		これは「 NaN をとらない float (<type>f32</type>, <type>f64</type>) 型」である。
+		<type>f32</type> や <type>f64</type> に使える演算子はだいたいそのまま用意されており(つまり使い勝手は既存の float に劣らない)、更に追加で <code>std::cmp::Ord</code> 等も実装されている嬉しい型だ。
+	</simpara>
+</section>
 
-<eh:section id="custom-unsized-types">
-	<eh:title>unsized な型</eh:title>
-	<p>
+<section xml:id="custom-unsized-types">
+	<title>unsized な型</title>
+	<simpara>
 		サイズが固定となるような型であれば、前述のようにして strong typedef が可能である。
-		では、本題の <code>str</code> を strong typedef してオレオレ型を用意することは可能なのか。
-	</p>
-	<p>
+		では、本題の <type>str</type> を strong typedef してオレオレ型を用意することは可能なのか。
+	</simpara>
+	<simpara>
 		結論から言うと可能なのだが、素直なやりかたにはならない。
-	</p>
+	</simpara>
 
-	<eh:section id="the-reason-i-want-unsized">
-		<eh:title>何故 unsized でないといけないのか</eh:title>
-		<p>
+	<section xml:id="the-reason-i-want-unsized">
+		<title>何故 unsized でないといけないのか</title>
+		<simpara>
 			そもそも何故 unsized にしたいのかという話である。
 			素直にやるなら <code>pub struct Iri&lt;'a&gt;(&amp;'a str);</code> と <code>pub struct IriBuf(String);</code> のようにしてしまえば済む話で、実際これでも使い物にはなる。
-			しかし unsized な型を用意しておかないと、 <strong><code>Cow&lt;Iri&gt;</code> ができない</strong>のである。
-		</p>
-		<ul>
-			<li>
-				<code>std::borrow::Cow&lt;'a, B&gt;</code> 型は、 <code>where B: 'a + ToOwned + ?Sized</code> を要求している
-			</li>
-			<li>
+			しかし unsized な型を用意しておかないと、 <emphasis><type>Cow&lt;Iri&gt;</type> ができない</emphasis>のである。
+		</simpara>
+		<itemizedlist>
+			<listitem>
+				<type>std::borrow::Cow&lt;'a, B&gt;</type> 型は、 <code>where B: 'a + ToOwned + ?Sized</code> を要求している
+			</listitem>
+			<listitem>
 				<code>std::borrow::ToOwned</code> trait は、 <code>type Owned: Borrow&lt;Self&gt;;</code> という associated type を持っている
-			</li>
-			<li>
+			</listitem>
+			<listitem>
 				<code>std::borrow::Borrow&lt;Borrowed&gt;</code> trait は:
-				<ul>
-					<li>
+				<itemizedlist>
+					<listitem>
 						<code>where Borrowed: ?Sized</code> を要求している
-					</li>
-					<li>
+					</listitem>
+					<listitem>
 						<code>fn borrow(&amp;self) -> &amp;Borrowed;</code> を持つ
-					</li>
-				</ul>
-			</li>
-		</ul>
-		<p>
-			この状況で <code>pub struct IriBuf(String);</code> に対して <code>Borrowed&lt;Iri&gt;</code> trait を実装しようとすると、 <code>&amp;Iri</code> を返さねばならないが、返したかったのは <code>Iri(self.0.to_str())</code> であるから、これは望んでいたものではない。
-		</p>
-		<figure>
-			<pre><code class="lang-rust language-rust"><![CDATA[
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+		<simpara>
+			この状況で <code>pub struct IriBuf(String);</code> に対して <code>Borrowed&lt;Iri&gt;</code> trait を実装しようとすると、 <type>&amp;Iri</type> を返さねばならないが、返したかったのは <code>Iri(self.0.to_str())</code> であるから、これは望んでいたものではない。
+		</simpara>
+		<informalfigure>
+			<programlisting language="rust"><![CDATA[
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Iri<'a>(&'a str);
 
@@ -116,38 +119,38 @@ impl<'a> ::std::borrow::Borrow<Iri<'a>> for IriBuf {
         Iri(self.0.to_str())  // <- mismatched types (expected `&Iri<'a>`, found `Iri<'_>`)
     }
 }
-]]></code></pre>
-			<figcaption>まあ型が合わないよね</figcaption>
-		</figure>
-		<p>
-			これが <code>std::path::Path</code> と <code>std::path::PathBuf</code> のようにいい感じに使えるようになってほしい場合、必要なのは <code>pub sturct Iri(str);</code> のような定義だ。
-		</p>
-	</eh:section>
+]]></programlisting>
+			<caption>まあ型が合わないよね</caption>
+		</informalfigure>
+		<simpara>
+			これが <type>std::path::Path</type> と <type>std::path::PathBuf</type> のようにいい感じに使えるようになってほしい場合、必要なのは <code>pub sturct Iri(str);</code> のような定義だ。
+		</simpara>
+	</section>
 
-	<eh:section id="initializing-unsized-type">
-		<eh:title>unsized な型を初期化する</eh:title>
-		<figure>
-			<pre><code class="lang-rust language-rust"><![CDATA[
+	<section xml:id="initializing-unsized-type">
+		<title>unsized な型を初期化する</title>
+		<informalfigure>
+			<programlisting language="rust"><![CDATA[
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Iri(str);
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct IriBuf(String);
-]]></code></pre>
-			<figcaption>ここまでは良し</figcaption>
-		</figure>
-		<p>
-			さて次の問題は、自身の内部に <code>str</code> のような型を持つとき、これをどう初期化すべきかである。
-		</p>
-		<figure>
-			<pre><code class="lang-rust language-rust"><![CDATA[
+]]></programlisting>
+			<caption>ここまでは良し</caption>
+		</informalfigure>
+		<simpara>
+			さて次の問題は、自身の内部に <type>str</type> のような型を持つとき、これをどう初期化すべきかである。
+		</simpara>
+		<informalfigure>
+			<programlisting language="rust"><![CDATA[
 impl Iri {
     pub fn from_str(s: &str) -> Option<&Self> {
         Some(&Iri(*s))
     }
 }
-]]></code></pre>
-			<pre><code><![CDATA[
+]]></programlisting>
+			<screen><![CDATA[
 error[E0161]: cannot move a value of type Iri: the size of Iri cannot be statically determined
  --> src/main.rs:6:15
   |
@@ -183,43 +186,42 @@ error[E0507]: cannot move out of borrowed content
   |                   ^^ cannot move out of borrowed content
 
 error: aborting due to previous error(s)
-]]></code></pre>
-			<figcaption>これは駄目 (<a href="https://play.rust-lang.org/?gist=12dec05ec6fc492830fd7ed06e07936b&amp;version=stable">playground</a>)</figcaption>
-		</figure>
-		<p>
+]]></screen>
+			<caption>これは駄目 (<link xl:href="https://play.rust-lang.org/?gist=12dec05ec6fc492830fd7ed06e07936b&amp;version=stable">playground</link>)</caption>
+		</informalfigure>
+		<simpara>
 			上のような素直な(?)実装は、当然ながらコンパイルエラーとなる。
-			<code>str</code> の値はサイズが未知であるから move できないこと、また必要なのは <code>&amp;self</code> と同じ lifetime を持つ <code>&amp;Iri</code> であるにも関わらず一時変数の参照を返そうとしていること、この2つがエラーの原因である。
-		</p>
-	</eh:section>
-	<eh:section id="existing-implementations">
-		<eh:title>既存の実装</eh:title>
-		<p>
-			では既存の実装(特に <code>std::path::Path</code>) ではどうなっているのか。
+			<type>str</type> の値はサイズが未知であるから move できないこと、また必要なのは <code>&amp;self</code> と同じ lifetime を持つ <type>&amp;Iri</type> であるにも関わらず一時変数の参照を返そうとしていること、この2つがエラーの原因である。
+		</simpara>
+	</section>
+	<section xml:id="existing-implementations">
+		<title>既存の実装</title>
+		<simpara>
+			では既存の実装(特に <type>std::path::Path</type>) ではどうなっているのか。
 			その謎を明らかにすべく、我々は libstd の奥地へ向かった。
-		</p>
-		<ul>
-			<li>
-				<a href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/path.rs#L1535-L1537"><code>std::path::Path</code></a>
-			</li>
-			<li>
-				<a href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/ffi/os_str.rs#L49-L51"><code>std::ffi::OsStr</code></a>
-			</li>
-			<li>
-				<a href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/sys/unix/os_str.rs#L25-L27"><code>std::sys::unix::os_str::Slice</code></a>
-			</li>
-		</ul>
-		<figure>
-			<div class="grid-row">
-				<figure class="col-xs-12 col-lg-5">
-					<pre><code class="lang-rust language-rust"><![CDATA[
+		</simpara>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/path.rs#L1535-L1537"><type>std::path::Path</type></link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/ffi/os_str.rs#L49-L51"><type>std::ffi::OsStr</type></link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/sys/unix/os_str.rs#L25-L27"><type>std::sys::unix::os_str::Slice</type></link>
+			</listitem>
+		</itemizedlist>
+		<informalfigure>
+			<informalfigure>
+				<programlisting language="rust"><![CDATA[
 pub struct Slice {
     pub inner: [u8]
 }
-]]></code></pre>
-					<figcaption><a href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/sys/unix/os_str.rs#L25-L27"><code>std::sys::unix::os_str::Slice</code> の定義</a></figcaption>
-				</figure>
-				<figure class="col-xs-12 col-lg-7">
-					<pre><code class="lang-rust language-rust"><![CDATA[
+]]></programlisting>
+				<caption><link xl:href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/sys/unix/os_str.rs#L25-L27"><type>std::sys::unix::os_str::Slice</type> の定義</link></caption>
+			</informalfigure>
+			<informalfigure>
+				<programlisting language="rust"><![CDATA[
 impl Slice {
     fn from_u8_slice(s: &[u8]) -> &Slice {
         unsafe { mem::transmute(s) }
@@ -228,26 +230,24 @@ impl Slice {
     pub fn from_str(s: &str) -> &Slice {
         Slice::from_u8_slice(s.as_bytes())
     }
-]]></code></pre>
-					<figcaption><a href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/sys/unix/os_str.rs#L54-L64"><code>std::sys::unix::os_str::Slice</code> の実装</a></figcaption>
-				</figure>
-			</div>
-			<figcaption><code>std::sys::unix::os_str::Slice</code></figcaption>
-		</figure>
-		<p>
-			ついでに、<a href="https://gnusocial.cardina1.red/notice/220240">リプで教えていただいた</a> <a href="https://crates.io/crates/rocket">rocket</a> crate の <code>http::uncased::UncasedStr</code> も見てみる。
-		</p>
-		<figure>
-			<div class="grid-row">
-				<figure class="col-xs-12">
-					<pre><code class="lang-rust language-rust"><![CDATA[
+]]></programlisting>
+				<caption><link xl:href="https://github.com/rust-lang/rust/blob/1.19.0/src/libstd/sys/unix/os_str.rs#L54-L64"><type>std::sys::unix::os_str::Slice</type> の実装</link></caption>
+			</informalfigure>
+			<caption><type>std::sys::unix::os_str::Slice</type></caption>
+		</informalfigure>
+		<simpara>
+			ついでに、<link xl:href="https://gnusocial.cardina1.red/notice/220240">リプで教えていただいた</link> <link xl:href="https://crates.io/crates/rocket">rocket</link> crate の <type>http::uncased::UncasedStr</type> も見てみる。
+		</simpara>
+		<informalfigure>
+			<informalfigure>
+				<programlisting language="rust"><![CDATA[
 #[derive(Debug)]
 pub struct UncasedStr(str);
-]]></code></pre>
-					<figcaption><a href="https://github.com/SergioBenitez/Rocket/blob/v0.3.2/lib/src/http/uncased.rs#L22-L23"><code>rocket::http::uncased::UncasedStr</code> の定義</a></figcaption>
-				</figure>
-				<figure class="col-xs-12">
-					<pre><code class="lang-rust language-rust"><![CDATA[
+]]></programlisting>
+				<caption><link xl:href="https://github.com/SergioBenitez/Rocket/blob/v0.3.2/lib/src/http/uncased.rs#L22-L23"><type>rocket::http::uncased::UncasedStr</type> の定義</link></caption>
+			</informalfigure>
+			<informalfigure>
+				<programlisting language="rust"><![CDATA[
 impl UncasedStr {
     /// Returns a reference to an `UncasedStr` from an `&str`.
     ///
@@ -265,23 +265,22 @@ impl UncasedStr {
     pub fn new(string: &str) -> &UncasedStr {
         unsafe { &*(string as *const str as *const UncasedStr) }
     }
-]]></code></pre>
-					<figcaption><a href="https://github.com/SergioBenitez/Rocket/blob/v0.3.2/lib/src/http/uncased.rs#L25-L41"><code>rocket::http::uncased::UncasedStr</code> の実装</a></figcaption>
-				</figure>
-			</div>
-			<figcaption><a href="https://docs.rs/rocket/0.3.2/rocket/http/uncased/struct.UncasedStr.html"><code>rocket::http::uncased::UncasedStr</code></a></figcaption>
-		</figure>
-		<p>
-			上に挙げた例から、本来記述すべきだった処理は、「 <code>Iri</code> に <code>str</code> の値を突っ込む」ことではなく、「 <code>Iri</code> と <code>str</code> を同一のものと見做し、 <code>&amp;str</code> を <code>&amp;Iri</code> として再解釈する」ことであったことが読み取れる。
-		</p>
-	</eh:section>
-</eh:section>
+]]></programlisting>
+				<caption><link xl:href="https://github.com/SergioBenitez/Rocket/blob/v0.3.2/lib/src/http/uncased.rs#L25-L41"><type>rocket::http::uncased::UncasedStr</type> の実装</link></caption>
+			</informalfigure>
+			<caption><link xl:href="https://docs.rs/rocket/0.3.2/rocket/http/uncased/struct.UncasedStr.html"><type>rocket::http::uncased::UncasedStr</type></link></caption>
+		</informalfigure>
+		<simpara>
+			上に挙げた例から、本来記述すべきだった処理は、「 <type>Iri</type> に <type>str</type> の値を突っ込む」ことではなく、「 <type>Iri</type> と <type>str</type> を同一のものと見做し、 <type>&amp;str</type> を <type>&amp;Iri</type> として再解釈する」ことであったことが読み取れる。
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="conclusion">
-	<eh:title>結論</eh:title>
+<section xml:id="conclusion">
+	<title>結論</title>
 
-	<figure>
-		<pre><code class="lang-rust language-rust"><![CDATA[
+	<informalfigure>
+		<programlisting language="rust"><![CDATA[
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Iri(str);
 
@@ -316,42 +315,42 @@ impl ::std::borrow::Borrow<Iri> for IriBuf {
         self.as_iri()
     }
 }
-]]></code></pre>
-		<figcaption>やったね！ (<a href="https://play.rust-lang.org/?gist=839718d90a8166a93d21dd5b5b1ad840&amp;version=stable">playground</a>)</figcaption>
-	</figure>
-	<p>
+]]></programlisting>
+		<caption>やったね！ (<link xl:href="https://play.rust-lang.org/?gist=839718d90a8166a93d21dd5b5b1ad840&amp;version=stable">playground</link>)</caption>
+	</informalfigure>
+	<simpara>
 		あとはお好みで <code>std::ops::Deref</code> やら <code>std::convert::AsRef</code> やら諸々を実装すればおｋ。
 		まあその諸々が結構多くて手間なんだけど。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="postscript-20170829">
-	<eh:title>追記 (<time datetime="2017-08-29">2017-08-29</time>): 参考</eh:title>
-	<ul>
-		<li>
-			<a href="http://mmi.hatenablog.com/entry/2017/08/07/191033">[rust]ZST/DSTによるflexible array memberの実現 - 睡分不足</a>
-		</li>
-	</ul>
-	<p>
+<section xml:id="postscript-20170829">
+	<title>追記 (<h:time datetime="2017-08-29">2017-08-29</h:time>): 参考</title>
+	<itemizedlist>
+		<listitem>
+			<link xl:href="http://mmi.hatenablog.com/entry/2017/08/07/191033">[rust]ZST/DSTによるflexible array memberの実現 - 睡分不足</link>
+		</listitem>
+	</itemizedlist>
+	<simpara>
 		くわしい。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="postscript-20180717">
-	<eh:title>追記2 (<time datetime="2018-07-17">2018-07-17</time>): crate 作った</eh:title>
-	<ul>
-		<li>
-			<a href="https://crates.io/crates/opaque_typedef">opaque_typedef - Cargo: packages for Rust</a>
-		</li>
-		<li>
-			<a href="https://github.com/lo48576/opaque_typedef">lo48576/opaque_typedef: Easy opaque typedef for Rust programming language</a>
-		</li>
-	</ul>
-	<p>
+<section xml:id="postscript-20180717">
+	<title>追記2 (<h:time datetime="2018-07-17">2018-07-17</h:time>): crate 作った</title>
+	<itemizedlist>
+		<listitem>
+			<link xl:href="https://crates.io/crates/opaque_typedef">opaque_typedef - Cargo: packages for Rust</link>
+		</listitem>
+		<listitem>
+			<link xl:href="https://github.com/lo48576/opaque_typedef">lo48576/opaque_typedef: Easy opaque typedef for Rust programming language</link>
+		</listitem>
+	</itemizedlist>
+	<simpara>
 		opaque typedef 用の crate を書いた。
 		新たな型の定義と、ありがちな trait の自動実装ができる。
 		unsized type も簡単に定義できるようにしてある。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-</eh:article>
+</article>

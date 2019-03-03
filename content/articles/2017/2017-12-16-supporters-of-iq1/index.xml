@@ -2,7 +2,7 @@
 created_at: 2017-12-16T16:52:18+0900
 published_at: 2017-12-16T16:52:18+0900
 updated_at: 2017-12-17T00:15:54+0900
-format: "easy-html"
+format: docbook
 title: "IQ1 を支える技術(と罵る技術)"
 tags:
   - computer
@@ -12,290 +12,278 @@ kind: article
 excerpt: "誰かが言った。「コンピュータは賢い馬鹿である。」ところで IQ1 は賢くない馬鹿である。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
-	id="2017-12-15-comparison-of-mastodon-and-gnusocial"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="article-2017-12-15-comparison-of-mastodon-and-gnusocial"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>IQ1 を支える技術(と罵る技術)</eh:title>
-<p>
-	この記事は、 <a href="https://adventar.org/calendars/2377">IQが1 Advent Calendar 2017</a> の16日目の記事である。<br />
-	前日の記事は『<a href="https://gist.github.com/anonymous/63965ff853f83f07be5decdab79cd909">ＩＱが１</a>』である。
-</p>
-<p>
+<title>IQ1 を支える技術(と罵る技術)</title>
+<simpara>
+	この記事は、 <link xl:href="https://adventar.org/calendars/2377">IQが1 Advent Calendar 2017</link> の16日目の記事である。
+</simpara>
+<simpara>
+	前日の記事は『<link xl:href="https://gist.github.com/anonymous/63965ff853f83f07be5decdab79cd909">ＩＱが１</link>』である。
+</simpara>
+<simpara>
 	この記事では、 IQ が1の人がコンピュータを使うとき助けられている(或いは馬鹿にされている)技術やテクニック、設定を簡単に紹介する。
-</p>
+</simpara>
 
-<eh:section id="technology-to-support-iq1">
-	<eh:title>IQ1 を支える技術</eh:title>
+<section xml:id="technology-to-support-iq1">
+	<title>IQ1 を支える技術</title>
 
-	<eh:section id="technology-to-support-iq1--vim-like-shell-alias">
-		<eh:title>zsh は vim ではない</eh:title>
+	<section xml:id="technology-to-support-iq1--vim-like-shell-alias">
+		<title>zsh は vim ではない</title>
 
-		<figure>
-			<pre><code class="lang-sh language-sh"><![CDATA[
-# Quit zsh like vim
+		<informalfigure>
+			<programlisting language="sh"><![CDATA[# Quit zsh like vim
 alias :q="exit"
 # I sometimes press 'q' with Shift because ':' is Shift-; ...
 alias :Q="exit"
 # Edit file with vim like vim
-alias :e="$EDITOR"
-]]></code></pre>
-			<figcaption><code class="filepath">.zshrc</code> 抜粋</figcaption>
-		</figure>
+alias :e="$EDITOR"]]></programlisting>
+			<caption><filename>.zshrc</filename> 抜粋</caption>
+		</informalfigure>
 
-		<p>
+		<simpara>
 			zsh にいるのに (neo)vim のつもりで <code>:q</code> したりすることがあるので、 <code>alias :q="exit"</code> している。
-		</p>
-		<p>
-			それだけならまだしも、 Dvorak 配列でコロンは <kbd><kbd>Shift</kbd>+<kbd>;</kbd></kbd> なので、そのまま <kbd>Shift</kbd> キーから指が離れず <kbd>q</kbd> も Shift つきで押してしまう場合があるので、それも <code>exit</code> のエイリアスにしている。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
+			それだけならまだしも、 Dvorak 配列でコロンは <keycombo action="simul"><keycap function="shift">Shift</keycap>+<keycap>;</keycap></keycombo> なので、そのまま <keycap function="shift">Shift</keycap> キーから指が離れず <keycap>q</keycap> も <keycap function="shift">Shift</keycap> つきで押してしまう場合があるので、それも <code>exit</code> のエイリアスにしている。
+		</simpara>
+		<simpara>
 			はい IQ が1。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="technology-to-support-iq1--l-and-s-for-ls">
-		<eh:title>ls は l でも s でもない</eh:title>
+	<section xml:id="technology-to-support-iq1--l-and-s-for-ls">
+		<title>ls は l でも s でもない</title>
 
-		<figure>
-			<pre><code class="lang-sh language-sh"><![CDATA[
-whence -p l >/dev/null || alias l="ls"
-whence -p s >/dev/null || alias s="ls"
-]]></code></pre>
-			<figcaption><code class="filepath">.zshrc</code> 抜粋</figcaption>
-		</figure>
+		<informalfigure>
+			<programlisting language="sh"><![CDATA[whence -p l >/dev/null || alias l="ls"
+whence -p s >/dev/null || alias s="ls"]]></programlisting>
+			<caption><filename>.zshrc</filename> 抜粋</caption>
+		</informalfigure>
 
-		<p>
+		<simpara>
 			Dvorak での <code>ls</code> のキーが qwerty では <code>p;</code> の位置にあるため、ときどき一方を押し損ねる。
-			<code>l</code> と <code>s</code> のどちらかを普段から使うようにしてしまえば済む話なのだが、私は鯖オペの自動化が微妙だったりすることもあり、 <code class="filepath">.bashrc</code> を弄ってない環境や POSIX sh 環境で作業することがしばしばあるので、打ちづらさを改善するエイリアスを普段使いせず <code>ls</code> と愚直に打っている。
-		</p>
-		<p>
+			<code>l</code> と <code>s</code> のどちらかを普段から使うようにしてしまえば済む話なのだが、私は鯖オペの自動化が微妙だったりすることもあり、 <filename>.bashrc</filename> を弄ってない環境や POSIX sh 環境で作業することがしばしばあるので、打ちづらさを改善するエイリアスを普段使いせず <code>ls</code> と愚直に打っている。
+		</simpara>
+		<simpara>
 			はい IQ が1。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="technology-to-support-iq1--overwrite-protection">
-		<eh:title>迂闊に Enter 押してファイル上書き奴</eh:title>
+	<section xml:id="technology-to-support-iq1--overwrite-protection">
+		<title>迂闊に Enter 押してファイル上書き奴</title>
 
-		<figure>
-			<pre><code class="lang-sh language-sh"><![CDATA[
-# Prevent overwriting files by accident.
+		<informalfigure>
+			<programlisting language="sh"><![CDATA[# Prevent overwriting files by accident.
 alias mv="mv -i"
-alias cp="cp -i"
-]]></code></pre>
-			<figcaption><code class="filepath">.zshrc</code> 抜粋</figcaption>
-		</figure>
-		<p>
-			<code>cp foo/* .</code> のつもりで <code>cp foo/*</code> などしてそのまま <kbd>Enter</kbd> を押してしまう場合がある。
-			結果、運が悪ければ <code class="dirpath">foo</code> 以下にあるファイルのどれかが上書きされることになる。
-		</p>
-		<p>
+alias cp="cp -i"]]></programlisting>
+			<caption><filename>.zshrc</filename> 抜粋</caption>
+		</informalfigure>
+		<simpara>
+			<code>cp foo/* .</code> のつもりで <code>cp foo/*</code> などしてそのまま <keycap function="enter">Enter</keycap> を押してしまう場合がある。
+			結果、運が悪ければ <filename class="directory">foo</filename> 以下にあるファイルのどれかが上書きされることになる。
+		</simpara>
+		<simpara>
 			その対策として、 <code>cp</code> や <code>mv</code> の <code>-i</code> (interactive) オプションを使うことで、ファイルを迂闊に上書きしてしまう事故を防ぐことができる。
-		</p>
-		<figure>
-			<pre class="code code-terminal">$ <kbd>ls</kbd>
+		</simpara>
+		<informalfigure>
+			<screen role="terminal"><prompt>$ </prompt><userinput>ls</userinput>
 poi1  poi2
-$ <kbd>mv poi*</kbd>
-mv: 'poi2' を上書きしますか? <kbd>n</kbd>
-$ <kbd>ls</kbd>
-poi1  poi2
-</pre>
-			<figcaption>ありがとう</figcaption>
-		</figure>
-		<p>
+<prompt>$ </prompt><userinput>mv poi*</userinput>
+<prompt>mv: 'poi2' を上書きしますか? </prompt><userinput>n</userinput>
+<prompt>$ </prompt><userinput>ls</userinput>
+poi1  poi2</screen>
+			<caption>ありがとう</caption>
+		</informalfigure>
+		<simpara>
 			はい IQ が1。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="technology-to-support-iq1--zsh-typo-fix">
-		<eh:title>英語できない</eh:title>
+	<section xml:id="technology-to-support-iq1--zsh-typo-fix">
+		<title>英語できない</title>
 
-		<figure>
-			<pre><code class="lang-sh language-sh"><![CDATA[
-# Enable typo correction
+		<informalfigure>
+			<programlisting language="sh"><![CDATA[# Enable typo correction
 setopt correct
 # Suppose to use dvorak layout at typo correction
 setopt dvorak
 # Set prompt
-SPROMPT="(*'~\`)< Did you mean %B%F{$color_sprompt_command}%r%f%b? [nyae]: "
-]]></code></pre>
-			<figcaption><code class="filepath">.zshrc</code> 周辺抜粋</figcaption>
-		</figure>
-		<p>
+SPROMPT="(*'~\`)< Did you mean %B%F{$color_sprompt_command}%r%f%b? [nyae]: "]]></programlisting>
+			<caption><filename>.zshrc</filename> 周辺抜粋</caption>
+		</informalfigure>
+		<simpara>
 			zsh には typo correction の機能があるので、コマンドを typo してもある程度は修正を提示してくれる。
 			しかも zsh には Dvorak 配列向けのモードも用意されている。
-		</p>
-		<figure>
-			<pre class="code code-terminal">$ <kbd>sduo echo hello</kbd>
-(*'~`)&lt; Did you mean sudo? [nyae]: <kbd>y</kbd>
-larry@veg Password:
+		</simpara>
+		<informalfigure>
+			<screen role="terminal"><prompt>$ </prompt><userinput>sduo echo hello</userinput>
+<prompt>(*'~`)&lt; Did you mean sudo? [nyae]: </prompt><userinput>y</userinput>
+<prompt>larry@veg Password:</prompt>
 hello
-$
-</pre>
-			<figcaption>はい英語できない</figcaption>
-		</figure>
-		<p>
+<prompt>$</prompt></screen>
+			<caption>はい英語できない</caption>
+		</informalfigure>
+		<simpara>
 			はい IQ が1。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="technology-to-support-iq1--vim-new-dir-save">
-		<eh:title>存在しないディレクトリにファイル保存奴</eh:title>
+	<section xml:id="technology-to-support-iq1--vim-new-dir-save">
+		<title>存在しないディレクトリにファイル保存奴</title>
 
-		<p>
-			<code>vim foo/mod.rs</code> などのようなことは時々やるが、肝心の <code class="dirpath">foo</code> ディレクトリを作り忘れている場合がよくある。
-		</p>
-		<figure>
-			<pre class="code code-terminal">"foo/mod.rs"
+		<simpara>
+			<code>vim foo/mod.rs</code> などのようなことは時々やるが、肝心の <filename>foo</filename> ディレクトリを作り忘れている場合がよくある。
+		</simpara>
+		<informalfigure>
+			<screen>"foo/mod.rs"
 E212: Can't open file for writing: no such file or directory
-続けるにはENTERを押すかコマンドを入力してください
-</pre>
-			<figcaption>はい</figcaption>
-		</figure>
-		<p>
-			それに加えて、コロンを打つのに <kbd>Shift</kbd> が必要で、そのまま <kbd>w</kbd> も打って <code>:W</code> してしまう場合もあり。
-		</p>
-		<figure>
-			<pre class="code code-terminal">E492: エディタのコマンドではありません: W</pre>
-			<figcaption>はい……</figcaption>
-		</figure>
-		<p>
+続けるにはENTERを押すかコマンドを入力してください</screen>
+			<caption>はい</caption>
+		</informalfigure>
+		<simpara>
+			それに加えて、コロンを打つのに <keycap function="shift">Shift</keycap> が必要で、そのまま <keycap>w</keycap> も打って <code>:W</code> してしまう場合もあり。
+		</simpara>
+		<informalfigure>
+			<screen>E492: エディタのコマンドではありません: W</screen>
+			<caption>はい……</caption>
+		</informalfigure>
+		<simpara>
 			そういったわけで、どうせなら <code>W</code> コマンドでファイル保存とディレクトリ作成を一緒にやってしまえば、これら2つの問題を同時に解決できて幸せになれるはずだ。
-		</p>
-		<figure>
-			<pre><code class="lang-vim language-vim"><![CDATA[
-" Save file and create directory if necessary.
+		</simpara>
+		<informalfigure>
+			<programlisting language="vim"><![CDATA[" Save file and create directory if necessary.
 function! SaveAndWrite()
 	" FIXME: Don't mkdir normally on path starts with `sudo:`.
 	!mkdir -p %:p:h
 	w
 endfunction
-command! -bar -nargs=0 WW call SaveAndWrite()
-]]></code></pre>
-			<figcaption><code class="filepath">init.vim</code> 周辺抜粋</figcaption>
-		</figure>
-	</eh:section>
-		<figure>
-			<pre class="code code-terminal">:!mkdir -p foo
+command! -bar -nargs=0 WW call SaveAndWrite()]]></programlisting>
+			<caption><filename>init.vim</filename> 周辺抜粋</caption>
+		</informalfigure>
+		<informalfigure>
+			<screen>:!mkdir -p foo
 "foo/mod.rs" [新] 0L, 0C 書込み
-続けるにはENTERを押すかコマンドを入力してください
-</pre>
-			<figcaption><code>:W</code> 実行の結果</figcaption>
-		</figure>
-		<p>
+続けるにはENTERを押すかコマンドを入力してください</screen>
+			<caption><code>:W</code> 実行の結果</caption>
+		</informalfigure>
+		<simpara>
 			はい IQ が1。
-		</p>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="technology-to-tease-iq1">
-	<eh:title>IQ1 をからかう技術、罵る技術</eh:title>
+<section xml:id="technology-to-tease-iq1">
+	<title>IQ1 をからかう技術、罵る技術</title>
 
-	<eh:section id="technology-to-tease-iq1--sudo-wrong-password">
-		<eh:title>自分で設定したパスワードも打てないやつ</eh:title>
+	<section xml:id="technology-to-tease-iq1--sudo-wrong-password">
+		<title>自分で設定したパスワードも打てないやつ</title>
 
-		<figure>
-			<pre><code>Defaults insults</code></pre>
-			<figcaption><code class="filepath">/etc/sudoers</code> 抜粋</figcaption>
-		</figure>
-		<p>
+		<informalfigure>
+			<programlisting>Defaults insults</programlisting>
+			<caption><filename>/etc/sudoers</filename> 抜粋</caption>
+		</informalfigure>
+		<simpara>
 			<code>insults</code> (侮辱)オプションでこの機能が有効化される。
 			「侮辱をデフォルトにする」という力強い一文だ。
-		</p>
-		<p>
-			<a href="https://packages.gentoo.org/packages/app-admin/sudo">gentoo linux では</a>更に、ビルド前の設定として <a href="https://packages.gentoo.org/useflags/offensive"><code>offensive</code> フラグ</a>を立てておく必要がある。
-		</p>
-		<figure>
-			<pre class="code code-terminal">$ <kbd>sudo ls</kbd>
-larry@veg Password: <kbd>(間違ったパスワード)</kbd>
+		</simpara>
+		<simpara>
+			<link xl:href="https://packages.gentoo.org/packages/app-admin/sudo">gentoo linux では</link>更に、ビルド前の設定として <link xl:href="https://packages.gentoo.org/useflags/offensive"><code>offensive</code> フラグ</link>を立てておく必要がある。
+		</simpara>
+		<informalfigure>
+			<screen role="terminal"><prompt>$ </prompt><userinput>sudo ls</userinput>
+<prompt>larry@veg Password: </prompt><userinput>(間違ったパスワード)</userinput>
 You type like i drive.
-larry@veg Password: <kbd>(間違ったパスワード)</kbd>
+<prompt>larry@veg Password: </prompt><userinput>(間違ったパスワード)</userinput>
 I've seen penguins that can type better than that.
-larry@veg Password: <kbd>(間違ったパスワード)</kbd>
+<prompt>larry@veg Password: </prompt><userinput>(間違ったパスワード)</userinput>
 sudo: 3 回パスワード試行を間違えました
-$
-</pre>
-			<figcaption>「私の運転みたいなタイピングをするね」「あんたよりタイピングのうまいペンギンを見たことあるよ」</figcaption>
-		</figure>
-		<p>
+<prompt>$</prompt></screen>
+			<caption>「私の運転みたいなタイピングをするね」「あんたよりタイピングのうまいペンギンを見たことあるよ」</caption>
+		</informalfigure>
+		<simpara>
 			私のお気に入りは以下のメッセージ。
-		</p>
-		<ul>
-			<li>
-				<q>stty: unknown mode: doofus</q>
-			</li>
-			<li>
-				<q>I feel much better now.</q>
-			</li>
-			<li>
-				<q>You type like i drive.</q>
-			</li>
-		</ul>
-		<p>
-			『<a href="http://blogos.com/article/65504/">嘘のようなホントの話：パスワード入力に失敗すると罵ってくるシステムがある</a>』などに(もしかしたら古いかもしれないが)リストがある。
-			ソースから探したければ <a href="https://askubuntu.com/questions/837558/where-are-sudos-insults-stored">Where are sudo's insults stored? - Ask Ubuntu</a> とかが参考になりそうだ。
-		</p>
-		<p>
+		</simpara>
+		<itemizedlist>
+			<listitem>
+				<quote>stty: unknown mode: doofus</quote>
+			</listitem>
+			<listitem>
+				<quote>I feel much better now.</quote>
+			</listitem>
+			<listitem>
+				<quote>You type like i drive.</quote>
+			</listitem>
+		</itemizedlist>
+		<simpara>
+			『<link xl:href="http://blogos.com/article/65504/">嘘のようなホントの話：パスワード入力に失敗すると罵ってくるシステムがある</link>』などに(もしかしたら古いかもしれないが)リストがある。
+			ソースから探したければ <link xl:href="https://askubuntu.com/questions/837558/where-are-sudos-insults-stored">Where are sudo's insults stored? - Ask Ubuntu</link> とかが参考になりそうだ。
+		</simpara>
+		<simpara>
 			はい IQ が1。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="technology-to-terse-iq1--sl">
-		<eh:title>ターミナルに SL 走らす奴</eh:title>
+	<section xml:id="technology-to-terse-iq1--sl">
+		<title>ターミナルに SL 走らす奴</title>
 
-		<ul>
-			<li>
-				<a href="https://www.youtube.com/watch?v=BPMd2dsSVR0">sl command on linux - YouTube</a>
-			</li>
-			<li>
-				<a href="https://www.youtube.com/watch?v=SH3skXGHtCA">SL 改造計画のパッチをあててみた - YouTube</a>
-			</li>
-			<li>
-				<a href="https://github.com/mtoyoda/sl">mtoyoda/sl: SL(1): Cure your bad habit of mistyping</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://www.youtube.com/watch?v=BPMd2dsSVR0">sl command on linux - YouTube</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://www.youtube.com/watch?v=SH3skXGHtCA">SL 改造計画のパッチをあててみた - YouTube</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/mtoyoda/sl">mtoyoda/sl: SL(1): Cure your bad habit of mistyping</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			みんな大好き SL である。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			はい IQ が1……と言いたいところだが、前述のように dvorak では <code>ls</code> は <code>p;</code> の位置にあるので、このような typo は私はしない。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			あと悲しいニュース。
-			昔の gentoo の SL には<a href="http://www.izumix.xyz/sl/">凶悪化パッチ</a>が当たっていたが、最近のバージョンアップで当たらなくなってオリジナルに戻ってしまった。
-		</p>
-	</eh:section>
+			昔の gentoo の SL には<link xl:href="http://www.izumix.xyz/sl/">凶悪化パッチ</link>が当たっていたが、最近のバージョンアップで当たらなくなってオリジナルに戻ってしまった。
+		</simpara>
+	</section>
 
-	<eh:section id="technology-to-terse-iq1--gti">
-		<eh:title>ターミナルで GTI 走らす奴</eh:title>
+	<section xml:id="technology-to-terse-iq1--gti">
+		<title>ターミナルで GTI 走らす奴</title>
 
-		<ul>
-			<li>
-				<a href="http://r-wos.org/hacks/gti">gti | r-wos.org</a>
-			</li>
-			<li>
-				<a href="https://github.com/rwos/gti">rwos/gti: a git launcher :-)</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="http://r-wos.org/hacks/gti">gti | r-wos.org</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/rwos/gti">rwos/gti: a git launcher :-)</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			<code>sl</code> の git 版といったところ。
 			ただし、こいつは一瞬で走り去るし、走り去ったあとちゃんと git コマンドを実行してくれるので安心(なにが)。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			なお、 <code>gti pull</code> と <code>gti push</code> は遅いらしい。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			はい IQ が1。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="conclusion">
-	<eh:title>まとめ</eh:title>
-	<p>
+<section xml:id="conclusion">
+	<title>まとめ</title>
+	<simpara>
 		IQ が1なので、 IQ の高い人が作ってくれたものを使っていきます。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-</eh:article>
+</article>

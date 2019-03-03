@@ -2,7 +2,7 @@
 created_at: 2016-07-08T23:53:53+0900
 published_at: 2016-07-08T23:53:53+0900
 updated_at: 2016-07-09T10:27:55+0900
-format: "easy-html"
+format: docbook
 title: "C言語の条件演算子に関する雑記"
 tags:
   - prog-c
@@ -11,71 +11,68 @@ kind: article
 excerpt: "C言語での条件演算子についてちょっと悩んだことがあったのでメモとして簡単なまとめ。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	id="2016-07-08-c-conditional-operator"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="article-2016-07-08-c-conditional-operator"
+	xml:lang="ja"
+	version="5.1"
+	xmlns:h="http://www.w3.org/1999/xhtml"
 >
-<eh:title>C言語の条件演算子に関する雑記</eh:title>
-<eh:section id="the-reason-middle-operand-is-not-conditional">
-	<eh:title>条件演算子の中央オペランド(第2オペランド)が<code>conditional-expression</code>でない理由</eh:title>
-	<p>
+<title>C言語の条件演算子に関する雑記</title>
+<section xml:id="the-reason-middle-operand-is-not-conditional">
+	<title>条件演算子の中央オペランド(第2オペランド)が<code>conditional-expression</code>でない理由</title>
+	<simpara>
 		C11の規格(N1570)を見ると、条件演算子の文法はP467 (6.5.15)にて、以下のように記されている。
 		(文法はBNFで書き直したので、原文通りではない。)
-	</p>
+	</simpara>
 
-	<figure>
-		<!--pre><code class="lang-bnf language-bnf" data-lang="bnf"-->
-		<pre><code>
-conditional-expression : logical-OR-expression
+	<informalfigure xml:id="conditional-expression">
+		<literallayout class="monospaced">conditional-expression : logical-OR-expression
                        | logical-OR-expression '?' expression ':' conditional-expression
                        ;
-</code></pre>
-		<figcaption><code>conditional-expression</code> (6.5.15)</figcaption>
-	</figure>
+</literallayout>
+		<caption><code>conditional-expression</code> (6.5.15)</caption>
+	</informalfigure>
 
-	<p>
+	<simpara>
 		で、何故第2オペランドが<code>conditional-expression</code>ではなく<code>expression</code>なのかという話である。
-	</p>
+	</simpara>
 
-	<figure>
-		<!--pre><code class="lang-bnf language-bnf" data-lang="bnf"-->
-		<pre><code>
-assignment-expression : conditional-expression
+	<informalfigure>
+		<literallayout class="monospaced">assignment-expression : conditional-expression
                       | unary-expression assignment-operator assignment-expression
                       ;
 expression : assignment-expression
            | expression ',' assignment-expression
            ;
-</code></pre>
-		<figcaption><code>assignment-expression</code> (6.5.16), <code>expression</code> (6.5.17)</figcaption>
-	</figure>
+</literallayout>
+		<caption><code>assignment-expression</code> (6.5.16), <code>expression</code> (6.5.17)</caption>
+	</informalfigure>
 
-	<p>
+	<simpara>
 		その答えは、第2オペランドに代入式を許可するためである。
-	</p>
-	<p>
-		<code>1 ? a = 2 : 3;</code>という文を考えてみる。<br />
+	</simpara>
+	<simpara>
+		<code>1 ? a = 2 : 3;</code>という文を考えてみる。
 		Cの定義通り第2オペランドが<code>expression</code>であれば、<code>a = 2</code>は<code>expression</code>として処理される。
-	</p>
-	<p>
+	</simpara>
+	<simpara>
 		しかし、第2オペランドを<code>conditional-expression</code>としてしまうと、<code>a = 2</code>は<code>logical-OR-expression</code>として解釈することはできず、代入式を<code>logical-OR-expression</code>とするには<code>(a = 2)</code>のようにparenで括らなくてはならない。
-	</p>
-	<p>
-		よって、括弧なしで第2オペランドに生の代入式を使うためには、<code>conditional-expression</code>でなく<code>expression</code>を使わなければいけないのである。<br />
+	</simpara>
+	<simpara>
+		よって、括弧なしで第2オペランドに生の代入式を使うためには、<code>conditional-expression</code>でなく<code>expression</code>を使わなければいけないのである。
 		(ちなみに、<code>assignment-expression</code>でも代入式は直接使えるようになるが、コンマがparenなしで使えなくなる。)
-	</p>
+	</simpara>
 
-	<eh:section id="middle-operand-in-cplusplus">
-		<eh:title>C++における中央オペランド(第2オペランド)の文法</eh:title>
-		<p>
+	<section xml:id="middle-operand-in-cplusplus">
+		<title>C++における中央オペランド(第2オペランド)の文法</title>
+		<simpara>
 			C++14の規格(N3797)においては、条件演算子の文法はCとは若干異なり、以下のように定義されている。
-		</p>
+		</simpara>
 
-		<figure>
-			<!--pre><code class="lang-bnf language-bnf" data-lang="bnf"-->
-			<pre><code>
-conditional-expression : logical-or-expression
+		<informalfigure>
+			<literallayout class="monospaced">conditional-expression : logical-or-expression
                        | logical-or-expression '?' expression ':' assignment-expression
                        ;
 assignment-expression : conditional-expression
@@ -85,60 +82,61 @@ assignment-expression : conditional-expression
 expression : assignment-expression
            | expression ',' assignment-expression
            ;
-</code></pre>
-			<figcaption><code>conditional-expression</code>, <code>assignment-expression</code>, <code>expression</code> 抜粋(N3797 P1208より)</figcaption>
-		</figure>
+</literallayout>
+			<caption><code>conditional-expression</code>, <code>assignment-expression</code>, <code>expression</code> 抜粋(N3797 P1208より)</caption>
+		</informalfigure>
 
-		<p>
+		<simpara>
 			Cと異なり、条件演算子の第3オペランドが<code>conditional-expression</code>ではなく<code>assignment-expression</code>となっている。
-			この違いの影響は、<a href="https://ja.wikipedia.org/wiki/C%E3%81%A8C%2B%2B%E3%81%AE%E6%BC%94%E7%AE%97%E5%AD%90#.E8.A3.9C.E8.B6.B3">Wikipedia</a>で例示されている、<code>e = a ? b : c = d;</code>のような文において現れる。
-		</p>
-		<p>
+			この違いの影響は、<link xl:href="https://ja.wikipedia.org/wiki/C%E3%81%A8C%2B%2B%E3%81%AE%E6%BC%94%E7%AE%97%E5%AD%90#.E8.A3.9C.E8.B6.B3">Wikipedia</link>で例示されている、<code>e = a ? b : c = d;</code>のような文において現れる。
+		</simpara>
+		<simpara>
 			Cのように第3オペランドが<code>conditional-expression</code>であれば、<code>e = ((a ? b : c) = d);</code>のように解釈され、条件演算子が代入の左辺となる。
 			これはC言語においてはエラーである。
-			(一応、大昔にはこれを可能にするgcc拡張も存在した。<eh:xref linkend="gcc-generalized-lvalue-extension">後述</eh:xref>。)
-		</p>
-		<p>
+			(一応、大昔にはこれを可能にするgcc拡張も存在した。<link linkend="gcc-generalized-lvalue-extension">後述</link>。)
+		</simpara>
+		<simpara>
 			一方、C++のように第3オペランドが<code>assignment-expression</code>であれば、<code>e = (a ? b : (c = d));</code>のように解釈される。
-			C++特有の機能を使っていないからと言って、拡張子を<code>c</code>に直してしまうとコンパイルが通らなくなる例だ。
-		</p>
-	</eh:section>
-</eh:section>
+			C++特有の機能を使っていないからと言って、拡張子を<filename class="extension">.c</filename>に直してしまうとコンパイルが通らなくなる例だ。
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="gcc-generalized-lvalue-extension">
-	<eh:title>条件演算子による式を左辺値として使えるようにするgcc拡張</eh:title>
-	<p>
+<section xml:id="gcc-generalized-lvalue-extension">
+	<title>条件演算子による式を左辺値として使えるようにするgcc拡張</title>
+	<simpara>
 		私の記憶では、gcc独自拡張によって、C言語でも条件演算子による式を左辺値として使えるはずだったのだが、wandbox(gcc-4.8.2)で試してみたところ、コンパイルが通らなかった。
-	</p>
-	<p>
+	</simpara>
+	<simpara>
 		不思議に思って調べてみた結果が以下の通りだ。
-	</p>
+	</simpara>
 
-	<ul>
-		<li>
-			<a href="https://gcc.gnu.org/onlinedocs/gcc-3.4.6/gcc/Lvalues.html#Lvalues">Lvalues - Using the GNU Compiler Collection (GCC)</a>
-			<ul>
-				<li>gcc-3.4.6 (gcc-3の最後のバージョン、<time datetime="2016-03-06">2006/03/06</time>リリース)における、当該拡張のドキュメント。</li>
-				<li>
+	<itemizedlist>
+		<listitem>
+			<link xl:href="https://gcc.gnu.org/onlinedocs/gcc-3.4.6/gcc/Lvalues.html#Lvalues">Lvalues - Using the GNU Compiler Collection (GCC)</link>
+			<itemizedlist>
+				<listitem>gcc-3.4.6 (gcc-3の最後のバージョン、<h:time datetime="2016-03-06">2006/03/06</h:time>リリース)における、当該拡張のドキュメント。</listitem>
+				<listitem>
+					<!-- FIXME: `@cite` is not supported by DocBook. -->
 					<blockquote cite="https://gcc.gnu.org/onlinedocs/gcc-3.4.6/gcc/C-Extensions.html#C-Extensions">
 						Lvalues: Using `?:', `,' and casts in lvalues.
 					</blockquote>
-				</li>
-				<li>条件演算子どころか、コンマやキャストによる式でさえも左辺値にできるという拡張である。</li>
-			</ul>
-		</li>
-		<li>
-			<a href="https://gcc.gnu.org/onlinedocs/gcc-4.0.0/gcc/C-Extensions.html#C-Extensions">C Extensions - Using the GNU Compiler Collection (GCC)</a>
-			<ul>
-				<li>gcc-4.0.0 (gcc-4の最初のバージョン、<time datetime="2005-04-20">2005/04/20</time>リリース)における、C拡張一覧のドキュメント。</li>
-				<li><strong>Lvalues拡張が消えている</strong>。</li>
-			</ul>
-		</li>
-	</ul>
+				</listitem>
+				<listitem>条件演算子どころか、コンマやキャストによる式でさえも左辺値にできるという拡張である。</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xlinx:href="https://gcc.gnu.org/onlinedocs/gcc-4.0.0/gcc/C-Extensions.html#C-Extensions">C Extensions - Using the GNU Compiler Collection (GCC)</link>
+			<itemizedlist>
+				<listitem>gcc-4.0.0 (gcc-4の最初のバージョン、<h:time datetime="2005-04-20">2005/04/20</h:time>リリース)における、C拡張一覧のドキュメント。</listitem>
+				<listitem><emphasis>Lvalues拡張が消えている</emphasis>。</listitem>
+			</itemizedlist>
+		</listitem>
+	</itemizedlist>
 
-	<p>
-		どうやら10年以上前に廃止された拡張だったらしい。<br />
+	<simpara>
+		どうやら10年以上前に廃止された拡張だったらしい。
 		コンパイラ拡張をできるだけ使わないように生きてきたとはいえ、今日に至るまで全く気付かなかったのは結構ショックだ。
-	</p>
-</eh:section>
-</eh:article>
+	</simpara>
+</section>
+</article>
