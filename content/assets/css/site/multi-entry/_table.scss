@@ -10,7 +10,7 @@ caption {
 	background: inherit;
 }
 
-table.visual {
+table:not([role="presentation"]) {
 	tr {
 		$border-style: 1px solid #ddd;
 		border-top: $border-style;
@@ -25,7 +25,7 @@ table.visual {
 		caption {
 			background: inherit;
 		}
-		table.visual {
+		table:not([role="presentation"]) {
 			tr {
 				border-top: $border-style;
 				border-bottom: $border-style;
