@@ -23,7 +23,7 @@ excerpt: "Rust 1.21.0での never type とセミコロン周辺の型推論の�
 >
 <title>Rust での never type とセミコロン、型推論のルール変遷</title>
 <simpara>
-	この記事は、 <link xl:href="https://qiita.com/advent-calendar/2017/rust-internal">Rust Internal Advent Calendar 2017</link> の7日目の記事である。<h:br />
+	この記事は、 <link xl:href="https://qiita.com/advent-calendar/2017/rust-internal">Rust Internal Advent Calendar 2017</link> の7日目の記事である。<le:br />
 </simpara>
 <important>
 	<title>潜在的に古い情報</title>
@@ -327,7 +327,7 @@ fn main() {
 			<caption>明示的に <type>!</type> にキャストすると……</caption>
 		</informalfigure>
 		<simpara>
-			これも <link linkend="time-series--pr-40224">PR #40224</link> で導入されたルールで説明できる。<h:br />
+			これも <link linkend="time-series--pr-40224">PR #40224</link> で導入されたルールで説明できる。<le:br />
 			<code>{ panic!(); () }</code> は:
 		</simpara>
 		<itemizedlist>
@@ -578,7 +578,7 @@ error: aborting due to previous error
 			</simpara>
 			<h:blockquote cite="https://github.com/rust-lang/rust/issues/39297#issuecomment-276809637">
 				<simpara>
-					<code>let x = if true { 22 } else { return; 'a' };</code> の型チェックが(この issue の時点では)通るし、 diverging arm の型が何であるか考えるべきでないよね。<h:br />
+					<code>let x = if true { 22 } else { return; 'a' };</code> の型チェックが(この issue の時点では)通るし、 diverging arm の型が何であるか考えるべきでないよね。<le:br />
 					<phrase>(原文: "then we ought not to be considering the type of diverging arm at all.")</phrase>
 				</simpara>
 				<simpara>
@@ -666,7 +666,7 @@ error: aborting due to previous error
 		</itemizedlist>
 
 		<simpara>
-			この regression は、前述の pull request #39485 により発生したもの<emphasis>ではない</emphasis>。<h:br />
+			この regression は、前述の pull request #39485 により発生したもの<emphasis>ではない</emphasis>。<le:br />
 			たぶん commit <link xl:href="https://github.com/rust-lang/rust/commit/6b3cc0b8c8094407a3b5ea75f946c682d6d0142a">rustc_typeck: correctly track "always-diverges" and "has-type-errors". ・ rust-lang/rust@6b3cc0b</link> での <filename>src/librustc_typeck/check/mod.rs</filename> の <code>check_then_else()</code> への変更あたりが引き起こしたのだと思う(詳細は確認していない(正確には、確認したけどわからなかった))。
 		</simpara>
 		<simpara>

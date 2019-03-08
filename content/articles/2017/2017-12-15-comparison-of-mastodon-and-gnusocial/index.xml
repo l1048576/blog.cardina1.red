@@ -29,7 +29,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 	この記事は、 <link xl:href="https://adventar.org/calendars/2178">Mastodon Advent Calendar 2017</link> の15日目の記事である。
 </simpara>
 <simpara>
-	前日の記事は『<link xl:href="https://medium.com/@tootleinside/%E3%81%A9%E3%81%86%E3%81%99%E3%82%8C%E3%81%B0%E5%A4%89%E5%8C%96%E3%81%99%E3%82%8Bapi%E3%81%A8%E4%B8%8A%E6%89%8B%E3%81%8F%E4%BB%98%E3%81%8D%E5%90%88%E3%81%A3%E3%81%A6%E3%81%84%E3%81%91%E3%82%8B%E3%81%AE%E3%81%8B-d7650cfcb517">どうすれば変化するAPIと上手く付き合っていけるのか – Tootle Inside – Medium</link>』、<h:br />
+	前日の記事は『<link xl:href="https://medium.com/@tootleinside/%E3%81%A9%E3%81%86%E3%81%99%E3%82%8C%E3%81%B0%E5%A4%89%E5%8C%96%E3%81%99%E3%82%8Bapi%E3%81%A8%E4%B8%8A%E6%89%8B%E3%81%8F%E4%BB%98%E3%81%8D%E5%90%88%E3%81%A3%E3%81%A6%E3%81%84%E3%81%91%E3%82%8B%E3%81%AE%E3%81%8B-d7650cfcb517">どうすれば変化するAPIと上手く付き合っていけるのか – Tootle Inside – Medium</link>』、<le:br />
 	翌日の記事は『<link xl:href="https://theboss.github.io/blog/2017/12/17/introduction-to-mastodon-frontend-customization/">Mastodon フロントエンド改造入門 | THE BOSS's blog</link>』である。
 </simpara>
 
@@ -694,7 +694,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 				</snsq:meta>
 				<snsq:content>
 					<simpara>
-						ただ、私が分散と連合を個人レベルまで推進することを推すのは、「分散 SNS だから」という名前の分類の問題ではなくて、「ユーザの自由を最大限担保するためのサービスの在り方だから」という理由であることは再三述べていきたい。<h:br />
+						ただ、私が分散と連合を個人レベルまで推進することを推すのは、「分散 SNS だから」という名前の分類の問題ではなくて、「ユーザの自由を最大限担保するためのサービスの在り方だから」という理由であることは再三述べていきたい。<le:br />
 自由が要らないなら twitter なり何なり好きに使えば良いが、自由を守る努力をせず権利を失ったときには、往々にして既に手遅れになっているものなのでは。
 					</simpara>
 				</snsq:content>

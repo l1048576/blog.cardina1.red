@@ -87,8 +87,8 @@ pub fn main () {
 <section xml:id="postscript">
 	<title>追記 (2016-03-24 02:23)</title>
 	<simpara>
-		すごい後輩氏が該当issueを見付けてくれた。 &gt; <link xl:href="https://github.com/rust-lang/rust/issues/26925">#[derive] is too conservative with field trait bounds · Issue #26925 · rust-lang/rust</link><h:br />
-		すごい。<h:br />
+		すごい後輩氏が該当issueを見付けてくれた。 &gt; <link xl:href="https://github.com/rust-lang/rust/issues/26925">#[derive] is too conservative with field trait bounds · Issue #26925 · rust-lang/rust</link><le:br />
+		すごい。<le:br />
 		このissue、ここ4ヶ月ほど動きがないようだが、ひとまず動きを注視することにしてみようと思う。
 		(でも再燃させた方がよかったりするのかなぁ……)
 	</simpara>

@@ -39,4 +39,8 @@
 	</time>
 </xsl:template>
 
+<xsl:template match="le:br">
+	<br />
+</xsl:template>
+
 </xsl:stylesheet>
