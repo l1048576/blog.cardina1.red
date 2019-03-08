@@ -43,4 +43,39 @@
 	<br />
 </xsl:template>
 
+<xsl:template match="le:ruby">
+	<ruby>
+		<xsl:apply-templates select="." mode="les:attrs" />
+		<xsl:apply-templates />
+	</ruby>
+</xsl:template>
+
+<xsl:template match="le:rb">
+	<rb>
+		<xsl:apply-templates select="." mode="les:attrs" />
+		<xsl:apply-templates />
+	</rb>
+</xsl:template>
+
+<xsl:template match="le:rp">
+	<rp>
+		<xsl:apply-templates select="." mode="les:attrs" />
+		<xsl:apply-templates />
+	</rp>
+</xsl:template>
+
+<xsl:template match="le:rt">
+	<rt>
+		<xsl:apply-templates select="." mode="les:attrs" />
+		<xsl:apply-templates />
+	</rt>
+</xsl:template>
+
+<xsl:template match="le:rtc">
+	<rtc>
+		<xsl:apply-templates select="." mode="les:attrs" />
+		<xsl:apply-templates />
+	</rtc>
+</xsl:template>
+
 </xsl:stylesheet>

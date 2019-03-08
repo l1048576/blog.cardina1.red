@@ -630,7 +630,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 			</simpara>
 			<simpara>
 				与えられた餌を食べているだけでは、中央集権サービスの運営者に飼われているのと大差ない。
-				「誰かが用意してそこにある<h:ruby>もの<h:rp>(</h:rp><h:rt>タイムライン</h:rt><h:rp>)</h:rp></h:ruby>に自分も飛び込む」という考え方を、「<emphasis>自分で自分の<h:ruby>環境や居場所<h:rp>(</h:rp><h:rt>フォローとタイムライン</h:rt><h:rp>)</h:rp></h:ruby>を確保する</emphasis>」という考え方に転換することが必要なのではないだろうか。
+				「誰かが用意してそこにある<le:ruby>もの<le:rp>(</le:rp><le:rt>タイムライン</le:rt><le:rp>)</le:rp></le:ruby>に自分も飛び込む」という考え方を、「<emphasis>自分で自分の<le:ruby>環境や居場所<le:rp>(</le:rp><le:rt>フォローとタイムライン</le:rt><le:rp>)</le:rp></le:ruby>を確保する</emphasis>」という考え方に転換することが必要なのではないだろうか。
 			</simpara>
 			<simpara>
 				Mastodon には、フォローしているユーザをファイルにして保存したり、アップロードして再現する機能がある。
@@ -639,7 +639,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 				これもまた分散 SNS におけるユーザの分散と連合を推進するものだ。
 			</simpara>
 			<simpara>
-				<emphasis>ローカルタイムラインで面白いと思ったユーザは、そこで眺めて満足するのではなく、フォローして「自分のための<h:ruby>環境<h:rp>(</h:rp><h:rt>タイムライン</h:rt><h:rp>)</h:rp></h:ruby>」に取り込むべき</emphasis>である。
+				<emphasis>ローカルタイムラインで面白いと思ったユーザは、そこで眺めて満足するのではなく、フォローして「自分のための<le:ruby>環境<le:rp>(</le:rp><le:rt>タイムライン</le:rt><le:rp>)</le:rp></le:ruby>」に取り込むべき</emphasis>である。
 				そうしていずれ来るかもしれない運営者との決別の時、あるいは自立の時に備えておくこと、これも Mastodon を“第2の twitter ”にしないための極めて簡単な努力の形である<footnote xml:id="footnote-less-dependency-on-local-timeline" refmark-id="ref-footnote-less-dependency-on-local-timeline">
 					そういう意図で、私は一貫して「 LTL はユーザを発見する目的で使われるべきで、常用して参加するための場と見做してほしくない」「趣味などでユーザを特定インスタンスに集めるのは良くない」と言っているのだが、まあ世の中いろいろな考えの人がいるもので、同意してもらえた割合はあまり多くない気がする
 				</footnote>。
