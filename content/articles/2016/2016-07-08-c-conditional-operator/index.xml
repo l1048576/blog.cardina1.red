@@ -14,6 +14,7 @@ excerpt: "C言語での条件演算子についてちょっと悩んだことが
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xml:id="article-2016-07-08-c-conditional-operator"
 	xml:lang="ja"
 	version="5.1"
@@ -115,7 +116,7 @@ expression : assignment-expression
 		<listitem>
 			<link xl:href="https://gcc.gnu.org/onlinedocs/gcc-3.4.6/gcc/Lvalues.html#Lvalues">Lvalues - Using the GNU Compiler Collection (GCC)</link>
 			<itemizedlist>
-				<listitem>gcc-3.4.6 (gcc-3の最後のバージョン、<h:time datetime="2016-03-06">2006/03/06</h:time>リリース)における、当該拡張のドキュメント。</listitem>
+				<listitem>gcc-3.4.6 (gcc-3の最後のバージョン、<le:time datetime="2016-03-06">2006/03/06</le:time>リリース)における、当該拡張のドキュメント。</listitem>
 				<listitem>
 					<!-- FIXME: `@cite` is not supported by DocBook. -->
 					<blockquote cite="https://gcc.gnu.org/onlinedocs/gcc-3.4.6/gcc/C-Extensions.html#C-Extensions">
@@ -128,7 +129,7 @@ expression : assignment-expression
 		<listitem>
 			<link xlinx:href="https://gcc.gnu.org/onlinedocs/gcc-4.0.0/gcc/C-Extensions.html#C-Extensions">C Extensions - Using the GNU Compiler Collection (GCC)</link>
 			<itemizedlist>
-				<listitem>gcc-4.0.0 (gcc-4の最初のバージョン、<h:time datetime="2005-04-20">2005/04/20</h:time>リリース)における、C拡張一覧のドキュメント。</listitem>
+				<listitem>gcc-4.0.0 (gcc-4の最初のバージョン、<le:time datetime="2005-04-20">2005/04/20</le:time>リリース)における、C拡張一覧のドキュメント。</listitem>
 				<listitem><emphasis>Lvalues拡張が消えている</emphasis>。</listitem>
 			</itemizedlist>
 		</listitem>

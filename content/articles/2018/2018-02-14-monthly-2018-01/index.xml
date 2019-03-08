@@ -14,6 +14,7 @@ excerpt: "2018年 01月 まとめ"
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xmlns:h="http://www.w3.org/1999/xhtml"
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	xml:id="article-2018-02-13-monthly-2018-01"
@@ -138,7 +139,7 @@ Linux veg 4.14.18-gentoo #1 SMP Fri Feb 9 14:58:20 JST 2018 x86_64 Intel(R) Core
 	</section>
 
 	<section xml:id="50th-mersenne-prime-found">
-		<title>50番目のメルセンヌ素数 M77232917 発見 (<h:time datetime="2018-01-03">2018-01-03</h:time>)</title>
+		<title>50番目のメルセンヌ素数 M77232917 発見 (<le:time datetime="2018-01-03">2018-01-03</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -155,7 +156,7 @@ Linux veg 4.14.18-gentoo #1 SMP Fri Feb 9 14:58:20 JST 2018 x86_64 Intel(R) Core
 	</section>
 
 	<section xml:id="maitetsu-chinese">
-		<title>『まいてつ』中国語版 製作決定 (<h:time datetime="2018-01-04">2018-01-04</h:time>)</title>
+		<title>『まいてつ』中国語版 製作決定 (<le:time datetime="2018-01-04">2018-01-04</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>

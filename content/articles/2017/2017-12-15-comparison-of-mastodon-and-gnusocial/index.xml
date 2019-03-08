@@ -17,6 +17,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xmlns:h="http://www.w3.org/1999/xhtml"
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	xml:id="article-2017-12-15-comparison-of-mastodon-and-gnusocial"
@@ -265,7 +266,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 					<listitem>nightly   "unstable", most updates, not always working</listitem>
 				</itemizedlist>
 				<h:footer>
-					&#x2014; <link xl:href="https://git.gnu.io/gnu/gnu-social/blob/50f9f23ff19a4f577c429d80411378d6a1747725/README.md#unstable-version"><h:time datetime="2017-12-15">2017-12-15</h:time> 時点での master の <filename>README.md</filename> より</link>
+					&#x2014; <link xl:href="https://git.gnu.io/gnu/gnu-social/blob/50f9f23ff19a4f577c429d80411378d6a1747725/README.md#unstable-version"><le:time datetime="2017-12-15">2017-12-15</le:time> 時点での master の <filename>README.md</filename> より</link>
 				</h:footer>
 			</h:blockquote>
 			<simpara>
@@ -279,13 +280,13 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 			</simpara>
 			<simpara>
 				そもそも nightly の開発さえ停滞しているようで、なかなか厳しい。
-				たとえば nightly ブランチは <h:time datetime="2017-09-10">2017-09-10</h:time> を最後に、 <h:time datetime="2017-12-15">2017-12-15</h:time> に至るまでコミット(の push) が行われていない。
+				たとえば nightly ブランチは <le:time datetime="2017-09-10">2017-09-10</le:time> を最後に、 <le:time datetime="2017-12-15">2017-12-15</le:time> に至るまでコミット(の push) が行われていない。
 				この様子では、 ActivityPub への対応などは状況が変わらない限り望めないだろう。
 			</simpara>
 			<note>
-				<title><h:time datetime="2017-12-20">2017-12-20</h:time> 追記: master, nightly が更新された (<h:time datetime="2017-12-17">2017-12-17</h:time>)</title>
+				<title><le:time datetime="2017-12-20">2017-12-20</le:time> 追記: master, nightly が更新された (<le:time datetime="2017-12-17">2017-12-17</le:time>)</title>
 				<simpara>
-					この記事を公開した<h:time datetime="2017-12-17">2日後</h:time>、実に3ヶ月ぶりに GNU Social のリポジトリに更新があった
+					この記事を公開した<le:time datetime="2017-12-17">2日後</le:time>、実に3ヶ月ぶりに GNU Social のリポジトリに更新があった
 					(<link xl:href="https://git.gnu.io/gnu/gnu-social/commits/master">master</link>,
 					<link xl:href="https://git.gnu.io/gnu/gnu-social/commits/nightly">nightly</link>,
 					<link xl:href="https://git.gnu.io/gnu/gnu-social/commit/0b9a2fdf3ad19942e85a66b94d08501ce9c927dd">0b9a2fd</link>,
@@ -306,7 +307,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 			</note>
 			<simpara>
 				バージョンを上げるとなると、もっとペースが遅くなる。
-				最後のバージョンアップ (1.1.3 → 1.2.0) が行われたのが、 <link xl:href="https://git.gnu.io/gnu/gnu-social/commit/1cc96cd33425780ebd4a8f40ddfc051013a8ee4e"><h:time datetime="2015-02-27">2015-02-27</h:time> のこと</link>である。
+				最後のバージョンアップ (1.1.3 → 1.2.0) が行われたのが、 <link xl:href="https://git.gnu.io/gnu/gnu-social/commit/1cc96cd33425780ebd4a8f40ddfc051013a8ee4e"><le:time datetime="2015-02-27">2015-02-27</le:time> のこと</link>である。
 				尤も、これも「安定している」と言うことはできるから欠点だけというわけでもないかもしれない。
 			</simpara>
 		</section>

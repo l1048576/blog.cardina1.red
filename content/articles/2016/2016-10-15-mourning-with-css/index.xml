@@ -14,6 +14,7 @@ excerpt: "CSSで喪に服す時代らしい。"
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xmlns:h="http://www.w3.org/1999/xhtml"
 	xml:id="article-2016-10-15-mourning-with-css"
 	xml:lang="ja"
@@ -30,7 +31,7 @@ excerpt: "CSSで喪に服す時代らしい。"
 		</footnote>、少なくともタイにもそういう文化があるらしい。
 	</simpara>
 	<simpara>
-		<h:time datetime="2016-10-13">先日(2016/10/13)</h:time><link href="https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%BC%E3%83%9E9%E4%B8%96">タイ国王ラーマ9世</link>の崩御でタイの/タイ国民向けのwebサイトが白黒(正確にはグレースケール)になっているようだが、どうやらこれがwebサイトの色使いを直していくとかでなく、追加のCSSスタイルで簡単に実現できるらしいと知った。
+		<le:time datetime="2016-10-13">先日(2016/10/13)</le:time><link href="https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%BC%E3%83%9E9%E4%B8%96">タイ国王ラーマ9世</link>の崩御でタイの/タイ国民向けのwebサイトが白黒(正確にはグレースケール)になっているようだが、どうやらこれがwebサイトの色使いを直していくとかでなく、追加のCSSスタイルで簡単に実現できるらしいと知った。
 	</simpara>
 
 	<informalfigure>
@@ -46,7 +47,7 @@ excerpt: "CSSで喪に服す時代らしい。"
 				</textobject>
 			</mediaobject>
 			<!-- FIXME: Prefer `mediaobject/caption` to `figure/caption`. -->
-			<caption><link xl:href="https://www.google.co.th">www.google.co.th</link>, <h:time datetime="2016-10-15T14:06">2016/10/15 14:05</h:time> 撮影</caption>
+			<caption><link xl:href="https://www.google.co.th">www.google.co.th</link>, <le:time datetime="2016-10-15T14:06">2016/10/15 14:05</le:time> 撮影</caption>
 		</informalfigure>
 
 		<informalfigure>
@@ -61,7 +62,7 @@ excerpt: "CSSで喪に服す時代らしい。"
 				</textobject>
 			</mediaobject>
 			<!-- FIXME: Prefer `mediaobject/caption` to `figure/caption`. -->
-			<caption><link href="http://www.thaiairways.com">www.thaiairways.com</link>, <h:time datetime="2016-10-15T14:06">2016/10/15 14:06</h:time> 撮影</caption>
+			<caption><link href="http://www.thaiairways.com">www.thaiairways.com</link>, <le:time datetime="2016-10-15T14:06">2016/10/15 14:06</le:time> 撮影</caption>
 		</informalfigure>
 
 		<informalfigure>
@@ -76,7 +77,7 @@ excerpt: "CSSで喪に服す時代らしい。"
 				</textobject>
 			</mediaobject>
 			<!-- FIXME: Prefer `mediaobject/caption` to `figure/caption`. -->
-			<caption><link href="http://www.mcot.net/">www.mcot.net</link>, <h:time datetime="2016-10-15T14:06">2016/10/15 14:11</h:time> 撮影</caption>
+			<caption><link href="http://www.mcot.net/">www.mcot.net</link>, <le:time datetime="2016-10-15T14:06">2016/10/15 14:11</le:time> 撮影</caption>
 		</informalfigure>
 
 		<caption>グレースケールになったタイ向けwebサイト</caption>

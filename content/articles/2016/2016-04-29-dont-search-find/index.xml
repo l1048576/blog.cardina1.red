@@ -16,19 +16,20 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xml:id="article-2016-04-29-dont-search-find"
 	xml:lang="ja"
 	version="5.1"
 >
 <title>探すな、絞り込め / 或いは階層化されたタグの話</title>
 <note>
-	<title>追記 <date datetime="2019-03-09">2019-03-09</date>: outdated</title>
+	<title>追記 <le:time datetime="2019-03-09">2019-03-09</le:time>: outdated</title>
 	<simpara>
 		この記事で解説されている当ブログのタグ関連機能は、既に大きく変更されている。
 		そのため、この記事でブログについて触れている部分は既に内容が古くなっている。
 	</simpara>
 	<simpara>
-		<date datetime="2019-03-09">2019-03-09</date> 現在、当ブログのタグ機能は木構造ではなく有向非巡回グラフによって管理されている。
+		<le:time datetime="2019-03-09">2019-03-09</le:time> 現在、当ブログのタグ機能は木構造ではなく有向非巡回グラフによって管理されている。
 	</simpara>
 </note>
 <section xml:id="categories-and-tags">
@@ -142,7 +143,7 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 		詳しくはこのブログでのタグ検索ページを見るのが早いだろう。
 	</simpara>
 	<note>
-		<title>追記 <date datetime="2019-03-09">2019-03-09</date>: 削除済機能</title>
+		<title>追記 <le:time datetime="2019-03-09">2019-03-09</le:time>: 削除済機能</title>
 		<simpara>
 			タグ検索ページは既に削除された。
 		</simpara>

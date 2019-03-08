@@ -31,15 +31,6 @@
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="d:date" mode="ds:attr-custom">
-	<xsl:call-template name="ds:attr-custom" />
-	<xsl:if test="@datetime">
-		<xsl:attribute name="datetime">
-			<xsl:value-of select="@datetime" />
-		</xsl:attribute>
-	</xsl:if>
-</xsl:template>
-
 <xsl:template name="permalink">
 	<xsl:param name="node" select="." />
 	<xsl:param name="id" select="$node/@xml:id" />

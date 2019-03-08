@@ -15,6 +15,7 @@ excerpt: "ConoHaのVPSにCoreOSを入れると、cloud-config.yamlの一部項�
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xmlns:h="http://www.w3.org/1999/xhtml"
 	xml:id="article-2016-10-08-conoha-coreos-overridden-config"
 	xml:lang="ja"
@@ -31,7 +32,7 @@ excerpt: "ConoHaのVPSにCoreOSを入れると、cloud-config.yamlの一部項�
 		私は、GMOから提供されている<link xl:href="https://www.conoha.jp/">ConoHa</link>というVPSサービスを利用している。
 		(このブログのサーバもConoHaのサーバだ。)
 		ここではサーバを起動する際、様々なOS(プレーンなものからアプリケーション導入済のものまで)を初期イメージとして選択できる。
-		複数のサービスをコンテナで提供しようというとき便利な<link xl:href="https://coreos.com/">CoreOS</link>はその選択肢にない(<h:time>2016-10-08</h:time>現在)ため自力でインストールすることになる<footnote xml:id="footnote-install-coreos" refmark-id="ref-footnote-install-coreos">
+		複数のサービスをコンテナで提供しようというとき便利な<link xl:href="https://coreos.com/">CoreOS</link>はその選択肢にない(<le:time>2016-10-08</le:time>現在)ため自力でインストールすることになる<footnote xml:id="footnote-install-coreos" refmark-id="ref-footnote-install-coreos">
 			私はArch linuxのイメージを使って作成したVPSにISOイメージを設定して起動した。
 			(なお、Arch linux自体は一度も起動していない)。
 			他のdistroだと別の内容になっているのかもしれない。

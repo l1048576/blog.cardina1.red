@@ -13,8 +13,8 @@ excerpt: "2017年 第34週 まとめ"
 <?xml version="1.0"?>
 <article
 	xmlns="http://docbook.org/ns/docbook"
-	xmlns:h="http://www.w3.org/1999/xhtml"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	xml:id="article-2017-08-26-weekly-2017-w34"
 	xml:lang="ja"
@@ -30,7 +30,7 @@ excerpt: "2017年 第34週 まとめ"
 	<title>ニュース・知ったこと</title>
 
 	<section xml:id="internet-backbone-failure">
-		<title>インターネットバックボーンで大規模障害 (<h:time datetime="2017-08-25">2017-08-25</h:time>)</title>
+		<title>インターネットバックボーンで大規模障害 (<le:time datetime="2017-08-25">2017-08-25</le:time>)</title>
 		<itemizedlist>
 			<listitem>
 				<link xl:href="https://headlines.yahoo.co.jp/hl?a=20170825-00000125-impress-sci">今日の大規模ネット障害、原因は経路情報の誤り、世界10万のIPアドレスに影響 （Impress Watch） - Yahoo!ニュース</link>
@@ -54,7 +54,7 @@ excerpt: "2017年 第34週 まとめ"
 	</section>
 
 	<section xml:id="kotonoha-amrilato-release">
-		<title>ことのはアムリラート 発売🎉 (<h:time datetime="2017-08-25">2017-08-25</h:time>)</title>
+		<title>ことのはアムリラート 発売🎉 (<le:time datetime="2017-08-25">2017-08-25</le:time>)</title>
 		<itemizedlist>
 			<listitem>
 				<link xl:href="http://sukerasparo.com/">ことのはアムリラート - sukerasparo</link>
