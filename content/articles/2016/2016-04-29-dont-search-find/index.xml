@@ -1,7 +1,7 @@
 ---
 created_at: 2016-04-29T14:59:13+0900
 published_at: 2016-04-29T14:59:13+0900
-updated_at: 2018-12-18T01:18:13+09:00
+updated_at: 2019-03-09T01:39:30+09:00
 format: docbook
 title: "探すな、絞り込め / 或いは階層化されたタグの話"
 tags:
@@ -21,6 +21,16 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 	version="5.1"
 >
 <title>探すな、絞り込め / 或いは階層化されたタグの話</title>
+<note>
+	<title>追記 <date datetime="2019-03-09">2019-03-09</date>: outdated</title>
+	<simpara>
+		この記事で解説されている当ブログのタグ関連機能は、既に大きく変更されている。
+		そのため、この記事でブログについて触れている部分は既に内容が古くなっている。
+	</simpara>
+	<simpara>
+		<date datetime="2019-03-09">2019-03-09</date> 現在、当ブログのタグ機能は木構造ではなく有向非巡回グラフによって管理されている。
+	</simpara>
+</note>
 <section xml:id="categories-and-tags">
 	<title>カテゴリとタグ</title>
 	<section xml:id="incovenient-tags-and-categories-feature">
@@ -129,8 +139,14 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 	<title>このブログでのタグ機能</title>
 	<simpara>
 		偉そうに語ったところで、このブログでのタグの実装(2016/04/30時点)がどのようなものか説明する。
-		詳しくは<link xl:href="/tags/search.xhtml">このブログでのタグ検索ページ</link>を見るのが早いだろう。
+		詳しくはこのブログでのタグ検索ページを見るのが早いだろう。
 	</simpara>
+	<note>
+		<title>追記 <date datetime="2019-03-09">2019-03-09</date>: 削除済機能</title>
+		<simpara>
+			タグ検索ページは既に削除された。
+		</simpara>
+	</note>
 	<section xml:id="descrendant-tags">
 		<title>子孫タグ</title>
 		<simpara>
@@ -148,7 +164,7 @@ excerpt: "ブログにありがちな「タグ」と「カテゴリ」につい�
 	<section xml:id="set-operations-on-tags">
 		<title>タグに対する集合演算</title>
 		<simpara>
-			<link xl:href="/tags/search.xhtml">このブログでのタグ検索</link>では、もちろん差集合を含めて集合演算を実装した。
+			このブログでのタグ検索では、もちろん差集合を含めて集合演算を実装した。
 			<code>or</code>, <code>and</code>, <code>xor</code>, <code>difference</code>の4つだ。
 			これらの機能があれば、それなりに精度の良い検索ができるだろうと考えている。
 		</simpara>
