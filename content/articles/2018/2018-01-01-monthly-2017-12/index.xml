@@ -1,7 +1,7 @@
 ---
 created_at: 2018-01-01T00:18:06+09:00
 published_at: 2018-01-01T00:18:06+09:00
-format: "easy-html"
+format: docbook
 title: "Monthly report 2017-12"
 tags:
   - diary
@@ -10,331 +10,334 @@ kind: article
 excerpt: "2017年 12月 まとめ"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	id="2018-01-01-monthly-2017-12"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xml:id="article-2018-01-01-monthly-2017-12"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>Monthly report 2017-12</eh:title>
-<p>
+<title>Monthly report 2017-12</title>
+<simpara>
 	2017-12 の日記。
-</p>
+</simpara>
 
-<eh:section id="news">
-	<eh:title>ニュース・知ったこと</eh:title>
+<section xml:id="news">
+	<title>ニュース・知ったこと</title>
 
-	<eh:section id="peertube-supports-activitypub">
-		<eh:title>PeerTube が ActivityPub 対応</eh:title>
+	<section xml:id="peertube-supports-activitypub">
+		<title>PeerTube が ActivityPub 対応</title>
 
-		<ul>
-			<li>
-				<a href="http://www.itmedia.co.jp/news/articles/1711/05/news030.html">Cobaltに似たP2P版YouTube「PeerTube」がActivityPub実装へ - ITmedia NEWS</a>
-			</li>
-			<li>
-				<a href="https://github.com/Chocobozzz/PeerTube">Chocobozzz/PeerTube: [WIP] Federated (ActivityPub) video streaming platform using P2P (BitTorrent) directly in the web browser with WebTorrent and Angular.</a>
-			</li>
-			<li>
-				<a href="https://peertube.cpy.re/videos/watch/f78a97f8-a142-4ce1-a5bd-154bf9386504">PeerTube demonstration - PeerTube</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="http://www.itmedia.co.jp/news/articles/1711/05/news030.html">Cobaltに似たP2P版YouTube「PeerTube」がActivityPub実装へ - ITmedia NEWS</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/Chocobozzz/PeerTube">Chocobozzz/PeerTube: [WIP] Federated (ActivityPub) video streaming platform using P2P (BitTorrent) directly in the web browser with WebTorrent and Angular.</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://peertube.cpy.re/videos/watch/f78a97f8-a142-4ce1-a5bd-154bf9386504">PeerTube demonstration - PeerTube</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			Docker とかでポコポコ立てられるようになったら手を出してみたいとも思うのだが、まだ公式には Dockerfile は提供されていないっぽい。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			というか私が動画作れる系の人間じゃないからなぁ。
 			ゲーム作ったりしたら動画くらいは配信してみたいんだけど。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="gentoo-occ-profile-17-0">
-		<eh:title>Gentoo の 17.0 profile (2017-11-30)</eh:title>
+	<section xml:id="gentoo-occ-profile-17-0">
+		<title>Gentoo の 17.0 profile (2017-11-30)</title>
 
-		<ul>
-			<li>
-				<a href="https://www.gentoo.org/support/news-items/2017-11-30-new-17-profiles.html">New 17.0 profiles in the Gentoo repository – Gentoo Linux</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://www.gentoo.org/support/news-items/2017-11-30-new-17-profiles.html">New 17.0 profiles in the Gentoo repository – Gentoo Linux</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			久しく 13.0 だったプロファイルだが、久々のバージョンアップで 17.0 が出てきた。
 			(C++14 をデフォルトにするため) gcc-6 以上を標準とし gcc-5 以下を mask する、デフォルトで PIE コードを生成する、などの変更が行われている。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			システム全体をリビルド (<code>emerge -e @world</code>) することになったので、とにかく時間がかかった。
 			もともとシステムで gcc-7 を使っていたということもあり、私の環境では特にこの profile アップデートを原因とした問題などは発生していない。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			モダンな C++ を使っていこうな！
-			<small>や、 Rust はいいやつだよ</small>
-		</p>
-	</eh:section>
+			(や、 Rust はいいやつだよ)
+		</simpara>
+	</section>
 
-	<eh:section id="nekopara-ova">
-		<eh:title>ネコぱら OVA</eh:title>
+	<section xml:id="nekopara-ova">
+		<title>ネコぱら OVA</title>
 
-		<ul>
-			<li>
-				<a href="https://www.kickstarter.com/projects/sekaiproject/nekopara-anime-ova/posts/2060881">Update #31 Shipping Alert! Shipping Alert! - NEKOPARA Anime OVA by sekaiproject — Kickstarter</a>
-			</li>
-			<li>
-				<a href="https://www.kickstarter.com/projects/sekaiproject/nekopara-anime-ova/posts/2074592">Official Site Unveiled! - NEKOPARA Anime OVA by sekaiproject — Kickstarter</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://www.kickstarter.com/projects/sekaiproject/nekopara-anime-ova/posts/2060881">Update #31 Shipping Alert! Shipping Alert! - NEKOPARA Anime OVA by sekaiproject — Kickstarter</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://www.kickstarter.com/projects/sekaiproject/nekopara-anime-ova/posts/2074592">Official Site Unveiled! - NEKOPARA Anime OVA by sekaiproject — Kickstarter</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			届いた。
 			観た。
 			よかった。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="zbox-fs">
-		<eh:title>Zbox filesystem</eh:title>
+	<section xml:id="zbox-fs">
+		<title>Zbox filesystem</title>
 
-		<ul>
-			<li>
-				<a href="https://github.com/zboxfs/zbox">zboxfs/zbox: Zero-details, privacy-focused embeddable file system.</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/zboxfs/zbox">zboxfs/zbox: Zero-details, privacy-focused embeddable file system.</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			Rust で実装された、プロセス単位の暗号化ファイルシステム。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			プロセス単位というのは、ファイルシステムのドライバをアプリケーションが持っていて全てユーザ権限で実行するということで、通常の OS のファイルシステムや FUSE のように、グローバルにファイルシステムがマウントされて複数プロセスがアクセス可能になるものとは異なる。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="twitter-freeze-festival">
-		<eh:title>ツイ凍結祭</eh:title>
+	<section xml:id="twitter-freeze-festival">
+		<title>ツイ凍結祭</title>
 
-		<ul>
-			<li>
-				<a href="http://www.itmedia.co.jp/news/articles/1712/15/news071.html">鳥が凍れば象が震える　ぬるかるさんとTogetterの凍結とLOのPawoo移籍 - ITmedia NEWS</a>
-			</li>
-			<li>
-				<a href="http://kai-you.net/article/48576">Twitter凍結『COMIC LO』がマストドンへ 「顔のない巨人に立ち向かえ」 - KAI-YOU.net</a>
-			</li>
-			<li>
-				<a href="https://headlines.yahoo.co.jp/article?a=20171215-00010003-kaiyou-ent">18禁漫画雑誌『LO』Twitter凍結でマストドンへ移行 （KAI-YOU.net） - Yahoo!ニュース</a>
-			</li>
-			<li>
-				<a href="https://pawoo.net/@comicLO_YLNT/59540001">こちら、茜新社刊COMIC LOの公式アカウントでございます。先 - comicLO_YLNT - Pawoo</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="http://www.itmedia.co.jp/news/articles/1712/15/news071.html">鳥が凍れば象が震える　ぬるかるさんとTogetterの凍結とLOのPawoo移籍 - ITmedia NEWS</link>
+			</listitem>
+			<listitem>
+				<link xl:href="http://kai-you.net/article/48576">Twitter凍結『COMIC LO』がマストドンへ 「顔のない巨人に立ち向かえ」 - KAI-YOU.net</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://headlines.yahoo.co.jp/article?a=20171215-00010003-kaiyou-ent">18禁漫画雑誌『LO』Twitter凍結でマストドンへ移行 （KAI-YOU.net） - Yahoo!ニュース</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://pawoo.net/@comicLO_YLNT/59540001">こちら、茜新社刊COMIC LOの公式アカウントでございます。先 - comicLO_YLNT - Pawoo</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			2次エロ系アカウントの凍結に加えて、 twitter がサードパーティアプリ開発者への締め付けも進めているもよう。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			LO とか個人みたいな弱小でもないんだから自分たちの宣伝に使うサーバくらい自分で立てればいいのにと思ったが、企業だといろいろ融通もきかないのだろうか。
 			体力ある人々は自分の面倒くらい自分で見ような！
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="gnusocial-update">
-		<eh:title>GNU Social 公式リポジトリ 3ヶ月ぶりに更新</eh:title>
+	<section xml:id="gnusocial-update">
+		<title>GNU Social 公式リポジトリ 3ヶ月ぶりに更新</title>
 
-		<ul>
-			<li>
-				<a href="https://git.gnu.io/gnu/gnu-social/commits/nightly">Commits · nightly · gnu.io / gnu-social · GitLab</a>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://git.gnu.io/gnu/gnu-social/commits/nightly">Commits · nightly · gnu.io / gnu-social · GitLab</link>
 				(master / nightly 間での merge 等があり compare がまともに働かない。)
-			</li>
-		</ul>
+			</listitem>
+		</itemizedlist>
 
-		<p>
-			しばらく更新がないと<a href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/#comparison--releases--gnusocial">ブログで書いた</a>と思ったら更新されていた。
+		<simpara>
+			しばらく更新がないと<link xl:href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/#comparison--releases--gnusocial">ブログで書いた</link>と思ったら更新されていた。
 			あまり大した機能追加などはない。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="json-new-spec">
-		<eh:title>JSON の仕様が更新された</eh:title>
+	<section xml:id="json-new-spec">
+		<title>JSON の仕様が更新された</title>
 
-		<ul>
-			<li>
-				<a href="http://www.publickey1.jp/blog/17/jsonrfc_8259ecma-404_2nd_editonutf-8.html">事実上最後のJSON仕様「RFC 8259」と「ECMA-404 2nd Editon」公開。UTF-8エンコード必須に － Publickey</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="http://www.publickey1.jp/blog/17/jsonrfc_8259ecma-404_2nd_editonutf-8.html">事実上最後のJSON仕様「RFC 8259」と「ECMA-404 2nd Editon」公開。UTF-8エンコード必須に － Publickey</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			JSON について、 IETF が策定する RFC と ECMA Internatioal が策定している仕様を共通化しようということで統一された (RFC 8259, ECMA-404 2nd edition) らしい。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			javascript (や Java) では文字列の内部表現に UTF-16 を使っているが、 JSON の交換では UTF-8 を使うことになったらしい。
 			個人的には UTF-8 の方が好きだし Rust でも UTF-8 なので、何も異論はないが。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="rust-epoch-next">
-		<eh:title>最近の Rust の大きな変更</eh:title>
+	<section xml:id="rust-epoch-next">
+		<title>最近の Rust の大きな変更</title>
 
-		<ul>
-			<li>
-				<a href="https://twitter.com/i/web/status/943748282328629248">Masaki=就寝=Hara on Twitter: "https://t.co/xEeFdwTtZ0 最近のRustのでかい変更の実装状況がまとまっている。"</a>
-			</li>
-			<li>
-				<a href="https://github.com/rust-lang/rust/issues/46889">Epoch.Next Tracking Issue · Issue #46889 · rust-lang/rust</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://twitter.com/i/web/status/943748282328629248">Masaki=就寝=Hara on Twitter: "https://t.co/xEeFdwTtZ0 最近のRustのでかい変更の実装状況がまとまっている。"</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/issues/46889">Epoch.Next Tracking Issue · Issue #46889 · rust-lang/rust</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			最近進捗していて <code>box</code> のマッチと NLL と impl Trait がすぐにでも欲しいと思うことが多々ある。
 			はよ来てほしい。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="maitetsu-consumer">
-		<eh:title>まいてつ コンシューマ版 webサイト公開</eh:title>
+	<section xml:id="maitetsu-consumer">
+		<title>まいてつ コンシューマ版 webサイト公開</title>
 
-		<ul>
-			<li>
-				<a href="https://maitetsucs.com/">まいてつ -pure station- (PS4専用ソフト)</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://maitetsucs.com/">まいてつ -pure station- (PS4専用ソフト)</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			はやくやらないと……
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="public-activities">
-	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
+<section xml:id="public-activities">
+	<title>ﾊﾟﾌﾞﾘｯｸ活動</title>
 
-	<eh:section id="issue-relative-path">
-		<eh:title>relative path crate に issue 投げた</eh:title>
+	<section xml:id="issue-relative-path">
+		<title>relative path crate に issue 投げた</title>
 
-		<ul>
-			<li>
-				<a href="https://github.com/udoprog/relative-path/issues/2">Require `#[repr(C)]` for `RelativePath` · Issue #2 · udoprog/relative-path</a>
-			</li>
-			<li>
-				<a href="https://github.com/rust-lang/rust/issues/45910">Document pointer cast safety in std::path · Issue #45910 · rust-lang/rust</a>
-			</li>
-		</ul>
-		<p>
-			これ私もやらかしたやつ(<eh:xref linkend="received-issue-report-of-opaque-typedef">後述</eh:xref>)じゃんと思って issue を投げたが、ライブラリ作者も把握している問題で、完全に余計なお世話だったっぽい。
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/udoprog/relative-path/issues/2">Require `#[repr(C)]` for `RelativePath` · Issue #2 · udoprog/relative-path</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/issues/45910">Document pointer cast safety in std::path · Issue #45910 · rust-lang/rust</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
+			これ私もやらかしたやつ(<link linkend="received-issue-report-of-opaque-typedef">後述</link>)じゃんと思って issue を投げたが、ライブラリ作者も把握している問題で、完全に余計なお世話だったっぽい。
 			まあいいや。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="pull-req-futures-rs">
-		<eh:title>futures-rs crate にプルリク出した (merge された)</eh:title>
+	<section xml:id="pull-req-futures-rs">
+		<title>futures-rs crate にプルリク出した (merge された)</title>
 
-		<ul>
-			<li>
-				<a href="https://github.com/alexcrichton/futures-rs/pull/686">Implement `Error` and `Display` for `SharedError` when possible by lo48576 · Pull Request #686 · alexcrichton/futures-rs</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/alexcrichton/futures-rs/pull/686">Implement `Error` and `Display` for `SharedError` when possible by lo48576 · Pull Request #686 · alexcrichton/futures-rs</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			今(文字通りこの文章を書いている今)実装しているコードで <code>SharedError</code> を stream からエラーとして流したくなるような状況になったが、 <code>Box&lt;Error + Send + Sync&gt;</code> へ <code>Into::into</code> で変換できなかったので、マジかよと思いながら修正。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="private-activities">
-	<eh:title>私的活動</eh:title>
+<section xml:id="private-activities">
+	<title>私的活動</title>
 
-	<eh:section id="received-issue-report-of-opaque-typedef">
-		<eh:title>opaque_typedef crate で未定義動作の issue を受けた</eh:title>
+	<section xml:id="received-issue-report-of-opaque-typedef">
+		<title>opaque_typedef crate で未定義動作の issue を受けた</title>
 
-		<ul>
-			<li>
-				<a href="https://github.com/lo48576/opaque_typedef/issues/1">OpaqueTypedefUnsized::from_* are unsound · Issue #1 · lo48576/opaque_typedef</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/lo48576/opaque_typedef/issues/1">OpaqueTypedefUnsized::from_* are unsound · Issue #1 · lo48576/opaque_typedef</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			C++ のようなヤバ言語でもないのに、未定義動作の指摘を堂々とできるのすごいなあ、只者じゃなさそうと思ってプロフィールページを見てみたら、やはりと言うべきか強い人だった。
-		</p>
-		<p>
-			<a href="https://blog.cardina1.red/2017/08/27/rust-defining-custom-unsized-type/">以前ブログに書いた</a>コードにも注釈加えとかないとなぁ。
-		</p>
-	</eh:section>
+		</simpara>
+		<simpara>
+			<link xl:href="https://blog.cardina1.red/2017/08/27/rust-defining-custom-unsized-type/">以前ブログに書いた</link>コードにも注釈加えとかないとなぁ。
+		</simpara>
+	</section>
 
-	<eh:section id="published-sgr-macro">
-		<eh:title>大昔に書いた C/C++ 用の ANSI カラーシーケンス合成マクロを整理して公開</eh:title>
+	<section xml:id="published-sgr-macro">
+		<title>大昔に書いた C/C++ 用の ANSI カラーシーケンス合成マクロを整理して公開</title>
 
-		<ul>
-			<li>
-				<a href="https://github.com/lo48576/sgr_macro">lo48576/sgr_macro: C/C++ macros to improve readability of SGRs.</a>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/lo48576/sgr_macro">lo48576/sgr_macro: C/C++ macros to improve readability of SGRs.</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			大昔 twitter で自慢して gist に投げたきりだったが、ライセンスどうなの的なことを聞かれたので、どうせ MIT ライセンスにするつもりだけど折角だし公開するかということで公開した。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			そもそもマクロで再帰の勉強用に書いたやつなので実装は黒魔術の雰囲気が強いが、拡張性はちゃんと確保してあるので、まあ問題あるまい。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="advent-calendar">
-		<eh:title>アドベントカレンダー</eh:title>
+	<section xml:id="advent-calendar">
+		<title>アドベントカレンダー</title>
 
-		<ul>
-			<li>
-				<a href="https://blog.cardina1.red/tags/AdventCalendar/2017/">Tag: AdventCalendar/2017 - 何とは言わない天然水飲みたさ</a>
-				<ul>
-					<li>
-						<a href="https://blog.cardina1.red/2017/12/07/never-type-and-semicolon/">Rust での never type とセミコロン、型推論のルール変遷 - 何とは言わない天然水飲みたさ</a>
-					</li>
-					<li>
-						<a href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/">Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして - 何とは言わない天然水飲みたさ</a>
-					</li>
-					<li>
-						<a href="https://blog.cardina1.red/2017/12/16/supporters-of-iq1/">IQ1 を支える技術(と罵る技術) - 何とは言わない天然水飲みたさ</a>
-					</li>
-					<li>
-						<a href="https://blog.cardina1.red/2017/12/22/my-services/">気軽に立てようウェブサービス - 何とは言わない天然水飲みたさ</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
-		<p>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://blog.cardina1.red/tags/AdventCalendar/2017/">Tag: AdventCalendar/2017 - 何とは言わない天然水飲みたさ</link>
+				<itemizedlist>
+					<listitem>
+						<link xl:href="https://blog.cardina1.red/2017/12/07/never-type-and-semicolon/">Rust での never type とセミコロン、型推論のルール変遷 - 何とは言わない天然水飲みたさ</link>
+					</listitem>
+					<listitem>
+						<link xl:href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/">Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして - 何とは言わない天然水飲みたさ</link>
+					</listitem>
+					<listitem>
+						<link xl:href="https://blog.cardina1.red/2017/12/16/supporters-of-iq1/">IQ1 を支える技術(と罵る技術) - 何とは言わない天然水飲みたさ</link>
+					</listitem>
+					<listitem>
+						<link xl:href="https://blog.cardina1.red/2017/12/22/my-services/">気軽に立てようウェブサービス - 何とは言わない天然水飲みたさ</link>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			最後らへんとか間に合いそうなネタがなくて非常に雑になってしまった。
 			申し訳ない。
 			(「IQが1アドベントカレンダー」などというしょーもないものに手を出してしまったせいというのもある。)
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			まだブログに書きたいネタはいくつかあるが、しっかり書きたいので急ぎで書くのは避けた。
 			忙しくなくなったら、そのうち書くつもり。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="conclusion">
-	<eh:title>雑感</eh:title>
-	<ul>
-		<li>
-			<p>
+<section xml:id="conclusion">
+	<title>雑感</title>
+	<itemizedlist>
+		<listitem>
+			<simpara>
 				研究……(白目)
-			</p>
-		</li>
-		<li>
-			<p>
+			</simpara>
+		</listitem>
+		<listitem>
+			<simpara>
 				ぜってー卒業しような！
-			</p>
-		</li>
-		<li>
-			<p>
+			</simpara>
+		</listitem>
+		<listitem>
+			<simpara>
 				ｱﾍﾞﾍﾞﾝﾍﾞｶｶﾝﾀﾞｰ大変だった
-			</p>
-		</li>
-		<li>
-			<p>
+			</simpara>
+		</listitem>
+		<listitem>
+			<simpara>
 				分散 SNS 関係ではいろいろ言いたいことがあるので、なんでもブログでやらず、そのうち web サイトごと立てたい。
 				というか立てる。
-			</p>
-			<p>
+			</simpara>
+			<simpara>
 				あと卒業の目途が立ったら ActivityPub サーバも実装する予定。
 				準備はしている。
-			</p>
-		</li>
-		<li>
-			<p>
-				2017年の目標だった(目標ではない)<a href="https://blog.cardina1.red/2017/01/01/crush-the-kilogram/">キログラム原器同時破壊テロ</a>が起きなかったので大変残念。
+			</simpara>
+		</listitem>
+		<listitem>
+			<simpara>
+				2017年の目標だった(目標ではない)<link xl:href="https://blog.cardina1.red/2017/01/01/crush-the-kilogram/">キログラム原器同時破壊テロ</link>が起きなかったので大変残念。
 				私のような凡人は、歴史に名を刻むこともなく、科学が進歩していくのをただ遠くから眺めるのみである——
-			</p>
-		</li>
-		<li>
-			<p>
+			</simpara>
+		</listitem>
+		<listitem>
+			<simpara>
 				書いてたら日付どころか年が変わってた
-			</p>
-		</li>
-	</ul>
-</eh:section>
+			</simpara>
+		</listitem>
+	</itemizedlist>
+</section>
 
-</eh:article>
+</article>

@@ -2,7 +2,7 @@
 created_at: 2016-10-15T13:40:33+0900
 published_at: 2016-10-15T13:40:33+0900
 updated_at: 2016-10-15T16:05:07+0900
-format: "easy-html"
+format: docbook
 title: "CSSで喪に服す"
 tags:
   - css
@@ -11,55 +11,86 @@ kind: article
 excerpt: "CSSで喪に服す時代らしい。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	id="2016-10-15-mourning-with-css"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xml:id="article-2016-10-15-mourning-with-css"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>CSSで喪に服す</eh:title>
-<eh:section id="grayscale">
-	<eh:title>filter属性</eh:title>
-	<p>
-		喪に服すため黒い服を着る文化がどこから来たものなのかよく知らないが<eh:footnote id="footnote-mourning-black">
-			浄土真宗本願寺派総合研究所というところの<a href="http://j-soken.jp/files/book/sousou_005.pdf" target="_blank">この記事</a>を読むといろいろ書いてあるが、まとめるほど理解できていないので要約は書かずにおく。
+<title>CSSで喪に服す</title>
+
+<section xml:id="grayscale">
+	<title>filter属性</title>
+	<simpara>
+		喪に服すため黒い服を着る文化がどこから来たものなのかよく知らないが<footnote xml:id="footnote-mourning-black" refmark-id="ref-footnote-mourning-black">
+			浄土真宗本願寺派総合研究所というところの<link xl:href="http://j-soken.jp/files/book/sousou_005.pdf">この記事</link>を読むといろいろ書いてあるが、まとめるほど理解できていないので要約は書かずにおく。
 			(ちなみに浄土真宗本願寺派とは、かなり雑に言うと仏教のメジャーな一派である。)
-		</eh:footnote>、少なくともタイにもそういう文化があるらしい。
-	</p>
-	<p>
-		<time datetime="2016-10-13">先日(2016/10/13)</time><a href="https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%BC%E3%83%9E9%E4%B8%96" target="_blank">タイ国王ラーマ9世</a>の崩御でタイの/タイ国民向けのwebサイトが白黒(正確にはグレースケール)になっているようだが、どうやらこれがwebサイトの色使いを直していくとかでなく、追加のCSSスタイルで簡単に実現できるらしいと知った。
-	</p>
+		</footnote>、少なくともタイにもそういう文化があるらしい。
+	</simpara>
+	<simpara>
+		<h:time datetime="2016-10-13">先日(2016/10/13)</h:time><link href="https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%BC%E3%83%9E9%E4%B8%96">タイ国王ラーマ9世</link>の崩御でタイの/タイ国民向けのwebサイトが白黒(正確にはグレースケール)になっているようだが、どうやらこれがwebサイトの色使いを直していくとかでなく、追加のCSSスタイルで簡単に実現できるらしいと知った。
+	</simpara>
 
-	<figure>
-		<figure>
-			<picture>
-				<source srcset="https://screenshots.firefoxusercontent.com/images/a533d0db-b9e3-4a37-9c1c-9ab10cebd6f7" />
-				<img src="20161015-1405-google_co_th.png" alt="www.google.co.th のスクリーンショット" />
-			</picture>
-			<figcaption><a href="https://www.google.co.th">www.google.co.th</a>, <time datetime="2016-10-15T14:06">2016/10/15 14:05</time> 撮影</figcaption>
-		</figure>
+	<informalfigure>
+		<informalfigure>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="20161015-1405-google_co_th.png" />
+				</imageobject>
+				<textobject>
+					<phrase>
+						www.google.co.th のスクリーンショット
+					</phrase>
+				</textobject>
+			</mediaobject>
+			<!-- FIXME: Prefer `mediaobject/caption` to `figure/caption`. -->
+			<caption><link xl:href="https://www.google.co.th">www.google.co.th</link>, <h:time datetime="2016-10-15T14:06">2016/10/15 14:05</h:time> 撮影</caption>
+		</informalfigure>
 
-		<figure>
-			<img src="20161015-1406-www_thaiairways_com.png" alt="www.thaiairways.com のスクリーンショット" />
-			<figcaption><a href="http://www.thaiairways.com">www.thaiairways.com</a>, <time datetime="2016-10-15T14:06">2016/10/15 14:06</time> 撮影</figcaption>
-		</figure>
+		<informalfigure>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="20161015-1406-www_thaiairways_com.png" />
+				</imageobject>
+				<textobject>
+					<phrase>
+						www.thaiairways.com のスクリーンショット
+					</phrase>
+				</textobject>
+			</mediaobject>
+			<!-- FIXME: Prefer `mediaobject/caption` to `figure/caption`. -->
+			<caption><link href="http://www.thaiairways.com">www.thaiairways.com</link>, <h:time datetime="2016-10-15T14:06">2016/10/15 14:06</h:time> 撮影</caption>
+		</informalfigure>
 
-		<figure>
-			<img src="20161015-1411-www_mcot_net-home-index.png" alt="www.mcot.net のスクリーンショット" />
-			<figcaption><a href="http://www.mcot.net/">www.mcot.net</a>, <time datetime="2016-10-15T14:06">2016/10/15 14:11</time> 撮影</figcaption>
-		</figure>
+		<informalfigure>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="20161015-1411-www_mcot_net-home-index.png" />
+				</imageobject>
+				<textobject>
+					<phrase>
+						www.mcot.net のスクリーンショット
+					</phrase>
+				</textobject>
+			</mediaobject>
+			<!-- FIXME: Prefer `mediaobject/caption` to `figure/caption`. -->
+			<caption><link href="http://www.mcot.net/">www.mcot.net</link>, <h:time datetime="2016-10-15T14:06">2016/10/15 14:11</h:time> 撮影</caption>
+		</informalfigure>
 
-		<figcaption>グレースケールになったタイ向けwebサイト</figcaption>
-	</figure>
+		<caption>グレースケールになったタイ向けwebサイト</caption>
+	</informalfigure>
 
-	<p>
-		googleはロゴが変わっているだけなのでさておき。<br />
+	<simpara>
+		googleはロゴが変わっているだけなのでさておき。
+	</simpara>
+	<simpara>
 		他のwebサイトは写真などいろいろ使っているが、これらが全てグレースケールになっているのは、（最初からグレースケールの画像を用意している場合もあるが、）CSSにより適用された効果である。
-	</p>
+	</simpara>
 
-	<div class="content-block grid-row">
-		<figure class="col-xs-12 col-lg-5">
-			<pre><code class="lang-css language-css" data-lang="css">
-/* home.css */
+	<informalfigure>
+		<programlisting language="css">/* home.css */
 #ls-canvas {
 	filter: grayscale(100%);
 }
@@ -69,14 +100,12 @@ excerpt: "CSSで喪に服す時代らしい。"
 {
   filter: grayscale(100%);
   width:100%;
-}
-</code></pre>
-			<figcaption>www.thaiairways.com のCSS</figcaption>
-		</figure>
+}</programlisting>
+		<caption>www.thaiairways.com のCSS</caption>
+	</informalfigure>
 
-		<figure class="col-xs-12 col-lg-7">
-			<pre><code class="lang-html language-html" data-lang="html">
-&lt;style&gt;
+	<informalfigure>
+		<programlisting language="html"><![CDATA[<style>
 body {
   /* IE */
   filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
@@ -87,40 +116,38 @@ body {
   /* Firefox */
   filter: grayscale(1);
 }
-&lt;/style&gt;
-</code></pre>
-			<figcaption>www.mcot.net のHTML</figcaption>
-		</figure>
-	</div>
+</style>]]></programlisting>
+		<caption>www.mcot.net のHTML</caption>
+	</informalfigure>
 
-	<p>
-		なるほど、CSS3の<a href="https://developer.mozilla.org/ja/docs/Web/CSS/filter" target="_blank">filter</a>を使えばいいわけだ。<br />
-		……と思ったが、filterでは<strong>IEで喪に服すことができない</strong>。
-	</p>
-	<p>
+	<simpara>
+		なるほど、CSS3の<link xl:href="https://developer.mozilla.org/ja/docs/Web/CSS/filter">filter</link>を使えばいいわけだ。
+		……と思ったが、filterでは<emphasis>IEで喪に服すことができない</emphasis>。
+	</simpara>
+	<simpara>
 		ちなみにGoogle chromeも、2016/10/15時点でSVG要素に対するfilterに対応していない。
-		<strong>喪に服したいなら<a href="https://www.mozilla.org/ja/firefox/new/">firefox</a>だ！</strong>
-	</p>
-</eh:section>
+		<emphasis>喪に服したいなら<link xl:href="https://www.mozilla.org/ja/firefox/new/">firefox</link>だ！</emphasis>
+	</simpara>
+</section>
 
-<eh:section id="mourning-with-ie">
-	<eh:title>IEでダイレクトに喪に服す (#字足らず)</eh:title>
-	<p>
-		さて問題は、<a href="https://developer.mozilla.org/ja/docs/Web/CSS/filter#Browser_compatibility">IEがCSS標準のfilterに対応していない</a>ことである。
+<section xml:id="mourning-with-ie">
+	<title>IEでダイレクトに喪に服す (#字足らず)</title>
+	<simpara>
+		さて問題は、<link href="https://developer.mozilla.org/ja/docs/Web/CSS/filter#Browser_compatibility">IEがCSS標準のfilterに対応していない</link>ことである。
 		よって、IEでは<code>filter: grayscale(1);</code>では喪に服せない。
 		そこで必要になるのが<code>DXImageTransform</code>だ。
 		<code>filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);</code>によってIEでも<code>filter: grayscale(1);</code>と同じ効果を得られる（ようだ）。
-	</p>
-	<p>
-		すなわち……<strong>IEで喪に服すにはDirectXが必要</strong>なのだ！<br />
+	</simpara>
+	<simpara>
+		すなわち……<emphasis>IEで喪に服すにはDirectXが必要</emphasis>なのだ！
 		タイのwebページのどの程度の割合がDirectXでの服喪に対応しているのか気になるところである。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="others">
-	<eh:title>その他</eh:title>
-	<p>
+<section xml:id="others">
+	<title>その他</title>
+	<simpara>
 		<code>filter</code>をうまく使えば、制限されたデバイスや視覚障害者対応などにも役立つかもしれないと思った。
-	</p>
-</eh:section>
-</eh:article>
+	</simpara>
+</section>
+</article>

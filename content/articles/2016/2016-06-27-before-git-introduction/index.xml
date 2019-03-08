@@ -1,7 +1,7 @@
 ---
 created_at: 2016-06-27T10:55:21+0900
 published_at: 2016-06-27T10:55:21+0900
-format: "easy-html"
+format: docbook
 title: "git入門の前に知っておきたい概念"
 tags:
   - git
@@ -12,340 +12,377 @@ kind: article
 excerpt: "実際にgitを使ってみる前に知っておきたい概念とかを連ねてみる。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	id="2016-06-27-before-git-introduction"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="article-2016-06-27-before-git-introduction"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>git入門の前に知っておきたい概念</eh:title>
-<eh:section id="article-introduction">
-	<eh:title>はじめに</eh:title>
-	<p>
+<title>git入門の前に知っておきたい概念</title>
+<section xml:id="article-introduction">
+	<title>はじめに</title>
+	<simpara>
 		git入門記事が巷に(というか主にwebに)満ち溢れる時代である。
 		で、私は「git使ってみよう！ほら簡単でしょ！」方式の入門記事を見る度に、「ブラックボックスっぽいなぁ」と思うわけである。
-	</p>
-	<p>
+	</simpara>
+	<simpara>
 		プログラミングにおいてもそうなのだが、とりあえず使えはするが原理や思想をわかっていない状態というのは非常に微妙で、ややもすればその言語やツールを嫌い/苦手な状態へと転がっていってしまう。
 		(私の場合だとPythonなんかがそうだ。)
 		なにかブラックボックスめいたものを使うとき、そのインターフェースに統一性や合理性を見出して楽に覚えるためには、内部を理解するか思想を理解するのが一番の早道である。
-	</p>
-	<p>
+	</simpara>
+	<simpara>
 		そういうわけで、この記事ではgitのコマンドを見て、「それで何ができるか」ではなく「それで何が起きるか」がわかるように概念の解説を試みる。
-	</p>
-	<p>
-		それから、GitHubとgitは全く別の概念なので、<strong>一旦GitHubのことは忘れること</strong>。
-	</p>
-</eh:section>
+	</simpara>
+	<simpara>
+		それから、GitHubとgitは全く別の概念なので、<emphasis>一旦GitHubのことは忘れること</emphasis>。
+	</simpara>
+</section>
 
-<eh:section id="glossary">
-	<eh:title>用語集</eh:title>
-	<dl>
-		<dt id="noun-repository">
-			reposiotry, リポジトリ [名詞]
-		</dt>
-		<dd>
-			<p>
-				repositoryは、一般の英語では「貯蔵庫」「倉庫」といった意味である。<br />
-				gitやバージョン管理の文脈でいうリポジトリとは、<strong>プロジェクトに関連するデータを一元的に保管する場所</strong>、および<strong>その場所にあるデータ全体</strong>と捉えて問題ないだろう。<br />
-				たとえば、ありがちなプログラム開発のリポジトリに含まれる情報としては、仕様書やドキュメント、過去から現在に至るまでのソースコードと変更履歴、画像等のリソース、テストコード、会議の議事録やフォーラム、バグ情報や進捗情報などが含まれる。
-			</p>
-			<p>
-				gitが管理するのは、このうちでも、<strong>過去から現在に至るまでのファイルと変更履歴</strong>である(これを特に<strong>gitリポジトリ</strong>と呼んだりする)。
-				(ファイルとして管理されていれば、仕様でもドキュメントでもソースコードでもテストでもリソースでも、何でも管理できる。)<br />
-				gitと並べてよく紹介されるGitHubであるが、こいつはgitリポジトリに加えてissue trackingのためのシステム等を提供しているもので、要するに<strong>gitリポジトリを内部に持つ、もっとパワフルな何か別物</strong>である。
-				これが「gitとGitHubを一緒に教えるな」という派閥の人々の主張の根拠のひとつである。
-			</p>
-		</dd>
+<section xml:id="glossary">
+	<title>用語集</title>
+	<variablelist>
+		<varlistentry xml:id="noun-repository">
+			<term>
+				reposiotry, リポジトリ [名詞]
+			</term>
+			<listitem>
+				<simpara>
+					repositoryは、一般の英語では「貯蔵庫」「倉庫」といった意味である。
+					gitやバージョン管理の文脈でいうリポジトリとは、<emphasis>プロジェクトに関連するデータを一元的に保管する場所</emphasis>、および<emphasis>その場所にあるデータ全体</emphasis>と捉えて問題ないだろう。
+					たとえば、ありがちなプログラム開発のリポジトリに含まれる情報としては、仕様書やドキュメント、過去から現在に至るまでのソースコードと変更履歴、画像等のリソース、テストコード、会議の議事録やフォーラム、バグ情報や進捗情報などが含まれる。
+				</simpara>
+				<simpara>
+					gitが管理するのは、このうちでも、<emphasis>過去から現在に至るまでのファイルと変更履歴</emphasis>である(これを特に<emphasis>gitリポジトリ</emphasis>と呼んだりする)。
+					(ファイルとして管理されていれば、仕様でもドキュメントでもソースコードでもテストでもリソースでも、何でも管理できる。)
+				</simpara>
+				<simpara>
+					gitと並べてよく紹介されるGitHubであるが、こいつはgitリポジトリに加えてissue trackingのためのシステム等を提供しているもので、要するに<emphasis>gitリポジトリを内部に持つ、もっとパワフルな何か別物</emphasis>である。
+					これが「gitとGitHubを一緒に教えるな」という派閥の人々の主張の根拠のひとつである。
+				</simpara>
+			</listitem>
+		</varlistentry>
+		<varlistentry xml:id="noun-commit">
+			<term>
+				commit, コミット [名詞]
+			</term>
+			<listitem>
+				<simpara>
+					コミットは、「gitリポジトリで管理されているファイル群の、ある瞬間の状態」を示す。
+					(この「ある瞬間の状態」が曲者で、実際にそうなったことのない状態も保存できるわけだが、それはまあ初学者は無視して良い。)
+				</simpara>
+				<simpara>
+					たとえばバックアップのために、プロジェクトのディレクトリをコピーしてzipで保存した(<filename>hoge_project_20160627.zip</filename>)としよう。
+					概念としては、<emphasis>このzipファイルが「コミット」だ</emphasis>。
+					コミットを、「プロジェクトの(ファイル群の)スナップショットである」という表現をすることもあるが、こちらの方がわかりやすいという人もいるかもしれない。
+				</simpara>
+				<simpara>
+					実際には、gitはもっと効率的な形でファイルを保存するため、zipを使わず別の方式でやっている<footnote xml:id="footnote-git-commit-representation" refmark-id="ref-footnote-git-commit-representation">
+						実際の開発においては、変更は多数のファイルの一部だけであったり、大きなファイルのうち一部分だけであったりすることが多い。
+						つまり、共通部分が多いのである。
+						であれば、変化なしのファイルは省略して変化したファイルだけを、また、共通部分は省略して差分だけを保持できれば、サイズの削減が可能である。
+						よってgitでは、zipバックアップのように問答無用で全てのファイルをコピーして取っておくのではなく、必要な情報だけを適宜保存していくようになっている。
+					</footnote>が、本質的には同じことである。
+				</simpara>
+				<simpara>
+					gitリポジトリにおけるコミット全体は、有向(非巡回)グラフを形成する。
+				</simpara>
+			</listitem>
+		</varlistentry>
+		<varlistentry xml:id="verb-commit">
+			<term>
+				commit <arg>&lt;file(s)&gt;</arg>, <arg>&lt;ファイル(群を)&gt;</arg>コミットする [他動詞]
+			</term>
+			<listitem>
+				<simpara>
+					<link linkend="noun-commit">コミット[名詞]</link>を作ること。
+				</simpara>
+				<simpara>
+					<link linkend="noun-commit">コミット[名詞]</link>を「zipで保存されたプロジェクト」で喩えたが、これに合わせて言うなら、コミットするとは「プロジェクトをzipで保存する」行為をいう。
+				</simpara>
+				<simpara>
+					では何から<link linkend="noun-commit">コミット[名詞]</link>を作るかといえば、直観的には「現在のプロジェクト(ファイル群)の状態」(<link linkend="noun-working-directory">ワーキングディレクトリ</link>)からである。
+					しかし、実はgitでは間に一段挟んで、ファイルを即座に保存するのではなく、<link linkend="noun-staging-area">ステージング・エリア</link>に追加されたファイルを、そこに追加された状態で保存することになっている。
+				</simpara>
+				<simpara>
+					詳細は<link linkend="noun-staging-area">ステージング・エリア</link>を参照。
+				</simpara>
+			</listitem>
+		</varlistentry>
+		<varlistentry xml:id="verb-checkout">
+			<term>
+				checkout <arg>&lt;commit&gt;</arg>, <arg>&lt;コミットを&gt;</arg>チェックアウトする [他動詞]
+			</term>
+			<term>
+				checkout <arg>&lt;branch&gt;</arg>, <arg>&lt;ブランチを&gt;</arg>チェックアウトする [他動詞]
+			</term>
+			<listitem>
+				<simpara>
+					<link linkend="noun-commit">コミット[名詞]</link>を(<link linkend="noun-working-directory">ワーキングディレクトリ</link>に)展開し再現すること。
+				</simpara>
+				<simpara>
+					<link linkend="verb-commit">コミット[動詞]</link>を「プロジェクトをコピーしてzipで保存する」ことだと喩えたが、これをなぞるなら、チェックアウトとは「zipを展開してプロジェクトに上書きすることで、別の状態のプロジェクトを再現する」ということである。
+				</simpara>
+				<simpara>
+					<link linkend="noun-branch">ブランチ</link>をチェックアウトするというのは、ブランチが実際にはひとつのコミットを指すポインタのようなものであるから、「ブランチで指されたコミットをチェックアウトする」という意味である。
+				</simpara>
+			</listitem>
+		</varlistentry>
+		<varlistentry xml:id="noun-working-directory">
+			<term>
+				working directory, ワーキングディレクトリ [名詞]
+			</term>
+			<listitem>
+				<simpara>
+					現在あるがままのプロジェクトのディレクトリ(のファイル群)の状態のこと。
+					また、その状態のディレクトリ自体のこと。
+				</simpara>
+				<simpara>
+					要するに直訳の通り「作業中のディレクトリ」の状態である。
+				</simpara>
+			</listitem>
+		</varlistentry>
+		<varlistentry xml:id="noun-branch">
+			<term>
+				branch, ブランチ [名詞]
+			</term>
+			<listitem>
+				<simpara>
+					普通の英語で言うと「枝」。
+				</simpara>
+				<simpara>
+					gitの文脈では、ブランチはある<link linkend="noun-commit">コミット[名詞]</link>を指すラベルのようなものであり、また、そのコミットを含む先祖の一連のコミット(つまり、履歴が繋がっている、以前のコミット)を意味する。
+					詳しくは「git branch commit」とかでGoogleで画像検索した方がわかりやすいだろう。
+				</simpara>
+			</listitem>
+		</varlistentry>
+		<varlistentry xml:id="noun-staging-area">
+			<term>
+				staging area, ステージング・エリア, ステージング領域 [名詞]
+			</term>
+			<listitem>
+				<simpara>
+					次の<link linkend="verb-commit">コミット[動詞]</link>で作成される<link linkend="noun-commit">コミット[名詞]</link>に保存されるファイル群(の追加や変更)。
+				</simpara>
+				<itemizedlist>
+					<listitem>
+						staging areaに追加されたファイルは、その追加された新たな内容が(古い内容に代わって)次の新たなコミットに含まれる。
+						<itemizedlist>
+							<listitem>
+								前回のコミットに含まれていたファイルは、staging areaにあるファイルで置き換えられる。
+							</listitem>
+							<listitem>
+								前回のコミットに含まれていなかったファイルは、次の<link linkend="noun-commit">コミット[名詞]</link>から新規追加される。
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
+						staging areaから排除された(<emphasis>unstage</emphasis>された)ファイルは、次の<link linkend="noun-commit">コミット[名詞]</link>に含まれなくなる。
+					</listitem>
+					<listitem>
+						staging areaに追加されなかったファイルは、前回のコミットでの内容がそのまま引き継がれる。
+						(追加・変更・削除関係なく、次のコミットに反映されない。)
+					</listitem>
+				</itemizedlist>
+				<simpara>
+					詳しくは下で解説する。
+				</simpara>
+			</listitem>
+		</varlistentry>
+		<varlistentry xml:id="verb-add">
+			<term>
+				add <arg>&lt;file(s)&gt;</arg>, <arg>&lt;ファイル(群を)&gt;</arg>追加する [他動詞]
+			</term>
+			<term>
+				stage <arg>&lt;file(s)&gt;</arg> [他動詞]
+			</term>
+			<term>
+				index <arg>&lt;file(s)&gt;</arg> [他動詞]
+			</term>
+			<listitem>
+				<simpara>
+					新規ファイルやファイルの変更を次のコミットに含むために、<emphasis><link linkend="noun-staging-area">ステージング・エリア</link>に追加すること</emphasis>。<h:br />
+					逆に、stageされた新規ファイルや変更されたファイルをステージング・エリアから取り除くことを<emphasis>unstage</emphasis>とも言う。
+				</simpara>
+				<simpara>
+					たとえば「ブログを管理してるgitリポジトリで、前回の<link linkend="noun-commit">コミット</link>の状態から2記事を新しく追加したけど、まず1記事だけ追加した状態の<link linkend="noun-commit">コミット</link>を作っておきたい」などのケースは実際よくあることだ。<h:br />
+					もし現在のファイルの状態からしか<link linkend="noun-commit">コミット[名詞]</link>を作れないのでは、追加しない方の記事を一度削除して<link linkend="verb-commit">コミット[動詞]</link>、という面倒な手順を踏むことになってしまうが、<link linkend="noun-staging-area">ステージング・エリア</link>をうまく使ってやることで、<link linkend="noun-working-directory">ワーキングディレクトリ</link>を変更することなく部分的に変更を<link linkend="noun-commit">コミット</link>に追加することができる。
+				</simpara>
+				<note>
+					<title>目的語</title>
+					<simpara>
+						gitは<link linkend="noun-diff">差分</link>ではなく<link linkend="noun-commit">コミット[名詞]</link>(スナップショット)を保管するという特性から、addとかstageの目的語はふつうファイルになる。
+						しかし実際には、ファイルの変更の一部分のみが行われたものとして<link linkend="verb-add">stageする</link>ことも可能なので、「&lt;変更を&gt;add/stageする」という形の用法も見掛ける。
+					</simpara>
+				</note>
+			</listitem>
+		</varlistentry>
+		<varlistentry xml:id="noun-diff">
+			<term>
+				diff, 差分 [名詞]<h:br />
+				change(s), 変更 [名詞]
+			</term>
+			<listitem>
+				<simpara>
+					グラフの用語で言うなら、<link linkend="noun-commit">コミット[名詞]</link>や<link linkend="noun-staging-area">ステージング・エリア</link>のファイルがノードで、diff(差分)はエッジ(辺)だ。<h:br />
+					よって、diffはコミット間以外でも、コミットとステージング・エリア間やステージング・エリアとワーキングディレクトリ間でも考えることができる。
+				</simpara>
+				<simpara>
+					diffが何に役立つかというと、<link linkend="noun-commit">コミット[名詞]</link>間で何がどう変更されたかを確認できたり、またあるdiffを別の<link linkend="noun-branch">ブランチ</link>や<link linkend="noun-commit">コミット[名詞]</link>に適用(rebase/cherrypick)することで、<emphasis>ある<link linkend="noun-branch">ブランチ</link>での変更を別の<link linkend="noun-branch">ブランチ</link>へ同様に適用する</emphasis>ことができる。<h:br />
+					要するに「安定版用のブランチで行われたバグ修正を、不安定版用ブランチにも持ってくる」ということが簡単に可能になる。<h:br />
+					また、<emphasis>過去の変更をなかったことにする(revert)</emphasis>こともできる。
+					(取り消したいdiffの逆の変更を適用すればいい。)
+				</simpara>
+			</listitem>
+		</varlistentry>
+		<varlistentry xml:id="verb-merge">
+			<term>
+				merge <arg>&lt;branches&gt;</arg>, <arg>&lt;ブランチを&gt;</arg>マージする [他動詞]
+			</term>
+			<listitem>
+				<simpara>
+					ある共通の<link linkend="noun-commit">コミット[名詞]</link>から分岐した2つのブランチを融合し、新しくひとつの<link linkend="noun-commit">コミット[名詞]</link>を作ること。
+				</simpara>
+				<simpara>
+					共通のファイルはそのまま使用。
+					一方のみで変更された箇所はそちらの変更を取り込む。
+					両方で変更された箇所は、<emphasis>衝突</emphasis>(conflict)として扱い、どうするかユーザに委ねる。
+				</simpara>
+			</listitem>
+		</varlistentry>
+	</variablelist>
+</section>
 
-		<dt id="noun-commit">
-			commit, コミット [名詞]
-		</dt>
-		<dd>
-			<p>
-				コミットは、「gitリポジトリで管理されているファイル群の、ある瞬間の状態」を示す。<br />
-				<small>(この「ある瞬間の状態」が曲者で、実際にそうなったことのない状態も保存できるわけだが、それはまあ初学者は無視して良い。)</small>
-			</p>
-			<p>
-				たとえばバックアップのために、プロジェクトのディレクトリをコピーしてzipで保存した(<code class="filepath">hoge_project_20160627.zip</code>)としよう。
-				概念としては、<strong>このzipファイルが「コミット」だ</strong>。<br />
-				<small>(コミットを、「プロジェクトの(ファイル群の)スナップショットである」という表現をすることもあるが、こちらの方がわかりやすいという人もいるかもしれない。)</small><br />
-				実際には、gitはもっと効率的な形でファイルを保存するため、zipを使わず別の方式でやっている<eh:footnote id="footnote-git-commit-representation">
-					実際の開発においては、変更は多数のファイルの一部だけであったり、大きなファイルのうち一部分だけであったりすることが多い。
-					つまり、共通部分が多いのである。
-					であれば、変化なしのファイルは省略して変化したファイルだけを、また、共通部分は省略して差分だけを保持できれば、サイズの削減が可能である。
-					よってgitでは、zipバックアップのように問答無用で全てのファイルをコピーして取っておくのではなく、必要な情報だけを適宜保存していくようになっている。
-				</eh:footnote>が、本質的には同じことである。
-			</p>
-			<p>
-				gitリポジトリにおけるコミット全体は、有向(非巡回)グラフを形成する。
-			</p>
-		</dd>
+<section xml:id="commands">
+	<title>コマンド</title>
+	<section xml:id="commands-files">
+		<title>ファイル関連</title>
+		<variablelist>
+			<varlistentry>
+				<term>
+					ワーキングディレクトリ→ステージング・エリア
+				</term>
+				<listitem>
+					<simpara>
+						<code>git add [files...]</code>
+					</simpara>
+					<simpara>
+						変更を部分的にステージング・エリアに追加するには、
+						<code>git add -p [files...]</code>
+						とする。
+						<code>-p</code>は<code>--patch</code>の略らしい。
+					</simpara>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					ステージング・エリアから除外
+					(ただしワーキングディレクトリに変更は加えない)
+				</term>
+				<listitem>
+					<simpara>
+						<code>git rm --cached [files...]</code>
+					</simpara>
+					<simpara>
+						<code>--cached</code>は「ステージング・エリアから」という指定だ。
+					</simpara>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					ステージング・エリアとワーキングディレクトリ両方から除外
+				</term>
+				<listitem>
+					<simpara>
+						<code>git rm [files...]</code>
+					</simpara>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					ステージング・エリアの内容から次のコミットを作成
+				</term>
+				<listitem>
+					<simpara>
+						<code>git commit</code>
+					</simpara>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					チェックアウト
+				</term>
+				<listitem>
+					<simpara>
+						<code>git checkout [commit]</code><h:br />
+						<code>git checkout [branch]</code>
+					</simpara>
+					<simpara>
+						<code>[commit]</code>としては、コミットごとに付けられている番号(16進数)を使う。
+						本当は結構長いのだが、重複がなければ後ろの方は省略が許される。
+						だいたい最初の4〜7桁で十分なことが多い。
+					</simpara>
+					<simpara>
+						<code>[branch]</code>としてはローカルのブランチを指定する。
+					</simpara>
+				</listitem>
+			</varlistentry>
+		</variablelist>
 
-		<dt id="verb-commit">
-			commit <small>&lt;file(s)&gt;</small>, <small>&lt;ファイル(群を)&gt;</small>コミットする [他動詞]
-		</dt>
-		<dd>
-			<p>
-				<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を作ること。
-			</p>
-			<p>
-				<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を「zipで保存されたプロジェクト」で喩えたが、これに合わせて言うなら、コミットするとは「プロジェクトをzipで保存する」行為をいう。
-			</p>
-			<p>
-				では何から<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を作るかといえば、直観的には「現在のプロジェクト(ファイル群)の状態」(<eh:xref linkend="noun-working-directory">ワーキングディレクトリ</eh:xref>)からである。
-				しかし、実はgitでは間に一段挟んで、ファイルを即座に保存するのではなく、<eh:xref linkend="noun-staging-area">ステージング・エリア</eh:xref>に追加されたファイルを、そこに追加された状態で保存することになっている。<br />
-				詳細は<eh:xref linkend="noun-staging-area">ステージング・エリア</eh:xref>を参照。
-			</p>
-		</dd>
-
-		<dt id="verb-checkout">
-			checkout <small>&lt;commit&gt;</small>, <small>&lt;コミットを&gt;</small>チェックアウトする [他動詞]<br />
-			checkout <small>&lt;branch&gt;</small>, <small>&lt;ブランチを&gt;</small>チェックアウトする [他動詞]
-		</dt>
-		<dd>
-			<p>
-				<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を(<eh:xref linkend="noun-working-directory">ワーキングディレクトリ</eh:xref>に)展開し再現すること。
-			</p>
-			<p>
-				<eh:xref linkend="verb-commit">コミット[動詞]</eh:xref>を「プロジェクトをコピーしてzipで保存する」ことだと喩えたが、これをなぞるなら、チェックアウトとは「zipを展開してプロジェクトに上書きすることで、別の状態のプロジェクトを再現する」ということである。
-			</p>
-			<p>
-				<eh:xref linkend="noun-branch">ブランチ</eh:xref>をチェックアウトするというのは、ブランチが実際にはひとつのコミットを指すポインタのようなものであるから、「ブランチで指されたコミットをチェックアウトする」という意味である。
-			</p>
-		</dd>
-
-		<dt id="noun-working-directory">
-			working directory, ワーキングディレクトリ [名詞]
-		</dt>
-		<dd>
-			<p>
-				現在あるがままのプロジェクトのディレクトリ(のファイル群)の状態のこと。
-				また、その状態のディレクトリ自体のこと。
-			</p>
-			<p>
-				要するに直訳の通り「作業中のディレクトリ」の状態である。
-			</p>
-		</dd>
-
-		<dt id="noun-branch">
-			branch, ブランチ [名詞]
-		</dt>
-		<dd>
-			<p>
-				普通の英語で言うと「枝」。<br />
-				gitの文脈では、ブランチはある<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を指すラベルのようなものであり、また、そのコミットを含む先祖の一連のコミット(つまり、履歴が繋がっている、以前のコミット)を意味する。
-				詳しくは「git branch commit」とかでGoogleで画像検索した方がわかりやすいだろう。
-			</p>
-		</dd>
-
-		<dt id="noun-staging-area">
-			staging area, ステージング・エリア, ステージング領域 [名詞]
-		</dt>
-		<dd>
-			<p>
-				次の<eh:xref linkend="verb-commit">コミット[動詞]</eh:xref>で作成される<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>に保存されるファイル群(の追加や変更)。
-			</p>
-			<ul>
-				<li>
-					staging areaに追加されたファイルは、その追加された新たな内容が(古い内容に代わって)次の新たなコミットに含まれる。
-					<ul>
-						<li>
-							前回のコミットに含まれていたファイルは、staging areaにあるファイルで置き換えられる。
-						</li>
-						<li>
-							前回のコミットに含まれていなかったファイルは、次の<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>から新規追加される。
-						</li>
-					</ul>
-				</li>
-				<li>
-					staging areaから排除された(<em>unstage</em>された)ファイルは、次の<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>に含まれなくなる。
-				</li>
-				<li>
-					staging areaに追加されなかったファイルは、前回のコミットでの内容がそのまま引き継がれる。
-					(追加・変更・削除関係なく、次のコミットに反映されない。)
-				</li>
-			</ul>
-			<p>
-				詳しくは下で解説する。
-			</p>
-		</dd>
-
-		<dt id="verb-add">
-			add <small>&lt;file(s)&gt;</small>, <small>&lt;ファイル(群を)&gt;</small>追加する [他動詞]<br />
-			stage <small>&lt;file(s)&gt;</small> [他動詞]<br />
-			index <small>&lt;file(s)&gt;</small> [他動詞]
-		</dt>
-		<dd>
-			<p>
-				新規ファイルやファイルの変更を次のコミットに含むために、<strong><eh:xref linkend="noun-staging-area">ステージング・エリア</eh:xref>に追加すること</strong>。<br />
-				逆に、stageされた新規ファイルや変更されたファイルをステージング・エリアから取り除くことを<em>unstage</em>とも言う。
-			</p>
-			<p>
-				たとえば「ブログを管理してるgitリポジトリで、前回の<eh:xref linkend="noun-commit">コミット</eh:xref>の状態から2記事を新しく追加したけど、まず1記事だけ追加した状態の<eh:xref linkend="noun-commit">コミット</eh:xref>を作っておきたい」などのケースは実際よくあることだ。<br />
-				もし現在のファイルの状態からしか<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を作れないのでは、追加しない方の記事を一度削除して<eh:xref linkend="verb-commit">コミット[動詞]</eh:xref>、という面倒な手順を踏むことになってしまうが、<eh:xref linkend="noun-staging-area">ステージング・エリア</eh:xref>をうまく使ってやることで、<eh:xref linkend="noun-working-directory">ワーキングディレクトリ</eh:xref>を変更することなく部分的に変更を<eh:xref linkend="noun-commit">コミット</eh:xref>に追加することができる。
-			</p>
-			<aside class="note">
-				<eh:title>目的語</eh:title>
-				<p>
-					gitは<eh:xref linkend="noun-diff">差分</eh:xref>ではなく<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>(スナップショット)を保管するという特性から、addとかstageの目的語はふつうファイルになる。
-					しかし実際には、ファイルの変更の一部分のみが行われたものとして<eh:xref linkend="verb-add">stageする</eh:xref>ことも可能なので、「&lt;変更を&gt;add/stageする」という形の用法も見掛ける。
-				</p>
-			</aside>
-		</dd>
-
-		<dt id="noun-diff">
-			diff, 差分 [名詞]<br />
-			change(s), 変更 [名詞]
-		</dt>
-		<dd>
-			<p>
-				グラフの用語で言うなら、<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>や<eh:xref linkend="noun-staging-area">ステージング・エリア</eh:xref>のファイルがノードで、diff(差分)はエッジ(辺)だ。<br />
-				よって、diffはコミット間以外でも、コミットとステージング・エリア間やステージング・エリアとワーキングディレクトリ間でも考えることができる。
-			</p>
-			<p>
-				diffが何に役立つかというと、<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>間で何がどう変更されたかを確認できたり、またあるdiffを別の<eh:xref linkend="noun-branch">ブランチ</eh:xref>や<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>に適用(rebase/cherrypick)することで、<strong>ある<eh:xref linkend="noun-branch">ブランチ</eh:xref>での変更を別の<eh:xref linkend="noun-branch">ブランチ</eh:xref>へ同様に適用する</strong>ことができる。<br />
-				要するに「安定版用のブランチで行われたバグ修正を、不安定版用ブランチにも持ってくる」ということが簡単に可能になる。<br />
-				また、<strong>過去の変更をなかったことにする(revert)</strong>こともできる。
-				(取り消したいdiffの逆の変更を適用すればいい。)
-			</p>
-		</dd>
-
-		<dt id="verb-merge">
-			merge <small>&lt;branches&gt;</small>, <small>&lt;ブランチを&gt;</small>マージする [他動詞]
-		</dt>
-		<dd>
-			<p>
-				ある共通の<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>から分岐した2つのブランチを融合し、新しくひとつの<eh:xref linkend="noun-commit">コミット[名詞]</eh:xref>を作ること。
-			</p>
-			<p>
-				共通のファイルはそのまま使用。
-				一方のみで変更された箇所はそちらの変更を取り込む。
-				両方で変更された箇所は、<strong>衝突</strong>(conflict)として扱い、どうするかユーザに委ねる。
-			</p>
-		</dd>
-	</dl>
-</eh:section>
-
-<eh:section id="commands">
-	<eh:title>コマンド</eh:title>
-	<eh:section id="commands-files">
-		<eh:title>ファイル関連</eh:title>
-		<dl>
-			<dt>
-				ワーキングディレクトリ→ステージング・エリア
-			</dt>
-			<dd>
-				<p>
-					<code>git add [files...]</code>
-				</p>
-				<p>
-					変更を部分的にステージング・エリアに追加するには、
-					<code>git add -p [files...]</code>
-					とする。
-					<code>-p</code>は<code>--patch</code>の略らしい。
-				</p>
-			</dd>
-
-			<dt>
-				ステージング・エリアから除外
-				(ただしワーキングディレクトリに変更は加えない)
-			</dt>
-			<dd>
-				<p>
-					<code>git rm --cached [files...]</code>
-				</p>
-				<p>
-					<code>--cached</code>は「ステージング・エリアから」という指定だ。
-				</p>
-			</dd>
-
-			<dt>
-				ステージング・エリアとワーキングディレクトリ両方から除外
-			</dt>
-			<dd>
-				<p>
-					<code>git rm [files...]</code>
-				</p>
-			</dd>
-
-			<dt>
-				ステージング・エリアの内容から次のコミットを作成
-			</dt>
-			<dd>
-				<p>
-					<code>git commit</code>
-				</p>
-			</dd>
-
-			<dt>
-				チェックアウト
-			</dt>
-			<dd>
-				<p>
-					<code>git checkout [commit]</code><br />
-					<code>git checkout [branch]</code>
-				</p>
-				<p>
-					<code>[commit]</code>としては、コミットごとに付けられている番号(16進数)を使う。
-					本当は結構長いのだが、重複がなければ後ろの方は省略が許される。
-					だいたい最初の4〜7桁で十分なことが多い。
-				</p>
-				<p>
-					<code>[branch]</code>としてはローカルのブランチを指定する。
-				</p>
-			</dd>
-		</dl>
-
-		<p>
+		<simpara>
 			なんかもう途中で面倒になった。
-			とにかくworking directoryとstaging areaとcommitの違いさえ区別していれば、<code>git commit</code>の<code>--soft</code>や<code>--hard</code>オプションの違いも区別できるはずだ。
-		</p>
-		<p>
-			<code>cherry-pick</code>とか<code>rebase</code>はコミットではなくdiff基準で動作しているということに注意。
-		</p>
-	</eh:section>
-</eh:section>
+			とにかくworking directoryとstaging areaとcommitの違いさえ区別していれば、<command>git commit</command>の<option>--soft</option>や<option>--hard</option>オプションの違いも区別できるはずだ。
+		</simpara>
+		<simpara>
+			<command>git cherry-pick</command>とか<command>git rebase</command>はコミットではなくdiff基準で動作しているということに注意。
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="conclusion">
-	<eh:title>まとめ</eh:title>
-	<p>
+<section xml:id="conclusion">
+	<title>まとめ</title>
+	<simpara>
 		もう面倒になったので参考文献を見て。
-	</p>
+	</simpara>
 
-	<eh:section id="reference">
-		<eh:title>参考サイト</eh:title>
-		<dl>
-			<dt>
-				<a href="http://qiita.com/shuntaro_tamura/items/db1aef9cf9d78db50ffe">[git reset (--hard/--soft)]ワーキングツリー、インデックス、HEADを使いこなす方法 - Qiita</a>
-			</dt>
-			<dd>
-				<p>
-					<code>git reset</code>について。
-					図がわかりやすい。
-				</p>
-			</dd>
-
-			<dt>
-				<a href="https://git-scm.com/book/ja/v1/Git-%E3%81%AE%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E6%A9%9F%E8%83%BD-%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%A8%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%AE%E5%9F%BA%E6%9C%AC">Git - ブランチとマージの基本</a>
-			</dt>
-			<dd>
-				<p>
-					ブランチとコミットの図がわかりやすい。
-				</p>
-			</dd>
-
-			<dt>
-				<a href="http://keijinsonyaban.blogspot.jp/2010/10/successful-git-branching-model.html">見えないチカラ: A successful Git branching model を翻訳しました</a>
-			</dt>
-			<dd>
-				<p>
-					実際のソフトウェア開発におけるブランチの効果的な利用法。
-					<code>git flow</code>というプラグインで楽に使えるようになる。
-					プラグインで隠蔽されていても、内部でやっているのはcheckout, pull, merge等の組み合わせだ。
-					上述の用語を理解していれば何が起きているのかはわかるだろう。
-				</p>
-			</dd>
-		</dl>
-	</eh:section>
-</eh:section>
-</eh:article>
+	<section xml:id="reference">
+		<title>参考サイト</title>
+		<variablelist>
+			<varlistentry>
+				<term>
+					<link xl:href="http://qiita.com/shuntaro_tamura/items/db1aef9cf9d78db50ffe">[git reset (--hard/--soft)]ワーキングツリー、インデックス、HEADを使いこなす方法 - Qiita</link>
+				</term>
+				<listitem>
+					<simpara>
+						<code>git reset</code>について。
+						図がわかりやすい。
+					</simpara>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					<link xl:href="https://git-scm.com/book/ja/v1/Git-%E3%81%AE%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E6%A9%9F%E8%83%BD-%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%A8%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%AE%E5%9F%BA%E6%9C%AC">Git - ブランチとマージの基本</link>
+				</term>
+				<listitem>
+					<simpara>
+						ブランチとコミットの図がわかりやすい。
+					</simpara>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					<link xl:href="http://keijinsonyaban.blogspot.jp/2010/10/successful-git-branching-model.html">見えないチカラ: A successful Git branching model を翻訳しました</link>
+				</term>
+				<listitem>
+					<simpara>
+						実際のソフトウェア開発におけるブランチの効果的な利用法。
+						<code>git flow</code>というプラグインで楽に使えるようになる。
+						プラグインで隠蔽されていても、内部でやっているのはcheckout, pull, merge等の組み合わせだ。
+						上述の用語を理解していれば何が起きているのかはわかるだろう。
+					</simpara>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+</section>
+</article>

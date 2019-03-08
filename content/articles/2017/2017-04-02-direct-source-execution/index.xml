@@ -1,7 +1,7 @@
 ---
 created_at: 2017-04-02T16:43:54+0900
 published_at: 2017-04-02T16:43:54+0900
-format: "easy-html"
+format: docbook
 title: "ソースコード直接実行のテクニック"
 tags:
   - programming
@@ -14,219 +14,204 @@ kind: article
 excerpt: "コンパイルの必要なソースコードを(インタプリタ言語のスクリプトのように)直接実行するテクニック"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	id="2017-04-02-direct-source-execution"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="article-2017-04-02-direct-source-execution"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>ソースコード直接実行のテクニック</eh:title>
-<p>
+<title>ソースコード直接実行のテクニック</title>
+<simpara>
 	この記事では、ターミナルからコマンド一発で (<code>sh code.cpp</code> のように)ソースコードやファイルをコンパイルし、更には実行・表示できるようにするためのテクニックを紹介する。
-</p>
+</simpara>
 
-<eh:section id="abstract">
-	<eh:title>概要</eh:title>
-	<p>
+<section xml:id="abstract">
+	<title>概要</title>
+	<simpara>
 		コンパイルの必要なファイルを書いたものの、いちいちコンパイルや確認にコマンドを叩いたりオプションを何度も指定するのは面倒ということは偶にある
-		<eh:footnote id="footnote-i-dont-wanna-use-shell-history">
+		<footnote xml:id="footnote-i-dont-wanna-use-shell-history" refmark-id="ref-footnote-i-dont-wanna-use-shell-history">
 			シェル履歴を使えというのは全くもってその通りなのだが、私は補完を快適にするため zsh で <code>setopt hist_ignore_space</code> を使って、シェルには最低限の本当に有用な履歴しか残さないようにしている。
 			よって、ちょろっと書いたコードをコンパイルするためのコマンドを履歴に残すのは嫌なのである。
 			また、その場でエイリアスを定義するのもアリだが、シェルを落とすと消えてしまうのでこれは少し弱すぎる。
-		</eh:footnote>
+		</footnote>
 		。
 		普通の人は素直に Make 等を使ったり、それ用のラッパー等を使ったり、エディタで提供されている機能やプラグインやシェル履歴でどうにかするものなのであろうが。
 		ものぐさな私は、ソースコードをターミナルから直接コンパイルし実行する方法を考えていた。
-	</p>
-	<p>
+	</simpara>
+	<simpara>
 		そして、以下の言語について良い方法を思い付いた。
-	</p>
-	<ul>
-		<li><eh:xref linkend="code-examples-c">C</eh:xref></li>
-		<li><eh:xref linkend="code-examples-cpp">C++</eh:xref></li>
-		<li><eh:xref linkend="examples--rust">Rust</eh:xref></li>
-		<li><eh:xref linkend="examples--graphviz">Graphviz</eh:xref></li>
-	</ul>
-	<p>
+	</simpara>
+	<itemizedlist>
+		<listitem><link linkend="code-examples-c">C</link></listitem>
+		<listitem><link linkend="code-examples-cpp">C++</link></listitem>
+		<listitem><link linkend="examples--rust">Rust</link></listitem>
+		<listitem><link linkend="examples--graphviz">Graphviz</link></listitem>
+	</itemizedlist>
+	<simpara>
 		本当は TeX 等にもこの方法を適用したかったのだが、残念ながらうまい手が思い付かなかった。
-		TeX 等の他のフォーマットについて良い方法をご存知であれば是非 <a href="https://twitter.com/lo48576/">Twitter</a> とかで教えていただきたい。
-	</p>
-</eh:section>
+		TeX 等の他のフォーマットについて良い方法をご存知であれば是非 <link xl:href="https://twitter.com/lo48576/">Twitter</link> とかで教えていただきたい。
+	</simpara>
+</section>
 
-<eh:section id="advantage">
-	<eh:title>利点</eh:title>
-	<p>
+<section xml:id="advantage">
+	<title>利点</title>
+	<simpara>
 		紹介の手法では、以下のような利点がある。
-	</p>
-	<ul>
-		<li>C ライクなコメント文法を持つ多くの言語に適用可能</li>
-		<li>非プログラミング言語にも適用可能</li>
-		<li>シェルスクリプトをそのまま埋め込み実行できる<ul>
-				<li>コンパイラへコマンドラインオプション等も指定可能</li>
-				<li>コンパイラ以外の呼び出しも可能</li>
-		</ul></li>
-		<li>直接実行時に引数を与えてそれを受け取ることも可能</li>
-	</ul>
+	</simpara>
+	<itemizedlist>
+		<listitem>C ライクなコメント文法を持つ多くの言語に適用可能</listitem>
+		<listitem>非プログラミング言語にも適用可能</listitem>
+		<listitem>シェルスクリプトをそのまま埋め込み実行できる<itemizedlist>
+				<listitem>コンパイラへコマンドラインオプション等も指定可能</listitem>
+				<listitem>コンパイラ以外の呼び出しも可能</listitem>
+		</itemizedlist></listitem>
+		<listitem>直接実行時に引数を与えてそれを受け取ることも可能</listitem>
+	</itemizedlist>
 
-	<p>
+	<simpara>
 		コンパイラへコマンドラインオプションを渡せるというのは、特に C や C++ において規格のバージョンを指定したりしたい場合において、非常に有用である。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="examples">
-	<eh:title>実例</eh:title>
+<section xml:id="examples">
+	<title>実例</title>
 
-	<eh:section id="examples--c-and-cpp">
-		<eh:title>C 言語、 C++</eh:title>
-		<figure id="code-examples-c">
-			<div class="grid-row">
-				<figure class="col-xs-12 col-lg-6">
-					<pre><code class="lang-c language-c">
-#if 0
-gcc --std=c11 "$0" -o c-po &amp;&amp; ./c-po
+	<section xml:id="examples--c-and-cpp">
+		<title>C 言語、 C++</title>
+		<informalfigure xml:id="code-examples-c">
+			<informalfigure>
+				<programlisting language="c"><![CDATA[#if 0
+gcc --std=c11 "$0" -o c-po &&; ./c-po
 exit
 #endif
 
-#include &lt;stdio.h&gt;
+#include <stdio.h>
 
 int main(void) {
     puts("po");
     return 0;
-}
-</code></pre>
-					<figcaption>C のソースコード (バージョン 1) <code class="filepath">po.c</code></figcaption>
-				</figure>
-				<figure class="col-xs-12 col-lg-6">
-					<pre><code class="lang-c language-c">
-///bin/true&lt;&lt;//
+}]]></programlisting>
+				<caption>C のソースコード (バージョン 1) <filename>po.c</filename></caption>
+			</informalfigure>
+			<informalfigure>
+				<programlisting language="c"><![CDATA[///bin/true<<//
 /*
 //
-gcc --std=c11 "$0" -o c-po &amp;&amp; ./c-po
+gcc --std=c11 "$0" -o c-po && ./c-po
 exit
 */
 
-#include &lt;stdio.h&gt;
+#include <stdio.h>
 
 int main(void) {
     puts("po");
     return 0;
-}
-</code></pre>
-					<figcaption>C のソースコード (バージョン 2) <code class="filepath">po.c</code></figcaption>
-				</figure>
-			</div>
-			<figure>
-				<pre class="code code-terminal">$ <kbd>ls</kbd>
+}]]></programlisting>
+				<caption>C のソースコード (バージョン 2) <filename>po.c</filename></caption>
+			</informalfigure>
+			<informalfigure>
+				<screen role="terminal"><prompt>$ </prompt><userinput>ls</userinput>
 po.c
-$ <kbd>sh po.c</kbd>
+<prompt>$ </prompt><userinput>sh po.c</userinput>
 po
-$ <kbd>ls</kbd>
+<prompt>$ </prompt><userinput>ls</userinput>
 c-po  po.c
-$
-</pre>
-				<figcaption>C の実行例</figcaption>
-			</figure>
-			<figcaption>C</figcaption>
-		</figure>
-		<p>
+<prompt>$</prompt></screen>
+				<caption>C の実行例</caption>
+			</informalfigure>
+			<caption>C</caption>
+		</informalfigure>
+		<simpara>
 			これら2つのバージョンには、以下のような違いがあるため、場合によって使いわけるのが良い。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			バージョン1では <code>#</code> をコード中で使うと、プリプロセッサがそれを解釈してしまい文法エラーになる。
 			単なるコメントには <code>: "hello"</code> のように null コマンドを使ってやれば良いが、 <code>#</code> という文字そのものが必要な場合は、 <code>$(printf '\x23')</code> や <code>echo -e '\x23'</code> のようにするなどの工夫が必要だろう。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			バージョン2では、 <code>*/</code> という文字列はコメント終端と見做されてしまうためそのまま使えない。
 			<code>*''/</code> のように、間に空文字列を挟む等の工夫が必要になる。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			C++ でも、やることは C と全く同じだ。
-		</p>
+		</simpara>
 
-		<figure id="code-examples-cpp">
-			<div class="grid-row">
-				<figure class="col-xs-12 col-lg-6">
-					<pre><code class="lang-cpp language-cpp">
-#if 0
-g++ --std=c++14 "$0" -o cpp-po &amp;&amp; ./cpp-po
+		<informalfigure xml:id="code-examples-cpp">
+			<informalfigure>
+				<programlisting language="c++"><![CDATA[#if 0
+g++ --std=c++14 "$0" -o cpp-po && ./cpp-po
 exit
 #endif
 
-#include &lt;iostream&gt;
+#include <iostream>
 
 int main(void) {
-    std::cout &lt;&lt; "po" &lt;&lt; std::endl;
+    std::cout << "po" << std::endl;
     return 0;
-}
-</code></pre>
-					<figcaption>C++ のソースコード (バージョン 1) <code class="filepath">po.cpp</code></figcaption>
-				</figure>
-				<figure class="col-xs-12 col-lg-6">
-					<pre class="code code-terminal">$ <kbd>ls</kbd>
+}]]></programlisting>
+				<caption>C++ のソースコード (バージョン 1) <filename>po.cpp</filename></caption>
+			</informalfigure>
+			<informalfigure>
+				<screen role="terminal"><prompt>$ </prompt><userinput>ls</userinput>
 po.cpp
-$ <kbd>sh po.cpp</kbd>
+<prompt>$ </prompt><userinput>sh po.cpp</userinput>
 po
-$ <kbd>ls</kbd>
+<prompt>$ </prompt><userinput>ls</userinput>
 cpp-po  po.cpp
-$
-</pre>
-					<figcaption>C++ の実行例</figcaption>
-				</figure>
-			</div>
-			<figcaption>C++</figcaption>
-		</figure>
-		<aside class="tip">
-			<eh:title>C も C++ もコメントとプリプロセッサの仕様はだいたい同じ(はず)</eh:title>
-			<p>
+<prompt>$</prompt></screen>
+				<caption>C++ の実行例</caption>
+			</informalfigure>
+			<caption>C++</caption>
+		</informalfigure>
+		<tip>
+			<title>C も C++ もコメントとプリプロセッサの仕様はだいたい同じ(はず)</title>
+			<simpara>
 				C の2通りの書き方は、どちらも C++ で同様に使える。
-			</p>
-		</aside>
-	</eh:section>
+			</simpara>
+		</tip>
+	</section>
 
-	<eh:section id="examples--rust">
-		<eh:title>Rust</eh:title>
-		<figure id="code-examples-rust">
-			<div class="grid-row">
-				<figure class="col-xs-12 col-lg-6">
-					<pre><code class="lang-rust language-rust">///bin/true&lt;&lt;//
+	<section xml:id="examples--rust">
+		<title>Rust</title>
+		<informalfigure xml:id="code-examples-rust">
+			<informalfigure>
+				<programlisting language="rust"><![CDATA[///bin/true<<//
 /*
 //
-rustc "$0" -o rust-po &amp;&amp; ./rust-po
+rustc "$0" -o rust-po && ./rust-po
 exit
 */
 fn main() {
     println!("po");
-}
-</code></pre>
-					<figcaption>Rust のソースコード <code class="filepath">po.rs</code></figcaption>
-				</figure>
-				<figure class="col-xs-12 col-lg-6">
-					<pre class="code code-terminal">$ <kbd>ls</kbd>
+}]]></programlisting>
+				<caption>Rust のソースコード <filename>po.rs</filename></caption>
+			</informalfigure>
+			<informalfigure>
+				<screen role="terminal"><prompt>$ </prompt><userinput>ls</userinput>
 po.rs
-$ <kbd>sh po.rs</kbd>
+<prompt>$ </prompt><userinput>sh po.rs</userinput>
 po
-$ <kbd>ls</kbd>
+<prompt>$ </prompt><userinput>ls</userinput>
 po.rs  rust-po
-$
-</pre>
-					<figcaption>Rust の実行例</figcaption>
-				</figure>
-			</div>
-			<figcaption>Rust</figcaption>
-		</figure>
+<prompt>$</prompt></screen>
+				<caption>Rust の実行例</caption>
+			</informalfigure>
+			<caption>Rust</caption>
+		</informalfigure>
 
-		<p>
+		<simpara>
 			Rust は、コメントの構文が C と同じため、プリプロセッサを使わない方法がそのまま使える。
 			Rust における <code>///</code> は doc comment になってしまうが、どうせ単体ソースで気軽に実行する用途では気にならないだろう。
 			どうしても駄目だというのであれば、 <code>////bin/true</code> のように適宜スラッシュを増やしてどうにかすれば良いだろう。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="examples--graphviz">
-		<eh:title>Graphviz</eh:title>
-		<figure id="code-examples-graphviz">
-			<div class="grid-row">
-				<figure class="col-xs-12 col-lg-6">
-					<pre><code>///bin/true &lt;&lt;//
+	<section xml:id="examples--graphviz">
+		<title>Graphviz</title>
+		<informalfigure xml:id="code-examples-graphviz">
+			<informalfigure>
+				<programlisting><![CDATA[///bin/true <<//
 /*
 //
 dot -Tpng "$0" -o dot-po.png
@@ -235,83 +220,78 @@ exit
 
 digraph G {
     rankdir = LR;
-    P -&gt; O [label="po"];
-}
-</code></pre>
-					<figcaption>Graphviz の dot ファイル <code class="filepath">po.dot</code></figcaption>
-				</figure>
-				<figure class="col-xs-12 col-lg-6">
-					<pre class="code code-terminal">$ <kbd>ls</kbd>
+    P -> O [label="po"];
+}]]></programlisting>
+				<caption>Graphviz の dot ファイル <filename>po.dot</filename></caption>
+			</informalfigure>
+			<informalfigure>
+				<screen role="terminal"><prompt>$ </prompt><userinput>ls</userinput>
 po.dot
-$ <kbd>sh po.dot</kbd>
-$ <kbd>ls</kbd>
+<prompt>$ </prompt><userinput>sh po.dot</userinput>
+<prompt>$ </prompt><userinput>ls</userinput>
 dot-po.png  po.dot
-$
-</pre>
-					<figcaption>Graphviz の実行例</figcaption>
-				</figure>
-			</div>
-			<figcaption>Graphviz</figcaption>
-		</figure>
-	</eh:section>
-</eh:section>
+<prompt>$</prompt></screen>
+				<caption>Graphviz の実行例</caption>
+			</informalfigure>
+			<caption>Graphviz</caption>
+		</informalfigure>
+	</section>
+</section>
 
-<eh:section id="tips">
-	<eh:title>Tips</eh:title>
-	<eh:section id="tips--rich-ops">
-		<eh:title>複雑な処理</eh:title>
-		<p>
+<section xml:id="tips">
+	<title>Tips</title>
+	<section xml:id="tips--rich-ops">
+		<title>複雑な処理</title>
+		<simpara>
 			シェルスクリプトの如く任意のコマンド(ただし親のソースのコメント解除や文法エラーを引き起こす文字を除く)を置けるので、たとえば以下のようなことができる。
-		</p>
-		<ul>
-			<li>
-				実行・コンパイル前に <code>cppcheck</code> など lint ツールを適用する
-			</li>
-			<li>
+		</simpara>
+		<itemizedlist>
+			<listitem>
+				実行・コンパイル前に <command>cppcheck</command> など lint ツールを適用する
+			</listitem>
+			<listitem>
 				二度コンパイルして静的ライブラリと動的ライブラリ両方を生成する
-			</li>
-			<li>
+			</listitem>
+			<listitem>
 				実行後、テンポラリファイルや実行バイナリを削除する
-			</li>
-			<li>
+			</listitem>
+			<listitem>
 				実行に成功したら <code>git commit</code> する
-			</li>
-		</ul>
-		<p>
-			たとえば、 graphviz の dot ファイルをコンパイルしつつ、 <code>dot</code> コマンドが存在しない場合にはメッセージを表示し、また <code>optipng</code> が存在していれば PNG ファイルを最適化するようなコードは、以下のようになる。
-		</p>
-		<figure id="code-tips-graphviz-rich">
-			<div>
-				<figure>
-					<pre><code>///bin/true &lt;&lt;//
+			</listitem>
+		</itemizedlist>
+		<simpara>
+			たとえば、 graphviz の dot ファイルをコンパイルしつつ、 <command>dot</command> コマンドが存在しない場合にはメッセージを表示し、また <command>optipng</command> が存在していれば PNG ファイルを最適化するようなコードは、以下のようになる。
+		</simpara>
+		<informalfigure xml:id="code-tips-graphviz-rich">
+			<informalfigure>
+				<programlisting><![CDATA[///bin/true <<//
 /*
 //
 OUT_STEM="dot-po"
 OUT_PNG="${OUT_STEM}.png"
-if type dot &gt;/dev/null ; then
+if type dot >/dev/null ; then
     if dot -Tpng "$0" -o "${OUT_PNG}" ; then
         echo 'successfully built.'
-        type optipng &gt;/dev/null &amp;&amp; optipng "${OUT_PNG}"
+        type optipng >/dev/null &amp;&amp; optipng "${OUT_PNG}"
     else
-        echo 'compile failed.' &gt;&amp;2
+        echo 'compile failed.' >&2
     fi
 else
-    echo '`dot` command not found. Graphviz is required.' &gt;&amp;2
+    echo '`dot` command not found. Graphviz is required.' >&2
 fi
 exit
 */
 
 digraph G {
     rankdir = LR;
-    P -&gt; O [label="po"];
-}
-</code></pre>
-					<figcaption>Graphviz の dot ファイル <code class="filepath">po.dot</code></figcaption>
-				</figure>
-				<figure>
-					<pre class="code code-terminal">$ <kbd>ls</kbd>
+    P -> O [label="po"];
+}]]></programlisting>
+				<caption>Graphviz の dot ファイル <filename>po.dot</filename></caption>
+			</informalfigure>
+			<informalfigure>
+				<screen role="terminal"><prompt>$ </prompt><userinput>ls</userinput>
 po.dot
-$ <kbd>sh po.dot</kbd>
+<prompt>$ </prompt><userinput>sh po.dot</userinput>
 successfully built.
 ** Processing: dot-po.png
 221x59 pixels, 4x8 bits/pixel, RGB+alpha
@@ -328,116 +308,106 @@ Selecting parameters:
 Output IDAT size = 1948 bytes (3251 bytes decrease)
 Output file size = 2802 bytes (2472 bytes = 46.87% decrease)
 
-$ <kbd>ls</kbd>
+<prompt>$ </prompt><userinput>ls</userinput>
 dot-po.png  po.dot
-$
-</pre>
-					<figcaption>Graphviz の実行例 (<code>dot</code> コマンドと <code>optipng</code> コマンドが存在する場合)</figcaption>
-				</figure>
-			</div>
-			<figcaption>Graphviz</figcaption>
-		</figure>
-	</eh:section>
+<prompt>$</prompt></screen>
+				<caption>Graphviz の実行例 (<command>dot</command> コマンドと <command>optipng</command> コマンドが存在する場合)</caption>
+			</informalfigure>
+			<caption>Graphviz</caption>
+		</informalfigure>
+	</section>
 
-	<eh:section id="tips--cli-options">
-		<eh:title>コマンドラインオプション</eh:title>
-		<p>
+	<section xml:id="tips--cli-options">
+		<title>コマンドラインオプション</title>
+		<simpara>
 			実行時に渡した引数を、埋め込んだスクリプトから参照できる。
-		</p>
+		</simpara>
 
-		<figure>
-			<div class="grid-row">
-				<figure class="col-xs-12 col-lg-6">
-					<pre><code class="lang-c language-c">///bin/true&lt;&lt;//
+		<informalfigure>
+			<informalfigure>
+				<programlisting language="c"><![CDATA[///bin/true<<//
 /*
 //
 : 'Default output file is `./c-po`'.
 OUT="${1:-"./c-po"}"
-gcc --std=c11 "$0" -o "${OUT}" &amp;&amp; "./${OUT}"
+gcc --std=c11 "$0" -o "${OUT}" && "./${OUT}"
 exit
 */
 
-#include &lt;stdio.h&gt;
+#include <stdio.h>
 
 int main(void) {
     puts("po");
     return 0;
-}
-</code></pre>
-					<figcaption>出力ファイルパスを指定可能にした C ソース <code class="filepath">po.c</code></figcaption>
-				</figure>
-				<figure class="col-xs-12 col-lg-6">
-					<pre class="code code-terminal">$ <kbd>ls</kbd>
+}]]></programlisting>
+				<caption>出力ファイルパスを指定可能にした C ソース <filename>po.c</filename></caption>
+			</informalfigure>
+			<informalfigure>
+				<screen role="terminal"><prompt>$ </prompt><userinput>ls</userinput>
 po.c
-$ <kbd>sh po.c hoge</kbd>
+<prompt>$ </prompt><userinput>sh po.c hoge</userinput>
 po
-$ <kbd>ls</kbd>
+<prompt>$ </prompt><userinput>ls</userinput>
 hoge  po.c
-$ <kbd>sh po.c</kbd>
+<prompt>$ </prompt><userinput>sh po.c</userinput>
 po
-$ <kbd>ls</kbd>
+<prompt>$ </prompt><userinput>ls</userinput>
 c-po  hoge  po.c
-$
-</pre>
-					<figcaption>実行例</figcaption>
-				</figure>
-			</div>
-			<figcaption>出力ファイルパスを指定可能にした例</figcaption>
-		</figure>
+<prompt>$</prompt></screen>
+				<caption>実行例</caption>
+			</informalfigure>
+			<caption>出力ファイルパスを指定可能にした例</caption>
+		</informalfigure>
 
-		<figure>
-			<div class="grid-row">
-				<figure class="col-xs-12 col-lg-6">
-					<pre><code class="lang-c language-c">///bin/true&lt;&lt;//
+		<informalfigure>
+			<informalfigure>
+				<programlisting language="c"><![CDATA[///bin/true<<//
 /*
 //
 MSG="${1:-"This is a default message."}"
 gcc --std=c11 "$0" -DMSG="\"${MSG}\"" -o msg \
-    &amp;&amp; ./msg
+    && ./msg
 exit
 */
 
 #ifndef MSG
 #   define MSG "This is a default message."
 #endif
-#include &lt;stdio.h&gt;
+#include <stdio.h>
 
 int main(void) {
     printf("%s\n", MSG);
     return 0;
-}
-</code></pre>
-					<figcaption>マクロを指定可能にした C ソース <code class="filepath">msg.c</code></figcaption>
-				</figure>
-				<figure class="col-xs-12 col-lg-6">
-					<pre class="code code-terminal">$ <kbd>sh msg.c</kbd>
+}]]></programlisting>
+				<caption>マクロを指定可能にした C ソース <filename>msg.c</filename></caption>
+			</informalfigure>
+			<informalfigure>
+				<screen role="terminal"><prompt>$ </prompt><userinput>sh msg.c</userinput>
 This is a default message.
-$ <kbd>sh msg.c "Hello, world"</kbd>
+<prompt>$ </prompt><userinput>sh msg.c "Hello, world"</userinput>
 Hello, world
-$ <kbd>sh msg.c 'こんちわ\nせかい'</kbd>
+<prompt>$ </prompt><userinput>sh msg.c 'こんちわ\nせかい'</userinput>
 こんちわ
 せかい
-$
-</pre>
-					<figcaption>実行例</figcaption>
-				</figure>
-			</div>
-			<figcaption>マクロを指定可能にした例</figcaption>
-		</figure>
-	</eh:section>
-</eh:section>
+<prompt>$</prompt></screen>
+				<caption>実行例</caption>
+			</informalfigure>
+			<caption>マクロを指定可能にした例</caption>
+		</informalfigure>
+	</section>
+</section>
 
-<eh:section id="description">
-	<eh:title>解説</eh:title>
-	<eh:section id="description--abstract">
-		<eh:title>概要</eh:title>
-		<p>
+<section xml:id="description">
+	<title>解説</title>
+	<section xml:id="description--abstract">
+		<title>概要</title>
+		<simpara>
 			C のバージョン1は単にプリプロセッサの記号とシェルスクリプトのコメント記号が同じであることを利用するだけなので言うまでもない。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			C のバージョン2や他の各言語での方法は、図解すると以下のようになる。
-		</p>
-		<pre><![CDATA[
+		</simpara>
+		<literallayout class="monospaced"><![CDATA[
         SHELL                                                     Source lang
 shell block comment start -> ,---- ///bin/true<<//       <- Source line comment
   (ignored by shell)         |     /*              ----. <- Source block comment start
@@ -446,123 +416,122 @@ shell commands            ->       command             |
 shell commands            ->       command             |
 shell exit                ->       exit                |
   (ignored by shell)               */              ----' <- Source block comment end
-]]></pre>
-		<p>
+]]></literallayout>
+		<simpara>
 			シェルコメント開始→ソースコメント開始→シェルコメント終了の時点で、それ以下の行はシェルのみが解釈することになる。
 			そこにはソースのコメント終端以外は自由に書けるので、コンパイルするなり最適化するなりしてしまう。
 			シェルでやることが全て済めば、 <code>exit</code> してしまえばそれ以下はシェルが解釈しなくなるので、ソースのコメントを閉じればおしまいである。
-		</p>
-		<p>
-			この方法は、上で例示した C 、 C++ 、 Rust 、 Graphviz (dot) のみに限らず、 <strong><code>//</code>(或いは <code>/</code>)を行コメントとして解釈し、他にブロックコメント構文を持つような全ての言語に適用可能である</strong>、非常に汎用的な方法だ。
-		</p>
-		<aside class="tip">
-			<eh:title>コメント記号</eh:title>
-			<p>
+		</simpara>
+		<simpara>
+			この方法は、上で例示した C 、 C++ 、 Rust 、 Graphviz (dot) のみに限らず、 <emphasis><code>//</code>(或いは <code>/</code>)を行コメントとして解釈し、他にブロックコメント構文を持つような全ての言語に適用可能である</emphasis>、非常に汎用的な方法だ。
+		</simpara>
+		<tip>
+			<title>コメント記号</title>
+			<simpara>
 				実は、 <code>:</code> が行コメントの開始記号である場合にも、上述のテクニックは応用可能である。
-			</p>
-<pre><code>: &lt;&lt;:
+			</simpara>
+			<programlisting><![CDATA[: <<:
 /*
 :
 command1
 command2
 exit
-*/
-</code></pre>
-			<p>
+*/]]></programlisting>
+			<simpara>
 				また、ブロックコメントの記号には制約はないため、 <code>/*</code> <code>*/</code> でない言語でも問題ない。
-			</p>
-		</aside>
-	</eh:section>
+			</simpara>
+		</tip>
+	</section>
 
-	<eh:section id="description--details">
-		<eh:title>細部</eh:title>
-		<eh:section id="first-line">
-			<eh:title>1行目: <code>///bin/true&lt;&lt;//</code></eh:title>
-			<p>
+	<section xml:id="description--details">
+		<title>細部</title>
+		<section xml:id="first-line">
+			<title>1行目: <code>///bin/true&lt;&lt;//</code></title>
+			<simpara>
 				<code>/bin/true</code> は、戻り値 <code>0</code> を返すだけの単純かつ軽量なコマンド
-				<eh:footnote id="footnote-true-man">
-					<a href="https://linux.die.net/man/1/true"><code>true</code> の man page</a>の説明「true - do nothing, successfully」は何とも哲学めいていて面白い。
-					ちなみに反対バージョンの <a href="https://linux.die.net/man/1/false"><code>false</code> コマンド</a>では「false - do nothing, unsuccessfully」だ。
-				</eh:footnote>
+				<footnote xml:id="footnote-true-man" refmark-id="ref-footnote-true-man">
+					<link xl:href="https://linux.die.net/man/1/true"><code>true</code> の man page</link>の説明「true - do nothing, successfully」は何とも哲学めいていて面白い。
+					ちなみに反対バージョンの <link xl:href="https://linux.die.net/man/1/false"><code>false</code> コマンド</link>では「false - do nothing, unsuccessfully」だ。
+				</footnote>
 				であり、標準入力を無視し、何も出力せず終了する。
 				この「標準入力の無視」が重要で、ここにソースコードの中でシェルが無視すべき部分(ブロックコメント開始)が流れ込めば良いわけである。
-			</p>
-			<p>
+			</simpara>
+			<simpara>
 				この流し込みを、ヒアドキュメントで行う。
 				コマンドラインにて <code>&lt;&lt;FOOBAR</code> のようにすると、最初の <code>FOOBAR</code> という行までの内容が改行含めそのままテキストとして標準入力へ流されるというのが、ヒアドキュメントの機能である。
 				ヒアドキュメント終了の記号もまた、ソースコードの言語では無視されてほしいため、行コメントの記号(ここでは <code>//</code>)をそのまま使う。
 				ヒアドキュメントを無視させることでブロックコメント代わりに使う手法は、シェルスクリプトに限らず割と一般的である
-				<eh:footnote id="footnote-heredoc-comment">
+				<footnote xml:id="footnote-heredoc-comment" refmark-id="ref-footnote-heredoc-comment">
 					Python のブロックコメントに <code>"""</code> などを使うのも同じようなものだろう。
-				</eh:footnote>
+				</footnote>
 				。
-			</p>
-			<p>
+			</simpara>
+			<simpara>
 				<code>/bin/true</code> を、スラッシュ2つでなく3つにして <code>///bin/true</code> のように指定するのにも、理由がある。
-			</p>
-			<figure>
+			</simpara>
+			<informalfigure>
 				<blockquote cite="https://tiswww.case.edu/php/chet/bash/FAQ">
-					<p>
+					<simpara>
 						E10) Why does <code>cd //</code> leave <code>$PWD</code> as <code>//</code>?
-					</p>
-					<p>
-						POSIX.2, in its description of <code>cd</code>, says that <strong>three</strong> or more leading
+					</simpara>
+					<simpara>
+						POSIX.2, in its description of <code>cd</code>, says that <emphasis>three</emphasis> or more leading
 						slashes may be replaced with a single slash when canonicalizing the
 						current working directory.
-					</p>
-					<p>
+					</simpara>
+					<simpara>
 						This is, I presume, for historical compatibility. Certain versions of
 						Unix, and early network file systems, used paths of the form
 						<code>//hostname/path</code> to access 'path' on server 'hostname'.
-					</p>
+					</simpara>
 				</blockquote>
-				<figcaption><a href="https://tiswww.case.edu/php/chet/bash/FAQ">Bash FAQ, version 4.14, for Bash version 4.4</a>, 2017-04-02</figcaption>
-			</figure>
-			<p>
-				<a href="https://stackoverflow.com/questions/16840916/what-is-path-how-is-it-different-from">linux - what is path //, how is it different from / - Stack Overflow</a> で紹介されているこの説明がすべてである。
-				<q><strong>three</strong> or more leading slashes may be replaced with a single slash</q> とのことなので、まあ2つ並べるよりは3つ以上並べた方が安心だろうという、それだけのことだ。
-			</p>
-			<p>
+				<caption><link xl:href="https://tiswww.case.edu/php/chet/bash/FAQ">Bash FAQ, version 4.14, for Bash version 4.4</link>, 2017-04-02</caption>
+			</informalfigure>
+			<simpara>
+				<link xl:href="https://stackoverflow.com/questions/16840916/what-is-path-how-is-it-different-from">linux - what is path //, how is it different from / - Stack Overflow</link> で紹介されているこの説明がすべてである。
+				<quote><emphasis>three</emphasis> or more leading slashes may be replaced with a single slash</quote> とのことなので、まあ2つ並べるよりは3つ以上並べた方が安心だろうという、それだけのことだ。
+			</simpara>
+			<simpara>
 				とはいえ、これは昔の bash (今どうなのかは知らない)のカレントディレクトリの扱いについての記述であり、シェルスクリプト一般についてそのまま適用できるかは知らない。
 				そもそも互換性のためだろうとも書いてあるため、現代においてスラッシュは幾つあろうが関係ないのかもしれない。
-			</p>
-		</eh:section>
+			</simpara>
+		</section>
 
-		<eh:section id="description--comment-start-end">
-			<eh:title>2行目、3行目: ブロックコメント開始とヒアドキュメント終了</eh:title>
-			<p>
+		<section xml:id="description--comment-start-end">
+			<title>2行目、3行目: ブロックコメント開始とヒアドキュメント終了</title>
+			<simpara>
 				上で解説した図や流れのとおりである。
 				シェルがヒアドキュメントとして解釈をやめている隙に元言語でのブロックコメントを開始し、次の行でヒアドキュメントを閉じる。
 				この閉じは、元言語ではコメントとして無視される。
-			</p>
-		</eh:section>
+			</simpara>
+		</section>
 
-		<eh:section id="description--shell-commands">
-			<eh:title>4行目以降: シェルスクリプト</eh:title>
-			<p>
-				4行目から <code>exit</code> までは、シェル (<code>sh</code>) が解釈するため、そのままシェルスクリプトである。
+		<section xml:id="description--shell-commands">
+			<title>4行目以降: シェルスクリプト</title>
+			<simpara>
+				4行目から <code>exit</code> までは、シェル (<command>sh</command>) が解釈するため、そのままシェルスクリプトである。
 				コマンドをいくら呼ぼうが、制御構造を使おうが、ネットワーク通信をしようが、好き放題できる。
 				そして用が済んだら <code>exit</code> で退出だ。
-			</p>
-			<p>
+			</simpara>
+			<simpara>
 				シェルスクリプトにスクリプト以外の大きなデータを持たせる手法として、ファイルの途中で <code>exec</code> や <code>exit</code> を必ず呼ぶことで、それ以降のデータをシェルに無視させ、その場所に自由なデータを置くというのは、割と一般的なものである。
 				たとえばインストーラや自己展開アーカイブが、データ(往々にしてバイナリ)を自身の末尾に持っておくことで、単一ファイルでスクリプトとデータの2つの独立した情報を持っていたりする。
-				テキストであっても、 grub の設定ファイル <a href="https://git.savannah.gnu.org/cgit/grub.git/tree/util/grub.d/40_custom.in?h=2.00"><code class="filepath">/etc/grub.d/40_custom</code></a> 等がこのテクニックを使っている。
-			</p>
-			<p>
+				テキストであっても、 grub の設定ファイル <link xl:href="https://git.savannah.gnu.org/cgit/grub.git/tree/util/grub.d/40_custom.in?h=2.00"><code class="filepath">/etc/grub.d/40_custom</code></link> 等がこのテクニックを使っている。
+			</simpara>
+			<simpara>
 				ヒアドキュメントでも大きなデータを埋め込むことはできるが、その場合埋め込むデータにヒアドキュメントの終端記号だけを持つ行が含まれないことを保証する必要がある。
 				一方でシェルスクリプトを途中で終了する場合は、データに制限はない。
-			</p>
-		</eh:section>
-	</eh:section>
+			</simpara>
+		</section>
+	</section>
 
-	<eh:section id="description--after-shell-exit">
-		<eh:title><code>exit</code> 以降</eh:title>
-		<p>
+	<section xml:id="description--after-shell-exit">
+		<title><code>exit</code> 以降</title>
+		<simpara>
 			あとは、元言語からシェルスクリプトを無視するために開始していたブロックコメントを閉じるだけだ。
 			コメントを閉じれば、あとはシェルの絡まない純粋なソースコードの領域である。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-</eh:article>
+</article>

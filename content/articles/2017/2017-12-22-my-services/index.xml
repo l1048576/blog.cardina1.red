@@ -1,7 +1,7 @@
 ---
 created_at: 2017-12-22T17:39:14+0900
 published_at: 2017-12-22T17:39:14+0900
-format: "easy-html"
+format: docbook
 title: "気軽に立てようウェブサービス"
 tags:
   - computer
@@ -11,302 +11,306 @@ kind: article
 excerpt: "わぁ、サーバがいっぱいだぁ〜！"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
-	id="2017-12-22-my-services"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xml:id="article-2017-12-22-my-services"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>気軽に立てようウェブサービス</eh:title>
-<p>
-	この記事は、 <a href="https://adventar.org/calendars/2377">rogy Advent Calendar 2017</a> の21日目<eh:footnote id="footnote-21st-day">
+<title>気軽に立てようウェブサービス</title>
+<simpara>
+	この記事は、 <link xl:href="https://adventar.org/calendars/2377">rogy Advent Calendar 2017</link> の21日目<footnote xml:id="footnote-21st-day" refmark-id="ref-footnote-21st-day">
 		AKST (アラスカ標準時, -0900)ではまだ21日なので許して……
-	</eh:footnote>の記事である。<br />
-	前日の記事は『<a href="https://blog.rogiken.org/2017/12/20/well-defined%E3%81%AE%E3%81%AF%E3%81%AA%E3%81%97/">well-definedのはなし – 東京工業大学 ロボット技術研究会公式ブログ</a>』、<br />
-	翌日の記事は『<a href="https://blog.rogiken.org/2017/12/22/taiwan/">ヒーローに……なり台湾！ – 東京工業大学 ロボット技術研究会公式ブログ</a>』である。
-</p>
-<p>
+	</footnote>の記事である。
+</simpara>
+<simpara>
+	前日の記事は『<link xl:href="https://blog.rogiken.org/2017/12/20/well-defined%E3%81%AE%E3%81%AF%E3%81%AA%E3%81%97/">well-definedのはなし – 東京工業大学 ロボット技術研究会公式ブログ</link>』、<h:br/>
+	翌日の記事は『<link xl:href="https://blog.rogiken.org/2017/12/22/taiwan/">ヒーローに……なり台湾！ – 東京工業大学 ロボット技術研究会公式ブログ</link>』である。
+</simpara>
+<simpara>
 	ネタがなくなったので私が立てている自分用サービス/サーバとかの紹介でもします。
-</p>
-<p>
+</simpara>
+<simpara>
 	web 開発とかの話はしないし、それどころか技術的な話でもないです。
 	タイトルから勘違いしたならドンマイということで。
-</p>
+</simpara>
 
-<eh:section id="abstract">
-	<eh:title>概要</eh:title>
+<section xml:id="abstract">
+	<title>概要</title>
 
-	<p>
+	<simpara>
 		ロ技研ではもともと web サイトや GitLab サーバを持っていたが、最近さらに discourse や WordPress や wiki なども導入された。
 		めでたいことだ。
 		ちょうど AdC のネタもなかったので、この機に私の自前運用サービスの紹介と、それを私がどう使っているのか的な話を書きたい。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="process">
-	<eh:title>サービス立てる方法</eh:title>
+<section xml:id="process">
+	<title>サービス立てる方法</title>
 
-	<ol>
-		<li>
+	<orderedlist>
+		<listitem>
 			ドメインを取得する
-		</li>
-		<li>
+		</listitem>
+		<listitem>
 			サーバを調達する
-			<ul>
-				<li>
+			<itemizedlist>
+				<listitem>
 					VPS でも自宅機でも良いが、個人的には VPS の方がおすすめ
-				</li>
-			</ul>
-		</li>
-		<li>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
 			DNS とか ssh 鍵の共有とか鯖の設定をする
-		</li>
-		<li>
+		</listitem>
+		<listitem>
 			サービスを立てる
-			<ul>
-				<li>
-					docker を使うなら、 <code class="filepath">docker-compose.yaml</code> を書いたり <code class="filepath">Dockerfile</code> を書いたりスタートアップスクリプトを書いたり
-				</li>
-				<li>
+			<itemizedlist>
+				<listitem>
+					docker を使うなら、 <filename>docker-compose.yaml</filename> を書いたり <filename>Dockerfile</filename> を書いたりスタートアップスクリプトを書いたり
+				</listitem>
+				<listitem>
 					docker を使わないなら、素直にシステムにインストール
-				</li>
-				<li>
+				</listitem>
+				<listitem>
 					あと自動起動とか証明書自動更新とかバックアップとかも systemd service や timer を用意する
-				</li>
-			</ul>
-		</li>
-		<li>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
 			完
-		</li>
-	</ol>
+		</listitem>
+	</orderedlist>
 
-	<p>
+	<simpara>
 		簡単でしょ？
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="my-services">
-	<eh:title>私が立てている(主に自分用)サービス</eh:title>
+<section xml:id="my-services">
+	<title>私が立てている(主に自分用)サービス</title>
 
-	<eh:section id="my-services--gitlab">
-		<eh:title>GitLab</eh:title>
+	<section xml:id="my-services--gitlab">
+		<title>GitLab</title>
 
-		<ul>
-			<li>
-				<a href="https://gitlab.cardina1.red/lo48576/titech-1610-os/">らりお / titech-1610-os · GitLab</a>
-				(<a href="https://blog.cardina1.red/2017/09/15/rust-clonable-error-types/#error-type-for-warnings--fsck-xv6">ブログで引用した</a>ことがあったので、そのとき公開リポジトリに変更した)
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://gitlab.cardina1.red/lo48576/titech-1610-os/">らりお / titech-1610-os · GitLab</link>
+				(<link xl:href="https://blog.cardina1.red/2017/09/15/rust-clonable-error-types/#error-type-for-warnings--fsck-xv6">ブログで引用した</link>ことがあったので、そのとき公開リポジトリに変更した)
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			Git リポジトリホスティングサービス。
 			web インターフェースもある、まあ GitHub みたいなやつの OSS 版。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			「プライベートリポジトリを置いとけるリモートの鯖が欲しいけど、 GitHub に金払うのもなぁ……よし、立てるか！」ということで立てた。
 			卒論とか minecraft のセーブデータとか機密情報とかいろいろ突っ込んでおけるので便利。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			そのうち CI を用意して連携させてブログの自動デプロイとかできると楽しそうだと思っているのだが、 GitLab CI を使うか Jenkins を使うかその他にするか、まだ考えていない。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="my-services--redmine">
-		<eh:title>Redmine</eh:title>
+	<section xml:id="my-services--redmine">
+		<title>Redmine</title>
 
-		<ul>
-			<li>
-				<a href="https://redmine.cardina1.red/projects/lo48576-bucket-list/issues">チケット - らりおやりたいことリスト - らりお Redmine</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://redmine.cardina1.red/projects/lo48576-bucket-list/issues">チケット - らりおやりたいことリスト - らりお Redmine</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			チケット管理サービス (Issue Tracking System, ITS) 。
 			タスク管理とかに使える。
 			GitHub の issue を高機能にしてそれだけ取り出してきたみたいなやつと思っておけばだいたい合ってる。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			「やりたいｴﾖｹﾞ多くなってきたな……よし管理するか！」ということで立てた。
 			ｴﾖｹﾞの体験版とかｴﾖｹﾞとか minecraft の目標や進捗状況、欲しいものリストの管理等で使っている。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="my-services--mediawiki">
-		<eh:title>MediaWiki</eh:title>
+	<section xml:id="my-services--mediawiki">
+		<title>MediaWiki</title>
 
-		<ul>
-			<li>
-				<a href="https://mediawiki.cardina1.red/wiki/%E7%89%B9%E5%88%A5:%E3%83%9A%E3%83%BC%E3%82%B8%E4%B8%80%E8%A6%A7">全ページ - MediaWiki</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://mediawiki.cardina1.red/wiki/%E7%89%B9%E5%88%A5:%E3%83%9A%E3%83%BC%E3%82%B8%E4%B8%80%E8%A6%A7">全ページ - MediaWiki</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			言わずと知れた wiki 。
 			Wikipedia とかは MediaWiki で構築されている。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			「ｴﾖｹﾞで出てきた雑学をまとめておきたいな……よし wiki 立てるか！」ということで立てた。
-			<a href="https://mediawiki.cardina1.red/wiki/%E3%81%82%E3%81%AA%E3%81%9F%E3%82%92%E3%82%AA%E3%83%88%E3%82%B3%E3%81%AB%E3%81%97%E3%81%A6%E3%81%82%E3%81%92%E3%82%8B%EF%BC%81">ｴﾖｹﾞの雑学とか解説をメモ</a>したり、<a href="https://mediawiki.cardina1.red/wiki/%E5%A4%89%E6%8F%9B%E3%83%9F%E3%82%B9%E3%81%A7%E5%87%BA%E3%81%A6%E3%81%8D%E3%81%9F%E3%82%A2%E3%83%AC">何かの機会に見た謎のアレをメモ</a>したり、<a href="https://mediawiki.cardina1.red/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%81%8A%E3%81%B3">おもしろかったドメインをメモ</a>したり、<a href="https://mediawiki.cardina1.red/wiki/%E5%A4%89%E6%8B%8D%E5%AD%90%E3%81%AE%E6%9B%B2">聞いたことのある変拍子の曲をメモ</a>したりなどしている。
+			<link xl:href="https://mediawiki.cardina1.red/wiki/%E3%81%82%E3%81%AA%E3%81%9F%E3%82%92%E3%82%AA%E3%83%88%E3%82%B3%E3%81%AB%E3%81%97%E3%81%A6%E3%81%82%E3%81%92%E3%82%8B%EF%BC%81">ｴﾖｹﾞの雑学とか解説をメモ</link>したり、<link xl:href="https://mediawiki.cardina1.red/wiki/%E5%A4%89%E6%8F%9B%E3%83%9F%E3%82%B9%E3%81%A7%E5%87%BA%E3%81%A6%E3%81%8D%E3%81%9F%E3%82%A2%E3%83%AC">何かの機会に見た謎のアレをメモ</link>したり、<link xl:href="https://mediawiki.cardina1.red/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%81%8A%E3%81%B3">おもしろかったドメインをメモ</link>したり、<link xl:href="https://mediawiki.cardina1.red/wiki/%E5%A4%89%E6%8B%8D%E5%AD%90%E3%81%AE%E6%9B%B2">聞いたことのある変拍子の曲をメモ</link>したりなどしている。
 			情報を綺麗にまとめるというより、他人に見せるかもしれないメモを自分だけで書く用途で使っている。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			wiki のシステムは一度自分で作ってみたいと思っているので、そのうち引っ越すかもしれず、そのため mediawiki の方は精力的に使ったりはしていない。
 			でもあると便利。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="my-services--www">
-		<eh:title>web サーバ</eh:title>
+	<section xml:id="my-services--www">
+		<title>web サーバ</title>
 
-		<ul>
-			<li>
-				<a href="https://blog.cardina1.red/">このブログ</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://blog.cardina1.red/">このブログ</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			静的な web サイトを公開するためのもの。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			「ブログ書くか……でも markdown とか嫌いだし、 asciidoc とか独自 XML 使いたいなぁ……変換は手元でやってファイルだけリモートに置いとくか！」ということで立てた。
-			そういった理由がある<eh:footnote id="footnote-original-blog-source">
+			そういった理由がある<footnote xml:id="footnote-original-blog-source" refmark-id="ref-footnote-original-blog-source">
 				このブログの CSS もスクリプトも HTML ソース(の元になる XML ソース)も、 CDN や外部サービスを利用するコード等を除けば、すべてゼロから自分で書いたものである。
 				ゆえに柔軟性は最高に高い。
-			</eh:footnote>ので、 WordPress とかその他サービスは使っていない。
-		</p>
-	</eh:section>
+			</footnote>ので、 WordPress とかその他サービスは使っていない。
+		</simpara>
+	</section>
 
-	<eh:section id="my-services--gnu-social">
-		<eh:title>GNU Social</eh:title>
+	<section xml:id="my-services--gnu-social">
+		<title>GNU Social</title>
 
-		<ul>
-			<li>
-				<a href="https://gnusocial.cardina1.red/lo48576/all">@lo48576@gnusocial.cardina1.red のホームタイムライン</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://gnusocial.cardina1.red/lo48576/all">@lo48576@gnusocial.cardina1.red のホームタイムライン</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			Mastodon と同じようなやつだが、 Mastodon より大昔から存在する SNS 。
 			Mastodon と互換性があり、互いにフォローしあうこともできる。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			「プロプライエタリなサービスにネットでの人間関係を握られるの嫌だなぁ…… OSS でどうにかするか！」ということで立てた。
 			Mastodon に引っ越しするまでメインで使っていた。
 			実は twitter への同時投稿プラグインもあるので、それも使っていた。
-		</p>
-		<p>
-			今は <eh:xref linkend="my-services--mastodon">Mastodon</eh:xref> をメインで使っている。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
+			今は <link linkend="my-services--mastodon">Mastodon</link> をメインで使っている。
+		</simpara>
+		<simpara>
 			Mastodon や GNU Social についての詳細は昔ブログを書いたのでそっち読んで:
-			『<a href="https://blog.cardina1.red/2017/04/13/federated-social-web/">gnusocial や mastodon の哲学 - 何とは言わない天然水飲みたさ</a>』、
-			『<a href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/">Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして - 何とは言わない天然水飲みたさ</a>』。
-		</p>
-	</eh:section>
+			『<link xl:href="https://blog.cardina1.red/2017/04/13/federated-social-web/">gnusocial や mastodon の哲学 - 何とは言わない天然水飲みたさ</link>』、
+			『<link xl:href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/">Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして - 何とは言わない天然水飲みたさ</link>』。
+		</simpara>
+	</section>
 
-	<eh:section id="my-services--mastodon">
-		<eh:title>Mastodon</eh:title>
+	<section xml:id="my-services--mastodon">
+		<title>Mastodon</title>
 
-		<ul>
-			<li>
-				<a href="https://mastodon.cardina1.red/@lo48576/">@lo48576@mastodon.cardina1.red の投稿</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://mastodon.cardina1.red/@lo48576/">@lo48576@mastodon.cardina1.red の投稿</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
-			<eh:xref linkend="my-services--gnu-social">GNU Social</eh:xref> と互換性のある後発の OSS 。
+		<simpara>
+			<link linkend="my-services--gnu-social">GNU Social</link> と互換性のある後発の OSS 。
 			よりモダンなプロトコルに対応している。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			もう私は twitter をメインで使っていないので、 twitter で私をﾎｮﾖｰしている皆様は是非 Mastodon へいらっしゃいませ。
-			どこ行けばいいかわからないという場合は <a href="https://mstdn.jp/about">mstdn.jp</a> 、 <a href="https://pawoo.net/about">Pawoo</a> 、 <a href="https://friends.nico/about">friends.nico</a> あたりの大手にでも行ってみればいいと思います<eh:footnote id="footnote-mastodon-instances">
-				まあ本当は<a href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/#federated-social-web">ブログでも書いた</a>とおり、自分で自分用のインスタンス立ててそれ使うのをおすすめしますが
-			</eh:footnote>。
-		</p>
-		<p>
+			どこ行けばいいかわからないという場合は <link xl:href="https://mstdn.jp/about">mstdn.jp</link> 、 <link xl:href="https://pawoo.net/about">Pawoo</link> 、 <link xl:href="https://friends.nico/about">friends.nico</link> あたりの大手にでも行ってみればいいと思います<footnote xml:id="footnote-mastodon-instances" refmark-id="footnote-mastodon-instances">
+				まあ本当は<link xl:href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/#federated-social-web">ブログでも書いた</link>とおり、自分で自分用のインスタンス立ててそれ使うのをおすすめしますが
+			</footnote>。
+		</simpara>
+		<simpara>
 			Mastodon についての詳細は昔ブログを書いたのでそっち読んで:
-			『<a href="https://blog.cardina1.red/2017/04/13/federated-social-web/">gnusocial や mastodon の哲学 - 何とは言わない天然水飲みたさ</a>』、
-			『<a href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/">Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして - 何とは言わない天然水飲みたさ</a>』。
-		</p>
-	</eh:section>
+			『<link xl:href="https://blog.cardina1.red/2017/04/13/federated-social-web/">gnusocial や mastodon の哲学 - 何とは言わない天然水飲みたさ</link>』、
+			『<link xl:href="https://blog.cardina1.red/2017/12/15/comparison-of-mastodon-and-gnusocial/">Mastodon が普及しつつあるけど、元 GNU Social 勢として思うこともありまして - 何とは言わない天然水飲みたさ</link>』。
+		</simpara>
+	</section>
 
-	<eh:section id="my-services--owncloud">
-		<eh:title>ownCloud</eh:title>
+	<section xml:id="my-services--owncloud">
+		<title>ownCloud</title>
 
-		<ul>
-			<li>
-				<a href="https://owncloud.cardina1.red/s/7dIt5IWeOag8uEB">公開中のファイル</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://owncloud.cardina1.red/s/7dIt5IWeOag8uEB">公開中のファイル</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			ファイルホスティングサービス。
 			自家用 Dropbox みたいなやつ。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			「プライベートな情報をわざわざ抜き出しやすい形でプロプライエタリなサービスに見せてあげるの嫌だし、検閲されるのもなぁ……自分で立てるか！」ということで立てた。
 			雑多なファイルを置いている。
 			ファイルの公開や共有にも使える。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="future">
-	<eh:title>これから欲しいもの</eh:title>
+<section xml:id="future">
+	<title>これから欲しいもの</title>
 
-	<eh:section id="future--meta">
-		<eh:title>メタなもの</eh:title>
+	<section xml:id="future--meta">
+		<title>メタなもの</title>
 
-		<p>
+		<simpara>
 			いいかげんサーバとかサービスが増えてきたので、ここらでオーケストレーションと死活監視とログ収集に手を出したいなと思う今日このごろ。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="future--mail">
-		<eh:title>メールサーバ</eh:title>
+	<section xml:id="future--mail">
+		<title>メールサーバ</title>
 
-		<p>
+		<simpara>
 			メールは歴史的な事情もあり、セキュリティ関係の設定をシビアにやらないと大変なことになってしまうのだが、 Gmail 依存をやめたいのと、自分の開発や鯖オペで使いたいので、暇になったら勉強しつつ立てたい。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			メールはチャット的に使うこともできるし、用途ごとに UI さえ調整すれば何にでも使えるので、いろいろ遊べるはず。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="future--development">
-		<eh:title>開発</eh:title>
+	<section xml:id="future--development">
+		<title>開発</title>
 
-		<p>
+		<simpara>
 			自作サービスとかを載せて動かしたさがある
-			<eh:footnote id="developing-service">
+			<footnote xml:id="footnote-developing-service" refmark-id="ref-footnote-developing-service">
 				一応作りたいものはあるのだが、認証まわりをちゃんと作るのが面倒なのでアイデアだけ用意して放置している。
 				そのうち Rust でいい感じのデファクトスタンダードが出てこないかな。
-			</eh:footnote>。
-		</p>
-		<p>
+			</footnote>。
+		</simpara>
+		<simpara>
 			あとは開発に使えるような CI (Continuous Integration) サービスが欲しい。
 			GitLab に TeX ファイルを push したら PDF が自動で出てきたり、 XML ソースを push したらブログが勝手に更新されたりとか、そんな感じの自動化をしたい。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="conclusion">
-	<eh:title>まとめ</eh:title>
+<section xml:id="conclusion">
+	<title>まとめ</title>
 
-	<ul>
-		<li>
+	<itemizedlist>
+		<listitem>
 			いろいろサービス立てて使ってます
-		</li>
-		<li>
+		</listitem>
+		<listitem>
 			そんなに難しくないよ
-		</li>
-		<li>
+		</listitem>
+		<listitem>
 			脱プロプライエタリしましょう
-		</li>
-		<li>
+		</listitem>
+		<listitem>
 			まだまだいろいろ立てたい
-		</li>
-	</ul>
-</eh:section>
+		</listitem>
+	</itemizedlist>
+</section>
 
-</eh:article>
+</article>

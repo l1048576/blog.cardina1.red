@@ -2,7 +2,7 @@
 created_at: 2016-06-15T18:23:14+0900
 published_at: 2016-06-15T18:23:14+0900
 updated_at: 2016-06-21T23:15:14+0900
-format: "easy-html"
+format: docbook
 title: "エロゲインストールバトル"
 tags:
   - windows-10
@@ -17,34 +17,38 @@ article_metadata:
 excerpt: "エロゲのインストールに失敗した。つらい。エロゲしたかっただけなのにどうしてこんな目に。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xl="http://www.w3.org/1999/xlink"
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
-	id="2016-06-15-erg-install-battle"
+	xml:id="article-2016-06-15-erg-install-battle"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>エロゲインストールバトル</eh:title>
-<eh:section id="tl-dr">
-	<eh:title>TL;DR</eh:title>
-	<p>
+<title>エロゲインストールバトル</title>
+<section xml:id="tl-dr">
+	<title>TL;DR</title>
+	<simpara>
 		この記事は試行のログとつらぽよを吐き出す場所であり、大多数の人にとって、特に問題解決に寄与するものではないと思われる。
-	</p>
-	<p>
-		一応<eh:xref linkend="conclusion" />は用意したのでそちらを参照。
-	</p>
-	<p>
+	</simpara>
+	<simpara>
+		一応<xref linkend="conclusion" />は用意したのでそちらを参照。
+	</simpara>
+	<simpara>
 		問題は解決した。
-		<eh:xref linkend="solved">追記2</eh:xref>を参照。
-	</p>
-</eh:section>
+		<link linkend="solved">追記2</link>を参照。
+	</simpara>
+</section>
 
-<eh:section id="environment">
-	<eh:title>環境</eh:title>
-	<p>
+<section xml:id="environment">
+	<title>環境</title>
+	<simpara>
 		仮想マシン上のWindows 10でインストール・起動を試みた。
 		ホストはgentoo 64-bitである。
-	</p>
-	<table class="visual">
+	</simpara>
+	<!-- FIXME: `class="visual"` is specific for my blog. -->
+	<table xml:id="table-env">
 		<caption>環境</caption>
 		<tbody>
 			<tr>
@@ -62,7 +66,7 @@ excerpt: "エロゲのインストールに失敗した。つらい。エロゲ�
 			<tr>
 				<th>VirtualBox 設定</th>
 				<td>
-					<table class="visual">
+					<table xml:id="table-system">
 						<caption>システム</caption>
 						<tbody>
 							<tr>
@@ -79,7 +83,7 @@ excerpt: "エロゲのインストールに失敗した。つらい。エロゲ�
 							</tr>
 						</tbody>
 					</table>
-					<table class="visual">
+					<table xml:id="table-display" class="visual">
 						<caption>ディスプレイ</caption>
 						<tr>
 							<th>ビデオメモリ</th>
@@ -98,11 +102,11 @@ excerpt: "エロゲのインストールに失敗した。つらい。エロゲ�
 			</tr>
 		</tbody>
 	</table>
-</eh:section>
+</section>
 
-<eh:section id="installing-anaoto">
-	<eh:title>あなオトのインストール</eh:title>
-	<table class="visual">
+<section xml:id="installing-anaoto">
+	<title>あなオトのインストール</title>
+	<table xml:id="table-anaoto-spec">
 		<caption>スペック</caption>
 		<tbody>
 			<tr>
@@ -111,7 +115,7 @@ excerpt: "エロゲのインストールに失敗した。つらい。エロゲ�
 			</tr>
 			<tr>
 				<th>製品webページ</th>
-				<td><a href="http://www.chuable.net/coup_con/">http://www.chuable.net/coup_con/</a></td>
+				<td><link xl:href="http://www.chuable.net/coup_con/"><uri>http://www.chuable.net/coup_con/</uri></link></td>
 			</tr>
 			<tr>
 				<th>対応OS(公称)</th>
@@ -128,80 +132,117 @@ excerpt: "エロゲのインストールに失敗した。つらい。エロゲ�
 		</tbody>
 	</table>
 
-	<eh:section id="anaoto-install-challenge-1">
-		<eh:title>インストールチャレンジ 1回目</eh:title>
-		<p data-paratitle="Autorunでのスタートアップ起動からのDirectXインストール">
-			DVDDを突っ込み、autorun(「スタートアップ」)を起動する。
-			問題なく動く。<br />
-			あなオトは新しめ(2016/04発売)の作品だったので、念のため「DirectXインストール」を実行した。
-			後から考えれば、これが失敗だったのかもしれない。
-		</p>
-		<figure id="fig-anaoto-autorun-success">
-			<img src="anaoto-autorun-success.png" alt="あなオトランチャ起動成功の図" />
-			<figcaption>autorunによるスタートアップ。期待が高まる</figcaption>
-		</figure>
+	<section xml:id="anaoto-install-challenge-1">
+		<title>インストールチャレンジ 1回目</title>
+		<formalpara>
+			<title>Autorunでのスタートアップ起動からのDirectXインストール</title>
+			<para>
+				DVDDを突っ込み、autorun(「スタートアップ」)を起動する。
+				問題なく動く。
+				あなオトは新しめ(2016/04発売)の作品だったので、念のため「DirectXインストール」を実行した。
+				後から考えれば、これが失敗だったのかもしれない。
+			</para>
+		</formalpara>
+		<informalfigure xml:id="fig-anaoto-autorun-success">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="anaoto-autorun-success.png" />
+				</imageobject>
+				<textobject>
+					<phrase>あなオトランチャ起動成功の図</phrase>
+				</textobject>
+			</mediaobject>
+			<caption>autorunによるスタートアップ。期待が高まる</caption>
+		</informalfigure>
 
-		<p data-paratitle="インストール完了からの起動失敗">
-			起動に失敗した。
-			メッセージからするに<strong>DirectX 9のエラー</strong>である。
-		</p>
-		<figure id="fig-anaoto-run-error">
-			<img src="anaoto-run-error.png" alt="あなオト起動失敗の図" />
-			<pre style="white-space: pre-line; word-break: break-all; overflow-wrap: break-word">
-あなたをオトコにしてあげる！.exe - エントリ ポイントが見つかりません
+		<formalpara>
+			<title>インストール完了からの起動失敗</title>
+			<para>
+				起動に失敗した。
+				メッセージからするに<emphasis>DirectX 9のエラー</emphasis>である。
+			</para>
+		</formalpara>
+		<informalfigure xml:id="fig-anaoto-run-error">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="anaoto-run-error.png" />
+				</imageobject>
+				<textobject>
+					<phrase>あなオト起動失敗の図</phrase>
+				</textobject>
+			</mediaobject>
+			<!-- TODO: Allow word wrap. -->
+			<literallayout class="monospaced">あなたをオトコにしてあげる！.exe - エントリ ポイントが見つかりません
 
 プロシージャ エントリ ポイント SfmDxGetSwapChainStats がダイナミック リンク ライブラリ C:\WINDOWS\SYSTEM32\d3d9.dll から見つかりませんでした。
-</pre>
-			<figcaption>あなオト起動失敗</figcaption>
-		</figure>
+</literallayout>
+			<caption>あなオト起動失敗</caption>
+		</informalfigure>
 
-		<p>
-			実はこのエラー自体は、<strong>Windows 7からWindows 10にアップグレードした辺りから</strong>『ものべの』(これはWin7でインストールし正常に動作していた)でも出るようになったが、ものべのでは同じメッセージのエラーが出た後「OK」を押すと、ゲームは起動し問題なく動作した。<br />
+		<simpara>
+			実はこのエラー自体は、<emphasis>Windows 7からWindows 10にアップグレードした辺りから</emphasis>『ものべの』(これはWin7でインストールし正常に動作していた)でも出るようになったが、ものべのでは同じメッセージのエラーが出た後「OK」を押すと、ゲームは起動し問題なく動作した。
 			しかし、あなオトでは起動さえしない。
 			参った。
-		</p>
-		<figure id="fig-monobeno-dx9-error">
-			<img src="monobeno-dx9-error.png" alt="ものべのでも同様のエラーが出る図" />
-			<figcaption>『ものべの』でも同じエラーが出るが、こちらはその後問題なく起動する</figcaption>
-		</figure>
-	</eh:section>
+		</simpara>
+		<informalfigure xml:id="fig-monobeno-dx9-error">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="monobeno-dx9-error.png" />
+				</imageobject>
+				<textobject>
+					<phrase>ものべのでも同様のエラーが出る図</phrase>
+				</textobject>
+			</mediaobject>
+			<caption>『ものべの』でも同じエラーが出るが、こちらはその後問題なく起動する</caption>
+		</informalfigure>
+	</section>
 
-	<eh:section id="anaoto-install-challenge-2">
-		<eh:title>インストールチャレンジ 2回目</eh:title>
-		<p data-paratitle="スタートアップ失敗">
-			再起動とアンインストール後、改めてインストールを試みる。
-			結果がこれ:
-		</p>
-		<figure id="fig-anaoto-autorun-error">
-			<img src="anaoto-autorun-error.png" alt="あなオトスタートアップすら失敗の図" />
-			<pre style="white-space: pre-line; word-break: break-all; overflow-wrap: break-word">
-autorun.exe
+	<section xml:id="anaoto-install-challenge-2">
+		<title>インストールチャレンジ 2回目</title>
+		<formalpara>
+			<title>スタートアップ失敗</title>
+			<para>
+				再起動とアンインストール後、改めてインストールを試みる。
+				結果がこれ:
+			</para>
+		</formalpara>
+		<informalfigure xml:id="fig-anaoto-autorun-error">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="anaoto-autorun-error.png" />
+				</imageobject>
+				<textobject>
+					<phrase>あなオトスタートアップすら失敗の図</phrase>
+				</textobject>
+			</mediaobject>
+			<!-- TODO: Allow word wrap. -->
+			<literallayout class="monospaced">autorun.exe
 
 autorun.exe は動作を停止しました
 
 問題が発生したため、プログラムが正しく動作しなくなりました。プログラムは閉じられ、解決策がある場合は Windows から通知されます。
-</pre>
-			<figcaption>あなオト、今度はスタートアップ(autorun)すら落ちるようになった</figcaption>
-		</figure>
-		<p>
-			やばい。<br />
+</literallayout>
+			<caption>あなオト、今度はスタートアップ(autorun)すら落ちるようになった</caption>
+		</informalfigure>
+		<simpara>
+			やばい。
 			最初の正常起動時との変化といえば、DirectXを入れ直したくらいしか思い浮かばない。
-		</p>
+		</simpara>
 
-		<p>
+		<simpara>
 			この後、VirtualBoxのHDDイメージを古いものに戻して再度実行を試みたり、DirectXのwebインストーラをMicrosoftから落としてきてインストールしてみたり、
 			スタートアップ(autorun)を経由せず直接DVD上のインストーラやDirectXインストーラを実行したりと色々試したが、
 			結局スタートアップは起動せず、ゲームも起動に失敗しつづけた。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="installing-koinaka">
-	<eh:title>こいなかのインストール</eh:title>
-	<p>
-		翌朝になっても相変わらず解決策が見えなかったため、<strong>諦めて別のゲームを入れることにした</strong>。
-	</p>
-	<table class="visual">
+<section xml:id="installing-koinaka">
+	<title>こいなかのインストール</title>
+	<simpara>
+		翌朝になっても相変わらず解決策が見えなかったため、<emphasis>諦めて別のゲームを入れることにした</emphasis>。
+	</simpara>
+	<table xml:id="table-koinaka-spec">
 		<caption>スペック</caption>
 		<tbody>
 			<tr>
@@ -210,7 +251,7 @@ autorun.exe は動作を停止しました
 			</tr>
 			<tr>
 				<th>製品webページ</th>
-				<td><a href="http://www.e-rondo.jp/products/dev001kn/top.html">http://www.e-rondo.jp/products/dev001kn/top.html</a></td>
+				<td><link xl:href="http://www.e-rondo.jp/products/dev001kn/top.html"><uri>http://www.e-rondo.jp/products/dev001kn/top.html</uri></link></td>
 			</tr>
 			<tr>
 				<th>対応OS(公称)</th>
@@ -227,98 +268,137 @@ autorun.exe は動作を停止しました
 		</tbody>
 	</table>
 
-	<eh:section id="anaoto-install-challenge">
-		<eh:title>インストールチャレンジ</eh:title>
-		<p data-paratitle="お約束のインストール失敗">
-			まず普通にDVDを入れてインストーラを起動する。
-			こいなかでは、あなオトのようにランチャー的なものは用意されておらず、普通にInstallShieldのインストーラが起動した。
-			そこで出たのがこのエラー:
-		</p>
-		<figure id="fig-koinaka-install-wrong-function">
-			<img src="koinaka-install-wrong-function.png" alt="こいなかインストーラのエラーの図" />
-<pre style="white-space: pre-line; word-break: break-all; overflow-wrap: break-word">
-ファンクションが間違っています。
-</pre>
-			<figcaption>こいなかのインストーラでエラーが出て失敗</figcaption>
-		</figure>
-		<p>
+	<section xml:id="anaoto-install-challenge">
+		<title>インストールチャレンジ</title>
+		<formalpara>
+			<title>お約束のインストール失敗</title>
+			<para>
+				まず普通にDVDを入れてインストーラを起動する。
+				こいなかでは、あなオトのようにランチャー的なものは用意されておらず、普通にInstallShieldのインストーラが起動した。
+				そこで出たのがこのエラー:
+			</para>
+		</formalpara>
+		<informalfigure xml:id="fig-koinaka-install-wrong-function">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="koinaka-install-wrong-function.png" />
+				</imageobject>
+				<textobject>
+					<phrase>こいなかインストーラのエラーの図</phrase>
+				</textobject>
+			</mediaobject>
+			<!-- TODO: Allow word wrap. -->
+			<literallayout class="monospaced">ファンクションが間違っています。</literallayout>
+			<caption>こいなかのインストーラでエラーが出て失敗</caption>
+		</informalfigure>
+		<simpara>
 			もういやだ。
-		</p>
+		</simpara>
 
-		<p data-paratitle="DVDからファイル群をコピーしてきてローカルで実行することを試みるも失敗">
-			DVDあたりで良くない何かがあるのかと考え、DVDからローカルへファイル群を丸ごとコピーしてから実行すれば良いのではと考えた。
-			そこでコピーしようとした結果がこちら:
-		</p>
-		<figure id="fig-koinaka-copy-invalid-ms-dos-function">
-			<img src="koinaka-copy-invalid-ms-dos-function.png" alt="こいなかDVDからのファイルコピーすら失敗の図" />
-<pre style="white-space: pre-line; word-break: break-all; overflow-wrap: break-word">
-1件の中断されたアクション
+		<formalpara>
+			<title>DVDからファイル群をコピーしてきてローカルで実行することを試みるも失敗</title>
+			<para>
+				DVDあたりで良くない何かがあるのかと考え、DVDからローカルへファイル群を丸ごとコピーしてから実行すれば良いのではと考えた。
+				そこでコピーしようとした結果がこちら:
+			</para>
+		</formalpara>
+		<informalfigure xml:id="fig-koinaka-copy-invalid-ms-dos-function">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="koinaka-copy-invalid-ms-dos-function.png" />
+				</imageobject>
+				<textobject>
+					<phrase>こいなかDVDからのファイルコピーすら失敗の図</phrase>
+				</textobject>
+			</mediaobject>
+			<!-- TODO: Allow word wrap. -->
+<literallayout class="monospaced">1件の中断されたアクション
 
 無効な MS-DOS ファンクションです。
-</pre>
-			<figcaption>こいなかのDVDからファイルをコピーするだけでも似たようなエラーで失敗</figcaption>
-		</figure>
-		<p>
+</literallayout>
+			<caption>こいなかのDVDからファイルをコピーするだけでも似たようなエラーで失敗</caption>
+		</informalfigure>
+		<simpara>
 			どうもDVDかDVDドライブあたりのエラーのようである。
 			DVDを眼鏡拭きで拭くなどして再試行してみてもやはり失敗する。
-		</p>
+		</simpara>
 
-		<p data-paratitle="DVDをddrescueでサルベージ(してみたらそもそも破損してなかった)">
-			DVDやHDDのデータが破損していた場合、<a target="_blank" href="https://www.gnu.org/software/ddrescue/"><code>ddrescue</code></a>コマンドを使うのが常識である。
-			というわけで、ホストのgentoo linuxで<code>ddrescue</code>してみたところ、<strong>そもそもエラーが発生しなかった</strong>。
-			ということはDVDとDVDドライブには問題がなく、Windows 10かVirtualBox側の問題だったということなのだろう。
-		</p>
+		<formalpara>
+			<title>DVDをddrescueでサルベージ(してみたらそもそも破損してなかった)</title>
+			<para>
+				DVDやHDDのデータが破損していた場合、<link xlink:href="https://www.gnu.org/software/ddrescue/"><command>ddrescue</command></link>コマンドを使うのが常識である。
+				というわけで、ホストのgentoo linuxで<command>ddrescue</command>してみたところ、<emphasis>そもそもエラーが発生しなかった</emphasis>。
+				ということはDVDとDVDドライブには問題がなく、Windows 10かVirtualBox側の問題だったということなのだろう。
+			</para>
+		</formalpara>
 
-		<p data-paratitle="ISOイメージをDVDとしてVirtualBoxにマウントしてインストール成功">
-			<code>ddrescue</code>で吸い出したISOイメージをVirtualBoxで光学メディアとしてマウントし、再度インストールを試みる。
-			結果、成功した:
-		</p>
-		<figure id="fig-koinaka-install-done">
-			<img src="koinaka-install-done.png" alt="こいなかインストール完了の図" />
-			<figcaption>DVDを直接使わずISOイメージを使った結果、インストールに成功</figcaption>
-		</figure>
-		<p>
+		<formalpara>
+			<title>ISOイメージをDVDとしてVirtualBoxにマウントしてインストール成功</title>
+			<para>
+				<command>ddrescue</command>で吸い出したISOイメージをVirtualBoxで光学メディアとしてマウントし、再度インストールを試みる。
+				結果、成功した:
+			</para>
+		</formalpara>
+		<informalfigure xml:id="fig-koinaka-install-done">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="koinaka-install-done.png" />
+				</imageobject>
+				<textobject>
+					<phrase>こいなかインストール完了の図</phrase>
+				</textobject>
+			</mediaobject>
+			<caption>DVDを直接使わずISOイメージを使った結果、インストールに成功</caption>
+		</informalfigure>
+		<simpara>
 			もちろん、問題なく起動した:
-		</p>
-		<figure id="fig-koinaka-run">
-			<img src="koinaka-run.png" alt="こいなか起動の図" />
-			<figcaption>起動成功。よーし、致すぞ！</figcaption>
-		</figure>
-	</eh:section>
-</eh:section>
+		</simpara>
+		<informalfigure xml:id="fig-koinaka-run">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="koinaka-run.png" />
+				</imageobject>
+				<textobject>
+					<phrase>こいなか起動の図</phrase>
+				</textobject>
+			</mediaobject>
+			<caption>起動成功。よーし、致すぞ！</caption>
+		</informalfigure>
+	</section>
+</section>
 
-<eh:section id="conclusion">
-	<eh:title>まとめ</eh:title>
-	<ul>
-		<li>
+<section xml:id="conclusion">
+	<title>まとめ</title>
+	<itemizedlist>
+		<listitem>
 			ソフマップで良さげなエロゲを見付けたからといって衝動買いするべからず。
 			事前に体験版で動作確認すべし。
-		</li>
-		<li>
+		</listitem>
+		<listitem>
 			対応OSはあまりあてにならない。
 			気を抜くべからず。
-		</li>
-		<li>
-			VirtualBoxでDVDが読めなくとも、<strong>DVDの破損とは限らない</strong>。
+		</listitem>
+		<listitem>
+			VirtualBoxでDVDが読めなくとも、<emphasis>DVDの破損とは限らない</emphasis>。
 			落ち着いてホストで対処すべし。
-		</li>
-		<li>
-			<strong>Windowsを許さない、絶対にだ</strong>
-		</li>
-	</ul>
-	<p>
-		twitter上での実況は<a href="http://togetter.com/li/987957">エロゲインストールバトル - Togetterまとめ</a>にまとめてある。
-	</p>
-</eh:section>
+		</listitem>
+		<listitem>
+			<emphasis>Windowsを許さない、絶対にだ</emphasis>
+		</listitem>
+	</itemizedlist>
+	<simpara>
+		twitter上での実況は<link xlink:href="http://togetter.com/li/987957">エロゲインストールバトル - Togetterまとめ</link>にまとめてある。
+	</simpara>
+</section>
 
-<eh:section id="note">
-	<eh:title>付記</eh:title>
-	<eh:section id="reason-of-impulse-buying">
-		<eh:title>衝動買いの理由</eh:title>
-		<p>
+<section xml:id="note">
+	<title>付記</title>
+	<section xml:id="reason-of-impulse-buying">
+		<title>衝動買いの理由</title>
+		<simpara>
 			中学校の同級生とソフマップに行ったら初回特典付きのものを発見した。
 			以前から気になっていたというのもあり購入を決めた。
-		</p>
+		</simpara>
 
 		<snsq:sns-quotes>
 			<snsq:sns-quote url="https://twitter.com/i/web/status/728882674077573120">
@@ -333,9 +413,9 @@ autorun.exe は動作を停止しました
 					<snsq:reftime datetime="2016-06-15T18:23:14+0900">2016-06-15</snsq:reftime>
 				</snsq:meta>
 				<snsq:content>
-					<p>
+					<simpara>
 						←数年ぶりに中学の同級生と再開した流れでえっちなゲームを3本買ったのがこちら
-					</p>
+					</simpara>
 				</snsq:content>
 			</snsq:sns-quote>
 			<snsq:sns-quote url="https://twitter.com/i/web/status/728969641331023872">
@@ -351,9 +431,9 @@ autorun.exe は動作を停止しました
 					<snsq:in-reply-to url="https://twitter.com/i/web/status/728882674077573120" />
 				</snsq:meta>
 				<snsq:content>
-					<p>
-						致したいね <a href="https://t.co/If7XDNVDfR">pic.twitter.com/If7XDNVDfR</a>
-					</p>
+					<simpara>
+						致したいね <link xlink:href="https://t.co/If7XDNVDfR">pic.twitter.com/If7XDNVDfR</link>
+					</simpara>
 				</snsq:content>
 				<snsq:attachments>
 					<snsq:image
@@ -364,28 +444,42 @@ autorun.exe は動作を停止しました
 				</snsq:attachments>
 			</snsq:sns-quote>
 		</snsq:sns-quotes>
-	</eh:section>
+	</section>
 
-	<eh:section id="maitetsu-error">
-		<eh:title>追記(<time datetime="2016-06-18T21:10:25+0900">2016-06-18</time>): まいてつ体験版起動失敗</eh:title>
-		<figure id="fig-maitetsu-run-error">
-			<img src="maitetsu-run-error1.png" alt="まいてつ体験版起動時に出る最初のエラーの図" />
-			<img src="maitetsu-run-error2.png" alt="まいてつ体験版起動時に出る2つめのエラーの図" />
-			<figcaption>まいてつ起動時に、これら2つのメッセージが続けて出て、起動には失敗する</figcaption>
-		</figure>
-		<p>
+	<section xml:id="maitetsu-error">
+		<title>追記(<h:time datetime="2016-06-18T21:10:25+0900">2016-06-18</h:time>): まいてつ体験版起動失敗</title>
+		<informalfigure xml:id="fig-maitetsu-run-error">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="maitetsu-run-error1.png" />
+				</imageobject>
+				<textobject>
+					<phrase>まいてつ体験版起動時に出る最初のエラーの図</phrase>
+				</textobject>
+			</mediaobject>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="maitetsu-run-error2.png" />
+				</imageobject>
+				<textobject>
+					<phrase>まいてつ体験版起動時に出る2つめのエラーの図</phrase>
+				</textobject>
+			</mediaobject>
+			<caption>まいてつ起動時に、これら2つのメッセージが続けて出て、起動には失敗する</caption>
+		</informalfigure>
+		<simpara>
 			想定外だった。
 			同じメーカーの『ものべの』が起動するからと完全に油断していた。
 			最悪だ。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="solved">
-		<eh:title>追記2(<time datetime="2016-06-21T23:15:14+0900">2016-06-21</time>): 解決</eh:title>
-		<p>
+	<section xml:id="solved">
+		<title>追記2(<h:time datetime="2016-06-21T23:15:14+0900">2016-06-21</h:time>): 解決</title>
+		<simpara>
 			問題は解決された。
-			<a href="/2016/06/20/erg-install-battle-victory">エロゲインストールバトルに勝利</a>を参照。
-		</p>
-	</eh:section>
-</eh:section>
-</eh:article>
+			<link xlink:href="/2016/06/20/erg-install-battle-victory">エロゲインストールバトルに勝利</link>を参照。
+		</simpara>
+	</section>
+</section>
+</article>

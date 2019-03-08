@@ -1,7 +1,7 @@
 ---
 created_at: 2018-05-15T10:46:23+09:00
 published_at: 2018-05-15T10:46:23+09:00
-format: "easy-html"
+format: docbook
 title: "Monthly report 2018-03 -- 2018-04"
 tags:
   - diary
@@ -10,463 +10,465 @@ kind: article
 excerpt: "2018年 03--04月 まとめ"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
-	id="2018-05-15-monthly-2018-03-04"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xml:id="article-2018-05-15-monthly-2018-03-04"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>Monthly report 2018-03 -- 2018-04</eh:title>
-<p>
-	<time>2018-03</time> &#x2013; <time>2018-04</time> の日記。
-</p>
+<title>Monthly report 2018-03 -- 2018-04</title>
+<simpara>
+	<h:time>2018-03</h:time> &#x2013; <h:time>2018-04</h:time> の日記。
+</simpara>
 
-<eh:section id="news">
-	<eh:title>ニュース・知ったこと</eh:title>
+<section xml:id="news">
+	<title>ニュース・知ったこと</title>
 
-	<eh:section id="rust-1-24-1-release">
-		<eh:title>Rust 1.24.1 リリース (<time>2018-03-01</time>)</eh:title>
+	<section xml:id="rust-1-24-1-release">
+		<title>Rust 1.24.1 リリース (<h:time>2018-03-01</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://blog.rust-lang.org/2018/03/01/Rust-1.24.1.html">Announcing Rust 1.24.1 - The Rust Programming Language Blog</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://blog.rust-lang.org/2018/03/01/Rust-1.24.1.html">Announcing Rust 1.24.1 - The Rust Programming Language Blog</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			FFI 周辺での unwinding (panic) の挙動に関するリグレッションの修正と、 Windows 関連のエラー修正など。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="rust-std-simd">
-		<eh:title>Rust の stdsimd が nightly で std 入り (<time>2018-03-05</time>)</eh:title>
+	<section xml:id="rust-std-simd">
+		<title>Rust の stdsimd が nightly で std 入り (<h:time>2018-03-05</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://internals.rust-lang.org/t/simd-now-available-in-libstd-on-nightly/6903">SIMD now available in libstd on nightly! - libs - Rust Internals</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://internals.rust-lang.org/t/simd-now-available-in-libstd-on-nightly/6903">SIMD now available in libstd on nightly! - libs - Rust Internals</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			めでたい🎉
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="hiveway">
-		<eh:title>Hiveway の可燃性が高い (<time>2018-02-23</time>)</eh:title>
+	<section xml:id="hiveway">
+		<title>Hiveway の可燃性が高い (<h:time>2018-02-23</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="http://www.itmedia.co.jp/news/articles/1803/05/news056.html">ブロックチェーンSNS「hiveway」とマストドンとの関係 - ITmedia NEWS</a>
-			</li>
-			<li>
-				<a href="http://www.itmedia.co.jp/news/articles/1803/06/news054.html">マストドンの問題はぼくらが解決する　ブロックチェーンSNSのhiveway CEOが語る - ITmedia NEWS</a>
-			</li>
-			<li>
-				<a href="https://web.archive.org/web/20180307104235/https://medium.com/@hiveway/hiveway-ceo-we-are-the-biggest-mastodon-fans-c55a67e4f217">Hiveway CEO: We are the biggest Mastodon fans – Hiveway – Medium</a> (元ページ削除済)
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="http://www.itmedia.co.jp/news/articles/1803/05/news056.html">ブロックチェーンSNS「hiveway」とマストドンとの関係 - ITmedia NEWS</link>
+			</listitem>
+			<listitem>
+				<link xl:href="http://www.itmedia.co.jp/news/articles/1803/06/news054.html">マストドンの問題はぼくらが解決する　ブロックチェーンSNSのhiveway CEOが語る - ITmedia NEWS</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://web.archive.org/web/20180307104235/https://medium.com/@hiveway/hiveway-ceo-we-are-the-biggest-mastodon-fans-c55a67e4f217">Hiveway CEO: We are the biggest Mastodon fans – Hiveway – Medium</link> (元ページ削除済)
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			実態としては fork ということになるので、 Mastodon が AGPL-3 である以上はその行為自体に問題はない。
-			しかし git と GitHub を使っているにも関わらず Mastodon での git メタデータ(過去のコミット)を<a href="https://github.com/hiveway/hiveway/commit/52ac645ed142054a0fc630db00d7461f398d494d">消し去って</a>著作権情報をトラッキングしづらくしている(著作者を偽っていると捉えることもできる？)とか、いろいろ勘違いしてそうな主張がされているなど、何やら不健全というか怪しい雰囲気がある。
-		</p>
-		<p>
+			しかし git と GitHub を使っているにも関わらず Mastodon での git メタデータ(過去のコミット)を<link xl:href="https://github.com/hiveway/hiveway/commit/52ac645ed142054a0fc630db00d7461f398d494d">消し去って</link>著作権情報をトラッキングしづらくしている(著作者を偽っていると捉えることもできる？)とか、いろいろ勘違いしてそうな主張がされているなど、何やら不健全というか怪しい雰囲気がある。
+		</simpara>
+		<simpara>
 			はてさて。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="vulkan-1-1-release">
-		<eh:title>Vulkan 1.1 リリース (<time>2018-03-07</time>)</eh:title>
+	<section xml:id="vulkan-1-1-release">
+		<title>Vulkan 1.1 リリース (<h:time>2018-03-07</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://www.khronos.org/vulkan/">Vulkan Overview - The Khronos Group Inc</a>
-			</li>
-			<li>
-				<a href="https://www.khronos.org/news/press/khronos-group-releases-vulkan-1-1">Khronos Group Releases Vulkan 1.1 - The Khronos Group Inc</a>
-			</li>
-			<li>
-				<a href="https://gs.yvt.jp/@8vit/99643024717614023">Yavit: "https://www.khronos.org/news/press/khronos-group-…" - gs.yvt.jp</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://www.khronos.org/vulkan/">Vulkan Overview - The Khronos Group Inc</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://www.khronos.org/news/press/khronos-group-releases-vulkan-1-1">Khronos Group Releases Vulkan 1.1 - The Khronos Group Inc</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://gs.yvt.jp/@8vit/99643024717614023">Yavit: "https://www.khronos.org/news/press/khronos-group-…" - gs.yvt.jp</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			🎉
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			Linux の Intel CPU 内臓グラフィックスでまともに使えるようになるのはいつ頃になるだろう。
 			(以前試したときはドライバが開発途上でまだバグだらけだったので、自作ゲームで使ってみる気にはなれなかった。)
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="letsencrypt-acme-v2-and-wild-card-support">
-		<eh:title>Let's Encrypt が ACMEv2 と ワイルドカード証明書をサポート (2018-03-14)</eh:title>
+	<section xml:id="letsencrypt-acme-v2-and-wild-card-support">
+		<title>Let's Encrypt が ACMEv2 と ワイルドカード証明書をサポート (2018-03-14)</title>
 
-		<ul>
-			<li>
-				<a href="https://letsencrypt.org/">Let's Encrypt - Free SSL/TLS Certificates</a>
-			</li>
-			<li>
-				<a href="https://community.letsencrypt.org/t/acme-v2-and-wildcard-certificate-support-is-live/55579">ACME v2 and Wildcard Certificate Support is Live - Issuance Policy - Let's Encrypt Community Support</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://letsencrypt.org/">Let's Encrypt - Free SSL/TLS Certificates</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://community.letsencrypt.org/t/acme-v2-and-wildcard-certificate-support-is-live/55579">ACME v2 and Wildcard Certificate Support is Live - Issuance Policy - Let's Encrypt Community Support</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
-			<a href="https://community.letsencrypt.org/t/acmev2-and-wildcard-launch-delay/53654">予定より遅延していた</a> ACMEv2 とワイルドカード証明書対応だが、めでたく正式リリースとなった。
-		</p>
-	</eh:section>
+		<simpara>
+			<link xl:href="https://community.letsencrypt.org/t/acmev2-and-wildcard-launch-delay/53654">予定より遅延していた</link> ACMEv2 とワイルドカード証明書対応だが、めでたく正式リリースとなった。
+		</simpara>
+	</section>
 
-	<eh:section id="rust-inclusive-range-stabilized">
-		<eh:title>Rust の inclusive range (`..=`) の安定化が merge された (<time>2018-03-16</time>)</eh:title>
+	<section xml:id="rust-inclusive-range-stabilized">
+		<title>Rust の inclusive range (`..=`) の安定化が merge された (<h:time>2018-03-16</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://github.com/rust-lang/rust/pull/47813">Stabilize inclusive range (`..=`) by kennytm · Pull Request #47813 · rust-lang/rust</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/pull/47813">Stabilize inclusive range (`..=`) by kennytm · Pull Request #47813 · rust-lang/rust</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
-			プログラミングにおいて両端を整数で表現する区間は半開区間にするのが一般的である<sup>[要出典]</sup>が、 inclusive すなわち両端を含む閉区間を指定する演算子もまた有用であり、 Rust でもそのような演算子が提案されていた。
-			Rust では <code>..</code> が半開区間なのに対し、 <code>...</code> を閉区間にすることもできたのだろうが、これがまた Ruby と逆で大変紛らわしい<eh:footnote id="footnote-ruby-range-ops">
+		<simpara>
+			プログラミングにおいて両端を整数で表現する区間は半開区間にするのが一般的である<superscript>[要出典]</superscript>が、 inclusive すなわち両端を含む閉区間を指定する演算子もまた有用であり、 Rust でもそのような演算子が提案されていた。
+			Rust では <code>..</code> が半開区間なのに対し、 <code>...</code> を閉区間にすることもできたのだろうが、これがまた Ruby と逆で大変紛らわしい<footnote xml:id="footnote-ruby-range-ops" refmark-id="ref-footnote-ruby-range-ops">
 				個人的には Ruby の <code>..</code> が閉区間で <code>...</code> が半開区間である仕様の方が異端のような気もするのだが、客観的に説明しろと言われると困ってしまう
-			</eh:footnote>し、そうでなくとも字面もよく似ており取り違えや typo によるバグの原因になるということで、 <code>..=</code> を閉区間に使うということになった。
-			(……という経緯があったような記憶を朧げに持っているのだが、<strong>確信はないので信じないでほしい</strong>。)
-		</p>
-		<p>
+			</footnote>し、そうでなくとも字面もよく似ており取り違えや typo によるバグの原因になるということで、 <code>..=</code> を閉区間に使うということになった。
+			(……という経緯があったような記憶を朧げに持っているのだが、<emphasis>確信はないので信じないでほしい</emphasis>。)
+		</simpara>
+		<simpara>
 			そういったわけで(かは知らないが)、既に入っていた <code>..</code> とは別に <code>..=</code> が提案されていたが、それがやっと安定化されるとのことである。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
 
-	<eh:section id="av1-video-format-released">
-		<eh:title>AV1 video format released (<time>2018-03-28</time>)</eh:title>
+	<section xml:id="av1-video-format-released">
+		<title>AV1 video format released (<h:time>2018-03-28</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=AV1-Released">AOMedia Announces Public Release Of AV1 Video Format - Phoronix</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://www.phoronix.com/scan.php?page=news_item&amp;px=AV1-Released">AOMedia Announces Public Release Of AV1 Video Format - Phoronix</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			H.264 や H.265 、 VP9 等に次ぐ、次世代の動画コーデック。
 			ロイヤリティフリーのオープンなフォーマット。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			是非とも覇権を獲得してほしいが、エンコードが激重らしいのですぐには普及しないかも？
 			ハードウェアでの対応に期待したい。
-		</p>
-		<p>
-			そういえば可逆圧縮の動画コーデックとしては <a href="https://datatracker.ietf.org/doc/draft-ietf-cellar-ffv1/">FFV1</a> が IETF RFC のドラフトとして標準化過程にあるが、こちらも普及に期待したいところである(と言いつつ使ったことはないが)。
-		</p>
-	</eh:section>
+		</simpara>
+		<simpara>
+			そういえば可逆圧縮の動画コーデックとしては <link xl:href="https://datatracker.ietf.org/doc/draft-ietf-cellar-ffv1/">FFV1</link> が IETF RFC のドラフトとして標準化過程にあるが、こちらも普及に期待したいところである(と言いつつ使ったことはないが)。
+		</simpara>
+	</section>
 
-	<eh:section id="public-dns-1-1-1-1">
-		<eh:title>パブリック DNS 1.1.1.1 (<time>2018-04-01</time>)</eh:title>
+	<section xml:id="public-dns-1-1-1-1">
+		<title>パブリック DNS 1.1.1.1 (<h:time>2018-04-01</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://1.1.1.1/">1.1.1.1 — the Internet’s Fastest, Privacy-First DNS Resolver</a>
-			</li>
-			<li>
-				<a href="https://internet.watch.impress.co.jp/docs/news/1114805.html">IPアドレスを保存しない高速パブリックDNSサービス「1.1.1.1」、APNICとCloudflareが無料提供 - INTERNET Watch</a>
-			</li>
-			<li>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://1.1.1.1/">1.1.1.1 — the Internet’s Fastest, Privacy-First DNS Resolver</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://internet.watch.impress.co.jp/docs/news/1114805.html">IPアドレスを保存しない高速パブリックDNSサービス「1.1.1.1」、APNICとCloudflareが無料提供 - INTERNET Watch</link>
+			</listitem>
+			<listitem>
 				その他似たようなやつ
-				<ul>
-					<li>
-						<a href="https://www.quad9.net/">Quad9 DNS: Internet Security and Privacy in a Few Easy Steps</a>
-					</li>
-					<li>
-						<a href="https://www-03.ibm.com/press/jp/ja/pressrelease/53396.wss">IBM ニュースルーム - <time>2017-11-17</time> IBM、Packet Clearing House、Global Cyber Alliance、インターネットの脅威から企業と消費者を保護するために協業 - Japan</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
+				<itemizedlist>
+					<listitem>
+						<link xl:href="https://www.quad9.net/">Quad9 DNS: Internet Security and Privacy in a Few Easy Steps</link>
+					</listitem>
+					<listitem>
+						<link xl:href="https://www-03.ibm.com/press/jp/ja/pressrelease/53396.wss">IBM ニュースルーム - <h:time>2017-11-17</h:time> IBM、Packet Clearing House、Global Cyber Alliance、インターネットの脅威から企業と消費者を保護するために協業 - Japan</link>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			プライバシーを大事にね。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="joke-rfc-8369">
-		<eh:title>ジョークRFC: RFC 8369 (<time>2018-04-01</time>)</eh:title>
+	<section xml:id="joke-rfc-8369">
+		<title>ジョークRFC: RFC 8369 (<h:time>2018-04-01</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://tools.ietf.org/html/rfc8369">RFC 8369 - Internationalizing IPv6 Using 128-Bit Unicode</a>
-			</li>
-			<li>
-				<a href="https://twitter.com/fadis_/status/980776458602790917">Fadis on Twitter: "RFC8369もジョークRFCかな。世界中のあらゆる食べ物、生物、宇宙の星々の絵文字にコードポイントを割り当てていけば21bitのUnicodeの空間は枯渇するため拡張が必要で、それを表現できるUTF-128が必要になる。UTF-128でIPv6アドレスを表記すれば1文字で表現できる、という話 https://t.co/7p0iza3qjz"</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://tools.ietf.org/html/rfc8369">RFC 8369 - Internationalizing IPv6 Using 128-Bit Unicode</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://twitter.com/fadis_/status/980776458602790917">Fadis on Twitter: "RFC8369もジョークRFCかな。世界中のあらゆる食べ物、生物、宇宙の星々の絵文字にコードポイントを割り当てていけば21bitのUnicodeの空間は枯渇するため拡張が必要で、それを表現できるUTF-128が必要になる。UTF-128でIPv6アドレスを表記すれば1文字で表現できる、という話 https://t.co/7p0iza3qjz"</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			Unicode emoji を踏まえての皮肉だと考えるのは穿ちすぎだろうか(読んでない顔)。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="rust-never-type-stabilization-reverted">
-		<eh:title>Rust の never_type 、安定化されかけるも revert される (<time>2018-04-22</time>)</eh:title>
+	<section xml:id="rust-never-type-stabilization-reverted">
+		<title>Rust の never_type 、安定化されかけるも revert される (<h:time>2018-04-22</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://github.com/rust-lang/rust/pull/49305">Stabilize TryFrom / TryInto, and tweak impls for integers by SimonSapin · Pull Request #49305 · rust-lang/rust</a>
-			</li>
-			<li>
-				<a href="https://github.com/rust-lang/rust/pull/49038">replace `convert::Infallible` with `!` by canndrew · Pull Request #49038 · rust-lang/rust</a>
-			</li>
-			<li>
-				<a href="https://github.com/rust-lang/rust/pull/50121">Revert stabilization of never_type (!) et al by pnkfelix · Pull Request #50121 · rust-lang/rust</a>
-			</li>
-			<li>
-				<a href="https://github.com/rust-lang/rust/issues/49691">revert stabilization of `!` and `TryFrom` · Issue #49691 · rust-lang/rust</a>
-			</li>
-			<li>
-				<a href="https://github.com/rust-lang/rust/issues/49593">Box::new(!) doesn't coerce to `Box&lt;Error&gt;` successfully · Issue #49593 · rust-lang/rust</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/pull/49305">Stabilize TryFrom / TryInto, and tweak impls for integers by SimonSapin · Pull Request #49305 · rust-lang/rust</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/pull/49038">replace `convert::Infallible` with `!` by canndrew · Pull Request #49038 · rust-lang/rust</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/pull/50121">Revert stabilization of never_type (!) et al by pnkfelix · Pull Request #50121 · rust-lang/rust</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/issues/49691">revert stabilization of `!` and `TryFrom` · Issue #49691 · rust-lang/rust</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/issues/49593">Box::new(!) doesn't coerce to `Box&lt;Error&gt;` successfully · Issue #49593 · rust-lang/rust</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			<code>!</code> 型 (never_type) の安定化とともに <code>TryFrom</code> 等も安定化が master に merge されたのだが、 never_type の型強制まわりでのバグが発見され、これらの安定化が revert された。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			かなしい。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="lets-encrypt-is-now-the-largest-ssl-certificate">
-		<eh:title>Let's Encrypt が最大勢力(過半数)になったらしい (<time>2018-04-19</time>)</eh:title>
+	<section xml:id="lets-encrypt-is-now-the-largest-ssl-certificate">
+		<title>Let's Encrypt が最大勢力(過半数)になったらしい (<h:time>2018-04-19</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://www.reddit.com/r/programming/comments/8d6m8e/lets_encrypt_is_now_the_largest_ssl_certificate/">Let's Encrypt is now the largest SSL certificate issuer for websites with 51.21% domain usage : programming</a>
-			</li>
-			<li>
-				<a href="https://twitter.com/atsuoishimoto/status/986965012760555520">Atsuo Ishimoto on Twitter: "Let's Encrypt が過半数のドメインで使われるissuerに https://t.co/V4jWXzhd1b"</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://www.reddit.com/r/programming/comments/8d6m8e/lets_encrypt_is_now_the_largest_ssl_certificate/">Let's Encrypt is now the largest SSL certificate issuer for websites with 51.21% domain usage : programming</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://twitter.com/atsuoishimoto/status/986965012760555520">Atsuo Ishimoto on Twitter: "Let's Encrypt が過半数のドメインで使われるissuerに https://t.co/V4jWXzhd1b"</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			大変すばらしい。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			なお日本での HTTPS 普及率は(以下略)
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="ripe-ncc-ipv4-address-exhaustion">
-		<eh:title>ヨーロッパ方面での IPv4 アドレスが枯渇 (<time>2018-04-19</time>)</eh:title>
+	<section xml:id="ripe-ncc-ipv4-address-exhaustion">
+		<title>ヨーロッパ方面での IPv4 アドレスが枯渇 (<h:time>2018-04-19</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://www.ripe.net/publications/ipv6-info-centre/about-ipv6/ipv4-exhaustion/ipv4-available-pool-graph">RIPE NCC IPv4 Available Pool - Graph — RIPE Network Coordination Centre</a>
-				<ul>
-					<li>
-						<a href="https://web.archive.org/web/20180508113444/https://www.ripe.net/publications/ipv6-info-centre/about-ipv6/ipv4-exhaustion/ipv4-available-pool-graph">Web archive (<time>2018-05-08</time>)</a>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="https://www.theregister.co.uk/2018/04/18/last_ipv4_address/">OK, this time it's for real: The last available IPv4 address block has gone • The Register</a>
-			</li>
-			<li>
-				<a href="http://news.livedoor.com/article/detail/14601159/">ヨーロッパがIPv4アドレスを使い果たす 未使用IPアドレスで対応 - ライブドアニュース</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://www.ripe.net/publications/ipv6-info-centre/about-ipv6/ipv4-exhaustion/ipv4-available-pool-graph">RIPE NCC IPv4 Available Pool - Graph — RIPE Network Coordination Centre</link>
+				<itemizedlist>
+					<listitem>
+						<link xl:href="https://web.archive.org/web/20180508113444/https://www.ripe.net/publications/ipv6-info-centre/about-ipv6/ipv4-exhaustion/ipv4-available-pool-graph">Web archive (<h:time>2018-05-08</h:time>)</link>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<link xl:href="https://www.theregister.co.uk/2018/04/18/last_ipv4_address/">OK, this time it's for real: The last available IPv4 address block has gone • The Register</link>
+			</listitem>
+			<listitem>
+				<link xl:href="http://news.livedoor.com/article/detail/14601159/">ヨーロッパがIPv4アドレスを使い果たす 未使用IPアドレスで対応 - ライブドアニュース</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			いつか来る日がついに来た。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="webauthn-candidate-recommendation">
-		<eh:title>WebAuthn が W3C 勧告候補へ (<time>2018-04-10</time>)</eh:title>
+	<section xml:id="webauthn-candidate-recommendation">
+		<title>WebAuthn が W3C 勧告候補へ (<h:time>2018-04-10</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://japan.cnet.com/article/35117538/">W3C、パスワード不要のウェブ認証「Web Authentication」を勧告候補に - CNET Japan</a>
-			</li>
-			<li>
-				<a href="http://www.itmedia.co.jp/enterprise/articles/1805/11/news074.html">「Firefox 60」公開、パスワードに依存しない認証「WebAuthn」をサポート - ITmedia エンタープライズ</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://japan.cnet.com/article/35117538/">W3C、パスワード不要のウェブ認証「Web Authentication」を勧告候補に - CNET Japan</link>
+			</listitem>
+			<listitem>
+				<link xl:href="http://www.itmedia.co.jp/enterprise/articles/1805/11/news074.html">「Firefox 60」公開、パスワードに依存しない認証「WebAuthn」をサポート - ITmedia エンタープライズ</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
-			Firefox でもバージョン60 (<time>2018-05-09</time> リリース)で対応された。
-		</p>
-	</eh:section>
+		<simpara>
+			Firefox でもバージョン60 (<h:time>2018-05-09</h:time> リリース)で対応された。
+		</simpara>
+	</section>
 
-	<eh:section id="rust-x86-64-simd-stabilized">
-		<eh:title>Rust で x86/86_64 SIMD の安定化が merge された (<time>2018-04-17</time>)</eh:title>
+	<section xml:id="rust-x86-64-simd-stabilized">
+		<title>Rust で x86/86_64 SIMD の安定化が merge された (<h:time>2018-04-17</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://github.com/rust-lang/rust/pull/49664">Stabilize x86/x86_64 SIMD by alexcrichton · Pull Request #49664 · rust-lang/rust</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/rust-lang/rust/pull/49664">Stabilize x86/x86_64 SIMD by alexcrichton · Pull Request #49664 · rust-lang/rust</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			🎉
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="ubuntu-18-04-release">
-		<eh:title>Ubuntu 18.04 リリース (<time>2018-04-26</time>)</eh:title>
+	<section xml:id="ubuntu-18-04-release">
+		<title>Ubuntu 18.04 リリース (<h:time>2018-04-26</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="http://releases.ubuntu.com/18.04/">Ubuntu 18.04 LTS (Bionic Beaver)</a>
-			</li>
-			<li>
-				<a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Ubuntu-18.04-Download">Ubuntu 18.04 LTS "Bionic Beaver" Official Images Now Available - Phoronix</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="http://releases.ubuntu.com/18.04/">Ubuntu 18.04 LTS (Bionic Beaver)</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Ubuntu-18.04-Download">Ubuntu 18.04 LTS "Bionic Beaver" Official Images Now Available - Phoronix</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			LTS なので、しばらく様子を見て、そのうち鯖の OS を入れ替えたい。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="public-activities">
-	<eh:title>ﾊﾟﾌﾞﾘｯｸ活動</eh:title>
+<section xml:id="public-activities">
+	<title>ﾊﾟﾌﾞﾘｯｸ活動</title>
 
-	<eh:section id="nanoc-report-issue">
-		<eh:title>nanoc に issue 立てた (解決済) (<time>2018-03-04</time>)</eh:title>
+	<section xml:id="nanoc-report-issue">
+		<title>nanoc に issue 立てた (解決済) (<h:time>2018-03-04</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://github.com/nanoc/nanoc">nanoc/nanoc: A powerful web publishing system</a>
-			</li>
-			<li>
-				<a href="https://github.com/nanoc/nanoc/issues/1328">internal_links check for xhtml files · Issue #1328 · nanoc/nanoc</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/nanoc/nanoc">nanoc/nanoc: A powerful web publishing system</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/nanoc/nanoc/issues/1328">internal_links check for xhtml files · Issue #1328 · nanoc/nanoc</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			nanoc は、このブログの生成(2018-03 時点)も含めて長らく世話になっている静的サイトジェネレータ。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			報告してから1日以内でテスト付きの修正が追加されて issue がクローズされ、あまりの早さにびっくりした。
 			ありがたい話である。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="alacritty-pull-request">
-		<eh:title>alacritty に Pull Requset 出した (merge された) (<time>2018-03-13</time> &#x2013; <time>2018-03-14</time>)</eh:title>
+	<section xml:id="alacritty-pull-request">
+		<title>alacritty に Pull Requset 出した (merge された) (<h:time>2018-03-13</h:time> &#x2013; <h:time>2018-03-14</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://github.com/jwilm/alacritty">jwilm/alacritty: A cross-platform, GPU-accelerated terminal emulator</a>
-			</li>
-			<li>
-				<a href="https://github.com/jwilm/alacritty/issues/921">Error creating GL context; Couldn't find any pixel format that matches the criterias. · Issue #921 · jwilm/alacritty</a>
-			</li>
-			<li>
-				<a href="https://github.com/jwilm/alacritty/pull/1178">Enable SRGB (fix #921) by lo48576 · Pull Request #1178 · jwilm/alacritty</a>
-			</li>
-			<li>
-				<a href="https://github.com/jwilm/alacritty/pull/1183">Try to create window with different SRGB config when failed (solve #921, #1178) by lo48576 · Pull Request #1183 · jwilm/alacritty</a>
-			</li>
-			<li>
-				<a href="https://mastodon.cardina1.red/@lo48576/99670278063669603">らりお・ザ・㉅㊛の🈗然㊌ソムリエ: "102354 – Mesa 17.2 no longer can give SRGB-capabl…" - Mastodon</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/jwilm/alacritty">jwilm/alacritty: A cross-platform, GPU-accelerated terminal emulator</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/jwilm/alacritty/issues/921">Error creating GL context; Couldn't find any pixel format that matches the criterias. · Issue #921 · jwilm/alacritty</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/jwilm/alacritty/pull/1178">Enable SRGB (fix #921) by lo48576 · Pull Request #1178 · jwilm/alacritty</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/jwilm/alacritty/pull/1183">Try to create window with different SRGB config when failed (solve #921, #1178) by lo48576 · Pull Request #1183 · jwilm/alacritty</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://mastodon.cardina1.red/@lo48576/99670278063669603">らりお・ザ・㉅㊛の🈗然㊌ソムリエ: "102354 – Mesa 17.2 no longer can give SRGB-capabl…" - Mastodon</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			ある日——たしか llvm を 6 へアップデートして mesa (18.0.0_rc4) もリビルドした翌日かそのすぐ後だったと思う——マシンを起動すると、 X の仮想ターミナルが起動しない。
 			XMonad あたりで何かやらかしたかと思ったが、 dmenu や xterm は普通に動くので、どうやら alacritty だけが駄目らしいということがわかった。
-			調べてみると issue #921 が見付かったが、解決されていないようだった<eh:footnote id="footnote-i-want-transparent-alacritty-window">
+			調べてみると issue #921 が見付かったが、解決されていないようだった<footnote xml:id="footnote-i-want-transparent-alacritty-window" refmark-id="ref-footnote-i-want-transparent-alacritty-window">
 				ウィンドウの透過を無効化すると落ちなくなるとの情報はあったが、私はデスクトップ背景のオタク壁紙を眺めながら進捗をしたいので、透過を無効化するわけにはいかなかった
-			</eh:footnote>ので、仕方なく xterm 上で胡麻粒のように小さくアンチエイリアスのきかないガタガタの文字でバグの調査と修正をすることにした。
-		</p>
-		<p>
+			</footnote>ので、仕方なく xterm 上で胡麻粒のように小さくアンチエイリアスのきかないガタガタの文字でバグの調査と修正をすることにした。
+		</simpara>
+		<simpara>
 			調べていくと、どうやら SRGB を有効化すると問題なく起動するようになることがわかった。
-			該当 issue にパッチを投げてみたところ、直ったという報告がすぐにいくつか来たので、それならとプルリク #1178 にして投げたら、今度はそのパッチのせいで逆にエラーが発生するようになったと報告が来た<eh:footnote id="footnote-alacritty-unsure-patch">
+			該当 issue にパッチを投げてみたところ、直ったという報告がすぐにいくつか来たので、それならとプルリク #1178 にして投げたら、今度はそのパッチのせいで逆にエラーが発生するようになったと報告が来た<footnote xml:id="footnote-alacritty-unsure-patch" refmark-id="ref-footnote-alacritty-unsure-patch">
 				嫌な予感はしたんですよ。
 				こんな単純なことで都合良く解決するという確信がなかったので、プルリクにせずコメントという形でパッチだけ投げておいたんです。
 				プルリク出したら不具合の指摘も待たずにいきなり merge されてしまったので不安になっていたのですが、それで不具合の指摘が来たものだから、やっぱりこうなったかというつらい気持ちに。
-			</eh:footnote>。
+			</footnote>。
 			仕方ないので、「パッチ当てる前の設定と当てた後の設定を成功するまで両方試す」という、力技ながら確実性のある方法でウィンドウ作成を試行するパッチをプルリク #1183 として投げ、これが merge されたことで本件は(おそらく)今度こそ解決した。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			心臓に悪い2日間だった。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="private-activities">
-	<eh:title>私的活動</eh:title>
+<section xml:id="private-activities">
+	<title>私的活動</title>
 
-	<eh:section id="graduate-travel">
-		<eh:title>卒業旅行 (ロボット技術研究会 14 世代) (<time>2018-03-14</time> &#x2013; <time>2018-03-16</time>)</eh:title>
+	<section xml:id="graduate-travel">
+		<title>卒業旅行 (ロボット技術研究会 14 世代) (<h:time>2018-03-14</h:time> &#x2013; <h:time>2018-03-16</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://mastodon.cardina1.red/tags/rogy14%E5%8D%92%E6%A5%AD%E6%97%85%E8%A1%8C">#rogy14卒業旅行 - Mastodon</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://mastodon.cardina1.red/tags/rogy14%E5%8D%92%E6%A5%AD%E6%97%85%E8%A1%8C">#rogy14卒業旅行 - Mastodon</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			下呂温泉に行った。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="release-opaque-typedef-crate">
-		<eh:title>opaque_typedef 0.0.2, 0.0.3 リリース (<time>2018-04-10</time>, <time>2018-04-28</time>)</eh:title>
+	<section xml:id="release-opaque-typedef-crate">
+		<title>opaque_typedef 0.0.2, 0.0.3 リリース (<h:time>2018-04-10</h:time>, <h:time>2018-04-28</h:time>)</title>
 
-		<ul>
-			<li>
-				<a href="https://github.com/lo48576/opaque_typedef/releases/tag/v0.0.2">Release 0.0.2 · lo48576/opaque_typedef</a>
-			</li>
-			<li>
-				<a href="https://github.com/lo48576/opaque_typedef/releases/tag/v0.0.3">Release 0.0.3 · lo48576/opaque_typedef</a>
-			</li>
-			<li>
-				<a href="https://github.com/lo48576/opaque_typedef/blob/develop/CHANGELOG.md#003---2018-04-28">opaque_typedef/CHANGELOG.md at develop · lo48576/opaque_typedef</a>
-			</li>
-			<li>
-				<a href="https://mastodon.cardina1.red/@loliconductor/99834328979700918">らりお (進捗垢): "Release 0.0.2 · lo48576/opaque_typedef https://gi…" - Mastodon</a>
-			</li>
-			<li>
-				<a href="https://mastodon.cardina1.red/@loliconductor/99935340236436627">らりお (進捗垢): "Release 0.0.3 · lo48576/opaque_typedef https://gi…" - Mastodon</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/lo48576/opaque_typedef/releases/tag/v0.0.2">Release 0.0.2 · lo48576/opaque_typedef</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/lo48576/opaque_typedef/releases/tag/v0.0.3">Release 0.0.3 · lo48576/opaque_typedef</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/lo48576/opaque_typedef/blob/develop/CHANGELOG.md#003---2018-04-28">opaque_typedef/CHANGELOG.md at develop · lo48576/opaque_typedef</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://mastodon.cardina1.red/@loliconductor/99834328979700918">らりお (進捗垢): "Release 0.0.2 · lo48576/opaque_typedef https://gi…" - Mastodon</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://mastodon.cardina1.red/@loliconductor/99935340236436627">らりお (進捗垢): "Release 0.0.3 · lo48576/opaque_typedef https://gi…" - Mastodon</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			いろいろ改良して、ひとまずの実用に堪える品質は確保できたと思う。
 			まだまだ文法がアレ (<code>derive(FooBarBazQuxQuux, ..)</code> のような長いオプションが無限にある)ので、そのうちもうちょっとまともにしたい。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="thoughts">
-	<eh:title>考え事</eh:title>
+<section xml:id="thoughts">
+	<title>考え事</title>
 
-	<eh:section id="quote-w3c-document-from-software-doc">
-		<eh:title>W3C 規格をソフトウェアのドキュメントで多数引用したい</eh:title>
+	<section xml:id="quote-w3c-document-from-software-doc">
+		<title>W3C 規格をソフトウェアのドキュメントで多数引用したい</title>
 
-		<ul>
-			<li>
-				<a href="https://mastodon.cardina1.red/@loliconductor/99947048239502696">らりお (進捗垢): "W3C Software and Document Notice and License http…" - Mastodon</a>
-			</li>
-		</ul>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://mastodon.cardina1.red/@loliconductor/99947048239502696">らりお (進捗垢): "W3C Software and Document Notice and License http…" - Mastodon</link>
+			</listitem>
+		</itemizedlist>
 
-		<p>
+		<simpara>
 			W3C の規格の少なからぬ部分をソフトウェアのドキュメントを引用したかったのだが、ライセンスが怪しかったので仕方なく諦めた。
 			実際どうなのだろう。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="conclusion">
-	<eh:title>雑感</eh:title>
+<section xml:id="conclusion">
+	<title>雑感</title>
 
-	<p>
+	<simpara>
 		ついに月一の記事更新もできなくなった。
 		もうだめだ。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-</eh:article>
+</article>

@@ -2,7 +2,7 @@
 created_at: 2016-09-13T10:52:56+0900
 published_at: 2016-09-13T10:52:56+0900
 updated_at: 2017-07-05T22:16:52+0900
-format: "easy-html"
+format: docbook
 title: "プログラマの論理"
 tags:
   - programming
@@ -13,64 +13,68 @@ kind: article
 excerpt: "プログラマは洗濯物を入れないことがある。"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:h="http://www.w3.org/1999/xhtml"
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
-	id="2016-09-13-programmers-logic"
+	xml:id="article-2016-09-13-programmers-logic"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>プログラマの論理</eh:title>
-<eh:section id="event">
-	<eh:title>事象</eh:title>
-	<p>
+<title>プログラマの論理</title>
+
+<section xml:id="event">
+	<title>事象</title>
+	<simpara>
 		先週の出来事。
-	</p>
+	</simpara>
 
 	<blockquote>
-		私「今日学校行くことになるかもしれん」<br />
-		母「出るなら洗濯物入れてって」<br />
-		<br />
-		私の脳内: <code>self.set_hook(BEFORE, 外出, function(){self.洗濯物を入れる()});</code><br />
-		<br />
-		私「んー」<br />
-		<br />
-		〜夜〜<br />
-		<br />
-		母「なんで洗濯物入れなかったの！」<br />
-		私「外に出なかったから……」
+		<literallayout class="normal">私「今日学校行くことになるかもしれん」
+母「出るなら洗濯物入れてって」
+
+私の脳内: <code>self.set_hook(BEFORE, 外出, function(){self.洗濯物を入れる()});</code>
+
+私「んー」
+
+〜夜〜
+
+母「なんで洗濯物入れなかったの！」
+私「外に出なかったから……」</literallayout>
 	</blockquote>
 
-	<p>
+	<simpara>
 		理不尽だ。
 		外に出なかった場合の動作は未規定なので実装依存のはずである。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="their-claim">
-	<eh:title>母に味方する主張</eh:title>
-	<p>
+<section xml:id="their-claim">
+	<title>母に味方する主張</title>
+	<simpara>
 		最適化で命令を単純化すべきである。
 		すなわち、条件分岐をなくし、常に一定のタイミングで洗濯物を入れるよう動作すべきである。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="our-claim">
-	<eh:title>私に味方する主張</eh:title>
-	<p>
+<section xml:id="our-claim">
+	<title>私に味方する主張</title>
+	<simpara>
 		最適化でパフォーマンスを向上すべきである。
 		すなわち、可能な場合常に洗濯物を入れないべきである。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="lesson">
-	<eh:title>教訓</eh:title>
-	<p>
+<section xml:id="lesson">
+	<title>教訓</title>
+	<simpara>
 		実装依存の挙動は怖い。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="postscript1">
-	<eh:title>追記 (2017-07-05)</eh:title>
+<section xml:id="postscript1">
+	<title>追記 (2017-07-05)</title>
 	<snsq:sns-quote url="https://twitter.com/i/web/status/882588192846651392">
 		<snsq:identity url="https://twitter.com/intent/user?user_id=6137682">
 			<snsq:icon src="https://pbs.twimg.com/profile_images/875372745759932416/yuleS_UZ_400x400.jpg" />
@@ -84,11 +88,11 @@ excerpt: "プログラマは洗濯物を入れないことがある。"
 			<snsq:in-reply-to url="https://twitter.com/i/web/status/775517223502819328" />
 		</snsq:meta>
 		<snsq:content>
-			<p>
+			<simpara>
 				このときの「ならば」は実行条件ではなく「指示を出した理由」だ。
 				外へ出るという予定を聞いたから指示を出しておくという意味。
 				つまり、指示をした時点で意味を成しているので実行フェイズでは消去して考えるということで矛盾はない。
-			</p>
+			</simpara>
 
 			<snsq:sns-quote url="https://twitter.com/i/web/status/775517223502819328">
 				<snsq:identity url="https://twitter.com/intent/user?user_id=2375406199">
@@ -102,31 +106,32 @@ excerpt: "プログラマは洗濯物を入れないことがある。"
 					<snsq:reftime datetime="2016-12-30T22:13:17+0900">2016-12-30</snsq:reftime>
 				</snsq:meta>
 				<snsq:content>
-					プログラマの論理 - 何とは言わない天然水飲みたさ <a href="https://blog.cardina1.red/2016/09/13/programmers-logic/">https://blog.cardina1.red/2016/09/13/programmers-logic/</a><br />
+					プログラマの論理 - 何とは言わない天然水飲みたさ <link xl:href="https://blog.cardina1.red/2016/09/13/programmers-logic/">https://blog.cardina1.red/2016/09/13/programmers-logic/</link><h:br />
 					書いた
 				</snsq:content>
 			</snsq:sns-quote>
 		</snsq:content>
 	</snsq:sns-quote>
-	<p>
+	<simpara>
 		なるほど。
-	</p>
-</eh:section>
+	</simpara>
+</section>
 
-<eh:section id="references">
-	<eh:title>参考資料</eh:title>
-	<ul>
-		<li>
-			<p>
-				<a href="http://dailynewsagency.com/2011/02/16/programmer_joke/">「プログラマにお使いを頼んだら……」ジョークが海外の掲示板で人気 - DNA </a>
-			</p>
+<section xml:id="references">
+	<title>参考資料</title>
+	<itemizedlist>
+		<listitem>
+			<simpara>
+				<link xl:href="http://dailynewsagency.com/2011/02/16/programmer_joke/">「プログラマにお使いを頼んだら……」ジョークが海外の掲示板で人気 - DNA </link>
+			</simpara>
+			<!-- FIXME: `@cite` is not supported by DocBook. -->
 			<blockquote cite="https://www.reddit.com/r/funny/comments/fklb1/a_wife_asks_her_husband_a_software_engineer/">
-				“Could you please go shopping for me and buy one carton of milk, and if they have eggs, get 6!”<br />
-				A short time later the husband comes back with 6 cartons of milk.<br />
-				The wife asks him, “Why the hell did you buy 6 cartons of milk?”<br />
-				He replied, “They had eggs.”
+				<literallayout class="normal">“Could you please go shopping for me and buy one carton of milk, and if they have eggs, get 6!”
+A short time later the husband comes back with 6 cartons of milk.
+The wife asks him, “Why the hell did you buy 6 cartons of milk?”
+He replied, “They had eggs.”</literallayout>
 			</blockquote>
-		</li>
-	</ul>
-</eh:section>
-</eh:article>
+		</listitem>
+	</itemizedlist>
+</section>
+</article>

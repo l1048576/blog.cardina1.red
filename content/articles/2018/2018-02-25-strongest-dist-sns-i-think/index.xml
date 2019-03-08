@@ -2,7 +2,7 @@
 created_at: 2018-02-25T22:30:55+09:00
 published_at: 2018-02-25T22:30:55+09:00
 updated_at: 2018-02-25T22:52:16+09:00
-format: "easy-html"
+format: docbook
 title: "ぼくのかんがえたさいきょうの SNS (のメモ)"
 tags:
   - sns
@@ -11,310 +11,312 @@ kind: article
 excerpt: "SNS の(ユーザに面した)設計の在り方について考えたことのメモ"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
-	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
-	id="2018-02-25-strongest-dist-sns-i-think"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xml:id="article-2018-02-25-strongest-dist-sns-i-think"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>ぼくのかんがえたさいきょうの SNS (のメモ)</eh:title>
-<p>
+<title>ぼくのかんがえたさいきょうの SNS (のメモ)</title>
+<simpara>
 	分散 SNS の(ユーザに面した)設計の在り方について考えたことのメモ。
-</p>
-<p>
+</simpara>
+<simpara>
 	……と思ったけど、よく考えたらこれ分散関係なく SNS 全般について言えるわ。
-</p>
+</simpara>
 
-<aside class="note">
-	<eh:title>TODO: 図を追加する</eh:title>
-	<p>
+<note>
+	<title>TODO: 図を追加する</title>
+	<simpara>
 		そのうち作って追加したい。
-	</p>
-</aside>
+	</simpara>
+</note>
 
-<eh:section id="situation">
-	<eh:title>前提</eh:title>
+<section xml:id="situation">
+	<title>前提</title>
 
-	<eh:section id="situation--filter-by-topic">
-		<eh:title>話題による選別</eh:title>
+	<section xml:id="situation--filter-by-topic">
+		<title>話題による選別</title>
 
-		<p>
+		<simpara>
 			たとえばあるユーザ A がいたとしよう。
 			A は、主としてお絵描き(全年齢)、お絵描き (R18)、政治的な主張、プログラミングの話題、学校の友人との会話を行うものとする。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			さて、あなたは A の投稿を自動的に受信したいと考えている。
 			ただし、精神の安寧を守るため、政治的な主張は閲覧したくない。
 			(また、 A とは学友であるとしよう。)
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			既存のアカウントベースでのフォロー関係やタイムラインは、こういった用途での利用にあたっていくつかの問題を抱えている。
-		</p>
+		</simpara>
 
-		<eh:section id="situation--filter-by-topic--sender-multi-accounts">
-			<eh:title>送信者のマルチアカウント</eh:title>
+		<section xml:id="situation--filter-by-topic--sender-multi-accounts">
+			<title>送信者のマルチアカウント</title>
 
-			<p>
+			<simpara>
 				twitter をはじめ、既存の SNS サービスで既に用いられている手段である。
 				たとえば「お絵描き(全年齢)」「お絵描き(R18)」「知り合い用」などのようにアカウント(「垢」)を複数用意し、使い分ける。
-			</p>
-			<p>
+			</simpara>
+			<simpara>
 				しかしこれは簡単に破綻する。
 				「学友とプログラミングについて会話する」とき、プログラミング垢と知り合い垢のどちらを使うべきだろうか。
 				一方のみを使えば、この話題に関心を持つかもしれなかったもう一方のフォロワーに話題が届かない。
 				かといって両方で同じ投稿をすると、両方ともフォローしている人に重複した邪魔な投稿が届くことになる。
-			</p>
-			<p>
+			</simpara>
+			<simpara>
 				また、いずれの分類にも属さない話題で投稿したいとき、「その他」などのアカウントも用意しなければならないとすれば、あまりに微妙である。
 				こういった自明でないアカウントが存在すると、「 A の投稿を全て受信したい」というユーザにとっては面倒である。
 				A もまた、自分のアカウント一覧を作って(それぞれのアカウントから)提示する必要性を感じるかもしれない。
-			</p>
-		</eh:section>
+			</simpara>
+		</section>
 
-		<eh:section id="situation--filter-by-topic--hashtag">
-			<eh:title>送信者のハッシュタグ付加</eh:title>
+		<section xml:id="situation--filter-by-topic--hashtag">
+			<title>送信者のハッシュタグ付加</title>
 
-			<p>
+			<simpara>
 				ハッシュタグにより、投稿に特定の(0個以上の)文字列をキーワードとして指定することができる。
 				しかしこれは、特定の(それなりに狭い範囲の)話題について追い掛けたい場合は有効に働くが、雑談であったり情報量の低い投稿に付けるのには向かない。
 				加えて、個々人によって表記や名前に揺れなどがあるにも関わらず、ハッシュタグはサービスやインスタンス全体で共通のものである。
-			</p>
-			<p>
+			</simpara>
+			<simpara>
 				たとえば、 A がイラストを投稿するとき「#イラスト」というタグを付けるだろうか、それとも「#おえかき」というタグを付けるだろうか？
 				あるいは、 A がお絵描きの技術を語るとき「#イラスト」というタグを使ったらどうなるだろうか？
 				あなたは、 A が投稿したイラストを、ハッシュタグによって漏れなく取得できるだろうか？
-			</p>
-			<p>
+			</simpara>
+			<simpara>
 				もっと広い話題ではどうだろう。
 				A が特定の政治的な問題について発言をするとき、必ず「#政治」などという一般的すぎるかもしれないタグを付けることを期待できるだろうか？
-			</p>
-		</eh:section>
-	</eh:section>
+			</simpara>
+		</section>
+	</section>
 
-	<eh:section id="situation--problems">
-		<eh:title>問題</eh:title>
+	<section xml:id="situation--problems">
+		<title>問題</title>
 
-		<p>
+		<simpara>
 			上に挙げたような仕組みの問題を要約すると、以下のようになる。
-		</p>
-		<ul>
-			<li>
-				ユーザや話題は、排他的でない複数の属性を持ちうるが、<strong>アカウントによる分類は排他的</strong>である。
-			</li>
-			<li>
-				ハッシュタグは、<strong>ユーザローカルでなく</strong>、またその<strong>表現するところも曖昧</strong>である。
-				<ul>
-					<li>
+		</simpara>
+		<itemizedlist>
+			<listitem>
+				ユーザや話題は、排他的でない複数の属性を持ちうるが、<emphasis>アカウントによる分類は排他的</emphasis>である。
+			</listitem>
+			<listitem>
+				ハッシュタグは、<emphasis>ユーザローカルでなく</emphasis>、またその<emphasis>表現するところも曖昧</emphasis>である。
+				<itemizedlist>
+					<listitem>
 						「#ほげ」は「『ほげ』に関係する話題」程度の情報しか提供しない。
-					</li>
-					<li>
-						また、タグは本文と分離されたメタな文字列情報としての特性を利用し、セルフツッコミ等に利用されることもある<eh:footnote id="footnote-hashtag-as-meta-string">
+					</listitem>
+					<listitem>
+						また、タグは本文と分離されたメタな文字列情報としての特性を利用し、セルフツッコミ等に利用されることもある<footnote xml:id="footnote-hashtag-as-meta-string" refmark-id="ref-footnote-hashtag-as-meta-string">
 							「#人 #いろいろな人」「#何」「#それはそう」「#とは」
-						</eh:footnote>ため、<strong>用途が安定しない</strong>。
-					</li>
-					<li>
-						べつの言い方をすれば、ハッシュタグは<strong>システムとしての意図が明確でない</strong>。
-					</li>
-				</ul>
-			</li>
-			<li>
-				ハッシュタグは、任意の文字列により表現される性質ゆえ、発信者にとって<strong>入力が手間</strong>である。
-				<ul>
-					<li>
+						</footnote>ため、<emphasis>用途が安定しない</emphasis>。
+					</listitem>
+					<listitem>
+						べつの言い方をすれば、ハッシュタグは<emphasis>システムとしての意図が明確でない</emphasis>。
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				ハッシュタグは、任意の文字列により表現される性質ゆえ、発信者にとって<emphasis>入力が手間</emphasis>である。
+				<itemizedlist>
+					<listitem>
 						ハッシュタグを簡単に選択したり自動入力するクライアント等も存在するが、これは全てのクライアントに共通の機能ではない。
-					</li>
-					<li>
+					</listitem>
+					<listitem>
 						この実装の差異も、システムとしての意図が明確でない(あるいは、そういった用途で使うことが明示・推奨されていない)ことが一因であると考えられる。
-					</li>
-				</ul>
-			</li>
-			<li>
-				ハッシュタグは、事前に提示されるとは限らず、また任意の文字列により表現される性質ゆえ、受信者にとって<strong>予測が困難</strong>である。
-				<ul>
-					<li>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				ハッシュタグは、事前に提示されるとは限らず、また任意の文字列により表現される性質ゆえ、受信者にとって<emphasis>予測が困難</emphasis>である。
+				<itemizedlist>
+					<listitem>
 						過去に「#お絵描き」を使ったからといって、未来に投稿されるイラストで「#お絵描き」が使われる保証はない。
 						「#落書き」「#イラスト」「#おえかき」などになるかもしれないし、安定せず複数が使われるかもしれない。
-					</li>
-				</ul>
-			</li>
-			<li>
-				ハッシュタグは、<strong>広範囲な話題での選択を支援できない</strong>場合が多い。
-				<ul>
-					<li>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				ハッシュタグは、<emphasis>広範囲な話題での選択を支援できない</emphasis>場合が多い。
+				<itemizedlist>
+					<listitem>
 						ハッシュタグは、ある意図を示す詳細なハッシュタグがあるとき、それを包含する汎用的なハッシュタグが使われるとは限らない。
-					</li>
-					<li>
+					</listitem>
+					<listitem>
 						たとえば、「#ポインタ」「#C言語」タグを使った人が、わざわざ同じ投稿に「#プログラミング」「#コンピュータ」などのタグを付けてくれるとは限らない。
 						付けてくれたとしても、多くの受信者にとっては冗長になるだろう。
-					</li>
-					<li>
+					</listitem>
+					<listitem>
 						この性質は、「特定の広範囲な話題を選択したい」という要求の実現を困難にする。
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</eh:section>
-</eh:section>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</section>
+</section>
 
-<eh:section id="user-context">
-	<eh:title>提案: ユーザの『文脈』</eh:title>
+<section xml:id="user-context">
+	<title>提案: ユーザの『文脈』</title>
 
-	<eh:section id="user-context--spec">
-		<eh:title>仕様</eh:title>
-		<ul>
-			<li>
+	<section xml:id="user-context--spec">
+		<title>仕様</title>
+		<itemizedlist>
+			<listitem>
 				ユーザアカウントは、0個以上の『文脈』を持つ。
-				<ul>
-					<li>
+				<itemizedlist>
+					<listitem>
 						ユーザアカウント <code>@user</code> に対し、『文脈』 context を <code>@user/context</code> と表現する。
-					</li>
-					<li>
+					</listitem>
+					<listitem>
 						直観的には、文脈とは投稿の集合の、排他的でない部分集合である。
-					</li>
-				</ul>
-			</li>
-			<li>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
 				ユーザアカウントからの投稿は、投稿者ユーザアカウントに加えて、0個以上の『文脈』と紐付けられる。
-				<ul>
-					<li>
+				<itemizedlist>
+					<listitem>
 						たとえば <code>@user</code> ユーザから発信されたある投稿は、 <code>@user/foo</code> と <code>@user/bar</code> に紐付けられるかもしれない。
-					</li>
-					<li>
+					</listitem>
+					<listitem>
 						適当な文脈が見付からなかったり、部分的であれ自分をフォローしているユーザの全てに見せたい投稿は、文脈に紐付けないことができる。
-					</li>
-				</ul>
-			</li>
-			<li>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
 				ユーザは、アカウントそのものまたは『文脈』から、アカウントまたはその『文脈』をフォロー/ブロック/ミュートできる。
-				<ul>
-					<li>
+				<itemizedlist>
+					<listitem>
 						<code>@user</code> をフォローすればユーザの全ての投稿を受信でき、
 						<code>@user/foo</code> をフォローすれば、 <code>@user/foo</code> に紐付けられた投稿だけを受信できる。
-					</li>
-					<li>
+					</listitem>
+					<listitem>
 						<code>@user</code> をフォローし <code>@user/政治</code> をミュートすれば、 <code>@user/政治</code> に紐付けられた投稿以外を受信できる。
-					</li>
-					<li>
+					</listitem>
+					<listitem>
 						自分のアカウントの各『文脈』ごとに、フォロワーの投稿が流れてくるタイムライン(いわゆるホームタイムライン)が用意される。
-						<ul>
-							<li>
+						<itemizedlist>
+							<listitem>
 								一部の用途におけるリストの代替たりうる。
-							</li>
-						</ul>
-					</li>
-					<li>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
 						フォロー関係は、「アカウントまたは『文脈』」から「アカウントまたは『文脈』」への辺として表現されることになる。
-						<ul>
-							<li>
+						<itemizedlist>
+							<listitem>
 								相互フォロー関係などを考えたい場合も、『文脈』がアカウントに属することを考慮すれば、アカウント間の関係へと簡単に落とし込むことができる。
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-			<li>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
 				『リスト』には、ユーザアカウントまたは『文脈』を追加できる。
 				『リスト』は、ユーザアカウントに属する。
-			</li>
-			<li>
+			</listitem>
+			<listitem>
 				ユーザは、自分の『文脈』を自由に追加または削除できる。
-				<ul>
-					<li>
+				<itemizedlist>
+					<listitem>
 						追加や削除は、フォロワーに対して何ら影響を及ぼさない。
 						投稿が消えたりすることもない。
-					</li>
-					<li>
+					</listitem>
+					<listitem>
 						ユーザから見れば、単に「ハッシュタグを使うのをやめた」程度のことである。
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</eh:section>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</section>
 
-	<eh:section id="user-context--meaning">
-		<eh:title>意義</eh:title>
+	<section xml:id="user-context--meaning">
+		<title>意義</title>
 
-		<p>
+		<simpara>
 			排他的でなく、かつ(受信者にとっても送信者にとっても)選択しやすくノイズの少ない「分類」をシステムとして提供することが『文脈』の意義である。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			そこで、『文脈』はユーザの「側面」を表現する手段を提供する。
 			人間の政治的な側面、学生としての側面、プログラマとしての側面、絵描きとしての側面……などなど、人間には多くの「側面」があるが、これらは排他的でないことも十分ありうる。
 			『文脈』は、それらの側面それぞれを表現するものである。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			また、『文脈』を「話題」や文字通り「文脈」として利用することもできる。
 			これは、「側面」の更に一部分を表現したものと捉えることもできるだろう。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			排他的でない『文脈』の存在によって、ユーザアカウントをひとつの人格と正確に紐付けて使えるようになる。
 			マルチアカウントと違って、話題によって人格を「分割」する必要がなくなるのである。
 			これは従来のマルチアカウントの利用を阻害するものではない。
-		</p>
+		</simpara>
 
-		<eh:section id="user-context--meaning--what-is-special">
-			<eh:title>『文脈』の特徴</eh:title>
+		<section xml:id="user-context--meaning--what-is-special">
+			<title>『文脈』の特徴</title>
 
-			<ul>
-				<li>
-					マルチアカウントと違って、<strong>排他的でない</strong>。
-					<ul>
-						<li>
+			<itemizedlist>
+				<listitem>
+					マルチアカウントと違って、<emphasis>排他的でない</emphasis>。
+					<itemizedlist>
+						<listitem>
 							ひとつの投稿に複数の『文脈』を使うことができるし、その場合であっても投稿は重複しない。
-						</li>
-					</ul>
-				</li>
-				<li>
-					マルチアカウントと違って、<strong>選択を強制されない</strong>。
-					<ul>
-						<li>
+						</listitem>
+					</itemizedlist>
+				</listitem>
+				<listitem>
+					マルチアカウントと違って、<emphasis>選択を強制されない</emphasis>。
+					<itemizedlist>
+						<listitem>
 							『文脈』を紐付けないことができる。
-						</li>
-					</ul>
-				</li>
-				<li>
-					ハッシュタグと違って、<strong>ユーザごとに名前空間が分かれている</strong>。
-					<ul>
-						<li>
+						</listitem>
+					</itemizedlist>
+				</listitem>
+				<listitem>
+					ハッシュタグと違って、<emphasis>ユーザごとに名前空間が分かれている</emphasis>。
+					<itemizedlist>
+						<listitem>
 							検索などにおいて、他のユーザが同じ文字列のハッシュタグや『文脈』を利用しても、検索結果が混乱しない。
-						</li>
-					</ul>
-				</li>
-				<li>
-					ハッシュタグと違って、あるユーザについて<strong>リストアップが簡単</strong>である。
-					<ul>
-						<li>
+						</listitem>
+					</itemizedlist>
+				</listitem>
+				<listitem>
+					ハッシュタグと違って、あるユーザについて<emphasis>リストアップが簡単</emphasis>である。
+					<itemizedlist>
+						<listitem>
 							これは、『文脈』がハッシュタグと違って、投稿でなくユーザに紐付いており、ユーザによって事前に使用を宣言されているからである。
-						</li>
-						<li>
+						</listitem>
+						<listitem>
 							これにより、「ユーザが関心を持って情報を発信している分野」を暗黙に表明することに利用できる。
-							<ul>
-								<li>
+							<itemizedlist>
+								<listitem>
 									無論、プライベートなものや R18 などのものは、リストアップから隠すことも(システムとしては簡単に)可能である。
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-				<li>
+								</listitem>
+							</itemizedlist>
+						</listitem>
+					</itemizedlist>
+				</listitem>
+				<listitem>
 					TweetDeck によるマルチアカウントのようなインターフェースと相性が良い。
-					<ul>
-						<li>
+					<itemizedlist>
+						<listitem>
 							発信者は、アカウントを選ぶのと同程度かそれ以下の手間で『文脈』を選択できるから、学習コストは高くない(はず)。
-						</li>
-					</ul>
-				</li>
-				<li>
+						</listitem>
+					</itemizedlist>
+				</listitem>
+				<listitem>
 					『文脈』を考慮しないシステムとの互換性を簡単に維持できる。
-					<ul>
-						<li>
+					<itemizedlist>
+						<listitem>
 							『文脈』の代わりにアカウントそのものを使うことで、フォロー関係等は従来のアカウント単位のシステムに簡単に落とし込める。
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</eh:section>
-	</eh:section>
-</eh:section>
+						</listitem>
+					</itemizedlist>
+				</listitem>
+			</itemizedlist>
+		</section>
+	</section>
+</section>
 
-</eh:article>
+</article>

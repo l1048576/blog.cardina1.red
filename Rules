@@ -39,8 +39,6 @@ compile '/articles/**/*.xml' do
   case @item[:format]
   when format('docbook') then
     layout '/xsl/docbook-article.xsl'
-  when format('easy-html') then
-    layout '/xsl/easy-html.xsl'
   else
     raise RuntimeError.new("Unknown article format: #{@item[:format]}")
   end

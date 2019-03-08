@@ -2,7 +2,7 @@
 created_at: 2017-08-05T19:50:59+0900
 published_at: 2017-08-05T19:50:59+0900
 updated_at: 2017-08-06T14:41:01+0900
-format: "easy-html"
+format: docbook
 title: "Weekly report 2017-W31"
 tags:
   - diary
@@ -11,103 +11,105 @@ kind: article
 excerpt: "2017年 第31週 まとめ"
 ---
 <?xml version="1.0"?>
-<eh:article
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:eh="https://www.cardina1.red/_ns/xml/easy-html/2017-0809"
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
-	id="2017-08-05-weekly-2017-w31"
+	xml:id="article-2017-08-05-weekly-2017-w31"
+	xml:lang="ja"
+	version="5.1"
 >
-<eh:title>Weekly report 2017-W31</eh:title>
-<p>
+<title>Weekly report 2017-W31</title>
+<simpara>
 	2017-W30-6 (Sat) から 2017-W31-5 (Fri) までの日記。
-</p>
+</simpara>
 
 
-<eh:section id="news">
-	<eh:title>ニュース・知ったこと</eh:title>
+<section xml:id="news">
+	<title>ニュース・知ったこと</title>
 
-	<eh:section id="stratis-strage">
-		<eh:title>Stratis Storage</eh:title>
-		<ul>
-			<li>
-				<a href="https://twitter.com/daikikohara/status/893025544396132352">Daiki Koharaさんのツイート: "RedHatがBtrfsのサポートを廃止してStratisっていうRust+Python製の新しいストレージシステムを採用するらしい。Fedora28で入る予定だから1年後くらいかな。楽しみだ。 / “Stratis Is R…” https://t.co/69GLrZj1NV"</a>
-			</li>
-			<li>
-				<a href="https://github.com/stratis-storage">Stratis Storage</a>
-			</li>
-			<li>
-				<a href="https://stratis-storage.github.io/">Stratis Storage Project Working Documentation</a>
-			</li>
-		</ul>
-		<p>
+	<section xml:id="stratis-strage">
+		<title>Stratis Storage</title>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://twitter.com/daikikohara/status/893025544396132352">Daiki Koharaさんのツイート: "RedHatがBtrfsのサポートを廃止してStratisっていうRust+Python製の新しいストレージシステムを採用するらしい。Fedora28で入る予定だから1年後くらいかな。楽しみだ。 / “Stratis Is R…” https://t.co/69GLrZj1NV"</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/stratis-storage">Stratis Storage</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://stratis-storage.github.io/">Stratis Storage Project Working Documentation</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			LVM みたいなものなのかな(←全然調べてない顔)。
-			btrfs だと暗号化サポートが統合されてなかったのがアレだった<eh:footnote id="btrfs-ununified-crypt-support">
+			btrfs だと暗号化サポートが統合されてなかったのがアレだった<footnote xml:id="footnote-btrfs-ununified-crypt-support" refmark-id="ref-footnote-btrfs-ununified-crypt-support">
 				btrfs には暗号化機能が統合されていないため、 btrfs raid などしようとすると、 LUKS で複数の生ディスクやパーティションを暗号化し、その上に btrfs を乗せる必要がある。
 				本来であれば btrfs を通じたデータだけを暗号化すれば良いところを、 btrfs ではディスク数だけ同時に暗号化をかける必要があるから、当然これは理想的とは言い難い効率である。
-			</eh:footnote>ので、その辺りが洗練された感じになっていると嬉しい。
-		</p>
-		<p>
+			</footnote>ので、その辺りが洗練された感じになっていると嬉しい。
+		</simpara>
+		<simpara>
 			そういえばなんで私は LVM 使ってないのだろう。
 			ZFS や btrfs で調教されたせいだろうか。
-		</p>
-	</eh:section>
+		</simpara>
+	</section>
 
-	<eh:section id="firefox-test-pilot-send">
-		<eh:title>Send</eh:title>
-		<ul>
-			<li>
-				<a href="https://send.firefox.com/">Firefox Send</a>
-			</li>
-			<li>
-				<a href="https://testpilot.firefox.com/experiments/send">Firefox Test Pilot - ⁨Send⁩</a>
-			</li>
-			<li>
-				<a href="https://www.youtube.com/watch?v=ZGWZGYtAS3U">Send: A Firefox Test Pilot Web Experiment</a>
-			</li>
-		</ul>
-		<p>
+	<section xml:id="firefox-test-pilot-send">
+		<title>Send</title>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://send.firefox.com/">Firefox Send</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://testpilot.firefox.com/experiments/send">Firefox Test Pilot - ⁨Send⁩</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://www.youtube.com/watch?v=ZGWZGYtAS3U">Send: A Firefox Test Pilot Web Experiment</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			Firefox Test Pilot の実験ではあるが、べつに Firefox でなくとも使えるやつ。
 			ファイルの受け渡しに便利なはず。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="experience">
-	<eh:title>個人的な体験</eh:title>
+<section xml:id="experience">
+	<title>個人的な体験</title>
 
-	<eh:section id="graduate-school-entrance-exam-result">
-		<eh:title>院死回避</eh:title>
-		<p>
+	<section xml:id="graduate-school-entrance-exam-result">
+		<title>院死回避</title>
+		<simpara>
 			どうやら院死回避できたっぽいので、来年から院生できそう。
-		</p>
-	</eh:section>
-</eh:section>
+		</simpara>
+	</section>
+</section>
 
-<eh:section id="private-activities">
-	<eh:title>私的活動</eh:title>
+<section xml:id="private-activities">
+	<title>私的活動</title>
 
-	<eh:section id="progress-last-progress1">
-		<eh:title>進捗: last-progress1</eh:title>
-		<ul>
-			<li>
-				<a href="https://github.com/lo48576/last-progress1">lo48576/last-progress1: [WIP] ゲーム(になる予定のもの)</a>
-			</li>
-			<li>
-				<a href="https://github.com/lo48576/last-progress1/commit/83ba4a3748f6ad17d2d07021b0a53d8e729c5e83">Merge branch 'feature/static-fbx' into develop · lo48576/last-progress1@83ba4a3</a>
-			</li>
-		</ul>
-		<p>
+	<section xml:id="progress-last-progress1">
+		<title>進捗: last-progress1</title>
+		<itemizedlist>
+			<listitem>
+				<link xl:href="https://github.com/lo48576/last-progress1">lo48576/last-progress1: [WIP] ゲーム(になる予定のもの)</link>
+			</listitem>
+			<listitem>
+				<link xl:href="https://github.com/lo48576/last-progress1/commit/83ba4a3748f6ad17d2d07021b0a53d8e729c5e83">Merge branch 'feature/static-fbx' into develop · lo48576/last-progress1@83ba4a3</link>
+			</listitem>
+		</itemizedlist>
+		<simpara>
 			last-progress1 は、ゲームにしたい予定の何か。
 			今のところは静的な FBX のビューアの域を出ない。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			ちまちまと作業を続けてきたが、遂に静的メッシュの表示が完成した。
-		</p>
-		<p>
+		</simpara>
+		<simpara>
 			次に実装するのはアニメーションを目指してボーンを読んでいく部分なのだが、ただでさえ木構造だというのと関連仕様を†完全理解†しきれていないというのがあり、うまいことコードに落とせなかった。
 			もう少し 3D CG の基礎を勉強すべきかもしれない。
-		</p>
-		<figure>
+		</simpara>
+		<informalfigure>
 			<snsq:sns-quotes>
 				<snsq:sns-quote url="https://gnusocial.cardina1.red/notice/166253">
 					<snsq:identity url="https://gnusocial.cardina1.red/user/3">
@@ -121,10 +123,10 @@ excerpt: "2017年 第31週 まとめ"
 						<snsq:reftime datetime="2017-07-29T14:16:01+0900">2017-07-29</snsq:reftime>
 					</snsq:meta>
 					<snsq:content>
-						<p>
+						<simpara>
 							ここ数日、 Model (Limbnode) の下に Model (Null) が生えててその下に更に Model (LimbNode) が生えてるのをどう扱えばいいのかわからず進捗が止まっている
-							<a href="https://gnusocial.cardina1.red/file/c7086d09504c577e53b27ff889e71e1520f1c348e57867eb81da9538696a1c81.png">https://gnusocial.cardina1.red/attachment/27593</a>
-						</p>
+							<link xl:href="https://gnusocial.cardina1.red/file/c7086d09504c577e53b27ff889e71e1520f1c348e57867eb81da9538696a1c81.png">https://gnusocial.cardina1.red/attachment/27593</link>
+						</simpara>
 					</snsq:content>
 					<snsq:attachments>
 						<snsq:image
@@ -146,22 +148,22 @@ excerpt: "2017年 第31週 まとめ"
 						<snsq:in-reply-to url="https://gnusocial.cardina1.red/notice/166253" />
 					</snsq:meta>
 					<snsq:content>
-						<p>
+						<simpara>
 							IK とかするときボーン相当のノードの親子関係は網羅できないと困るし、普通に考えると Model (LimbNode) をボーンと考えれば十分なんだろうけど、 Model (Null) はデフォルトの行列も割り当てられていないし、はてさて2種類のノードをうまく扱うにはどうしようという
-						</p>
+						</simpara>
 					</snsq:content>
 				</snsq:sns-quote>
 			</snsq:sns-quotes>
-			<figcaption>うーん</figcaption>
-		</figure>
-		<p>
-			あと、並行してリソース管理のモジュールを作ろうとしたが、 <a href="https://crates.io/crates/gfx_device_gl">gfx_device_gl</a> crate がマルチスレッドで同じ GL context を扱うのに対応していないため、テクスチャの転送とかを別スレッドで行うことができないっぽい。
+			<caption>うーん</caption>
+		</informalfigure>
+		<simpara>
+			あと、並行してリソース管理のモジュールを作ろうとしたが、 <link xl:href="https://crates.io/crates/gfx_device_gl"><package>gfx_device_gl</package></link> crate がマルチスレッドで同じ GL context を扱うのに対応していないため、テクスチャの転送とかを別スレッドで行うことができないっぽい。
 			険しい。
-			協調的マルチタスクを自前で実装する破目になったら嫌だなぁ<eh:footnote id="implementing-non-preemptive-multitasking">
-				<a href="https://crates.io/crates/futures">futures-rs</a> でできそうな気はするんだけど、まだ確認してない
-			</eh:footnote>。
-		</p>
-	</eh:section>
-</eh:section>
+			協調的マルチタスクを自前で実装する破目になったら嫌だなぁ<footnote xml:id="footnote-implementing-non-preemptive-multitasking" refmark-id="ref-footnote-implementing-non-preemptive-multitasking">
+				<link xl:href="https://crates.io/crates/futures">futures-rs</link> でできそうな気はするんだけど、まだ確認してない
+			</footnote>。
+		</simpara>
+	</section>
+</section>
 
-</eh:article>
+</article>
