@@ -17,8 +17,8 @@ excerpt: "nginx で SSL 設定をする際、できるだけ安全に Android-4.
 <?xml version="1.0"?>
 <article
 	xmlns="http://docbook.org/ns/docbook"
-	xmlns:h="http://www.w3.org/1999/xhtml"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xml:id="article-2017-05-20-nginx-safe-ssl"
 	xml:lang="ja"
 	version="5.1"
@@ -125,10 +125,10 @@ excerpt: "nginx で SSL 設定をする際、できるだけ安全に Android-4.
 	<itemizedlist>
 		<listitem>
 			<simpara>
-				<h:del datetime="2017-11-25T14:38:15+0900">本来であれば SSL Labs のテストで A+ 評価だったのに、 Android 4.4.2 対応のせいで A に落ちた。くやしい。</h:del>
+				<le:del datetime="2017-11-25T14:38:15+0900">本来であれば SSL Labs のテストで A+ 評価だったのに、 Android 4.4.2 対応のせいで A に落ちた。くやしい。</le:del>
 			</simpara>
 			<simpara>
-				<h:ins datetime="2017-11-25T14:38:15+0900">2017-11-25 追記: 関係なかったっぽい。</h:ins>
+				<le:ins datetime="2017-11-25T14:38:15+0900">2017-11-25 追記: 関係なかったっぽい。</le:ins>
 			</simpara>
 		</listitem>
 		<listitem>

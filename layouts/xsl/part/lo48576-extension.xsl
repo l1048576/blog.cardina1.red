@@ -78,4 +78,34 @@
 	</rtc>
 </xsl:template>
 
+<!-- Alternative: `d:*[@revisionflag='added']`. -->
+<xsl:template match="le:ins">
+	<ins>
+		<xsl:apply-templates select="." mode="les:attrs" />
+		<xsl:apply-templates />
+	</ins>
+</xsl:template>
+
+<!-- Alternative: `d:*[@revisionflag='deleted']`. -->
+<xsl:template match="le:ins">
+	<del>
+		<xsl:apply-templates select="." mode="les:attrs" />
+		<xsl:apply-templates />
+	</del>
+</xsl:template>
+
+<xsl:template match="le:ins | le:del" mode="les:attrs">
+	<xsl:apply-templates select="." mode="les:default-attrs" />
+	<xsl:if test="@cite">
+		<xsl:attribute name="cite">
+			<xsl:value-of select="@cite" />
+		</xsl:attribute>
+	</xsl:if>
+	<xsl:if test="@datetime">
+		<xsl:attribute name="datetime">
+			<xsl:value-of select="@datetime" />
+		</xsl:attribute>
+	</xsl:if>
+</xsl:template>
+
 </xsl:stylesheet>
