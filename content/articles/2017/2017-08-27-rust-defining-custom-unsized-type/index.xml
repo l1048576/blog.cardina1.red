@@ -14,6 +14,7 @@ excerpt: "Rust-1.19.0 で str や std::path::Path のような型を定義する
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xmlns:h="http://www.w3.org/1999/xhtml"
 	xml:id="article-2017-08-27-rust-defining-custom-unsized-type"
 	xml:lang="ja"
@@ -325,7 +326,7 @@ impl ::std::borrow::Borrow<Iri> for IriBuf {
 </section>
 
 <section xml:id="postscript-20170829">
-	<title>追記 (<h:time datetime="2017-08-29">2017-08-29</h:time>): 参考</title>
+	<title>追記 (<le:time datetime="2017-08-29">2017-08-29</le:time>): 参考</title>
 	<itemizedlist>
 		<listitem>
 			<link xl:href="http://mmi.hatenablog.com/entry/2017/08/07/191033">[rust]ZST/DSTによるflexible array memberの実現 - 睡分不足</link>
@@ -337,7 +338,7 @@ impl ::std::borrow::Borrow<Iri> for IriBuf {
 </section>
 
 <section xml:id="postscript-20180717">
-	<title>追記2 (<h:time datetime="2018-07-17">2018-07-17</h:time>): crate 作った</title>
+	<title>追記2 (<le:time datetime="2018-07-17">2018-07-17</le:time>): crate 作った</title>
 	<itemizedlist>
 		<listitem>
 			<link xl:href="https://crates.io/crates/opaque_typedef">opaque_typedef - Cargo: packages for Rust</link>

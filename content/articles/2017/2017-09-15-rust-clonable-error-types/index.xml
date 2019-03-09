@@ -15,6 +15,7 @@ excerpt: "Rust でエラー型に Clone trait が実装されていてほしい�
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xmlns:h="http://www.w3.org/1999/xhtml"
 	xml:id="article-2017-09-15-rust-clonable-error-types"
 	xml:lang="ja"
@@ -39,7 +40,7 @@ excerpt: "Rust でエラー型に Clone trait が実装されていてほしい�
 			エラー型のオブジェクトを clone したい場合が存在する。
 		</listitem>
 		<listitem>
-			<link xl:href="https://crates.io/crates/error-chain">error_chain</link> crate でエラー型を用意すると、現状(<link xl:href="https://crates.io/crates/error-chain/0.11.0">0.11.0</link> (<h:time datetime="2017-09-06">2017-09-06</h:time> リリース)時点)では <code>derive(Clone)</code> できない。
+			<link xl:href="https://crates.io/crates/error-chain">error_chain</link> crate でエラー型を用意すると、現状(<link xl:href="https://crates.io/crates/error-chain/0.11.0">0.11.0</link> (<le:time datetime="2017-09-06">2017-09-06</le:time> リリース)時点)では <code>derive(Clone)</code> できない。
 		</listitem>
 	</itemizedlist>
 
@@ -295,7 +296,7 @@ pub enum Error {
 		<simpara>
 			<link xl:href="https://crates.io/crates/error-chain">error-chain</link> crate は、エラー型や関連する諸々を用意する際のボイラープレートを減らすためのライブラリである。
 			イマドキ手書きの温かみのあるエラー型を書いたりしないよね、 error-chain は人権だよねという空気がある<superscript>[要出典]</superscript>が、残念ながら error-chain で定義したエラー型は <code>Clone</code> を実装していないのである！！！
-			(<h:time datetime="2017-09-17">2017-09-17 時点</h:time>)
+			(<le:time datetime="2017-09-17">2017-09-17 時点</le:time>)
 		</simpara>
 		<simpara>
 			<link xl:href="https://github.com/rust-lang-nursery/error-chain/pull/163">プルリクエスト</link>もあり議論は進んでいるようだが、今使いたい私にとっては重大な問題である<footnote xml:id="footnote-not-using-error-chain" refmark-id="ref-footnote-not-using-error-chain">

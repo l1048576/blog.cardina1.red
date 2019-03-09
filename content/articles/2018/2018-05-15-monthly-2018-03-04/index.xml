@@ -13,21 +13,21 @@ excerpt: "2018年 03--04月 まとめ"
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
-	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xml:id="article-2018-05-15-monthly-2018-03-04"
 	xml:lang="ja"
 	version="5.1"
 >
 <title>Monthly report 2018-03 -- 2018-04</title>
 <simpara>
-	<h:time>2018-03</h:time> &#x2013; <h:time>2018-04</h:time> の日記。
+	<le:time>2018-03</le:time> &#x2013; <le:time>2018-04</le:time> の日記。
 </simpara>
 
 <section xml:id="news">
 	<title>ニュース・知ったこと</title>
 
 	<section xml:id="rust-1-24-1-release">
-		<title>Rust 1.24.1 リリース (<h:time>2018-03-01</h:time>)</title>
+		<title>Rust 1.24.1 リリース (<le:time>2018-03-01</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -41,7 +41,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="rust-std-simd">
-		<title>Rust の stdsimd が nightly で std 入り (<h:time>2018-03-05</h:time>)</title>
+		<title>Rust の stdsimd が nightly で std 入り (<le:time>2018-03-05</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -55,7 +55,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="hiveway">
-		<title>Hiveway の可燃性が高い (<h:time>2018-02-23</h:time>)</title>
+		<title>Hiveway の可燃性が高い (<le:time>2018-02-23</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -79,7 +79,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="vulkan-1-1-release">
-		<title>Vulkan 1.1 リリース (<h:time>2018-03-07</h:time>)</title>
+		<title>Vulkan 1.1 リリース (<le:time>2018-03-07</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -120,7 +120,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="rust-inclusive-range-stabilized">
-		<title>Rust の inclusive range (`..=`) の安定化が merge された (<h:time>2018-03-16</h:time>)</title>
+		<title>Rust の inclusive range (`..=`) の安定化が merge された (<le:time>2018-03-16</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -142,7 +142,7 @@ excerpt: "2018年 03--04月 まとめ"
 
 
 	<section xml:id="av1-video-format-released">
-		<title>AV1 video format released (<h:time>2018-03-28</h:time>)</title>
+		<title>AV1 video format released (<le:time>2018-03-28</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -164,7 +164,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="public-dns-1-1-1-1">
-		<title>パブリック DNS 1.1.1.1 (<h:time>2018-04-01</h:time>)</title>
+		<title>パブリック DNS 1.1.1.1 (<le:time>2018-04-01</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -180,7 +180,7 @@ excerpt: "2018年 03--04月 まとめ"
 						<link xl:href="https://www.quad9.net/">Quad9 DNS: Internet Security and Privacy in a Few Easy Steps</link>
 					</listitem>
 					<listitem>
-						<link xl:href="https://www-03.ibm.com/press/jp/ja/pressrelease/53396.wss">IBM ニュースルーム - <h:time>2017-11-17</h:time> IBM、Packet Clearing House、Global Cyber Alliance、インターネットの脅威から企業と消費者を保護するために協業 - Japan</link>
+						<link xl:href="https://www-03.ibm.com/press/jp/ja/pressrelease/53396.wss">IBM ニュースルーム - <le:time>2017-11-17</le:time> IBM、Packet Clearing House、Global Cyber Alliance、インターネットの脅威から企業と消費者を保護するために協業 - Japan</link>
 					</listitem>
 				</itemizedlist>
 			</listitem>
@@ -192,7 +192,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="joke-rfc-8369">
-		<title>ジョークRFC: RFC 8369 (<h:time>2018-04-01</h:time>)</title>
+		<title>ジョークRFC: RFC 8369 (<le:time>2018-04-01</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -209,7 +209,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="rust-never-type-stabilization-reverted">
-		<title>Rust の never_type 、安定化されかけるも revert される (<h:time>2018-04-22</h:time>)</title>
+		<title>Rust の never_type 、安定化されかけるも revert される (<le:time>2018-04-22</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -238,7 +238,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="lets-encrypt-is-now-the-largest-ssl-certificate">
-		<title>Let's Encrypt が最大勢力(過半数)になったらしい (<h:time>2018-04-19</h:time>)</title>
+		<title>Let's Encrypt が最大勢力(過半数)になったらしい (<le:time>2018-04-19</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -258,14 +258,14 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="ripe-ncc-ipv4-address-exhaustion">
-		<title>ヨーロッパ方面での IPv4 アドレスが枯渇 (<h:time>2018-04-19</h:time>)</title>
+		<title>ヨーロッパ方面での IPv4 アドレスが枯渇 (<le:time>2018-04-19</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
 				<link xl:href="https://www.ripe.net/publications/ipv6-info-centre/about-ipv6/ipv4-exhaustion/ipv4-available-pool-graph">RIPE NCC IPv4 Available Pool - Graph — RIPE Network Coordination Centre</link>
 				<itemizedlist>
 					<listitem>
-						<link xl:href="https://web.archive.org/web/20180508113444/https://www.ripe.net/publications/ipv6-info-centre/about-ipv6/ipv4-exhaustion/ipv4-available-pool-graph">Web archive (<h:time>2018-05-08</h:time>)</link>
+						<link xl:href="https://web.archive.org/web/20180508113444/https://www.ripe.net/publications/ipv6-info-centre/about-ipv6/ipv4-exhaustion/ipv4-available-pool-graph">Web archive (<le:time>2018-05-08</le:time>)</link>
 					</listitem>
 				</itemizedlist>
 			</listitem>
@@ -283,7 +283,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="webauthn-candidate-recommendation">
-		<title>WebAuthn が W3C 勧告候補へ (<h:time>2018-04-10</h:time>)</title>
+		<title>WebAuthn が W3C 勧告候補へ (<le:time>2018-04-10</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -295,12 +295,12 @@ excerpt: "2018年 03--04月 まとめ"
 		</itemizedlist>
 
 		<simpara>
-			Firefox でもバージョン60 (<h:time>2018-05-09</h:time> リリース)で対応された。
+			Firefox でもバージョン60 (<le:time>2018-05-09</le:time> リリース)で対応された。
 		</simpara>
 	</section>
 
 	<section xml:id="rust-x86-64-simd-stabilized">
-		<title>Rust で x86/86_64 SIMD の安定化が merge された (<h:time>2018-04-17</h:time>)</title>
+		<title>Rust で x86/86_64 SIMD の安定化が merge された (<le:time>2018-04-17</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -314,7 +314,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="ubuntu-18-04-release">
-		<title>Ubuntu 18.04 リリース (<h:time>2018-04-26</h:time>)</title>
+		<title>Ubuntu 18.04 リリース (<le:time>2018-04-26</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -335,7 +335,7 @@ excerpt: "2018年 03--04月 まとめ"
 	<title>ﾊﾟﾌﾞﾘｯｸ活動</title>
 
 	<section xml:id="nanoc-report-issue">
-		<title>nanoc に issue 立てた (解決済) (<h:time>2018-03-04</h:time>)</title>
+		<title>nanoc に issue 立てた (解決済) (<le:time>2018-03-04</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -356,7 +356,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="alacritty-pull-request">
-		<title>alacritty に Pull Requset 出した (merge された) (<h:time>2018-03-13</h:time> &#x2013; <h:time>2018-03-14</h:time>)</title>
+		<title>alacritty に Pull Requset 出した (merge された) (<le:time>2018-03-13</le:time> &#x2013; <le:time>2018-03-14</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -402,7 +402,7 @@ excerpt: "2018年 03--04月 まとめ"
 	<title>私的活動</title>
 
 	<section xml:id="graduate-travel">
-		<title>卒業旅行 (ロボット技術研究会 14 世代) (<h:time>2018-03-14</h:time> &#x2013; <h:time>2018-03-16</h:time>)</title>
+		<title>卒業旅行 (ロボット技術研究会 14 世代) (<le:time>2018-03-14</le:time> &#x2013; <le:time>2018-03-16</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>
@@ -416,7 +416,7 @@ excerpt: "2018年 03--04月 まとめ"
 	</section>
 
 	<section xml:id="release-opaque-typedef-crate">
-		<title>opaque_typedef 0.0.2, 0.0.3 リリース (<h:time>2018-04-10</h:time>, <h:time>2018-04-28</h:time>)</title>
+		<title>opaque_typedef 0.0.2, 0.0.3 リリース (<le:time>2018-04-10</le:time>, <le:time>2018-04-28</le:time>)</title>
 
 		<itemizedlist>
 			<listitem>

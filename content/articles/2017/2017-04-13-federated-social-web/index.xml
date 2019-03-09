@@ -17,6 +17,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:h="http://www.w3.org/1999/xhtml"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	xml:id="article-2017-04-13-federated-social-web"
 	xml:lang="ja"
@@ -216,15 +217,15 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 	</simpara>
 	<simpara>
 		Mastodon は <link xl:href="https://github.com/tootsuite/mastodon"><quote xml:lang="en">A GNU Social-compatible microblogging server</quote> と説明されている</link><footnote xml:id="footnote-mastodon-project-description" refmark-id="ref-footnote-mastodon-project-description">
-			2017-04-13 時点の文章。 <h:time datetime="2018-03-27T22:28:46+09:00">2018-03-27</h:time> 時点では <quote xml:lang="en">Your self-hosted, globally interconnected microblogging community</quote> という説明になっている。
+			2017-04-13 時点の文章。 <le:time datetime="2018-03-27T22:28:46+09:00">2018-03-27</le:time> 時点では <quote xml:lang="en">Your self-hosted, globally interconnected microblogging community</quote> という説明になっている。
 		</footnote>が、つまりこれは OStatus を実装しているということである。
 		ただそれだけであるが、つまり公開された仕様によっているということなので、全く別で開発された互換サービスと連携できる。
 	</simpara>
 	<note>
-		<title>ActivityPub と OStatus (<h:time datetime="2018-03-27T22:28:46+09:00">2018-03-27</h:time> 追記)</title>
+		<title>ActivityPub と OStatus (<le:time datetime="2018-03-27T22:28:46+09:00">2018-03-27</le:time> 追記)</title>
 		<simpara>
 			OStatus は古くからある規格だが、正式なリリースになっていない(ドラフトの)規格などに依存していたり、更新が滞っていたりなどしており、健全にメンテナンスされているとは言い難い。
-			ActivityPub は後発の規格だが W3C によって策定されており、 <h:time datetime="2018-01-23">2018-01-23</h:time> には勧告 (Recommendation) となった(つまり正式に規格として策定されたといえる状態になった)。
+			ActivityPub は後発の規格だが W3C によって策定されており、 <le:time datetime="2018-01-23">2018-01-23</le:time> には勧告 (Recommendation) となった(つまり正式に規格として策定されたといえる状態になった)。
 		</simpara>
 		<simpara>
 			GNU Social は古くからあり OStatus に対応しているが、 ActivityPub への対応は十分ではない。
@@ -328,7 +329,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 		</h:blockquote>
 
 		<note>
-			<title>世界中のユーザと繋がれないインスタンス (<h:time datetime="2018-05-15T11:23:03+09:00">2018-05-15</h:time> 追記)</title>
+			<title>世界中のユーザと繋がれないインスタンス (<le:time datetime="2018-05-15T11:23:03+09:00">2018-05-15</le:time> 追記)</title>
 
 			<simpara>
 				法律やサーバ管理ポリシーの違いなどもあり、特定のインスタンスの投稿の流入やリモートフォローなどを禁止していたり、場合によっては外部の全てのサーバとの接続を遮断していたりするインスタンスも存在する(した)<footnote xml:id="footnote-isolated-instances" refmark-id="ref-footnote-isolated-instances">
@@ -785,7 +786,7 @@ excerpt: "gnusocial や mastodon は、 twitter とどう違って何が良い�
 									</snsq:meta>
 									<snsq:content>
 										<simpara>
-											「最近聞いたサーバに登録したけど、メールアドレスとパスワードが悪用されるかも！ 怖い！」って、<h:br />
+											「最近聞いたサーバに登録したけど、メールアドレスとパスワードが悪用されるかも！ 怖い！」って、<le:br />
 											「最近見た人に部屋の鍵渡したけど、鍵を悪用されるかも！ 怖い！」と何が違うんですか。
 										</simpara>
 									</snsq:content>

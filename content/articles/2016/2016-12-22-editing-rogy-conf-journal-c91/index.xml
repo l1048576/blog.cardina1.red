@@ -17,26 +17,18 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
-	xmlns:h="http://www.w3.org/1999/xhtml"
 	xml:id="article-2016-12-22-editing-rogy-conf-journal-c91"
 	xml:lang="ja"
 	version="5.1"
 >
 <title>ロ技研の部誌を書いた記録</title>
-<!-- FIXME: What to use instead of this `h:aside`? -->
-<h:aside>
-	<simpara>
-		この記事は、 <link xl:href="http://www.adventar.org/calendars/1654">rogy Advent Calendar 2016</link> の22日目の記事です。
-	</simpara>
-	<simpara>
-		前日の記事は <link xl:href="https://maquinista.rogiken.org/?q=node/1635">12/21 近況と台湾と大掃除 | Maquinista</link> 、翌日の記事は <link xl:href="http://blog.tokor.org/2016/12/24/rogy-Advent-Calendar-2016-MAT%E5%B0%91%E5%A5%B3%E8%82%B2%E6%88%90%E8%A8%88LAB-02/">[rogy Advent Calendar 2016] MAT少女育成計LAB #02 | Tokoro's Tech-Note</link> です。
-	</simpara>
-	<simpara>
-		遅れてごめんよ。
-	</simpara>
-</h:aside>
-
-<h:hr />
+<simpara>
+	この記事は、 <link xl:href="http://www.adventar.org/calendars/1654">rogy Advent Calendar 2016</link> の22日目の記事です。
+	遅れてごめんよ。
+</simpara>
+<simpara>
+	前日の記事は <link xl:href="https://maquinista.rogiken.org/?q=node/1635">12/21 近況と台湾と大掃除 | Maquinista</link> 、翌日の記事は <link xl:href="http://blog.tokor.org/2016/12/24/rogy-Advent-Calendar-2016-MAT%E5%B0%91%E5%A5%B3%E8%82%B2%E6%88%90%E8%A8%88LAB-02/">[rogy Advent Calendar 2016] MAT少女育成計LAB #02 | Tokoro's Tech-Note</link> です。
+</simpara>
 
 <simpara>
 	<link xl:href="https://www.rogiken.org/">東工大 ロボット技術研究会</link>の部誌を編集した。

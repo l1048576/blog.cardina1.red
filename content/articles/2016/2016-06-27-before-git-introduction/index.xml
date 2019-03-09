@@ -201,11 +201,11 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 			</term>
 			<listitem>
 				<simpara>
-					新規ファイルやファイルの変更を次のコミットに含むために、<emphasis><link linkend="noun-staging-area">ステージング・エリア</link>に追加すること</emphasis>。<h:br />
+					新規ファイルやファイルの変更を次のコミットに含むために、<emphasis><link linkend="noun-staging-area">ステージング・エリア</link>に追加すること</emphasis>。<le:br />
 					逆に、stageされた新規ファイルや変更されたファイルをステージング・エリアから取り除くことを<emphasis>unstage</emphasis>とも言う。
 				</simpara>
 				<simpara>
-					たとえば「ブログを管理してるgitリポジトリで、前回の<link linkend="noun-commit">コミット</link>の状態から2記事を新しく追加したけど、まず1記事だけ追加した状態の<link linkend="noun-commit">コミット</link>を作っておきたい」などのケースは実際よくあることだ。<h:br />
+					たとえば「ブログを管理してるgitリポジトリで、前回の<link linkend="noun-commit">コミット</link>の状態から2記事を新しく追加したけど、まず1記事だけ追加した状態の<link linkend="noun-commit">コミット</link>を作っておきたい」などのケースは実際よくあることだ。<le:br />
 					もし現在のファイルの状態からしか<link linkend="noun-commit">コミット[名詞]</link>を作れないのでは、追加しない方の記事を一度削除して<link linkend="verb-commit">コミット[動詞]</link>、という面倒な手順を踏むことになってしまうが、<link linkend="noun-staging-area">ステージング・エリア</link>をうまく使ってやることで、<link linkend="noun-working-directory">ワーキングディレクトリ</link>を変更することなく部分的に変更を<link linkend="noun-commit">コミット</link>に追加することができる。
 				</simpara>
 				<note>
@@ -219,17 +219,17 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 		</varlistentry>
 		<varlistentry xml:id="noun-diff">
 			<term>
-				diff, 差分 [名詞]<h:br />
+				diff, 差分 [名詞]<le:br />
 				change(s), 変更 [名詞]
 			</term>
 			<listitem>
 				<simpara>
-					グラフの用語で言うなら、<link linkend="noun-commit">コミット[名詞]</link>や<link linkend="noun-staging-area">ステージング・エリア</link>のファイルがノードで、diff(差分)はエッジ(辺)だ。<h:br />
+					グラフの用語で言うなら、<link linkend="noun-commit">コミット[名詞]</link>や<link linkend="noun-staging-area">ステージング・エリア</link>のファイルがノードで、diff(差分)はエッジ(辺)だ。<le:br />
 					よって、diffはコミット間以外でも、コミットとステージング・エリア間やステージング・エリアとワーキングディレクトリ間でも考えることができる。
 				</simpara>
 				<simpara>
-					diffが何に役立つかというと、<link linkend="noun-commit">コミット[名詞]</link>間で何がどう変更されたかを確認できたり、またあるdiffを別の<link linkend="noun-branch">ブランチ</link>や<link linkend="noun-commit">コミット[名詞]</link>に適用(rebase/cherrypick)することで、<emphasis>ある<link linkend="noun-branch">ブランチ</link>での変更を別の<link linkend="noun-branch">ブランチ</link>へ同様に適用する</emphasis>ことができる。<h:br />
-					要するに「安定版用のブランチで行われたバグ修正を、不安定版用ブランチにも持ってくる」ということが簡単に可能になる。<h:br />
+					diffが何に役立つかというと、<link linkend="noun-commit">コミット[名詞]</link>間で何がどう変更されたかを確認できたり、またあるdiffを別の<link linkend="noun-branch">ブランチ</link>や<link linkend="noun-commit">コミット[名詞]</link>に適用(rebase/cherrypick)することで、<emphasis>ある<link linkend="noun-branch">ブランチ</link>での変更を別の<link linkend="noun-branch">ブランチ</link>へ同様に適用する</emphasis>ことができる。<le:br />
+					要するに「安定版用のブランチで行われたバグ修正を、不安定版用ブランチにも持ってくる」ということが簡単に可能になる。<le:br />
 					また、<emphasis>過去の変更をなかったことにする(revert)</emphasis>こともできる。
 					(取り消したいdiffの逆の変更を適用すればいい。)
 				</simpara>
@@ -314,7 +314,7 @@ excerpt: "実際にgitを使ってみる前に知っておきたい概念とか�
 				</term>
 				<listitem>
 					<simpara>
-						<code>git checkout [commit]</code><h:br />
+						<code>git checkout [commit]</code><le:br />
 						<code>git checkout [branch]</code>
 					</simpara>
 					<simpara>

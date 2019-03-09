@@ -15,6 +15,7 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:h="http://www.w3.org/1999/xhtml"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	xml:id="article-2017-01-01-crush-the-kilogram"
 	xml:lang="ja"
@@ -76,7 +77,7 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 				既に200年以上前の人々が、ヤードポンド法のような、権力者の身体等を基準に定義される野蛮な単位から脱しようとしていたのだ。
 				現代ではヤードもポンドもオンスも、SI単位を用いて再定義されている<footnote xml:id="footnote-multiple-miles" refmark-id="ref-footnote-multiple-miles">
 					<link xl:href="https://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%A4%E3%83%AB">マイル</link>など、メートルで定義されてなお統一されない単位もある。
-					国際マイル、測量マイル、法定マイル、国際<h:ruby>海里<h:rp>(</h:rp><h:rt>ノーティカルマイル</h:rt><h:rp>)</h:rp></h:ruby>……。
+					国際マイル、測量マイル、法定マイル、国際<le:ruby>海里<le:rp>(</le:rp><le:rt>ノーティカルマイル</le:rt><le:rp>)</le:rp></le:ruby>……。
 					そこまでしてローカル単位を使いたい奴ら、中世から生き続けるゾンビか何かか？
 				</footnote>。
 			</simpara>

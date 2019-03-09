@@ -15,6 +15,7 @@ excerpt: "Rust 1.21.0での never type とセミコロン周辺の型推論の�
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xmlns:h="http://www.w3.org/1999/xhtml"
 	xml:id="article-2017-12-07-never-type-and-semicolon"
 	xml:lang="ja"
@@ -22,7 +23,7 @@ excerpt: "Rust 1.21.0での never type とセミコロン周辺の型推論の�
 >
 <title>Rust での never type とセミコロン、型推論のルール変遷</title>
 <simpara>
-	この記事は、 <link xl:href="https://qiita.com/advent-calendar/2017/rust-internal">Rust Internal Advent Calendar 2017</link> の7日目の記事である。<h:br />
+	この記事は、 <link xl:href="https://qiita.com/advent-calendar/2017/rust-internal">Rust Internal Advent Calendar 2017</link> の7日目の記事である。<le:br />
 </simpara>
 <important>
 	<title>潜在的に古い情報</title>
@@ -70,7 +71,7 @@ excerpt: "Rust 1.21.0での never type とセミコロン周辺の型推論の�
 		<simpara>
 			絶対に実行が返ってこない、また値が作られないことを示す <type>!</type> 型 (never type) <footnote xml:id="footnote-diverging-type" refmark-id="ref-footnote-diverging-type">
 				型理論とかでは diverging type (発散型) であったり bottom type (ボトム型)と呼んだりするようだが、 Rust では never type だとか bang type だとかの呼び方もある。
-				feature gate としては、今 (<h:time datetime="2017-10-14">2017-10-14</h:time>) は <link xl:href="https://github.com/rust-lang/rfcs/pull/1216#issuecomment-240644538"><code>never_type</code></link> の名前が使われている。
+				feature gate としては、今 (<le:time datetime="2017-10-14">2017-10-14</le:time>) は <link xl:href="https://github.com/rust-lang/rfcs/pull/1216#issuecomment-240644538"><code>never_type</code></link> の名前が使われている。
 			</footnote>は、いかなる型へも暗黙に型強制<footnote xml:id="footnote-type-coercion" refmark-id="ref-footnote-type-coercion">
 				ある型を、その場所で求められる別の型へと(暗黙に)変換すること。
 				たとえば、 <type>&amp;str</type> が求められている場所に <type>&amp;String</type> の値を渡すと、 <link xl:href="https://doc.rust-lang.org/std/ops/trait.Deref.html"><code>Deref</code> trait</link> を利用してこれが自動的に <type>&amp;str</type> の値に変換されるのだが、これも型強制のはたらきによるものである。
@@ -96,7 +97,7 @@ fn main() {
 		<important>
 		<title>古い情報</title>
 		<simpara>
-			問題のコードは Rust-1.22.1 時点ではコメントの通りコンパイルが通るが、 <h:time datetime="2017-12-07">2017-12-07</h:time> 時点での nightly (rustc-1.24.0-nightly (5a2465e2b 2017-12-06)) ではコンパイルが通らない。
+			問題のコードは Rust-1.22.1 時点ではコメントの通りコンパイルが通るが、 <le:time datetime="2017-12-07">2017-12-07</le:time> 時点での nightly (rustc-1.24.0-nightly (5a2465e2b 2017-12-06)) ではコンパイルが通らない。
 		</simpara>
 		<informalfigure>
 			<programlisting language="rust"><![CDATA[#![allow(unreachable_code)]
@@ -278,7 +279,7 @@ fn main() {
 		<important>
 			<title>古い情報</title>
 			<simpara>
-				<link linkend="time-series2--issue-46325">issue #46325</link>, <link linkend="time-series2--pr-45880">PR #45880</link> でエラー扱いになったため、今 (<h:time datetime="2017-12-07">2017-12-07</h:time>) はもうコンパイルは通らない。
+				<link linkend="time-series2--issue-46325">issue #46325</link>, <link linkend="time-series2--pr-45880">PR #45880</link> でエラー扱いになったため、今 (<le:time datetime="2017-12-07">2017-12-07</le:time>) はもうコンパイルは通らない。
 			</simpara>
 		</important>
 
@@ -305,7 +306,7 @@ fn main() {
 		<important>
 			<title>古い情報</title>
 			<simpara>
-				<link linkend="time-series2--issue-46325">issue #46325</link>, <link linkend="time-series2--pr-45880">PR #45880</link> でエラー扱いになったため、疑問1の場合と同じく、これももう今 (<h:time datetime="2017-12-07">2017-12-07</h:time>) ではコンパイルは通らない。
+				<link linkend="time-series2--issue-46325">issue #46325</link>, <link linkend="time-series2--pr-45880">PR #45880</link> でエラー扱いになったため、疑問1の場合と同じく、これももう今 (<le:time datetime="2017-12-07">2017-12-07</le:time>) ではコンパイルは通らない。
 			</simpara>
 		</important>
 
@@ -326,7 +327,7 @@ fn main() {
 			<caption>明示的に <type>!</type> にキャストすると……</caption>
 		</informalfigure>
 		<simpara>
-			これも <link linkend="time-series--pr-40224">PR #40224</link> で導入されたルールで説明できる。<h:br />
+			これも <link linkend="time-series--pr-40224">PR #40224</link> で導入されたルールで説明できる。<le:br />
 			<code>{ panic!(); () }</code> は:
 		</simpara>
 		<itemizedlist>
@@ -395,7 +396,7 @@ fn main() {
 </section>
 
 <section xml:id="time-series">
-	<title>時系列 (<h:time datetime="2017-10-14">2017-10-14</h:time> まで)</title>
+	<title>時系列 (<le:time datetime="2017-10-14">2017-10-14</le:time> まで)</title>
 
 	<important>
 		<title>潜在的に古い情報</title>
@@ -458,7 +459,7 @@ fn main() {
 			この RFC の議論は <link xl:href="https://github.com/rust-lang/rfcs/pull/1216">Promote `!` to a type. #1216</link> で行われており、実装状況は tracking issue である <link xl:href="https://github.com/rust-lang/rust/issues/35121">issue #35121</link> で追跡されている。
 		</simpara>
 		<simpara>
-			この RFC では <code>bang_type</code> feature となっているが、その後改名され、 <h:time datetime="2017-10-14">2017-10-14</h:time> 時点では <code>never_type</code> feature として管理されている。
+			この RFC では <code>bang_type</code> feature となっているが、その後改名され、 <le:time datetime="2017-10-14">2017-10-14</le:time> 時点では <code>never_type</code> feature として管理されている。
 		</simpara>
 	</section>
 
@@ -577,7 +578,7 @@ error: aborting due to previous error
 			</simpara>
 			<h:blockquote cite="https://github.com/rust-lang/rust/issues/39297#issuecomment-276809637">
 				<simpara>
-					<code>let x = if true { 22 } else { return; 'a' };</code> の型チェックが(この issue の時点では)通るし、 diverging arm の型が何であるか考えるべきでないよね。<h:br />
+					<code>let x = if true { 22 } else { return; 'a' };</code> の型チェックが(この issue の時点では)通るし、 diverging arm の型が何であるか考えるべきでないよね。<le:br />
 					<phrase>(原文: "then we ought not to be considering the type of diverging arm at all.")</phrase>
 				</simpara>
 				<simpara>
@@ -665,7 +666,7 @@ error: aborting due to previous error
 		</itemizedlist>
 
 		<simpara>
-			この regression は、前述の pull request #39485 により発生したもの<emphasis>ではない</emphasis>。<h:br />
+			この regression は、前述の pull request #39485 により発生したもの<emphasis>ではない</emphasis>。<le:br />
 			たぶん commit <link xl:href="https://github.com/rust-lang/rust/commit/6b3cc0b8c8094407a3b5ea75f946c682d6d0142a">rustc_typeck: correctly track "always-diverges" and "has-type-errors". ・ rust-lang/rust@6b3cc0b</link> での <filename>src/librustc_typeck/check/mod.rs</filename> の <code>check_then_else()</code> への変更あたりが引き起こしたのだと思う(詳細は確認していない(正確には、確認したけどわからなかった))。
 		</simpara>
 		<simpara>
@@ -815,7 +816,7 @@ error: aborting due to previous error
 </section>
 
 <section xml:id="time-series2">
-	<title>時系列2 (<h:time datetime="2017-10-14">2017-10-14</h:time> から <h:time datetime="2017-12-07">2017-12-07</h:time>まで)</title>
+	<title>時系列2 (<le:time datetime="2017-10-14">2017-10-14</le:time> から <le:time datetime="2017-12-07">2017-12-07</le:time>まで)</title>
 
 	<itemizedlist>
 		<listitem>

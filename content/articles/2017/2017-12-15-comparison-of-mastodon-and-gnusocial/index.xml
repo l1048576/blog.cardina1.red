@@ -17,6 +17,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 <article
 	xmlns="http://docbook.org/ns/docbook"
 	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
 	xmlns:h="http://www.w3.org/1999/xhtml"
 	xmlns:snsq="https://www.cardina1.red/_ns/xml/sns-quote/2017-1018"
 	xml:id="article-2017-12-15-comparison-of-mastodon-and-gnusocial"
@@ -28,7 +29,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 	この記事は、 <link xl:href="https://adventar.org/calendars/2178">Mastodon Advent Calendar 2017</link> の15日目の記事である。
 </simpara>
 <simpara>
-	前日の記事は『<link xl:href="https://medium.com/@tootleinside/%E3%81%A9%E3%81%86%E3%81%99%E3%82%8C%E3%81%B0%E5%A4%89%E5%8C%96%E3%81%99%E3%82%8Bapi%E3%81%A8%E4%B8%8A%E6%89%8B%E3%81%8F%E4%BB%98%E3%81%8D%E5%90%88%E3%81%A3%E3%81%A6%E3%81%84%E3%81%91%E3%82%8B%E3%81%AE%E3%81%8B-d7650cfcb517">どうすれば変化するAPIと上手く付き合っていけるのか – Tootle Inside – Medium</link>』、<h:br />
+	前日の記事は『<link xl:href="https://medium.com/@tootleinside/%E3%81%A9%E3%81%86%E3%81%99%E3%82%8C%E3%81%B0%E5%A4%89%E5%8C%96%E3%81%99%E3%82%8Bapi%E3%81%A8%E4%B8%8A%E6%89%8B%E3%81%8F%E4%BB%98%E3%81%8D%E5%90%88%E3%81%A3%E3%81%A6%E3%81%84%E3%81%91%E3%82%8B%E3%81%AE%E3%81%8B-d7650cfcb517">どうすれば変化するAPIと上手く付き合っていけるのか – Tootle Inside – Medium</link>』、<le:br />
 	翌日の記事は『<link xl:href="https://theboss.github.io/blog/2017/12/17/introduction-to-mastodon-frontend-customization/">Mastodon フロントエンド改造入門 | THE BOSS's blog</link>』である。
 </simpara>
 
@@ -265,7 +266,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 					<listitem>nightly   "unstable", most updates, not always working</listitem>
 				</itemizedlist>
 				<h:footer>
-					&#x2014; <link xl:href="https://git.gnu.io/gnu/gnu-social/blob/50f9f23ff19a4f577c429d80411378d6a1747725/README.md#unstable-version"><h:time datetime="2017-12-15">2017-12-15</h:time> 時点での master の <filename>README.md</filename> より</link>
+					&#x2014; <link xl:href="https://git.gnu.io/gnu/gnu-social/blob/50f9f23ff19a4f577c429d80411378d6a1747725/README.md#unstable-version"><le:time datetime="2017-12-15">2017-12-15</le:time> 時点での master の <filename>README.md</filename> より</link>
 				</h:footer>
 			</h:blockquote>
 			<simpara>
@@ -279,13 +280,13 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 			</simpara>
 			<simpara>
 				そもそも nightly の開発さえ停滞しているようで、なかなか厳しい。
-				たとえば nightly ブランチは <h:time datetime="2017-09-10">2017-09-10</h:time> を最後に、 <h:time datetime="2017-12-15">2017-12-15</h:time> に至るまでコミット(の push) が行われていない。
+				たとえば nightly ブランチは <le:time datetime="2017-09-10">2017-09-10</le:time> を最後に、 <le:time datetime="2017-12-15">2017-12-15</le:time> に至るまでコミット(の push) が行われていない。
 				この様子では、 ActivityPub への対応などは状況が変わらない限り望めないだろう。
 			</simpara>
 			<note>
-				<title><h:time datetime="2017-12-20">2017-12-20</h:time> 追記: master, nightly が更新された (<h:time datetime="2017-12-17">2017-12-17</h:time>)</title>
+				<title><le:time datetime="2017-12-20">2017-12-20</le:time> 追記: master, nightly が更新された (<le:time datetime="2017-12-17">2017-12-17</le:time>)</title>
 				<simpara>
-					この記事を公開した<h:time datetime="2017-12-17">2日後</h:time>、実に3ヶ月ぶりに GNU Social のリポジトリに更新があった
+					この記事を公開した<le:time datetime="2017-12-17">2日後</le:time>、実に3ヶ月ぶりに GNU Social のリポジトリに更新があった
 					(<link xl:href="https://git.gnu.io/gnu/gnu-social/commits/master">master</link>,
 					<link xl:href="https://git.gnu.io/gnu/gnu-social/commits/nightly">nightly</link>,
 					<link xl:href="https://git.gnu.io/gnu/gnu-social/commit/0b9a2fdf3ad19942e85a66b94d08501ce9c927dd">0b9a2fd</link>,
@@ -306,7 +307,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 			</note>
 			<simpara>
 				バージョンを上げるとなると、もっとペースが遅くなる。
-				最後のバージョンアップ (1.1.3 → 1.2.0) が行われたのが、 <link xl:href="https://git.gnu.io/gnu/gnu-social/commit/1cc96cd33425780ebd4a8f40ddfc051013a8ee4e"><h:time datetime="2015-02-27">2015-02-27</h:time> のこと</link>である。
+				最後のバージョンアップ (1.1.3 → 1.2.0) が行われたのが、 <link xl:href="https://git.gnu.io/gnu/gnu-social/commit/1cc96cd33425780ebd4a8f40ddfc051013a8ee4e"><le:time datetime="2015-02-27">2015-02-27</le:time> のこと</link>である。
 				尤も、これも「安定している」と言うことはできるから欠点だけというわけでもないかもしれない。
 			</simpara>
 		</section>
@@ -629,7 +630,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 			</simpara>
 			<simpara>
 				与えられた餌を食べているだけでは、中央集権サービスの運営者に飼われているのと大差ない。
-				「誰かが用意してそこにある<h:ruby>もの<h:rp>(</h:rp><h:rt>タイムライン</h:rt><h:rp>)</h:rp></h:ruby>に自分も飛び込む」という考え方を、「<emphasis>自分で自分の<h:ruby>環境や居場所<h:rp>(</h:rp><h:rt>フォローとタイムライン</h:rt><h:rp>)</h:rp></h:ruby>を確保する</emphasis>」という考え方に転換することが必要なのではないだろうか。
+				「誰かが用意してそこにある<le:ruby>もの<le:rp>(</le:rp><le:rt>タイムライン</le:rt><le:rp>)</le:rp></le:ruby>に自分も飛び込む」という考え方を、「<emphasis>自分で自分の<le:ruby>環境や居場所<le:rp>(</le:rp><le:rt>フォローとタイムライン</le:rt><le:rp>)</le:rp></le:ruby>を確保する</emphasis>」という考え方に転換することが必要なのではないだろうか。
 			</simpara>
 			<simpara>
 				Mastodon には、フォローしているユーザをファイルにして保存したり、アップロードして再現する機能がある。
@@ -638,7 +639,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 				これもまた分散 SNS におけるユーザの分散と連合を推進するものだ。
 			</simpara>
 			<simpara>
-				<emphasis>ローカルタイムラインで面白いと思ったユーザは、そこで眺めて満足するのではなく、フォローして「自分のための<h:ruby>環境<h:rp>(</h:rp><h:rt>タイムライン</h:rt><h:rp>)</h:rp></h:ruby>」に取り込むべき</emphasis>である。
+				<emphasis>ローカルタイムラインで面白いと思ったユーザは、そこで眺めて満足するのではなく、フォローして「自分のための<le:ruby>環境<le:rp>(</le:rp><le:rt>タイムライン</le:rt><le:rp>)</le:rp></le:ruby>」に取り込むべき</emphasis>である。
 				そうしていずれ来るかもしれない運営者との決別の時、あるいは自立の時に備えておくこと、これも Mastodon を“第2の twitter ”にしないための極めて簡単な努力の形である<footnote xml:id="footnote-less-dependency-on-local-timeline" refmark-id="ref-footnote-less-dependency-on-local-timeline">
 					そういう意図で、私は一貫して「 LTL はユーザを発見する目的で使われるべきで、常用して参加するための場と見做してほしくない」「趣味などでユーザを特定インスタンスに集めるのは良くない」と言っているのだが、まあ世の中いろいろな考えの人がいるもので、同意してもらえた割合はあまり多くない気がする
 				</footnote>。
@@ -693,7 +694,7 @@ excerpt: "Mastodon と繋がるのは Mastodon だけじゃないんですよ的
 				</snsq:meta>
 				<snsq:content>
 					<simpara>
-						ただ、私が分散と連合を個人レベルまで推進することを推すのは、「分散 SNS だから」という名前の分類の問題ではなくて、「ユーザの自由を最大限担保するためのサービスの在り方だから」という理由であることは再三述べていきたい。<h:br />
+						ただ、私が分散と連合を個人レベルまで推進することを推すのは、「分散 SNS だから」という名前の分類の問題ではなくて、「ユーザの自由を最大限担保するためのサービスの在り方だから」という理由であることは再三述べていきたい。<le:br />
 自由が要らないなら twitter なり何なり好きに使えば良いが、自由を守る努力をせず権利を失ったときには、往々にして既に手遅れになっているものなのでは。
 					</simpara>
 				</snsq:content>

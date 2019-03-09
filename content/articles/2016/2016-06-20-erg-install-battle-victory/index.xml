@@ -387,30 +387,28 @@ c464f345818ad873cc5934fbcc9e47e47ac89f72ec7c4b17574097ab31c1153b1e8586cb346be053
 			</listitem>
 			<listitem><link xl:href="/2016/06/15/erg-install-battle#anaoto-install-challenge-2">あなオトのautorunのエラー</link>は相変わらず出る。DirectXが原因ではないのかもしれない。</listitem>
 		</itemizedlist>
-		<h:div id="fig-games-run-success">
-			<informalfigure xml:id="fig-anaoto-run-success">
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="anaoto-run-success.png" />
-					</imageobject>
-					<textobject>
-						<phrase>あなオト起動成功の図</phrase>
-					</textobject>
-				</mediaobject>
-				<caption>あなオト起動成功</caption>
-			</informalfigure>
-			<informalfigure xml:id="fig-maitetsu-run-success">
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="maitetsu-run-success.png" />
-					</imageobject>
-					<textobject>
-						<phrase>まいてつ起動成功の図</phrase>
-					</textobject>
-				</mediaobject>
-				<caption>まいてつ起動成功</caption>
-			</informalfigure>
-		</h:div>
+		<informalfigure xml:id="fig-anaoto-run-success">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="anaoto-run-success.png" />
+				</imageobject>
+				<textobject>
+					<phrase>あなオト起動成功の図</phrase>
+				</textobject>
+			</mediaobject>
+			<caption>あなオト起動成功</caption>
+		</informalfigure>
+		<informalfigure xml:id="fig-maitetsu-run-success">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="maitetsu-run-success.png" />
+				</imageobject>
+				<textobject>
+					<phrase>まいてつ起動成功の図</phrase>
+				</textobject>
+			</mediaobject>
+			<caption>まいてつ起動成功</caption>
+		</informalfigure>
 	</section>
 </section>
 

@@ -18,7 +18,6 @@ excerpt: "mltermでHomeやEndキーがうまく動かなかったため、原因
 <?xml version="1.0"?>
 <article
 	xmlns="http://docbook.org/ns/docbook"
-	xmlns:h="http://www.w3.org/1999/xhtml"
 	xmlns:xl="http://www.w3.org/1999/xlink"
 	xml:id="article-2015-11-18-mlterm-terminfo"
 	xml:lang="ja"
