@@ -1,12 +1,28 @@
-%docbook-admon-base {
-	@extend %admonition-block;
+%docbook-admon-block-title {
+	all: unset;
+	display: block;
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin: 1rem 0;
+}
+
+%docbook-admon-block-before-icon {
+	display: inline-block;
+	//font-size: 2rem; // For icon character.
+	font-size: 1em; // For text label.
+	font-weight: normal;
+	margin: 0 0.5rem;
 }
 
 @mixin docbook-admon($fg-color, $bg, $content: null) {
-	@extend %docbook-admon-base;
+	margin: $vertical-unit 0;
+	padding: 0.2rem 0.5rem;
+
 	border-left: 0.5rem $fg-color solid;
 
 	>h1, >h2, >h3, >h4, >h5, >h6 {
+		@extend %docbook-admon-block-title;
+
 		color: $fg-color;
 
 		&:first-child {
@@ -14,10 +30,15 @@
 		}
 
 		&::before {
-			@extend %admonition-block-before-icon;
+			@extend %docbook-admon-block-before-icon;
 			content: $content;
 			color: $fg-color;
 		}
+	}
+
+	>:last-child,
+	div:last-child >:last-child {
+		margin-bottom: 0;
 	}
 }
 

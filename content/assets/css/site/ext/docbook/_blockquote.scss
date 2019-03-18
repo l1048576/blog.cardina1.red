@@ -1,0 +1,11 @@
+%blockquote-attribution {
+	&::before {
+		content: "―― ";
+	}
+}
+
+.#{$docbook-class-prefix}blockquote {
+	.#{$docbook-class-prefix}attribution {
+		@extend %blockquote-attribution;
+	}
+}

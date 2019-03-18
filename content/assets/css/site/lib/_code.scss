@@ -1,0 +1,9 @@
+@import 'fonts';
+
+@mixin code-common {
+	border: 1px solid #eeeef899;
+	background: #f4f4f499;
+}
+
+@mixin code-block {
+}

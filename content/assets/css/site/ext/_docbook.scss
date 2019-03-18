@@ -1,0 +1,9 @@
+$docbook-class-prefix: docbook-;
+$font-family-monospace: monospace !default;
+
+@import 'docbook/block';
+@import 'docbook/inline';
+@import 'docbook/blockquote';
+@import 'docbook/admonition';
+@import 'docbook/preformatted';
+@import 'docbook/footnote';
