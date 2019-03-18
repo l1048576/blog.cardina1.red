@@ -1,12 +1,19 @@
-// Footnote.
+%footnote-marker-selected {
+	background-color: yellow;
+}
+
+%footnote-selected {
+	background-color: yellow;
+}
+
 aside.footnotes {
 	font-size: 80%;
 	margin-bottom: $vertical-unit;
 
 	&::before {
 		display: block;
-		border-top: $hr-border-top;
-		width: var(--hr-width, 50%);
+		border-top: 1px solid #aaa;
+		width: 50%;
 		content: " ";
 		margin: $vertical-unit auto;
 	}

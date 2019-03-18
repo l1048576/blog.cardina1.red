@@ -1,0 +1,40 @@
+%docbook-code-inline-block {
+	@include code-common;
+	font-family: $font-family-code-inline;
+	display: inline-block;
+	border-radius: 0.2em;
+	padding: 0 0.2em;
+}
+
+.#{$docbook-class-prefix}uri {
+	font-family: $font-family-monospace;
+}
+
+.#{$docbook-class-prefix}code,
+.#{$docbook-class-prefix}filename,
+.#{$docbook-class-prefix}keycap,
+.#{$docbook-class-prefix}keycode,
+.#{$docbook-class-prefix}keycombo,
+.#{$docbook-class-prefix}keysym
+{
+	@extend %docbook-code-inline-block;
+}
+
+.#{$docbook-class-prefix}filename {
+	&:not([data-docbook-filename-class]) {
+		&::before {
+			// U+1F5C5 EMPTY NOTE
+			content: "\1f5c5";
+			margin-right: 0.1em;
+		}
+	}
+
+	&[data-docbook-filename-class="directory"] {
+		&::before {
+			// U+1F5C0 FOLDER
+			// U+1F5C1 OPEN FOLDER
+			content: "\1f5c1";
+			margin-right: 0.1em;
+		}
+	}
+}

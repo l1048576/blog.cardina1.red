@@ -1,0 +1,18 @@
+%paragraph-title {
+	color: brown;
+	font-weight: bolder;
+	border-left: 0.5rem solid brown;
+	padding-left: 0.5rem;
+	line-height: $vertical-unit;
+	margin-bottom: 0;
+
+	& + * {
+		margin-top: 0;
+	}
+}
+
+.#{$docbook-class-prefix}formalpara {
+	>.#{$docbook-class-prefix}title {
+		@extend %paragraph-title
+	}
+}
