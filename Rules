@@ -43,6 +43,7 @@ compile '/articles/**/*.xml' do
     raise RuntimeError.new("Unknown article format: #{@item[:format]}")
   end
   filter :colorize_syntax, default_colorizer: :pygmentsrb, syntax: :xml
+  snapshot :html_pre
   layout '/article.xhtml'
   filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
@@ -61,6 +62,7 @@ end
 compile '/tags/data/*.xml' do
   layout '/xsl/docbook-article.xsl'
   filter :colorize_syntax, default_colorizer: :pygmentsrb, syntax: :xml
+  snapshot :html_pre
   layout '/tag-page.xhtml'
   filter :relativize_paths, type: :xml, select: XHTML_RELPATH_SELECTORS
 end
