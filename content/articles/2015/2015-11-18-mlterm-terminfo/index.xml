@@ -41,8 +41,8 @@ excerpt: "mltermでHomeやEndキーがうまく動かなかったため、原因
 	<figure xml:id="figure-sample-bindkey-conf"><programlisting language="bash"><![CDATA[typeset -A key
 key[Home]=${terminfo[khome]}
 key[End]=${terminfo[kend]}
-[[ -n ${key[Home]}        ]] &amp;&amp; bindkey "${key[Home]}"      beginning-of-line
-[[ -n ${key[End]}         ]] &amp;&amp; bindkey "${key[End]}"       end-of-line]]></programlisting>
+[[ -n ${key[Home]}        ]] && bindkey "${key[Home]}"      beginning-of-line
+[[ -n ${key[End]}         ]] && bindkey "${key[End]}"       end-of-line]]></programlisting>
 		<caption><filename>~/.zshrc</filename> (抜粋)</caption>
 	</figure>
 	<simpara>
