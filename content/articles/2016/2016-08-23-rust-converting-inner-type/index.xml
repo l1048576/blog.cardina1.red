@@ -124,7 +124,7 @@ p_f64 { 3, 4 }
 	<simpara>
 		結論を言えば、このreflexive lawがエラーの原因だ。
 		<code>From</code>はreflexiveである(すなわち全ての<code>T</code>に対してcore crateで<code>From&lt;T&gt; for T</code>が実装されている)ため、問題のコードで<code>U = T</code>の場合である<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;T&gt;</code>が実装される。
-		一方、またもや<code>From</code>のreflexivityより、<code>Point&lt;T&gt;</code>に対してcore crateで<code>From&lt;Ponit&lt;T&gt;&gt; for Point&lt;T&gt;</code>が実装される。
+		一方、またもや<code>From</code>のreflexivityより、<code>Point&lt;T&gt;</code>に対してcore crateで<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;T&gt;</code>が実装される。
 		斯くして<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;T&gt;</code>が二重で実装され、衝突と相成ったわけである。
 	</simpara>
 </section>
