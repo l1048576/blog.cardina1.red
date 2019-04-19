@@ -402,7 +402,7 @@ excerpt: "東工大ロ技研の部誌(C91)を編集する過程とか振り返�
 				</footnote>ので、素直に環境とプリアンブルを共通化することでどうにかしようということになった。
 			</simpara>
 			<simpara>
-				さて、記事毎の <filename class="extension">.tex</filename> ファイルにプリアンブルが(ほとんど)必要ない方法というと、 <package>subfiles</package> パッケージを使う方法と、 <code>\input</code> や <code>\include</code> を使う方法があるが、今回は本の生成意外にも記事単独コンパイルをできるようにしたいと考えていたので、 <package>subfiles</package> パッケージを使うことにした。
+				さて、記事毎の <filename class="extension">.tex</filename> ファイルにプリアンブルが(ほとんど)必要ない方法というと、 <package>subfiles</package> パッケージを使う方法と、 <code>\input</code> や <code>\include</code> を使う方法があるが、今回は本の生成以外にも記事単独コンパイルをできるようにしたいと考えていたので、 <package>subfiles</package> パッケージを使うことにした。
 			</simpara>
 		</section>
 

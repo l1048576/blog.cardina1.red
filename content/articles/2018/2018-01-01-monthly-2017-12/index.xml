@@ -268,7 +268,7 @@ excerpt: "2017年 12月 まとめ"
 
 		<itemizedlist>
 			<listitem>
-				<link xl:href="https://blog.cardina1.red/tags/AdventCalendar/2017/">Tag: AdventCalendar/2017 - 何とは言わない天然水飲みたさ</link>
+				<link xl:href="https://blog.cardina1.red/tags/advent-calendar/">advent calendar - 何とは言わない天然水飲みたさ</link>
 				<itemizedlist>
 					<listitem>
 						<link xl:href="https://blog.cardina1.red/2017/12/07/never-type-and-semicolon/">Rust での never type とセミコロン、型推論のルール変遷 - 何とは言わない天然水飲みたさ</link>

@@ -31,14 +31,14 @@ excerpt: "Rustで T: From<U> のとき From<MyStruct<U>> for MyStruct<T> を実�
 		要するに、型パラメータが変換可能なとき、外側の構造体もまた変換可能であるようにしたい。
 	</simpara>
 	<informalfigure xml:id="code-point-sample">
-		<programlisting language="rust">#[derive(Debug, Clone, Copy)]
-struct Point&lt;T: Clone + Copy&gt; {
+		<programlisting language="rust"><![CDATA[#[derive(Debug, Clone, Copy)]
+struct Point<T: Clone + Copy> {
     pub x: T,
     pub y: T,
 }
 
-impl&lt;T, U: From&lt;T&gt;&gt; From&lt;Point&lt;T&gt;&gt; for Point&lt;U&gt; {
-    fn from(o: Point&lt;T&gt;) -&gt; Self {
+impl<T, U: From<T>> From<Point<T>> for Point<U> {
+    fn from(o: Point<T>) -> Self {
         Point {
             x: o.x.into(),
             y: o.y.into(),
@@ -47,26 +47,24 @@ impl&lt;T, U: From&lt;T&gt;&gt; From&lt;Point&lt;T&gt;&gt; for Point&lt;U&gt; {
 }
 
 fn main() {
-    let p_i16 = Point::&lt;i16&gt; {
+    let p_i16 = Point::<i16> {
         x: 3,
         y: 4,
     };
     println!("p_i16: {:?}", p_i16);
-    let p_f64: Point&lt;f64&gt; = p_i64();
+    let p_f64: Point<f64> = p_i64();
     println!("p_f64: {:?}", p_f64);
-}
-</programlisting>
+}]]></programlisting>
 	</informalfigure>
 	<informalfigure xml:id="code-point-sample-error">
-		<literallayout class="monospaced">error: conflicting implementations of trait `std::convert::From&lt;Point&lt;_&gt;&gt;` for type `Point&lt;_&gt;`: [--explain E0119]
- --&gt; &lt;anon&gt;:7:1
-  |&gt;
-7 |&gt; impl&lt;T, U: From&lt;T&gt;&gt; From&lt;Point&lt;T&gt;&gt; for Point&lt;U&gt; {
-  |&gt; ^
+		<literallayout class="monospaced"><![CDATA[error: conflicting implementations of trait `std::convert::From<Point<_>>` for type `Point<_>`: [--explain E0119]
+ --> <anon>:7:1
+  |>
+7 |> impl<T, U: From<T>> From<Point<T>> for Point<U> {
+  |> ^
 note: conflicting implementation in crate `core`
 
-error: aborting due to previous error
-</literallayout>
+error: aborting due to previous error]]></literallayout>
 		<caption>Rust Playgroundで(Rust-1.11.0 stableで)コンパイルした場合のエラーメッセージ</caption>
 	</informalfigure>
 	<simpara>
@@ -81,10 +79,10 @@ error: aborting due to previous error
 		C++であれば以下のように実装したことだろう。
 	</simpara>
 	<informalfigure xml:id="code-point-cpp">
-		<programlisting language="cpp">#include &lt;iostream&gt;
-#include &lt;type_traits&gt;
+		<programlisting language="cpp"><![CDATA[#include <iostream>
+#include <type_traits>
 
-template &lt;typename T&gt;
+template <typename T>
 struct Point {
     T x;
     T y;
@@ -92,21 +90,20 @@ struct Point {
     Point(T x_, T y_)
     :x{x_}, y{y_}
     {}
-    // template &lt;typename U, typename=std::enable_if_t&lt;std::is_convertible&lt;T, U&gt;{}&gt;&gt;
-    template &lt;typename U&gt;
-    Point(const Point&lt;U&gt; &amp;o)
-    :x{static_cast&lt;T&gt;(o.x)}, y{static_cast&lt;T&gt;(o.y)}
+    // template <typename U, typename=std::enable_if_t<std::is_convertible<T, U>{}>>
+    template <typename U>
+    Point(const Point<U> &o)
+    :x{static_cast<T>(o.x)}, y{static_cast<T>(o.y)}
     {}
 };
 
 int main(void) {
-    Point&lt;int16_t&gt; p_i16{3, 4};
-    Point&lt;double&gt; p_f64 = p_i16;
-    std::cout &lt;&lt; "p_i16 { " &lt;&lt; p_i16.x &lt;&lt; ", " &lt;&lt; p_i16.y &lt;&lt; " }" &lt;&lt; std::endl;
-    std::cout &lt;&lt; "p_f64 { " &lt;&lt; p_f64.x &lt;&lt; ", " &lt;&lt; p_f64.y &lt;&lt; " }" &lt;&lt; std::endl;
+    Point<int16_t> p_i16{3, 4};
+    Point<double> p_f64 = p_i16;
+    std::cout << "p_i16 { " << p_i16.x << ", " << p_i16.y << " }" << std::endl;
+    std::cout << "p_f64 { " << p_f64.x << ", " << p_f64.y << " }" << std::endl;
     return 0;
-}
-</programlisting>
+}]]></programlisting>
 		<caption>C++で同様のことをしようとした場合 (<link xl:href="http://melpon.org/wandbox/permlink/KnQrL7HNhObry64q">Wandboxへのリンク</link>)</caption>
 	</informalfigure>
 	<informalfigure xml:id="code-point-cpp-output">
@@ -127,7 +124,7 @@ p_f64 { 3, 4 }
 	<simpara>
 		結論を言えば、このreflexive lawがエラーの原因だ。
 		<code>From</code>はreflexiveである(すなわち全ての<code>T</code>に対してcore crateで<code>From&lt;T&gt; for T</code>が実装されている)ため、問題のコードで<code>U = T</code>の場合である<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;T&gt;</code>が実装される。
-		一方、またもや<code>From</code>のreflexivityより、<code>Point&lt;T&gt;</code>に対してcore crateで<code>From&lt;Ponit&lt;T&gt;&gt; for Point&lt;T&gt;</code>が実装される。
+		一方、またもや<code>From</code>のreflexivityより、<code>Point&lt;T&gt;</code>に対してcore crateで<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;T&gt;</code>が実装される。
 		斯くして<code>From&lt;Point&lt;T&gt;&gt; for Point&lt;T&gt;</code>が二重で実装され、衝突と相成ったわけである。
 	</simpara>
 </section>
@@ -139,14 +136,14 @@ p_f64 { 3, 4 }
 		<link xl:href="https://doc.rust-lang.org/std/option/enum.Option.html#method.map"><code>Option::map</code></link>のようなものだ。
 	</simpara>
 	<informalfigure xml:id="code-point-with-map">
-		<programlisting language="rust">#[derive(Debug, Clone, Copy)]
-struct Point&lt;T: Clone + Copy&gt; {
+		<programlisting language="rust"><![CDATA[#[derive(Debug, Clone, Copy)]
+struct Point<T: Clone + Copy> {
     pub x: T,
     pub y: T,
 }
 
-impl&lt;T: Clone + Copy&gt; Point&lt;T&gt; {
-    fn map&lt;U: Clone + Copy, F: Fn(T) -&gt; U&gt;(self, f: F) -&gt; Point&lt;U&gt; {
+impl<T: Clone + Copy> Point<T> {
+    fn map<U: Clone + Copy, F: Fn(T) -> U>(self, f: F) -> Point<U> {
         Point {
             x: f(self.x),
             y: f(self.y),
@@ -155,15 +152,14 @@ impl&lt;T: Clone + Copy&gt; Point&lt;T&gt; {
 }
 
 fn main() {
-    let p_i16 = Point::&lt;i16&gt; {
+    let p_i16 = Point::<i16> {
         x: 3,
         y: 4,
     };
     println!("p_i16: {:?}", p_i16);
-    let p_f64: Point&lt;f64&gt; = p_i16.map(Into::into);
+    let p_f64: Point<f64> = p_i16.map(Into::into);
     println!("p_f64: {:?}", p_f64);
-}
-</programlisting>
+}]]></programlisting>
 		<caption>コンパイルの通るバージョン (<link xl:href="https://play.rust-lang.org/?code=%23%5Bderive(Debug%2C%20Clone%2C%20Copy)%5D%0Astruct%20Point%3CT%3A%20Clone%20%2B%20Copy%3E%20%7B%0A%20%20%20%20pub%20x%3A%20T%2C%0A%20%20%20%20pub%20y%3A%20T%2C%0A%7D%0A%0Aimpl%3CT%3A%20Clone%20%2B%20Copy%3E%20Point%3CT%3E%20%7B%0A%20%20%20%20fn%20map%3CU%3A%20Clone%20%2B%20Copy%2C%20F%3A%20Fn(T)%20-%3E%20U%3E(self%2C%20f%3A%20F)%20-%3E%20Point%3CU%3E%20%7B%0A%20%20%20%20%20%20%20%20Point%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20x%3A%20f(self.x)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20y%3A%20f(self.y)%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%7D%0A%0Afn%20main()%20%7B%0A%20%20%20%20let%20p_i16%20%3D%20Point%3A%3A%3Ci16%3E%20%7B%0A%20%20%20%20%20%20%20%20x%3A%203%2C%0A%20%20%20%20%20%20%20%20y%3A%204%2C%0A%20%20%20%20%7D%3B%0A%20%20%20%20println!(%22p_i16%3A%20%7B%3A%3F%7D%22%2C%20p_i16)%3B%0A%20%20%20%20let%20p_f64%3A%20Point%3Cf64%3E%20%3D%20p_i16.map(Into%3A%3Ainto)%3B%0A%20%20%20%20println!(%22p_f64%3A%20%7B%3A%3F%7D%22%2C%20p_f64)%3B%0A%7D&amp;version=stable&amp;backtrace=0">Rust Playgroundへのリンク</link>)</caption>
 	</informalfigure>
 	<informalfigure xml:id="code-point-with-map-output">
@@ -186,17 +182,17 @@ p_f64: Point { x: 3, y: 4 }
 		<link xl:href="https://ferrisellis.com/posts/rust-implementing-units-for-types/">Math with distances in Rust: safety and correctness across units</link>
 	</simpara>
 	<informalfigure xml:id="code-point-with-ref-from">
-		<programlisting language="rust">#[derive(Debug, Clone, Copy)]
-struct Point&lt;T: Clone + Copy&gt; {
+		<programlisting language="rust"><![CDATA[#[derive(Debug, Clone, Copy)]
+struct Point<T: Clone + Copy> {
     pub x: T,
     pub y: T,
 }
 
-impl&lt;'a, T, U&gt; From&lt;&amp;'a Point&lt;T&gt;&gt; for Point&lt;U&gt;
+impl<'a, T, U> From<&'a Point<T>> for Point<U>
     where T: 'a + Clone + Copy,
-          U: Clone + Copy + From&lt;T&gt;,
+          U: Clone + Copy + From<T>,
 {
-    fn from(o: &amp;'a Point&lt;T&gt;) -&gt; Self {
+    fn from(o: &'a Point<T>) -> Self {
         Point {
             x: o.x.into(),
             y: o.y.into(),
@@ -205,17 +201,16 @@ impl&lt;'a, T, U&gt; From&lt;&amp;'a Point&lt;T&gt;&gt; for Point&lt;U&gt;
 }
 
 fn main() {
-    let p_i16 = Point::&lt;i16&gt; {
+    let p_i16 = Point::<i16> {
         x: 3,
         y: 4,
     };
     println!("p_i16: {:?}", p_i16);
-    let p_f64: Point&lt;f64&gt; = (&amp;p_i16).into();
+    let p_f64: Point<f64> = (&p_i16).into();
     println!("p_f64: {:?}", p_f64);
-    let p_f32 = Point::&lt;f32&gt;::from(&amp;p_i16);
+    let p_f32 = Point::<f32>::from(&p_i16);
     println!("p_f32: {:?}", p_f32);
-}
-</programlisting>
+}]]></programlisting>
 		<caption>コンパイルの通るバージョンその2 (<link xl:href="https://play.rust-lang.org/?code=%23%5Bderive(Debug%2C%20Clone%2C%20Copy)%5D%0Astruct%20Point%3CT%3A%20Clone%20%2B%20Copy%3E%20%7B%0A%20%20%20%20pub%20x%3A%20T%2C%0A%20%20%20%20pub%20y%3A%20T%2C%0A%7D%0A%0Aimpl%3C%27a%2C%20T%2C%20U%3E%20From%3C%26%27a%20Point%3CT%3E%3E%20for%20Point%3CU%3E%0A%20%20%20%20where%20T%3A%20%27a%20%2B%20Clone%20%2B%20Copy%2C%0A%20%20%20%20%20%20%20%20%20%20U%3A%20Clone%20%2B%20Copy%20%2B%20From%3CT%3E%2C%0A%7B%0A%20%20%20%20fn%20from(o%3A%20%26%27a%20Point%3CT%3E)%20-%3E%20Self%20%7B%0A%20%20%20%20%20%20%20%20Point%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20x%3A%20o.x.into()%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20y%3A%20o.y.into()%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%7D%0A%0Afn%20main()%20%7B%0A%20%20%20%20let%20p_i16%20%3D%20Point%3A%3A%3Ci16%3E%20%7B%0A%20%20%20%20%20%20%20%20x%3A%203%2C%0A%20%20%20%20%20%20%20%20y%3A%204%2C%0A%20%20%20%20%7D%3B%0A%20%20%20%20println!(%22p_i16%3A%20%7B%3A%3F%7D%22%2C%20p_i16)%3B%0A%20%20%20%20let%20p_f64%3A%20Point%3Cf64%3E%20%3D%20(%26p_i16).into()%3B%0A%20%20%20%20println!(%22p_f64%3A%20%7B%3A%3F%7D%22%2C%20p_f64)%3B%0A%20%20%20%20let%20p_f32%20%3D%20Point%3A%3A%3Cf32%3E%3A%3Afrom(%26p_i16)%3B%0A%20%20%20%20println!(%22p_f32%3A%20%7B%3A%3F%7D%22%2C%20p_f32)%3B%0A%7D&amp;version=stable&amp;backtrace=0" target="_blank">Rust Playgroundへのリンク</link>)</caption>
 	</informalfigure>
 	<simpara>
