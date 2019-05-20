@@ -1,7 +1,7 @@
 ---
 created_at: 2017-01-01T01:13:37+0900
 published_at: 2017-01-01T01:13:37+0900
-updated_at: 2017-01-01T03:57:31+0900
+updated_at: 2019-05-20T17:10:11+09:00
 format: docbook
 title: "キログラムを粉砕せよ"
 tags:
@@ -273,6 +273,13 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 	</simpara>
 </section>
 
+<section xml:id="kilogram-updated">
+	<title>追記 <le:time datetime="2019-05-20">2019-05-20</le:time>: キログラム定義改訂</title>
+	<simpara>
+		科学はテロに対してより強くなりました🎉 (???)
+	</simpara>
+</section>
+
 <section xml:id="references">
 	<title>参考資料</title>
 	<itemizedlist>
@@ -284,6 +291,17 @@ excerpt: "不安定な単位と野蛮な文明を粉砕し、自然単位系の�
 		</listitem>
 		<listitem>SI再定義
 			<itemizedlist>
+				<listitem>
+					<phrase>産総研の特設サイト</phrase>
+					<itemizedlist>
+						<listitem>
+							<link xl:href="https://www.aist.go.jp/taisaku/ja/kg/">産総研：キログラム定義改定特設サイト</link>
+						</listitem>
+						<listitem>
+							<link xl:href="https://www.aist.go.jp/taisaku/ja/kg/appendix.html">産総研：もっと知りたい方へ</link>
+						</listitem>
+					</itemizedlist>
+				</listitem>
 				<listitem><link xl:href="http://natgeo.nikkeibp.co.jp/atcl/news/15/a/072100020/">1kgの定義、原器から「原子の数」へ | ナショナルジオグラフィック日本版サイト</link></listitem>
 				<listitem><link xl:href="https://ja.wikipedia.org/wiki/%E6%96%B0%E3%81%97%E3%81%84SI%E3%81%AE%E5%AE%9A%E7%BE%A9">新しいSIの定義 - Wikipedia</link></listitem>
 			</itemizedlist>
