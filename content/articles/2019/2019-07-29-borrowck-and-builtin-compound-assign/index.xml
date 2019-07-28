@@ -1,0 +1,530 @@
+---
+created_at: 2019-07-28T20:00:16+09:00
+published_at: 2019-07-29T01:47:11+09:00
+format: docbook
+title: "借用検査は組込の複合代入演算子に対して特殊な動作を行う"
+tags:
+  - prog-rust
+kind: article
+
+excerpt: "Rust 1.36 では、組込の複合代入演算子では発生せずユーザ定義の加算代入演算子だと発生するようなエラーがある。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xml:id="article-2019-07-29-borrowck-and-builtin-compound-assign"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>借用検査は組込の複合代入演算子に対して特殊な動作を行う</title>
+
+<simpara>
+	Rust 1.36.0 stable, edition 2018 での情報。
+	TL;DR: <xref linkend="conclusion" />
+</simpara>
+<simpara>
+	正直なところ †完全に理解† するには遠く及ばない状況なので、もっと詳しく理解している人がいたら解説記事など書いてもらえると私が喜びます。
+</simpara>
+
+<section xml:id="question">
+	<title>問題</title>
+	<simpara>
+		下記コードは、組込の <type>i64</type> の <type>Vec</type> とユーザ定義<footnote xml:id="footnote-user-defined-std-type" refmark-id="footnote-ref-user-defined-std-type">
+			<simpara>
+				この文脈での「ユーザ定義」は、組込でない型すべてを指すものであり、標準ライブラリで定義された型も含んでいる。
+			</simpara>
+		</footnote>の <type>std::num::Wrapping&lt;i64&gt;</type> の <type>Vec</type> について同じ演算を行った結果、後者のみにエラーが発生している様子である。
+	</simpara>
+
+	<informalfigure xml:id="code-borrowck-error-sample">
+		<programlisting language="rust"><![CDATA[use std::num::Wrapping;
+
+fn main() {
+    // Type with built-in add-subst operator.
+    let mut vec_bi = vec![0i64, 1];
+    vec_bi[0] += vec_bi[1]; // No errors.
+
+    // Type with user-defined add-subst operator.
+    let mut vec_ud = vec![Wrapping(0i64), Wrapping(1)];
+    vec_ud[0] += vec_ud[1]; // Error here.
+}]]></programlisting>
+		<literallayout class="monospaced"><![CDATA[   Compiling playground v0.0.1 (/playground)
+warning[E0502]: cannot borrow `vec_ud` as immutable because it is also borrowed as mutable
+  --> src/main.rs:10:18
+   |
+10 |     vec_ud[0] += vec_ud[1]; // Error here.
+   |     -------------^^^^^^---
+   |     |            |
+   |     |            immutable borrow occurs here
+   |     mutable borrow occurs here
+   |     mutable borrow later used here
+   |
+   = warning: this error has been downgraded to a warning for backwards compatibility with previous releases
+   = warning: this represents potential undefined behavior in your code and this warning will become a hard error in the future
+
+    Finished dev [unoptimized + debuginfo] target(s) in 0.47s
+     Running `target/debug/playground`
+]]></literallayout>
+		<caption>
+			<phrase>
+				<link xl:href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=10568ef6c6026addbb0e91361d585a19">Rust Playground</link> での <le:time>2019-07-28</le:time> の実行結果。
+				この時点での Rust は 1.36 が最新の stable 。
+			</phrase>
+		</caption>
+	</informalfigure>
+	<simpara>
+		なぜ <type>i64</type> で許されるコードが同じく <code>Copy</code> trait や <code>AddAssign</code> trait を実装している <type>std::num::Wrapping&lt;i64&gt;</type> では許されないのか。
+	</simpara>
+</section>
+
+<section xml:id="two-phase-borrow">
+	<title>two-phase borrow</title>
+	<simpara>
+		two-phase borrow とは、同じ式の中で同じ値に対する mutable borrow が複数記述できるようにする特例のようなルールである。
+		このルールは今のところ、特殊な状況下のみで適用されることになっている。
+		詳細やコード例は <link xl:href="https://rust-lang.github.io/rustc-guide/borrow_check/two_phase_borrows.html">rustc guide で説明されている</link>が、簡単に説明すると「mutable borrow が発生する点と実際にそれが使われる点の間で、一時的に mutable borrow を immutable borrow であるかのように扱う」といった挙動になる。
+		たとえば以下の例を見てみよう。
+	</simpara>
+
+	<programlisting xml:id="code-two-phase-borrow-example" language="rust"><![CDATA[fn main() {
+    let mut vec = vec![];
+    vec.push(vec.len());
+}]]></programlisting>
+
+	<simpara>
+		<code>vec.push()</code> で <code>vec</code> の mutable borrow を要求しており、かつ引数の <code>vec.len()</code> で vec の immutable borrow を要求している。
+		よって、素朴なルールでは <code>&amp;mut vec</code> と <code>&amp;vec</code> を同時に必要とすることになってしまい借用検査に失敗するが、このコードはコンパイルが通る。
+		それを可能にするのが two-phase borrow である。
+	</simpara>
+	<simpara>
+		この例では、 <code>vec.push()</code> のために <code>&amp;mut vec</code> が予約されるが、これが実際に使用されるのは引数の評価が終わった後であるため、それまでは排他的な借用を抑制し、あたかも <code>&amp;vec</code> しか要求されていないかのように振る舞う。
+		そして、 <code>&amp;vec</code> が他の場所に存在したところで <code>vec.len()</code> は可能であり、またその結果が <code>&amp;mut vec</code> と共存できるため、無事に <code>vec.push()</code> が実行可能であると判断される。
+	</simpara>
+	<simpara>
+		<code>&amp;mut vec</code> を <code>&amp;vec</code> かのように見做すというのが肝で、たとえば次のようなコードはコンパイルが通らない。
+	</simpara>
+	<programlisting xml:id="code-two-phase-borrow-bad-example-1" language="rust"><![CDATA[fn main() {
+    let mut vec = vec![];
+    vec.push({
+        vec.push(0);
+        0
+    });
+}]]></programlisting>
+	<literallayout class="monospaced"><![CDATA[   Compiling playground v0.0.1 (/playground)
+error[E0499]: cannot borrow `vec` as mutable more than once at a time
+ --> src/main.rs:4:9
+  |
+3 |     vec.push({
+  |     --- ---- first borrow later used by call
+  |     |
+  |     first mutable borrow occurs here
+4 |         vec.clear();
+  |         ^^^ second mutable borrow occurs here
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0499`.
+error: Could not compile `playground`.
+
+To learn more, run the command again with --verbose.
+]]></literallayout>
+	<simpara>
+		<code>vec.push()</code> のための <code>&amp;mut vec</code> の予約ゆえ、 <code>push</code> の引数のブロック内では <code>vec</code> は immutable borrow が他に存在するものとして借用検査が行われる。
+		その結果、 <code>vec.clear()</code> は <code>vec</code> を mutable に借用できないため、 two-phase borrow のルールでは許されずエラーとなる<footnote xml:id="footnote-nice-error-message-for-two-phase-borrow" refmark-id="footnote-nice-error-message-for-two-phase-borrow">
+			<simpara>
+				エラーメッセージとしては、実際のコードに合わせて「mutable borrow が二度行われている」というメッセージになっている。
+			</simpara>
+		</footnote><footnote xml:id="footnote-what-if-double-mut-is-allowed" refmark-id="footnote-ref-what-if-double-mut-is-allowed">
+			<simpara>
+				もし <code>vec.push({vec.clear(); 42});</code> のような引数中での mutable borrow を許すと、以下のようなコードで dangling pointer への参照が発生してしまい soundness hole になる。
+			</simpara>
+			<programlisting language="rust"><![CDATA[vec.last().map(|last| { *vec = vec![]; *last = 42; });]]></programlisting>
+		</footnote>。
+	</simpara>
+	<simpara>
+		immutable reference を持ち越せない例も見てみよう。
+	</simpara>
+	<programlisting xml:id="code-two-phase-borrow-bad-example-2" language="rust"><![CDATA[fn main() {
+    let mut vec: Vec<()> = vec![];
+    vec.extend(&vec);
+}]]></programlisting>
+	<literallayout class="monospaced"><![CDATA[   Compiling playground v0.0.1 (/playground)
+error[E0502]: cannot borrow `vec` as mutable because it is also borrowed as immutable
+ --> src/main.rs:3:5
+  |
+3 |     vec.extend(&vec);
+  |     ^^^^------^----^
+  |     |   |      |
+  |     |   |      immutable borrow occurs here
+  |     |   immutable borrow later used by call
+  |     mutable borrow occurs here
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0502`.
+error: Could not compile `playground`.
+
+To learn more, run the command again with --verbose.
+]]></literallayout>
+	<simpara>
+		引数の <code>&amp;vec</code> の時点では他にもうひとつの <code>&amp;vec</code> が存在するだけなので問題ないが、 <code>vec.push()</code> 時点で本当に <code>&amp;mut vec</code> が必要になってもまだ引数の <code>&amp;vec</code> の借用が生きているため、(当然ながら) two-phase borrow でこのコードは許されない。
+	</simpara>
+</section>
+
+<section xml:id="compound-assign">
+	<title>複合代入演算子</title>
+
+	<section xml:id="add-assign--normal-case">
+		<title>通常の場合</title>
+
+		<simpara>
+			Rust では、ユーザ定義型などに対する演算子の定義は trait により行う。
+			そして、 <code>a += b</code> という式は、基本的にコンパイル時に <code>std::ops::AddAssign::add_assign(&amp;mut a, b)</code> のような通常の関数呼び出しに変換される
+			<footnote xml:id="footnote-lowering" refmark-id="footnote-ref-lowering">
+				<simpara>
+					このような変換を lowering と呼ぶらしい: <link xl:href="https://rust-lang.github.io/rustc-guide/mir/construction.html#operator-lowering">MIR construction - Guide to Rustc Development</link>
+				</simpara>
+			</footnote>
+			。
+		</simpara>
+		<simpara>
+			問題のコードの <code>vec_ud[0] += vec_ud[1];</code> も関数呼び出しスタイルに変換され、以下のようになる。
+		</simpara>
+		<programlisting language="rust"><![CDATA[
+<Vec<Wrapping<i64>> as std::ops::AddAssign<Wrapping<i64>>>::add_assign(
+    &mut *<Vec<Wrapping<i64>> as std::ops::IndexMut<usize>>::index_mut(&mut vec_ud, 0),
+    *<Vec<Wrapping> as std::ops::Index<usize>>::index(&vec_ud, 1)
+);
+]]></programlisting>
+		<simpara>
+			two-phase borrow について「特殊な状況下のみで適用される」と説明した。
+			具体的には、 <code>x += x</code> のように左辺が単純な場合には two-phase borrow が利用される。
+			しかし残念ながら <code>vec_ud[0] += vec_ud[1]</code> において、左辺は <code><![CDATA[<Vec<Wrapping<i64>> as std::ops::IndexMut<usize>>::index_mut(&mut vec_ud, 0)]]></code> である。
+			このように左辺が通常の変数などでない一般的な状況では two-phase borrow は利用されない<footnote xml:id="footnote-two-phase-borrow-for-compound-assignment" refmark-id="footnote-ref-two-phase-borrow-for-compound-assignment">
+				複合代入演算子について該当する項目は <link xl:href="https://rust-lang.github.io/rustc-guide/borrow_check/two_phase_borrows.html">rustc guide</link> では <quote lang="en">The implicit mutable borrow in an overloaded compound assignment operator.</quote> と説明されており、 "implicit mutable borrow" とは何なのかは語られていない。
+				例から察するに、通常の変数を明示的な <code>&amp;mut</code> の記述なしに <code>&amp;mut</code> として必要とするような状況のことを言っていそうである。
+			</footnote>。
+			この場合の複合代入は、通常の関数呼び出しと同じように処理され、 two-phase borrow は行われない。
+		</simpara>
+		<simpara>
+			関数呼び出しにおいて、関数の引数は左から順に評価されることになっている。
+			つまりこの例では、 <code>&amp;mut *IndexMut::index_mut()</code> が先に評価され、次に <code>*Index::index()</code> を評価しようとする。
+			これは two-phase borrow が使われない状況では当然エラーとなる。
+			単純化するなら、下記のようなコードと同じ原因である。
+		</simpara>
+		<programlisting language="rust"><![CDATA[fn substitute(a: &mut i64, b: i64) {
+    *a = b;
+}
+
+fn main() {
+    let mut x = 42;
+    substitute(&mut x, x);
+}]]></programlisting>
+		<literallayout class="monospaced"><![CDATA[   Compiling playground v0.0.1 (/playground)
+error[E0503]: cannot use `x` because it was mutably borrowed
+ --> src/main.rs:7:24
+  |
+7 |     substitute(&mut x, x);
+  |     ---------- ------  ^ use of borrowed `x`
+  |     |          |
+  |     |          borrow of `x` occurs here
+  |     borrow later used by call
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0503`.
+error: Could not compile `playground`.
+
+To learn more, run the command again with --verbose.
+]]></literallayout>
+		<simpara>
+			本題ではないがついでに書いておくと、引数は左から右に評価されるため、引数の順を逆にすると (不思議なことにというべきか) コンパイルは通る。
+		</simpara>
+		<programlisting language="rust"><![CDATA[
+fn substitute_rev(b: i64, a: &mut i64) {
+    *a = b;
+}
+
+fn main() {
+    let mut x = 42;
+    substitute_rev(x, &mut x);
+}]]>
+		</programlisting>
+		<literallayout class="monospaced"><![CDATA[   Compiling playground v0.0.1 (/playground)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.65s
+     Running `target/debug/playground`
+]]></literallayout>
+		<simpara>
+			つまり、通常なら <code>vec_ud[0] += vec_ud[1];</code> のような式の借用検査が通らないのは当然であり、エラーにならない方が特殊なのである。
+		</simpara>
+	</section>
+	<section xml:id="add-assign--builtin-case">
+		<title>組込型の演算子の場合</title>
+
+		<simpara>
+			組込型の <code>+=</code> 演算子は事情が異なる。
+			<code>i64</code> などの組込型についての <code>+=</code> などの演算子の利用は、対応する trait の関数呼び出しに変換されない。
+			このことは <link xl:href="https://rust-lang.github.io/rustc-guide/mir/construction.html#operator-lowering">rustc guide</link> でも説明されている。
+		</simpara>
+		<simpara>
+			組込型の演算子の利用はコンパイラによって特別に取り扱われ、対応する LLVM IR に変換されるらしい。
+			このとき複合代入演算子については、関数呼び出し形式の場合とは異なり、右辺の代入される値が先に評価され、その後で左辺の代入先が評価される。
+		</simpara>
+		<h:blockquote cite="https://github.com/rust-lang/rust/issues/59645#issuecomment-479233265">
+			<simpara>
+				The warning is correct. Overloaded compound assignment operators unfortunately evaluate their operands in the opposite order to the built in ones.
+			</simpara>
+			<h:footer>
+				&#x2014; <link xl:href="https://github.com/rust-lang/rust/issues/59645#issuecomment-479233265">@matthewjasper, <uri>https://github.com/rust-lang/rust/issues/59645#issuecomment-479233265</uri></link>
+			</h:footer>
+		</h:blockquote>
+		<simpara>
+			このことは、それぞれのケースに対応する MIR (中間言語) を観察することでも確認できる。
+		</simpara>
+		<informalfigure xml:id="figure-normal-add-assign-mir">
+			<programlisting language="rust"><![CDATA[use std::num::Wrapping;
+
+fn main() {
+    // Type with user-defined add-subst operator.
+    let mut vec_ud = vec![Wrapping(0i64), Wrapping(1)];
+    vec_ud[0] += vec_ud[1]; // Error here.
+}]]></programlisting>
+			<literallayout class="monospaced"><![CDATA[    bb2: {
+        StorageDead(_2);                 // bb2[0]: scope 0 at <::alloc::macros::vec macros>:3:47: 3:48
+        StorageLive(_8);                 // bb2[1]: scope 2 at src/main.rs:6:5: 6:14
+        StorageLive(_9);                 // bb2[2]: scope 2 at src/main.rs:6:5: 6:14
+        StorageLive(_10);                // bb2[3]: scope 2 at src/main.rs:6:5: 6:11
+        _10 = &mut _1;                   // bb2[4]: scope 2 at src/main.rs:6:5: 6:11
+        _9 = const std::ops::IndexMut::index_mut(move _10, const 0usize) -> [return: bb3, unwind: bb4]; // bb2[5]: scope 2 at src/main.rs:6:5: 6:14
+                                         // ty::Const
+                                         // + ty: for<'r> fn(&'r mut std::vec::Vec<std::num::Wrapping<i64>>, usize) -> &'r mut <std::vec::Vec<std::num::Wrapping<i64>> as std::ops::Index<usize>>::Output {<std::vec::Vec<std::num::Wrapping<i64>> as std::ops::IndexMut<usize>>::index_mut}
+                                         // + val: Scalar(Bits { size: 0, bits: 0 })
+                                         // mir::Constant
+                                         // + span: src/main.rs:6:5: 6:14
+                                         // + ty: for<'r> fn(&'r mut std::vec::Vec<std::num::Wrapping<i64>>, usize) -> &'r mut <std::vec::Vec<std::num::Wrapping<i64>> as std::ops::Index<usize>>::Output {<std::vec::Vec<std::num::Wrapping<i64>> as std::ops::IndexMut<usize>>::index_mut}
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::vec::Vec<std::num::Wrapping<i64>>, usize) -> &'r mut <std::vec::Vec<std::num::Wrapping<i64>> as std::ops::Index<usize>>::Output {<std::vec::Vec<std::num::Wrapping<i64>> as std::ops::IndexMut<usize>>::index_mut}, val: Scalar(Bits { size: 0, bits: 0 }) }
+                                         // ty::Const
+                                         // + ty: usize
+                                         // + val: Scalar(Bits { size: 8, bits: 0 })
+                                         // mir::Constant
+                                         // + span: src/main.rs:6:12: 6:13
+                                         // + ty: usize
+                                         // + literal: Const { ty: usize, val: Scalar(Bits { size: 8, bits: 0 }) }
+    }
+
+    bb3: {
+        _8 = _9;                         // bb3[0]: scope 2 at src/main.rs:6:5: 6:14
+        StorageDead(_10);                // bb3[1]: scope 2 at src/main.rs:6:13: 6:14
+        StorageLive(_11);                // bb3[2]: scope 2 at src/main.rs:6:18: 6:27
+        StorageLive(_12);                // bb3[3]: scope 2 at src/main.rs:6:18: 6:27
+        StorageLive(_13);                // bb3[4]: scope 2 at src/main.rs:6:18: 6:24
+        _13 = &_1;                       // bb3[5]: scope 2 at src/main.rs:6:18: 6:24
+        _12 = const std::ops::Index::index(move _13, const 1usize) -> [return: bb5, unwind: bb4]; // bb3[6]: scope 2 at src/main.rs:6:18: 6:27
+                                         // ty::Const
+                                         // + ty: for<'r> fn(&'r std::vec::Vec<std::num::Wrapping<i64>>, usize) -> &'r <std::vec::Vec<std::num::Wrapping<i64>> as std::ops::Index<usize>>::Output {<std::vec::Vec<std::num::Wrapping<i64>> as std::ops::Index<usize>>::index}
+                                         // + val: Scalar(Bits { size: 0, bits: 0 })
+                                         // mir::Constant
+                                         // + span: src/main.rs:6:18: 6:27
+                                         // + ty: for<'r> fn(&'r std::vec::Vec<std::num::Wrapping<i64>>, usize) -> &'r <std::vec::Vec<std::num::Wrapping<i64>> as std::ops::Index<usize>>::Output {<std::vec::Vec<std::num::Wrapping<i64>> as std::ops::Index<usize>>::index}
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<std::num::Wrapping<i64>>, usize) -> &'r <std::vec::Vec<std::num::Wrapping<i64>> as std::ops::Index<usize>>::Output {<std::vec::Vec<std::num::Wrapping<i64>> as std::ops::Index<usize>>::index}, val: Scalar(Bits { size: 0, bits: 0 }) }
+                                         // ty::Const
+                                         // + ty: usize
+                                         // + val: Scalar(Bits { size: 8, bits: 1 })
+                                         // mir::Constant
+                                         // + span: src/main.rs:6:25: 6:26
+                                         // + ty: usize
+                                         // + literal: Const { ty: usize, val: Scalar(Bits { size: 8, bits: 1 }) }
+    }
+			]]></literallayout>
+			<caption>
+				<simpara>
+					MIR の抜粋 (<link xl:href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=0cda416d5effc8a76b44de34bc88e419">playground</link>)。
+				</simpara>
+				<simpara>
+					ユーザ定義の <code>+=</code> では、第一引数つまり左辺 (<code><![CDATA[<Vec<Wrapping<i64>> as IndexMut<usize>>::index_mut(_10, 0usize)]]></code> が先に評価され、その後で右辺 <code><![CDATA[<Vec<i64> as Index<usize>>::index(_13, 1usize)]]></code> が評価されている様子が読み取れる。
+				</simpara>
+			</caption>
+		</informalfigure>
+		<informalfigure xml:id="figure-builtin-add-assign-mir">
+			<programlisting language="rust"><![CDATA[fn main() {
+    // Type with built-in add-subst operator.
+    let mut vec_bi = vec![0i64, 1];
+    vec_bi[0] += vec_bi[1]; // No errors.
+}]]></programlisting>
+			<literallayout class="monospaced"><![CDATA[    bb2: {
+        StorageDead(_2);                 // bb2[0]: scope 0 at <::alloc::macros::vec macros>:3:47: 3:48
+        StorageLive(_5);                 // bb2[1]: scope 2 at src/main.rs:4:18: 4:27
+        StorageLive(_6);                 // bb2[2]: scope 2 at src/main.rs:4:18: 4:27
+        StorageLive(_7);                 // bb2[3]: scope 2 at src/main.rs:4:18: 4:24
+        _7 = &_1;                        // bb2[4]: scope 2 at src/main.rs:4:18: 4:24
+        _6 = const std::ops::Index::index(move _7, const 1usize) -> [return: bb3, unwind: bb4]; // bb2[5]: scope 2 at src/main.rs:4:18: 4:27
+                                         // ty::Const
+                                         // + ty: for<'r> fn(&'r std::vec::Vec<i64>, usize) -> &'r <std::vec::Vec<i64> as std::ops::Index<usize>>::Output {<std::vec::Vec<i64> as std::ops::Index<usize>>::index}
+                                         // + val: Scalar(Bits { size: 0, bits: 0 })
+                                         // mir::Constant
+                                         // + span: src/main.rs:4:18: 4:27
+                                         // + ty: for<'r> fn(&'r std::vec::Vec<i64>, usize) -> &'r <std::vec::Vec<i64> as std::ops::Index<usize>>::Output {<std::vec::Vec<i64> as std::ops::Index<usize>>::index}
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<i64>, usize) -> &'r <std::vec::Vec<i64> as std::ops::Index<usize>>::Output {<std::vec::Vec<i64> as std::ops::Index<usize>>::index}, val: Scalar(Bits { size: 0, bits: 0 }) }
+                                         // ty::Const
+                                         // + ty: usize
+                                         // + val: Scalar(Bits { size: 8, bits: 1 })
+                                         // mir::Constant
+                                         // + span: src/main.rs:4:25: 4:26
+                                         // + ty: usize
+                                         // + literal: Const { ty: usize, val: Scalar(Bits { size: 8, bits: 1 }) }
+    }
+
+    bb3: {
+        _5 = (*_6);                      // bb3[0]: scope 2 at src/main.rs:4:18: 4:27
+        StorageDead(_7);                 // bb3[1]: scope 2 at src/main.rs:4:26: 4:27
+        StorageLive(_8);                 // bb3[2]: scope 2 at src/main.rs:4:5: 4:14
+        StorageLive(_9);                 // bb3[3]: scope 2 at src/main.rs:4:5: 4:11
+        _9 = &mut _1;                    // bb3[4]: scope 2 at src/main.rs:4:5: 4:11
+        _8 = const std::ops::IndexMut::index_mut(move _9, const 0usize) -> [return: bb5, unwind: bb4]; // bb3[5]: scope 2 at src/main.rs:4:5: 4:14
+                                         // ty::Const
+                                         // + ty: for<'r> fn(&'r mut std::vec::Vec<i64>, usize) -> &'r mut <std::vec::Vec<i64> as std::ops::Index<usize>>::Output {<std::vec::Vec<i64> as std::ops::IndexMut<usize>>::index_mut}
+                                         // + val: Scalar(Bits { size: 0, bits: 0 })
+                                         // mir::Constant
+                                         // + span: src/main.rs:4:5: 4:14
+                                         // + ty: for<'r> fn(&'r mut std::vec::Vec<i64>, usize) -> &'r mut <std::vec::Vec<i64> as std::ops::Index<usize>>::Output {<std::vec::Vec<i64> as std::ops::IndexMut<usize>>::index_mut}
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::vec::Vec<i64>, usize) -> &'r mut <std::vec::Vec<i64> as std::ops::Index<usize>>::Output {<std::vec::Vec<i64> as std::ops::IndexMut<usize>>::index_mut}, val: Scalar(Bits { size: 0, bits: 0 }) }
+                                         // ty::Const
+                                         // + ty: usize
+                                         // + val: Scalar(Bits { size: 8, bits: 0 })
+                                         // mir::Constant
+                                         // + span: src/main.rs:4:12: 4:13
+                                         // + ty: usize
+                                         // + literal: Const { ty: usize, val: Scalar(Bits { size: 8, bits: 0 }) }
+    }
+]]></literallayout>
+			<caption>
+				<simpara>
+					MIR の抜粋 (<link xl:href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=dc396eb409e4bdef7b81110e87127e08">playground</link>)。
+				</simpara>
+				<simpara>
+					組込型の <code>+=</code> では、右辺 (<code><![CDATA[<Vec<i64> as Index<usize>>::index(_7, 1usize)]]></code> が先に評価され、その後で左辺 <code><![CDATA[<Vec<i64> as IndexMut<usize>>::index_mut(_9, 0usize)]]></code> が評価されている様子が読み取れる。
+				</simpara>
+			</caption>
+		</informalfigure>
+	</section>
+</section>
+
+<section xml:id="conclusion">
+	<title>結論</title>
+
+	<simpara>
+		一言で言うと: 組込型の複合代入は特殊
+	</simpara>
+
+	<itemizedlist>
+		<listitem>
+			<phrase>
+				<code>x += foo(&amp;x)</code> のような左辺が極めて単純な例であれば、 two-phase borrow が利用され借用検査が通る
+			</phrase>
+			<itemizedlist>
+				<listitem>
+					<code>vec_ud[0] += vec_ud[1];</code> のようなケースはこれに該当しない
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<phrase>
+				<code>+=</code> などの演算子は通常、関数呼び出しの形式に変換され処理される
+			</phrase>
+			<itemizedlist>
+				<listitem>
+					<code>x += y</code> であれば <code>std::ops::AddAssign::add_assign(&amp;mut x, y)</code> になる
+				</listitem>
+				<listitem>
+					ただし組込型の演算子利用は例外で、関数呼び出しに変換されず特別に処理される
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<phrase>
+				関数呼び出しにおいて、引数は左 (最初の引数) から順に評価される
+			</phrase>
+			<itemizedlist>
+				<listitem>
+					このため、 <code>foo(&amp;mut x, x)</code> のようなコードは借用検査が通らず、 <code>foo(x, &amp;mut x)</code> のようなコードは借用検査が通る
+				</listitem>
+				<listitem>
+					<code>std::ops::AddAssign::add_assign(&amp;mut vec_ud[0], vec_ud[1])</code> は前者の形式にあたるためコンパイルエラーとなる
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<phrase>
+				組込型の複合代入演算子では、 (関数呼び出しの形式とは異なり) 右辺が先に評価され、左辺が後に評価される
+			</phrase>
+			<itemizedlist>
+				<listitem>
+					<phrase>
+						よって、 <code>vec_bi[0] += vec_bi[1]</code> では <code>vec_bi[1]</code> が先に借用され、値がコピーされる。
+						その後 <code>vec_bi[0]</code> が mutable に借用される。このとき <code>vec_bi[1]</code> の借用は既に終了しているため、問題なく mutable borrow が成功し、借用検査が通る。
+					</phrase>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+	</itemizedlist>
+</section>
+
+<section xml:id="references">
+	<title>参考</title>
+
+	<itemizedlist>
+		<listitem>
+			<phrase>
+				borrow 関係
+			</phrase>
+			<itemizedlist>
+				<listitem>
+					<link xl:href="https://rust-lang.github.io/rustc-guide/borrow_check/two_phase_borrows.html">Two-phase-borrows - Guide to Rustc Development</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://github.com/rust-lang/rfcs/blob/master/text/2025-nested-method-calls.md">rfcs/2025-nested-method-calls.md at master · rust-lang/rfcs</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://github.com/rust-lang/rust/issues/49434">Tracking issue for generalized two-phase borrows · Issue #49434 · rust-lang/rust</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://www.ralfj.de/blog/2018/08/07/stacked-borrows.html">Stacked Borrows: An Aliasing Model For Rust</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://github.com/rust-lang/rust/issues/46901">two-phase-borrows need a specification · Issue #46901 · rust-lang/rust</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://github.com/rust-lang/rust/issues/48129#issuecomment-365124001">NLL breaks usage of AddAssign · Issue #48129 · rust-lang/rust</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://stackoverflow.com/a/55117533/11131974">rust - Why is there a borrow of a moved value when calling a method that takes self by value with an argument that also calls a method? - Stack Overflow</link>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<phrase>
+				operator lowering
+			</phrase>
+			<itemizedlist>
+				<listitem>
+					<link xl:href="https://rust-lang.github.io/rustc-guide/mir/construction.html#operator-lowering">MIR construction - Guide to Rustc Development</link>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<phrase>
+				発端
+			</phrase>
+			<itemizedlist>
+				<listitem>
+					<link xl:href="https://mstdn.maud.io/@yomi/102518424841352342"><uri>https://mstdn.maud.io/@yomi/102518424841352342</uri></link>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+	</itemizedlist>
+</section>
+
+</article>
