@@ -8,7 +8,7 @@ tags:
   - prog-rust
 kind: article
 
-excerpt: "Rust 1.36 では、組込の複合代入演算子では発生せずユーザ定義の加算代入演算子だと発生するようなエラーがある。"
+excerpt: "Rust 1.36 では、組込の複合代入演算子では発生せずユーザ定義の複合代入演算子だと発生するようなエラーがある。"
 ---
 <?xml version="1.0"?>
 <article
