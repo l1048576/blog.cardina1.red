@@ -1,6 +1,7 @@
 ---
 created_at: 2019-07-28T20:00:16+09:00
 published_at: 2019-07-29T01:47:11+09:00
+updated_at: 2019-07-29T03:33:31+09:00
 format: docbook
 title: "借用検査は組込の複合代入演算子に対して特殊な動作を行う"
 tags:
@@ -525,6 +526,60 @@ fn main() {
 			</itemizedlist>
 		</listitem>
 	</itemizedlist>
+</section>
+
+<section xml:id="appendix-unsoundness">
+	<title>おまけ: safe で unsound なコード</title>
+
+	<simpara>
+		<quote>this represents potential undefined behavior in your code</quote> などと言われると、実際に UB を引き起こしてみたくなるのが人情というものである (?)。
+		やってみた (<link xl:href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=00ff5b96b14643bdc917ee430dfc08dc">playground</link>)。
+	</simpara>
+
+	<programlisting language="rust"><![CDATA[use std::rc::Rc;
+
+struct MyString(String);
+
+impl std::ops::AddAssign<String> for MyString {
+    fn add_assign(&mut self, rhs: String) {
+        self.0.push_str(&rhs);
+    }
+}
+
+fn main() {
+    let mut foo = Rc::new(vec![MyString("foo".to_owned())]);
+    Rc::get_mut(&mut foo).unwrap()[0] += {
+        *Rc::get_mut(&mut foo).unwrap() = vec![];
+        "suffix".to_owned()
+    };
+}]]></programlisting>
+	<literallayout class="monospaced"><![CDATA[   Compiling playground v0.0.1 (/playground)
+warning[E0499]: cannot borrow `foo` as mutable more than once at a time
+  --> src/main.rs:14:22
+   |
+13 |       Rc::get_mut(&mut foo).unwrap()[0] += {
+   |       -           -------- first mutable borrow occurs here
+   |  _____|
+   | |
+14 | |         *Rc::get_mut(&mut foo).unwrap() = vec![];
+   | |                      ^^^^^^^^ second mutable borrow occurs here
+15 | |         "suffix".to_owned()
+16 | |     };
+   | |_____- first borrow later used here
+   |
+   = warning: this error has been downgraded to a warning for backwards compatibility with previous releases
+   = warning: this represents potential undefined behavior in your code and this warning will become a hard error in the future
+
+    Finished dev [unoptimized + debuginfo] target(s) in 0.76s
+     Running `target/debug/playground`
+timeout: the monitored command dumped core
+/root/entrypoint.sh: line 8:     7 Segmentation fault      timeout --signal=KILL ${timeout} "$@"]]></literallayout>
+	<simpara>
+		ユーザ定義の演算子 (ここでは <code><![CDATA[<MyString as std::ops::AddAssign<String>>::add_assign]]></code>) で左辺を先に評価することと two-phase borrow が組み合わさると unsound になるという例である。
+		ただ気になるのは、 <link xl:href="https://rust-lang.github.io/rustc-guide/borrow_check/two_phase_borrows.html">rustc guide で説明されているルール</link>と違って mutable borrow が2つ存在することが何故か許されているところ。
+		もしかして過去の (NLL 以前の) rustc はこのようなコードも許していたのだろうか……？
+		謎である。
+	</simpara>
 </section>
 
 </article>
