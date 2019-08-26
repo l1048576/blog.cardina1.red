@@ -1,0 +1,839 @@
+---
+created_at: 2019-08-26T19:49:30+09:00
+published_at: 2019-08-27T05:02:01+09:00
+format: docbook
+title: "cargo crev でコードレビューをしてみたらバグを見付けた話など"
+tags:
+  - prog-rust
+  - programming
+kind: article
+
+excerpt: "コードレビューは楽しい。"
+---
+<?xml version="1.0"?>
+<article
+	xmlns="http://docbook.org/ns/docbook"
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:le="https://www.cardina1.red/_ns/docbook/lo48576-extension"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xml:id="article-2019-08-26-code-review-using-cargo-crev"
+	xml:lang="ja"
+	version="5.1"
+>
+<title>cargo crev でコードレビューをしてみたらバグを見付けた話など</title>
+
+<simpara>
+	<link xl:href="https://qiita.com/qnighy/items/34bed9dbd826dc76d3ba">Rustの依存関係の信頼性を検証する (crev) - Qiita</link> という記事を読んで、面白そうだったので cargo-crev を実際に使ってみた。
+	これはコードレビュー自体を完全に自動化するためのものではなく、前準備、結果の公開・共有・利用などを支援するツールなので、コードレビュー自体は自力で行う必要がある。
+	そんなわけで、基本的な概念の紹介と、実際にいくらかコードレビューをしてみたところ <code>unsafe</code> 絡みのバグを見付けたという話と、ツールを使っての所感なんかを書く。
+</simpara>
+<simpara>
+	この記事の半分は雑な日記みたいなものなのでスッ飛ばすのが良い。
+	というかあまりにダラダラ書きすぎたので、後でいろいろバッサリ削る可能性もある (←放置フラグ)。
+</simpara>
+
+<section xml:id="preamble">
+	<title>前提</title>
+
+	<simpara>
+		このセクションは、わかっている人は読み流しても問題ない。
+	</simpara>
+
+	<section xml:id="preamble--dependency-and-trusting-code">
+		<title>依存とコードへの信頼</title>
+
+		<simpara>
+			C 言語の時代から「他人が書いた他のライブラリに依存したコードを書く」という状況は少なからずあったわけだが、現代的な環境ではこれが殊更に加速している。
+			開発環境やツールチェインが外部ライブラリの簡単な利用や、ライブラリの簡単な公開をサポートしているためである。
+			そうすると、外部ライブラリの利用や公開への障壁が小さくなり、より小さな機能やマイナーな機能を提供するライブラリの利用や公開が加速し、結果としてプロジェクトの依存関係は膨らみがちになる。
+		</simpara>
+		<simpara>
+			依存ライブラリに深刻なバグや悪意あるコードが紛れ込むと自分のプロジェクトまでそのコードを抱えることになるため、できればこれは避けたい。
+			依存先プロジェクトが少なければ、依存先のライブラリを自分の目で確認することもできるかもしれない。
+			依存先プロジェクトが有名であれば、多くの人によって確認されたコードは信頼できるかもしれない。
+			しかし、そのどちらでもない場合、プロジェクトが依存しているコードは本当に安全であるといえるだろうか？
+		</simpara>
+		<simpara>
+			……という問題も、今に始まったことでなく昔から議論されていたのだろうが、問題を認識しつつ末端の趣味開発者として実際にできることはそんなに多くない。
+			セキュリティが重要なプロジェクトであれば、お金やマンパワーを投入してコードを監査 (audit) することもできるだろうが、趣味のプロジェクトでそこまでできる人もそういまい。
+			加えて、監査する主体にも社会的信用がなければ、見ず知らずの人が「このコードは信用できます！」などと言ったところで誰が信用しないだろう。
+			さらにはそういった現状も相俟って、「このコードは信用できます！」と主張する人自体がそもそも少ない。
+			そんなわけで、世間のコード、また我々が利用するコードの大部分は、安全であるということが明確に認められないままなんとなく利用されている。
+		</simpara>
+		<note>
+			<title>今更？</title>
+			<simpara>
+				今に始まったことでないこの現状が問題視されるのは、実際にこれで事故 (事件) が起きているからである。
+				「oss malicious code injected」などでググれば、関連する記事が多数発見できる。
+				仮想通貨界隈がそれで †盛り上がっている† もよう。
+			</simpara>
+		</note>
+
+		<simpara>
+			つまり、コードを信頼するか決めるにあたって、以下のことが大きな障害となる。
+		</simpara>
+		<itemizedlist>
+			<listitem>
+				安全性を確認すべきコードが多いこと
+			</listitem>
+			<listitem>
+				安全性を確認したという報告が少ないか、あるいは目に付かないこと
+			</listitem>
+			<listitem>
+				コードの安全性を確認した (と主張する) 赤の他人の言葉を信用しかねること
+			</listitem>
+		</itemizedlist>
+	</section>
+
+	<section xml:id="preamble--trusting-others">
+		<title>他人への信頼と Web of Trust</title>
+
+		<simpara>
+			上記の問題について、実のところ1番目と3番目については技術的な解決策が昔から知られている。
+			これは <emphasis>Web of Trust</emphasis>
+			<footnote xml:id="footnote-web-of-trust-browser-addon" refmark-id="ref-footnote-web-of-trust-browser-addon">
+				<simpara>
+					同名のブラウザ拡張が存在するが、これは全く関係ない。
+					<link xl:href="https://forest.watch.impress.co.jp/docs/serial/yajiuma/1028856.html">個人情報を収集・販売しているなどの話</link>もあり、むしろ良からぬ意図をもって名前をぶつけてきたのではと疑ってしまう。
+				</simpara>
+			</footnote>
+			(信用の輪) と呼ばれるもので、実際に交流したことのない誰かの電子署名
+			<footnote xml:id="footnote-digital-signature" refmark-id="ref-footnote-digital-signature">
+				<simpara>
+					ここでいう署名とは、メールの末尾に付ける個人情報などの全く信用ならない自称の「署名」ではなく、暗号学的な意味での「署名」である。
+				</simpara>
+			</footnote>
+			(あるいは PGP 公開鍵) が本当に本人のものであると信用すべきかという問題を解決する仕組みである。
+		</simpara>
+		<simpara>
+			大雑把に言うと、<emphasis>本人であることの信用関係をグラフ構造で表現し、グラフのエッジに管理能力の信頼度や本人性の信用度で重み付けをし、エッジを辿るたびに重みに応じて信用度を減衰させていく</emphasis>ことで、ある署名が本当に本人のものであるかの信用度を算出するという、発想自体はシンプルな仕組みであり、このグラフこそが Web of Trust である。
+			これにより、「信頼できる友人の言ならまあ信用できるし、信頼できる友人が信頼しているという別の友人の言ならそこそこ信用できる」という自然な仕組みをコンピュータの世界に持ち込める。
+		</simpara>
+		<simpara>
+			また、この仕組みは「○○は万人が信用しているものとする」といったような天下り的な信用を必要とせず機能するため、多数の多様なユーザが存在する状況においてもうまく機能を発揮できる。
+		</simpara>
+		<simpara>
+			この Web of Trust の仕組みは本人性の確認以外にも利用でき、これをコードレビューのエコシステムへと持ち込んだのが <link xl:href="https://github.com/crev-dev/cargo-crev">cargo-crev</link> である。
+		</simpara>
+	</section>
+
+	<section xml:id="preamble--code-reivew">
+		<title>コードレビュー</title>
+
+		<simpara>
+			cargo-crev について語る前に、コードレビューについて軽く説明しておく。
+		</simpara>
+		<simpara>
+			多くの場合、コードレビューとは、プロジェクトのメンバーやリポジトリの管理に責任や強い権限を持っている人が、プロジェクトに取り込むコードの品質や問題を確認するものである。
+			しかし OSS の場合、特に個人開発の小規模なプロジェクトでは正式なメンバーは一人か数人であることが多い。
+			この場合のコードレビューは、その数人が、それ以外の人 (つまりプロジェクトのメンバーではないがパッチを投稿してくれた人) のコードの品質を確認し、必要に応じて修正を求めたり自ら修正するというものになる。
+			こういったコードレビューは、プロジェクトのコードそのものというより、実際には「コードへの変更」をレビューするものである。
+		</simpara>
+		<simpara>
+			依存先プロジェクトのコードを信用できるかという文脈で考えるとき、コードの品質はプロジェクトの管理者やメンバー当人ばかりでなく、<emphasis>第三者の目</emphasis>による品質確認もあった方がよい。
+			何故なら、悪意ある開発者や問題に気付かない開発者は自分のコードは信用できると言い張るだろうが、多数の人々が確認をすれば、そのうちいくらかの人は問題に気付いて指摘できるかもしれないからである。
+			この場合、どちらかというとコードレビューは品質保持のための手順というよりは、既にあるコードに不正や問題がないか確認する監査に近いものである。
+			また、ここでの監査のようなコードレビューは、各々の小さな変更ではなく、今あるコード全体、特定のバージョンのスナップショットそのものについてのレビューが求められる。
+		</simpara>
+		<simpara>
+			この監査という行為に監査者自身への信用が必要であることは先述の通りだが、コードレビューを行った多数の第三者をどの程度信用するかという問題は Web of Trust で解決できそうである。
+		</simpara>
+	</section>
+
+	<section xml:id="preamble--how-crev-solves-the-problem">
+		<title>crev, cargo-crev はどう問題を解決するか</title>
+
+		<simpara>
+			<link xl:href="https://github.com/crev-dev/crev">crev</link> とは、多数の第三者による草の根的なコードレビューをうまく共有し、また Web of Trust のモデルに基いてそれらのコードレビューへの信用をうまく活用できるようにしようという仕組みである。
+			この仕組み自体は、特定の言語やストレージや中央サーバなどには非依存で、今のところ Rust 言語用の <link xl:href="https://github.com/crev-dev/cargo-crev">cargo-crev</link> は既に利用可能なレベルで作られており、 JavaScript 用の <link xl:href="https://www.npmjs.com/package/crev">npm-crev</link> は開発途上らしい。
+		</simpara>
+		<simpara>
+			cargo-crev は、以下のようなモデルで動作する。
+		</simpara>
+		<itemizedlist>
+			<listitem>
+				<phrase>
+					各レビュアーは、自分の「他レビュアーへの信頼・信用情報」と「自分 (もしかすると他人も？) のコードレビュー結果」を各々の決めた場所で公開する。
+				</phrase>
+				<itemizedlist>
+					<listitem>
+						信頼・信用情報とコードレビュー結果は電子署名が付与されており、 WoT の仕組みによって偽造が困難に、また検出可能になっている。
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<phrase>
+					コードレビュー情報の利用者は、自分の信頼・信用するレビュアーを足掛かりに、信頼するレビュアーが信頼する別のレビュアーなど様々な人々によるレビュー情報を取得し、ローカルで信用度情報を算出し利用する。
+				</phrase>
+				<itemizedlist>
+					<listitem>
+						ユーザが誰を信用しているかによって、ローカルで算出されたプロジェクトの信用度は異なるということである。
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+		<simpara>
+			これにより、次のような結果が期待できる。
+		</simpara>
+		<itemizedlist>
+			<listitem>
+				<phrase>
+					自分が信頼・信用した人の目を通してコードが信用できるかを、ある程度主観的かつ自動化して判断できる。
+				</phrase>
+				<itemizedlist>
+					<listitem>
+						ここでいう自動化とは、「あなたはこれを信用していますか？」といちいち尋ねる必要がないという意味であって、人の脳を介さずにコードを機械的に検査するという意味では断じてない。
+					</listitem>
+					<listitem>
+						信頼の連鎖はポジティブなものだけでなく、たとえば「私が信頼している人が信頼しないことにした人によるレビュー」は、信頼度が低いものとして結果の算出に利用される。
+						そういった意味でも、何を信頼・信用するかをユーザ個々人に合わせて決めることができる。
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<phrase>
+					自分のコードレビュー結果を、偽造・改竄される心配なく、手軽に、かつ利用しやすい形で、広く公開できる。
+				</phrase>
+				<itemizedlist>
+					<listitem>
+						信頼されるレビューの積み重ねが、さらにレビュアーの信頼へと繋がっていくことで、レビュアー自身のブランディングとしても機能する。
+						逆に、信頼できないレビューや雑なレビューが多いと、もちろん人々からは信頼されなくなっていく。
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</section>
+</section>
+
+<section xml:id="how-to-review">
+	<title>どのようにコードレビューするか</title>
+
+	<simpara>
+		ここでは cargo-crev の使い方は書かない。
+		多少不親切なところもあろうが、基本的に help とエラーメッセージを読めば必要なことはわかるだろう。
+	</simpara>
+	<simpara>
+		この節では、コードレビューをするうえで私が意識したことを記す。
+		個人の信念や言語によって異なる部分も多いかもしれないので、参考程度のものである。
+	</simpara>
+	<simpara>
+		文中に軽率に「改善を提案」やら「修正を投げる」など書いているかもしれないが、その場合言葉通りの意味である。
+		<emphasis>あなたに問題を発見できたならあなたはその発見を報告することができるし、あなたが改善策を思い付いたならあなたはそれを提示することができる</emphasis>。
+		コードレビュー中に何か引っ掛かりを覚えた時点で、既にレビュアーはプロジェクトに貢献できるレベルにあるということである。
+	</simpara>
+	<simpara>
+		自由ソフトウェア (OSS) を利用する権利は万人に開かれており、大抵の場合開発の場や問題報告の場もオープンである。
+		貢献できるチャンスがあるなら、いつ来るとも知れぬ誰かを待ち続けるよりも、さっさと自分で解決してしまうのが良い。
+		これはプロジェクトのユーザのためでもあるし、ユーザたりうる今や未来の自分のためでもあるし、自分という人間の信頼や価値を高めるためでもある
+		<footnote xml:id="footnote-branding-as-developer" refmark-id="ref-footnote-branding-as-developer">
+			<simpara>
+				まあ自分の価値を高めようだとかブランディングみたいなことは正直あまり興味がない (というか管理が面倒なのでどうでもいい) が、無料で貰えるのなら貰っておけばいいと思う。
+				そのうちどこかで役に立つかもしれない。。
+				持ってて損になるようならそのときになって捨てればいい。
+			</simpara>
+		</footnote>
+		。
+	</simpara>
+
+	<section xml:id="what-to-review">
+		<title>何をレビューするか</title>
+
+		<simpara>
+			最初に考えるのがこれである。
+			もしあなたが何か既にコードを書いたことがあるなら、そのコードが依存しているライブラリを (間接的な依存も含めて) 列挙し、その中から小さなプロジェクトでまだレビューされていない (あるいはレビューの少ない) ものを適当に選んでみるのが良い。
+			何を選んでも良いのだが、いきなり大きなコードと向き合うよりは、小さなもので慣らしていくのが良いだろう。
+		</simpara>
+		<simpara>
+			もし自分が貢献したことのある他人のプロジェクトがあるなら、それをレビューするのも良いだろう。
+			場合によっては自分が書いた以外の部分まで目を通したこともあるだろうから、コードへの理解は初めて読む人よりは進んでいるはずである。
+			使ったことのある機能や弄ったことのある部分を端緒として理解を広げていくと、どこから始めるか考える手間が省ける分やりやすいかもしれない。
+		</simpara>
+		<simpara>
+			貢献したことがなくとも、 GitHub で star したことがあるプロジェクトやその依存についてチェックしていくのも良い。
+			大事なのは、完全に利他的なボランティアとしてやるのではなく、「<emphasis>将来の自分がより安全なコードを使うための投資</emphasis>」として自分の利益を念頭にコードを読むことである。
+			レビューが集まった結果として利用者全体を利することはあるだろうが、開発にせよレビューにせよバグ報告にせよ、自分自身の利益を度外視した活動は持続しないものである。
+			せっかく関わるなら、自分に縁のありそうなものから選ぶのがモチベーションも保ちやすくて良いだろう。
+		</simpara>
+	</section>
+
+	<section xml:id="how-to-review--is-there-malicious-fragment">
+		<title>悪意あるコード片はあるか？</title>
+
+		<simpara>
+			レビューするうえで、これがまず、何よりも見落としたくないものである。
+			通常のバグであれば発現は条件次第だろうし、場合によってはユーザ側での回避策もとれる。
+			また、必ずしも実害が出るとも限らない、ガチャのようなものである。
+		</simpara>
+		<simpara>
+			しかし、悪意あるコードは過去・未来に渡るプロジェクト自体の信用を疑わせるものであり、実害の発生した可能性は極めて高く、場合によっては既に実行された結果起きたとについても調査が必要になるかもしれない。
+			ゆえに、この観点で疑わしいことを放置しては、コードの信用を論ずることはできず、そもそもコードレビューの意味がない。
+		</simpara>
+		<simpara>
+			以下で挙げる観点は悪意の発見のみに使うものではないが、資するところは大きいであろうと思われるものである。
+		</simpara>
+
+		<section xml:id="how-to-review--is-there-malicious-fragment--should-it-be-there">
+			<title>それはそこにあるべきか？</title>
+
+			<simpara>
+				簡単に発見できる不自然なコードとして、そもそもモジュールや関数が司るものでない処理をしているものなどがある。
+				たとえばデータ構造を司る部分なのにネットワーク通信をしているとか、数値計算なのにファイルの読み書きをしているとかである。
+				これは不自然なだけでアウトだとは限らず (たとえば数値計算でキャッシュや結果書き出しとしてファイルを利用することがあるかもしれない)、つまり機械的な判断は困難であるため、人が解釈してこれが妥当な処理であるか確認する必要がある。
+			</simpara>
+			<simpara>
+				そんなしょうもない悪意があるものかと思うかもしれないが、実際に起きうることである。
+				たとえば長大なスクリプト中に、1行だけ「ホームディレクトリを削除する」というコマンドが紛れ込んでいたら、プロジェクト管理者一人でチェックしただけでは見逃してしまう可能性は十分にある。
+				嫌がらせ目的では、シンプルなファイル削除はコストパフォーマンスが極めて良い。
+				また、外的な要因でプロジェクト自体が改竄されて公開されてしまうということもありうる。
+			</simpara>
+			<simpara>
+				また、悪意のない処理だとしても、そういった「場違いな処理」が紛れ込んでいるコードはそもそも品質が高くないといえる。
+				こういった処理は「品質が高くない」と指摘してやる気ある人々の注目をその箇所に集めるなり、自分の手で修正するなりすることで、将来的により信頼度の高いプロジェクトにすることができるだろう。
+			</simpara>
+		</section>
+
+		<section xml:id="how-to-review--is-there-malicious-fragment--what-constants-means">
+			<title>その定数は何？</title>
+
+			<simpara>
+				典型的には URL やパスなどであろうが、定数やリテラルなどが存在する場合、それがどのような目的でその値になっているか確認すべきである。
+				悪意がなくとも、それがハードコードされているべきでないなら変数や定数に分離するなどの改善を提案することはできる。
+			</simpara>
+		</section>
+
+		<section xml:id="how-to-review--is-there-malicious-fragment--what-and-how-does-it-modify">
+			<title>何をどう変更している？</title>
+
+			<simpara>
+				他に悪意やバグの紛れ込む余地のある部分は、値の変更部分である。
+				不審な定数を発見しづらくするため難読化していることもありうるし、有害な処理をそうとわかりづらくしているのかもしれない。
+				「何を変更しているか」「どのように変更しているか」「ここでそのアクセスや変更は自然か」あたりを気にしながら読んでいく。
+			</simpara>
+			<simpara>
+				もし複雑な計算が何をしているのかどうしてもわからなければ、「この部分はわかりづらいのでコメントを付けた方が良い」などと問題を指摘すれば将来の貢献者が幸せになるかもしれない。
+				あるいは、レビュー結果に「理解できなかったが、やたら不透明で複雑な処理をしている箇所があった」などと記すのも良い。
+				理解度が低いとマークしておけば、レビューの信頼度の減衰度を高く設定することができるため、「一応わかる部分はチェックしたけどあまり信用しないでくれ」という情報も正しく伝えることもできる。
+			</simpara>
+		</section>
+	</section>
+
+	<section xml:id="how-to-review--is-quality-good">
+		<title>コードの品質は良いか？</title>
+
+		<section xml:id="how-to-review--is-it-safe">
+			<title>それは safe か？</title>
+
+			<simpara>
+				安全性を保証するために<emphasis>あらゆる箇所で</emphasis>成り立つべき条件を、 safety invariants などと呼ぶ。
+				(invariant とは不変条件である。)
+				基本的にコンパイラなどの検査器は、言語として用意した safety invariants を検査し成功することをもって、安全性の根拠としている。
+				しかし、この検査は偽陽性
+				<footnote xml:id="footnote-be-conservative-to-prevent-false-positives" refmark-id="ref-footnote-be-conservative-to-prevent-false-positives">
+					<simpara>
+						ここでいう偽陽性とは、安全でないものを誤って安全と判定してしまうこと。
+					</simpara>
+				</footnote>
+				を防ぎつつ自動的な判定を行うためのものなので、いくらか保守的である。
+				つまり、「本当は安全なのに、コンパイラでは安全であると判定できないコード」というのが存在する。
+			</simpara>
+			<simpara>
+				Rust 特有の話になってしまうが、そのような「本当は安全である処理」をコンパイラによる自動的な判定によらず人間が保証し許可するための仕組みが、 unsafe なコードという概念である。
+				(つまり、本当に安全でない処理は <code>unsafe</code> ブロック中で実行しようがアウトであり、この場合未定義動作や脆弱性などが発生しうる。)
+				<code>unsafe</code> ブロックは「このブロック中で Rust コンパイラが期待する safety invariants が満たされていることを、コンパイラにはわからないだろうが人間様が代わりに保証する」という意味であり、 safety invariants を破ってよいという仕組みではない。
+				つまり、 <code>unsafe</code> ブロック中における安全性は人間が注意深く確認し保証しなければならない。
+			</simpara>
+			<simpara>
+				Rust には<emphasis>ある種のバグが発生しえない</emphasis> safe なサブセットと、ある種のバグが記述できてしまう unsafe なフルセットが存在する。
+				もちろん safe Rust でもバグはありうるが、発生条件が予測困難だったり何が起きるかわからないような厄介なバグは unsafe な部分に原因がないと発生しないようになっている。
+				すなわち、コンパイラが全力を出せず人間が非自明な保証を行う必要のある unsafe なコードは、重点的にチェックする価値がある。
+			</simpara>
+
+			<section xml:id="how-to-review--is-it-safe--should-it-be-unsafe">
+				<title>それは unsafe でなければならないか？</title>
+
+				<simpara>
+					Rust において unsafe なコードが必要になる場合というのは、限られている。
+				</simpara>
+				<itemizedlist>
+					<listitem>
+						C 言語など本質的に unsafe な言語のライブラリと連携する場合
+					</listitem>
+					<listitem>
+						複雑なデータ構造を効率よく保持したり、データ自身の一部への参照などを効率良く持ちたい場合
+					</listitem>
+					<listitem>
+						本当に、本当に、本当にどうしても極度の高速化が必要である場合
+					</listitem>
+				</itemizedlist>
+				<simpara>
+					厳密にはこれ以外にもいくつか状況はあるのだが、まあ大雑把にはこんなものである。
+					これ以外の用途での unsafe には、正当性がなかったり薄かったりする疑いがある。
+				</simpara>
+				<simpara>
+					本質的に unsafe な言語との連携では unsafe が避けがたいのは仕方ないとして
+					<footnote xml:id="footnote-ffi-unsafety" refmark-id="ref-footnote-ffi-unsafety">
+						<simpara>
+							FFI で unsafe が避け難いことは、確認が不要であることを意味しない。
+							たとえば <link xl:href="https://travisf.net/capstone-rs-unsafety-adventure">A Rust FFI adventure in unsafety | Travis Finkenauer</link> では、 C バインディングのトレイト実装に問題があったことを C のソースコードまで遡って確認している。
+							こういった対処は Rust に限らず別言語についても十分な知識が必要になるため、重要ではあるが誰にでもできることではないだろう。
+							無理せず自分のわかる箇所に注力して確認をするのがよい。
+						</simpara>
+					</footnote>
+					、残る2つについては、その必要性は十分にチェックすべきだろう。
+				</simpara>
+				<simpara>
+					データ構造関係では、所有権や寿命、許される処理についてある程度の前提 (制約) を用意したうえで、 unsafe な処理で効率化を提供していることが多い。
+					こういったライブラリは「皆が unsafe で書きたくなる部分を共通のコードで提供することで、皆が同目的で別々の unsafe を使うのを阻止する」という役割も持っており、 unsafe な部分はプロジェクトの存在意義の少なからぬ部分を占めている場合が多い。
+					そのような場合は、どうしても unsafe であってほしい部分は仕方ないものとして、安全性を確認することに注力したい。
+				</simpara>
+				<simpara>
+					局所的かつ本質的に unsafe である必要のない部分については、たとえ安全であるとしても要注意である。
+					たとえば「高速化のために unsafe を使っていて、たしかに安全である」ということが読み取れたとしても、これが本当に unsafe にする価値のある高速化であるかは別の話。
+					本当に高速になっているのかはよく確認すべきだし、必要を確信できる効果が観測できるのなら、それはドキュメントなりコメントなりで記されて然るべきである。
+					逆に最適化でほとんど消え去るような変更だったとすれば、コンパイラのチェックを迂回してまでこだわるべきではないだろう。
+				</simpara>
+				<simpara>
+					何事もバランスである。
+					「エアバッグとシートベルトを外すことで車体が軽量化でき、燃費が良くなります！」などと言われて燃費を優先する人がいるものだろうか。
+					Rust では言語の思想レベルでも安全性がかなり重視されており、安全性の自動的な保証を諦めてまで行うべき高速化であるかはよくよく検討すべきである。
+				</simpara>
+				<simpara>
+					もし、やたらと (safe に書けることまで) unsafe が多用されているようなら、「unsafe やたらと使いすぎ」というレビューをするだけでも良い。
+					それによって後続のレビュアーや利用者は未発見のバグを警戒することができるようになる。
+				</simpara>
+			</section>
+
+			<section xml:id="how-to-review--is-it-safe--is-safety-correctly-explained">
+				<title>安全性の条件は説明されているか？ それは正しいか？</title>
+
+				<simpara>
+					unsafe であることが仕方ないとして、次に確認するのは「unsafe なコードが安全である条件と、それが満たされる根拠が説明されているか」である。
+					大抵の場合、前後にある assert や条件チェックなどで保証が行われるか、データ構造としての制約や、提供されている処理の制限などによって安全性が保証される。
+					いずれにせよ、これらは機械的にわかるものではないので、人間が後から読んでそうとわかるように明確に文書化されているべきであり、すぐ近く (あるいはそのブロックを持っている関数やそれを持つ型) にコメントがあるべきである。
+					もしそういったコメントがなかったら、貢献のチャンスだ。
+					条件を把握し、コメントを書いてプルリクエストなり何なりを投げてしまうのが良い。
+				</simpara>
+				<simpara>
+					条件が明示されていても、それが本当に正しいかはよく考えるべきである。
+					こういったことは機械的な検査では難しいので、<emphasis>多数の人間が考えればその数がそれだけ信頼になる</emphasis>。
+					「他の誰かが確認しているだろう」と放置するのではなく、できるだけ自分で納得できるまで考えるのが良い。
+				</simpara>
+			</section>
+
+			<section xml:id="how-to-review--is-it-safe--are-safety-conditions-met">
+				<title>安全性の条件は満たされているか？</title>
+
+				<simpara>
+					期待される安全性の条件が問題ないと考えたなら、次はそれらの条件が実際に満たされているかの確認もする。
+					条件を一度明文化してしまえば、ロジックを追いながら確認するのもやりやすくなるはずである。
+				</simpara>
+				<simpara>
+					もしコードを追っていても条件が満たされるのが明らかでないと感じるなら、要所要所に assert などによる検査を挟むという手もある。
+					そこまでする余裕があれば、そのままコードの確認と同時に assert を追加するパッチを送ってしまうのが良いだろう。
+					こういった貢献により、将来コードを編集したりレビューする人が、条件が満たされていることを確信しやすくなる。
+					そこまでする気力がないなら、「この条件が満たされる理由がわからないんだけど」などと質問の issue を報告してしまうのもアリだ。
+					この場合、作者やコードをよく理解できた人が応答してくれるだろうし、場合によってはコメントなどを追加してもらえるかもしれない。
+				</simpara>
+				<simpara>
+					条件が満たされていないことを発見してしまったら、これをそのまま報告しても良いし、余裕があるならバグ発現コードを作ってみて報告しても良いし、修正を一緒に提出しても良い。
+					そもそも条件が満たされないことを発見する過程で何が起きるとマズいか把握できているだろうから、他人に理解させてから修正を待つよりも、おそらく問題を現時点で一番よくわかっている自分自身で直してしまうのが最も無駄がないだろう。
+				</simpara>
+				<simpara>
+					ちなみに、 Rust (に限らないが) における safety invariants 破りは "unsoundness" とか "soundness hole" などと呼ばれる。
+					「コンパイラが安全だと言ってコンパイルを通してしまったのに実際は安全ではなかった」というのを、言語やコードが sound (健全) でないと形容するためだ。
+					既に報告されていないか調べたり、 unsafe なコードの問題について報告するときに使える便利な言葉である。
+				</simpara>
+			</section>
+		</section>
+		<section xml:id="how-to-review--is-it-elegant">
+			<title>それは綺麗か？</title>
+
+			<simpara>
+				これは多分に美的感覚の入り込む場所なので修正されるべきか客観的な判断が難しい場合も多いが、もし「どう考えてもこう書いた方がいいだろう」と思ったなら、パッチを書いて投げてしまうのが良い。
+				作者の信念に合わなければ reject されて終了だし、考える余地があるなら議論なり修正なりが進むことになるだろう。
+				(とはいえ、プロジェクトの issue や pull request の数は気にしても良いかもしれない。
+				忙しそうなプロジェクトなら、必要性の低い、あるいは本質的でない修正は提案しない方が良いということもあるだろう。)
+			</simpara>
+			<simpara>
+				こういった本質的でない変更は、レビューというよりはむしろプロジェクトのコードそのものに対して反映されるべきものが少なくない。
+				覚えておく記憶容量が勿体ないので、さっさと報告なり修正なりして外部記憶へ吐き出してしまおう。
+			</simpara>
+			<simpara>
+				本質的でないが若干鬱陶しい小さな問題を解決する手段として、コンパイラの警告や lint を使うというものがある。
+				とりあえず脳死で lint を適用してみて、警告が出たら一般に問題があったり自明なより良い記述が存在するコードなので、まとめて修正して pull request を投げてしまうのが良いだろう。
+				こういった「やらねばならないが実害が小さいので放置しがちな作業」を解決してもらえるのも存外ありがたいものである。
+			</simpara>
+		</section>
+		<section xml:id="how-to-review--is-it-documented-and-tested">
+			<title>それは説明されているか？テストされているか？</title>
+
+			<simpara>
+				正直なところ、これはちょっと難しいというか、あまり参考にならないかもしれない。
+				たとえばコメントやドキュメントが整備されていたところで良いコードかは別問題だし、テストがあるからといって効果的だとも限らない。
+				しかし、もし巨大なコードであるにも関わらず十分なドキュメントやテストのある形跡が見えないのであれば、これは不安要素であるには違いない。
+			</simpara>
+		</section>
+	</section>
+</section>
+
+<section xml:id="what-i-did">
+	<title>私の体験</title>
+
+	<simpara>
+		それで、あれこれ語っている私は何をしたのかという話である。
+		<link xl:href="https://github.com/lo48576/crev-proofs">既にいくつかのライブラリを眺めてみた</link> のだが、いくらか直接的な貢献をすることになった <link xl:href="https://github.com/Robbepop/string-interner">string-interner</link> での例を紹介する。
+	</simpara>
+
+	<section xml:id="what-i-did--tiny-improvements">
+		<title>軽微な機能向上</title>
+		<itemizedlist>
+			<listitem>
+				<phrase>
+					<link xl:href="https://github.com/Robbepop/string-interner/pull/8">Preallocate storage using iterator's size hint by lo48576 · Pull Request #8 · Robbepop/string-interner</link>
+				</phrase>
+				<itemizedlist>
+					<listitem>
+						イテレータからコンテナに値を入れるとき、事前に長さが判明していたら事前にメモリを確保できるというだけの話。
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<phrase>
+					<link xl:href="https://github.com/Robbepop/string-interner/pull/13">Implement `std::iter::Extend` for `StringInterner` by lo48576 · Pull Request #13 · Robbepop/string-interner</link>
+				</phrase>
+				<itemizedlist>
+					<listitem>
+						<link xl:href="https://doc.rust-lang.org/stable/std/iter/trait.FromIterator.html"><code>FromIterator</code></link> が実装されいてるのだから、 <link xl:href="https://doc.rust-lang.org/stable/std/iter/trait.Extend.html"><code>std::iter::Extend</code></link> も実装されているのが自然だよね、というだけの話。
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+		<simpara>
+			説明するほどのことでもない簡単なものである。
+			前者の size hint を使えそうだなというのは、まあ眺めてると浮かび上がってきたやつで、慣れである。
+			後者の <code>Extend</code> が欲しいというのは、前者の変更の<link xl:href="https://github.com/Robbepop/string-interner/blob/d91dac0cfe42512526879cdfaac0b81beff54089/src/lib.rs#L445-L447">直後にあったループ</link>で「この形は頻出しそう」という気持ちになったとき、コンテナにまとめて要素を追加する一般的な API が存在することを思い出したので書いたもの。
+			いずれも、このライブラリについて大して知らずとも思い付くことはできるだろうが、私の場合はこのライブラリを使ったことがあったので <code>StringInterner</code> がコンテナとして振る舞うという直観を既に持っており、ひらめきが近かったというのはあるだろう。
+		</simpara>
+		<simpara>
+			こんなものはちょっと書いてやれば済む話であって、さっさとパッチを投げてしまうのが一番手っ取り早い。
+			こうして改善しておけば、特をするのは次のリリースを自分のプロジェクトで使う自分自身ということになるので、躊躇う理由はない。
+		</simpara>
+	</section>
+
+	<section xml:id="what-i-did--facing-unsafe-codes">
+		<title>unsafe と向き合う</title>
+
+		<simpara>
+			この crate は unsafe なコードを含んでおり、これはパフォーマンス関係で割と重要な要素でもあった (具体的には、メモリ消費量を半分近くにできる)。
+			よって、 unsafe を完全に排除するのではなく、安全性を説明し確信する方向で読んでいくことにした。
+		</simpara>
+
+		<section xml:id="what-i-did--facing-unsafe-codes--avoid-unsafe">
+			<title>unsafe を避ける</title>
+
+			<itemizedlist>
+				<listitem>
+					<link xl:href="https://github.com/Robbepop/string-interner/pull/11">Make `Sym::from_usize` safe (avoid using `unsafe`) by lo48576 · Pull Request #11 · Robbepop/string-interner</link>
+				</listitem>
+			</itemizedlist>
+
+			<simpara>
+				とりあえずひととおり眺めてみて気になるのが、以下のような部分である。
+			</simpara>
+			<programlisting language="rust"><![CDATA[fn from_usize(val: usize) -> Self {
+    assert!(val < u32::MAX as usize);
+    Sym(unsafe { NonZeroU32::new_unchecked((val + 1) as u32) })
+}]]></programlisting>
+			<simpara>
+				この unsafe は安全だろうか？
+				安全である。
+				では、この unsafe はそんなに大事だろうか？
+				それを確認するには、作者がどこまで速度を重要視しているかを考える必要もあるのだが、まあひとまず置いておこう。
+				指摘されてから議論すればいい話である。
+			</simpara>
+			<simpara>
+				この unsafe は「整数が0でない場合に panic する」というチェックを飛ばすためのものである。
+				<code>val + 1</code> が0でないことは上の行の assert で確認済であるから安全ではある。
+				ではこれを safe なコードで書き直した場合、どれだけパフォーマンスに影響が出るだろうか？
+			</simpara>
+			<simpara>
+				本当はこういうことを調べるためにはベンチマークを取るなどすると良いのだろうが、面倒なので
+				<footnote xml:id="footnote-never-benchmarked" refmark-id="ref-footnote-never-benchmarked">
+					<simpara>
+						面倒というのはちょっと誤魔化しで、実は私は定量的な評価をするためのベンチマークとったことがない。
+						秒単位とかで効いてくるものは大雑把に測ったりすることはあるが、精密な評価をするには考えること、やることがあまりに多くてダルいためである。
+						そういうのは本当に必要になってから考えればいいのだ (逃げの一手)。
+					</simpara>
+				</footnote>
+				アセンブリを見て比較・調整してみることにした。
+			</simpara>
+			<simpara>
+				具体的なコード例は省略するが、 safe な書き方をするにもいくつか方法がある。
+				この場合だとたとえば <code>u32::wrapping_add()</code> を使うか否か、 <code>&lt;u32 as TryFrom&gt;::try_from()</code> を使うか否か、その結果に <code>.ok().and_then()</code> を使うか <code>.expect()</code> を使うか、などなど……
+				まあいろいろ比較してみて、結果として単純に <code>NonZeroU32::new_unchecked()</code> を <code>NonZeroU32::new().unwrap()</code> に置き換えるのが一番差異が少なく済むということになった。
+				具体的には、後者の safe なバージョンでは<emphasis>絶対にジャンプしないジャンプ命令がひとつ挟まるだけ</emphasis>で済む。
+				まあ許容範囲だろう
+				<footnote xml:id="footnote-never-working-jump-inst-is-ok" refmark-id="ref-footnote-never-working-jump-inst-is-ok">
+					<simpara>
+						めちゃくちゃループするような局面では分岐予測がゴリゴリ効くだろうし、そもそも <code>Sym</code> の生成はそう頻繁なものではない (新規生成よりコピーが多そう) だろうとか、まあいろいろ理由はあるのだが、計測するのが面倒だしこれ以上良くならないだろうから十分だろうというかなり雑な決断である。
+						文句を言われたり疑問を呈されたりしたら、そのときはまたどうにかするなり引っ込むなりしよう。
+					</simpara>
+				</footnote>
+				。
+				最終的に、こう直すことにした。
+			</simpara>
+			<programlisting language="rust"><![CDATA[fn from_usize(val: usize) -> Self {
+    assert!(
+        val < u32::MAX as usize,
+        "Symbol value {} is too large and not supported by `string_interner::Sym` type",
+        val
+    );
+    Sym(NonZeroU32::new((val + 1) as u32).unwrap_or_else(|| {
+        unreachable!("Should never fail because `val + 1` is nonzero and `<= u32::MAX`")
+    }))
+}]]></programlisting>
+			<simpara>
+				assert に親切なエラーメッセージを付けたのと、 <code>new_unchecked()</code> の代わりに <code>new()</code> を使って、失敗時の処理として <code>unreachable!()</code> を使うことでここに来ることはないという意思を明示した。
+				それだけである。
+				しかし、この safe なコードならまず失敗しないということがコードとメッセージ両方で明示されているし、もし万が一失敗しそうになったら
+				<footnote xml:id="footnote-can-it-fail" refmark-id="ref-footnote-can-it-fail">
+					<simpara>
+						失敗するわけねえじゃんと思うだろうか？
+						unsafe なバージョンだと、たとえばうっかり <code>assert!</code> を除去するだけで未定義動作に突入しうる。
+						「この assert は絶対に除去するべからず」とでも書いておけば良いのかもしれないが、人間の注意力に期待するよりもコンパイラの検査に頼る方が現実的というものである。
+					</simpara>
+				</footnote>
+				プログラムは未定義動作ではなくメッセージとともにクラッシュすることでバグの存在を明示してくれる。
+				 unsafe なコードだと立ち止まって周囲を確認する必要があったのに比べれば格段に読みやすく、また弄りやすくなった。
+			</simpara>
+		</section>
+
+		<section xml:id="what-i-did--facing-unsafe-codes--checking-safety">
+			<title>安全性を確認する</title>
+
+			<itemizedlist>
+				<listitem>
+					<link xl:href="https://github.com/Robbepop/string-interner/issues/9">Unsoundness (use after free) around `StringInterner::clone()` and `InternalStrRef` · Issue #9 · Robbepop/string-interner</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://github.com/Robbepop/string-interner/pull/10">Fix use after free bug around `StringInterner::clone()` by lo48576 · Pull Request #10 · Robbepop/string-interner</link>
+				</listitem>
+			</itemizedlist>
+
+			<simpara>
+				unsafe であることが重要な箇所では、 unsafe から逃げることはできない。
+				というわけで、最初に unsafe の用途を確認する。
+				引用するのも面倒なので省略するが、雑に言うと文字列の生ポインタの参照を外す箇所とスレッドセーフであるという指定をする箇所がコンパイラによらない検査を必要としている部分であった。
+			</simpara>
+			<simpara>
+				オブジェクトの利用がスレッドセーフである理由はコメントで簡単に説明されていたためそれを参考にしつつ、自分で納得しながらコードを理解していく。
+				特にポインタが指すオブジェクトの生存期間と所有者を意識しながら読んでいくと、あら不思議、 unsound な部分が見付かるのである
+				<footnote xml:id="footnote-finding-unsoundness-by-intuition" refmark-id="ref-footnote-finding-unsoundness-by-intuition">
+					<simpara>
+						ある種の「訓練された性格の悪さ」みたいなのが必要かもしれない。
+						何らかの条件のもとで安全と言われると、その<link xl:href="https://blog.cardina1.red/2019/07/29/borrowck-and-builtin-compound-assign/#appendix-unsoundness">条件を破ってみたくなるものである</link>。
+						このような性格の悪い思考は、エッジケースでのバグを未然に回避したり有効なテストケースを作り上げたりバグを発見するのに非常に有益なスキルであり、なにかと重宝する。
+						後天的に身に付くものだろうし、どんどん訓練して性格悪くなろうな (???)
+					</simpara>
+				</footnote>
+				。
+				簡単に言うと、問題は「生ポインタは同一 interner の所有する文字列を指している必要があるが、 interner を clone することでこの条件が破れる」というものである。
+				コメントの雰囲気から察するに、生ポインタが interner の外部に持ち出されないから interner 自体の寿命より長生きさせられる心配はないと考えていたのかもしれない。
+				他人がレビューしたからといって検証を怠るものではないという良い例である。
+			</simpara>
+
+			<section xml:id="what-i-did--facing-unsafe-codes--checking-safety--reproduce-fix-submit">
+				<title>再現、修正、提出</title>
+
+				<simpara>
+					これは dangling pointer への読み込みアクセスなので、どうにかして valgrind などのツールで検出できないかと考えたのだが、不思議なことにこれが検出できないのである
+					<footnote xml:id="footnote-why-valgrind-does-not-detect-invalid-read" refmark-id="ref-footnote-why-valgrind-does-not-detect-invalid-read">
+						<simpara>
+							本当に何故なのか。
+							そういう機能あったと思うんだけど。
+							valgrind なんもわからん。
+						</simpara>
+					</footnote>
+					。
+					とはいえ、いくら valgrind で検出できなくても理屈のうえでは確実に駄目なメモリアクセスが発生しているはずなので、かくなるうえはテストケースや内部状態のダンプで示すしかない。
+					こういうときのゴールは、<emphasis>safe なコードだけで仕様外かつ予測困難 (あるいはランダムに見える) な挙動を引き起こすこと</emphasis>または <emphasis>safe なコードだけを使って (panic などでなく) segmentation fault などでプログラムをクラッシュさせること</emphasis>である。
+				</simpara>
+
+				<note>
+					<title>unsoundness を端的に示すには</title>
+					<simpara>
+						Rust では、 safe なコードのみでは未定義動作が起きないという保証がされている。
+						(まあ厳密には特例があるが、<link xl:href="https://github.com/rust-lang/rust/issues/10184">いずれ修正される見込みだし本当に特例</link>なので無視しよう。)
+						ということは、ユーザが safe なコードのみを書いて未定義動作や予期せぬクラッシュが起きれば、これは soundness hole であり、 unsafe なコードに問題があるという証拠となる。
+					</simpara>
+					<simpara>
+						未定義動作の一例は「実行のたびに違う結果が出る」などであるが、厄介なことに未定義動作なので実行のたびに正常に見えるそれっぽい挙動になって確率的におかしくなるのでも良いし、わけのわからない暴走を始めても良い。
+						<link xl:href="http://blog-ja.intransient.info/2011/05/c-13.html">HDD をフォーマットしはじめても良い</link>
+						<footnote xml:id="footnote-formatting-hdd" refmark-id="ref-footnote-formatting-hdd">
+							<simpara>
+								どうでもいいけど、 HDD をフォーマットというのも時代を感じさせる表現になってきましたね。
+								これからの C コンパイラは未定義動作で SSD をフォーマットしてほしい (適当)
+							</simpara>
+						</footnote>
+						し、<link xl:href="https://cpplover.blogspot.com/2014/06/old-new-thing.html">タイムトラベルを可能にしても良い</link>し、<link xl:href="http://pyopyopyo.hatenablog.com/entry/20051227/p1">鼻から悪魔が出ても良い</link>。
+						ともあれ、「普通に考えてこうはならんやろ」とか「正気とは思えん」となるようなおかしな挙動を観測できれば大抵は勝ちである。
+					</simpara>
+					<simpara>
+						もうひとつの予期せぬクラッシュはもっと簡単な話で、 Rust コンパイラによって想定されていたクラッシュ (<link xl:href="https://doc.rust-lang.org/stable/std/macro.assert.html"><code>assert!</code></link> 系の失敗, <link xl:href="https://doc.rust-lang.org/stable/std/process/fn.abort.html"><code>abort</code></link>, <link xl:href="https://doc.rust-lang.org/stable/std/macro.panic.html"><code>panic!</code></link> など) は大概、それっぽいいい感じのメッセージを表示したうえで異常ステータスとともに「ちゃんと終了」する。
+						本当の予期せぬクラッシュは、 segmentation fault とか illegal instruction とか floating point exception とか、そういう CPU や OS に文句を言われるレベルでの異常終了になる。
+					</simpara>
+					<simpara>
+						どっちのパターンも C や C++ でよく見た？
+						まったくその通りで、それこそが C や C++ が危険と言われ Rust が誕生した理由の一端でもある。
+					</simpara>
+				</note>
+
+				<simpara>
+					実のところどうすれば不正なメモリアクセスが発生するかは既に道筋が見えていたので、私はそれを引き起こしたのちオブジェクトの中身を適切な形でダンプするコードさえ書いてしまえば、「ほらここで解放されたアドレスにアクセスしてるでしょ」と言えば済むわけである。
+					で、<link xl:href="https://github.com/lo48576/string-interner/blob/5bb5485c8479b2bfb40d83758c0db56f8f466efe/TEST_RESULT.md">そのようなヤバい実行例を用意した</link>。
+					読めば全部書いてあるので解説はしないとして、「正常ならどう考えても成功するはずの assert の失敗」でオブジェクトの internal inconsistency が示せて、「予測困難な値 (<code>"0\u{c}\u{0}"</code>) の出現」で未定義動作が示せた。
+					とりあえずこの時点で<link xl:href="https://github.com/Robbepop/string-interner/issues/9">報告を投げた</link>。
+				</simpara>
+				<simpara>
+					原因と再現コードがわかっているのだから、あとはテストを書いて直すだけである。
+					こういうとき、直せそうと思ってもバグ報告と修正の提出は別々にしておくと、問題そのものに関する議論と修正のコード自体に関する議論を分離できて、かつ<link xl:href="https://github.com/Robbepop/string-interner/pull/10/files#diff-b4aea3e418ccdb71239b96952d9cddb6R223">前者の URI を修正のコードでコメントなどに記載できる</link>ので、ちょっと便利なのでおすすめ。
+					さておき、<link xl:href="https://github.com/Robbepop/string-interner/pull/10">修正とテストを提出</link>し、指摘に応じてちょっと直して merge され無事終了となった。
+				</simpara>
+			</section>
+
+			<section xml:id="what-i-did--facing-unsafe-codes--checking-safety--additional-test">
+				<title>追加のテスト</title>
+
+				<simpara>
+					バグを修正できたは良いが、未定義動作が起きていないことを保証するというのは一般に難しい。
+					何故なら、テストで「おかしな挙動を弾く」ということを試みても、未定義動作が「おかしく見えない挙動」をしてしまうことは十分にありうるし、また確率的におかしくなる場合はテストを単純に実行しても異常を検出できないかもしれないからである。
+					先のテストも、たまたま <code>"0\u{c}\u{0}"</code> などという妙な値が出たからわかりやすかったものの、解放した領域に解放直前の値が残っているなど十分にありえる話である
+					<footnote xml:id="footnote-ub-zombie-value" refmark-id="ref-footnote-ub-zombie-value">
+						<simpara>
+							これが本当によくある話で、 C や C++ などで free / delete した後も同じアドレスに値がそのまま放置されていて、 use after free で未定義動作を踏んでいるままバグの存在に気付かないというのが日常茶飯事なのである。
+							ここで「問題なく動いてるならいいじゃん」と思ってしまうのは考えが甘い。
+							未定義動作というのはどのような結果になっても良いことになっているので、ある日コンパイラのバージョンを上げると今まで何事もなく動いていた箇所が滅茶苦茶な挙動になってメモリを無限に食ったりクラッシュしたりランダムな値を吐きはじめたりなどするので大変厄介であり、これを許容するなど言語道断。
+						</simpara>
+						<simpara>
+							というか実際その挙動にやられてメモリ 10 GB と swap 10 GB を未定義動作で暴走したプロセスに食われたのが私である。
+							私の書いたコードじゃないのに……
+						</simpara>
+					</footnote>
+					。
+				</simpara>
+				<simpara>
+					そこでぼんやりと考えていたのだが、寝る前になって「アクセスしそうなポインタ全部舐めてやって所有権を持っていることを確認してやれば、今回のバグは絶対確実に検出できそう」ということに気付いたので、起きてからテストを書き、修正前のコードでちゃんと失敗することを確認し、ついでに safety に関するコメントを増量して<link xl:href="https://github.com/Robbepop/string-interner/pull/12">提出した</link>。
+				</simpara>
+			</section>
+		</section>
+		<section xml:id="what-i-did--so-what">
+			<title>だから何なのか</title>
+
+			<simpara>
+				まあここ数日の進捗みたいなものを雑に書いただけなので、だから何と言われても教訓を引き出すようなことでもないが。
+				コードレビューについてはえらくいろいろ考えている風なことを書いている割には、実際やっていることが「眺めてたら光って見える」みたいな雑なアレであるということを察してもらえれば、日記じみたものを書いた甲斐があったというものである。
+			</simpara>
+			<simpara>
+				crev で試みているコードレビューの在り方とは、 OSS の文脈でよく言われる「<link xl:href="https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%BC%E3%83%8A%E3%82%B9%E3%81%AE%E6%B3%95%E5%89%87">十分な目の数があれば〜</link>」と似たようなもので、数がそれなりに大事になってくる。
+				品質も高いに越したことはないが、そこは信頼の連鎖でうまく計算を調整することで、多少品質の低いレビューがいくらかあってもどうにかなる。
+				よって、<emphasis>無理せず手の届く範囲でやる</emphasis>のがまず大事ということである。
+			</simpara>
+		</section>
+	</section>
+</section>
+
+<section xml:id="other-things">
+	<title>その他のこと</title>
+
+	<section xml:id="other-things--automation-is-not-recommended">
+		<title>自動化は推奨されない</title>
+
+		<simpara>
+			crev では、コードレビューそのものの自動化、メトリクスなどによる客観化、天下り的な仕組みなどは推奨されていない
+			<footnote xml:id="footnote-code-review-by-formal-verification" refmark-id="ref-footnote-code-review-by-formal-verification">
+				<simpara>
+					formal verification レベルの検証結果の共有だったら皆大歓迎だろうが、そういうのは外れ値なのでここでは考えない。
+				</simpara>
+			</footnote>
+			。
+			コードの品質や信用などは主観的なものであって、ゆえにそれらはあくまで人間の目と各自の判断によって決定されるべきという立場である。
+		</simpara>
+		<simpara>
+			そのようなわけで、「lint を通らなかったから OK」とか「メトリクスがいい感じだったので OK」とかそういうレビューはしない方がいい。
+			(そんな評価はそれこそツールですれば済む話で、数を集める必要はない。)
+			というか、しているとレビュアー自身が信用されなくなっていくと思われる。
+		</simpara>
+	</section>
+
+	<section xml:id="other-things--basic-and-flexible">
+		<title>カッチリ決められていない基準</title>
+
+		<simpara>
+			今のところレビューに記述できる情報はかなり大雑把で (まあ細かく決めても使い道に困るし無駄に複雑になるだけなのでこれで良いと思うが)、大概の細かい情報は comment セクションに書くということになっている。
+		</simpara>
+		<simpara>
+			それ自体はまあ良いのだが、「場合によってはまずいバグがあるけど大抵のユーザとユースケースでは問題なさそう」のような状況で、 rating として neutral ("secure but with flaws") を選ぶか negative ("severe flaws and not ok for production usage") を選ぶかで悩む。
+			「妙な使い方をするとやばいことになるバグはあるが、踏まなければ問題なく動く」というのは未定義動作に近いものを感じるので、とりあえず厳し目の評価をしておくべきだろうか……
+		</simpara>
+	</section>
+
+	<section xml:id="other-things--number-of-users">
+		<title>ユーザ増えてくれ</title>
+
+		<simpara>
+			最近 (に限ったことでもないが) の Rust 界隈だと <link xl:href="https://www.reddit.com/r/rust/comments/8wlkbe/actixweb_has_removed_all_unsound_use_of_unsafe_in/">unsafe に無頓着なの怖いし可能なら避けようよ的な話</link> が<link xl:href="https://64.github.io/actix/">ちょくちょく盛り上がり</link>、また unsafe を気にする<link xl:href="https://github.com/anderejd/cargo-geiger">ツール</link>や <link xl:href="https://github.com/Centril/rust-safe">crate</link> なども作られており、 <link xl:href="https://www.ralfj.de/blog/2019/01/12/rust-2019.html">unsafe の危険性をどうにかしていく</link>流れが感じられる。
+			こういった状況で、コンパイラが機械的に検査できない部分を確認する人間の目の数が増えるというのは大変心強いものであり、まあ早い話が慣れてきた人はどんどんレビューしてみてほしいという話だ。
+		</simpara>
+	</section>
+</section>
+
+<section xml:id="conclusion">
+	<title>まとめ？</title>
+
+	<itemizedlist>
+		<listitem>
+			crev はコードの信頼や信用を Web of Trust の仕組みによって共有・算出しようという試みである。
+		</listitem>
+		<listitem>
+			コードレビューはそれ自体もコミュニティへの貢献だが、プロジェクトの開発自体に貢献する契機にもなる。
+			せっかくコードを読んだのなら、ついでにバグ報告やパッチを投げてしまうのが良い。
+		</listitem>
+		<listitem>
+			コードリーディングは良いコードやバグに触れる機会でもあり、バグ探しの実践でもある。
+			大変勉強になるし、時間をかける価値は大いにある。
+			軽率に手を出してみると良い。
+			(コレクション気分で無限に手を出していくのもありだと思う。レビューが雑にならないなら。)
+		</listitem>
+		<listitem>
+			実際やってみた感想: たのしかった (小並感)
+		</listitem>
+		<listitem>
+			ユーザ増えてくれ。
+		</listitem>
+	</itemizedlist>
+</section>
+
+<section xml:id="references">
+	<title>参考</title>
+	<itemizedlist>
+		<listitem>
+			<phrase>crev</phrase>
+			<itemizedlist>
+				<listitem>
+					<link xl:href="https://github.com/crev-dev/crev">crev-dev/crev: Scalable, social, Code REView and recommendation system that we desperately need</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://github.com/crev-dev/cargo-crev">crev-dev/cargo-crev: Crev (Code REView system) for Rust/cargo</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://qiita.com/qnighy/items/34bed9dbd826dc76d3ba">Rustの依存関係の信頼性を検証する (crev) - Qiita</link>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>
+			<link xl:href="http://lucumr.pocoo.org/2019/7/29/dependency-scaling/">Updated Thoughts on Trust Scaling | Armin Ronacher's Thoughts and Writings</link>
+		</listitem>
+	</itemizedlist>
+</section>
+
+</article>
