@@ -1,6 +1,7 @@
 ---
 created_at: 2019-08-26T19:49:30+09:00
 published_at: 2019-08-27T05:02:01+09:00
+updated_at: 2019-08-30T17:10:29+09:00
 format: docbook
 title: "cargo crev でコードレビューをしてみたらバグを見付けた話など"
 tags:
@@ -827,6 +828,9 @@ excerpt: "コードレビューは楽しい。"
 				</listitem>
 				<listitem>
 					<link xl:href="https://qiita.com/qnighy/items/34bed9dbd826dc76d3ba">Rustの依存関係の信頼性を検証する (crev) - Qiita</link>
+				</listitem>
+				<listitem>
+					<link xl:href="https://wiki.alopex.li/ActuallyUsingCrev">Wiki - ActuallyUsingCrev</link>
 				</listitem>
 			</itemizedlist>
 		</listitem>
